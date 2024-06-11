@@ -3,11 +3,11 @@
   "version": "2.1.2",
   "description": "A starter eleventy SEO blog with bootstrap",
   "scripts": {
-    "build": "eleventy --input=./src",
-    "watch": "eleventy --input=./src --watch",
-    "serve": "eleventy --input=./src --serve",
-    "start": "eleventy --input=./src --serve",
-    "debug": "DEBUG=* eleventy --input=./src"
+    "build": "eleventy --input=./src/this_site",
+    "watch": "eleventy --input=./src/this_site --watch",
+    "serve": "eleventy --input=./src/this_site --serve",
+    "start": "eleventy --input=./src/this_site --serve",
+    "debug": "DEBUG=* eleventy --input=./src/this_site"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
