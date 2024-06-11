@@ -1,0 +1,21 @@
+{
+  "name": "bootstrap11ty-blog",
+  "version": "2.1.2",
+  "description": "A starter eleventy SEO blog with bootstrap",
+  "scripts": {
+    "build": "eleventy --input=./src",
+    "watch": "eleventy --input=./src --watch",
+    "serve": "eleventy --input=./src --serve",
+    "start": "eleventy --input=./src --serve",
+    "debug": "DEBUG=* eleventy --input=./src"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "luxon": "^3.4.4",
+    "markdown-it": "^12.3.2",
+    "markdown-it-anchor": "^8.6.7"
+  }
+}
