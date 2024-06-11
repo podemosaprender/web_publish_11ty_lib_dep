@@ -1,0 +1,75 @@
+{
+  "title": "XXX_metadata_title",
+	"url": "https://XXX_metadata_site_url/",
+  "language": "en",
+	"description": "XXX_metadata_description",
+  "facebook": "https://www.fiverr.com/creativitas/design-modern-headless-online-shop-ecommerce-website",
+  "youtube": "https://www.youtube.com/c/bakoelraksupermarketMesinKasir/videos",
+  "twitter": "@hockeycomp",
+  "instagram": "https://www.fiverr.com/creativitas/design-your-modern-website-using-jekyll",
+  "github": "https://github.com/mesinkasir",
+  "support": {
+    "sup1": "Axcora",
+    "sup2": "11ty",
+    "sup3": "Bootstrap",
+    "sup4": "Hockeyco",
+    "sup5": "Github",
+    "sup6": "Vercel",
+    "url1": "https://www.axcora.com/",
+    "url2": "https://11ty.dev",
+    "url3": "https://getbootstrap.com",
+    "url4": "https://www.hockeycomputindo.com",
+    "url5": "https://github.com",
+    "url6": "https://vercel.com"
+  },
+  "contact": {
+    "cont1": "Whatsapp",
+    "cont2": "Mobile 1",
+    "cont3": "Mobile 2",
+    "cont4": "Email",
+    "cont5": "Map",
+    "url1": "https://wa.me/62895339403223",
+    "url2": "tel:+6287819355589",
+    "url3": "tel:+62895339403223",
+    "url4": "mailto:axcora@gmail.com",
+    "url5": "https://goo.gl/maps/gV6Eb5CXiBeRaHxs5"
+  },
+  "metrix": {
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_V273MWO8WiftYwisDN2Qp8r3b_a66JhWvQUKY3f-Yi701yB_x9oc9IWTerO0G_jw9c5O76xv5DkDfrYd-fF6FTCDJeuDk6Qrc1YxtCUz9avefAnuFpZ52jd6yZYyb_O5vQ3Ghw2j3mGlxHf-8sDJqlIVC28OtUmhydu9ApYsbVMF_elO46Q2w-t9Qw/s1102/eleventy%20seo%20fast%20web.png",
+    "title": "Eleventy fast website with SEO free download source cde template themes full gratis"
+  },
+  "slug": {
+    "cont1": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3nlipOxRQ2r9Xngnrt63BoAEzhswWrwTKPGxUuW_5eirZIQCwn_GfSTdPwW6tkoWk7AKZ9LHraEXhybvPNbnMm17nzAp21tLHNPQa1-I_X75HnJNnZY8GXw-WU2WaGClUJMWqxP_BXq4g66Bqw1s1xxDRb7ZVCoNP_-jNiEV4EpTGVx0cMML7Qm1-jA/s1200/MESIN%20KASIR%20TOUCHSCREEN.webp",
+    "cont2": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlRvO0F1JQDbJkYt0nrhnxnAj0KUJCuPfil8Vtwe-CU4ofvQGUVb1MffaMHmcS_cQSRhg8CUaJhjhHEO1RvgYN8owvgOtvFqAR0VS_Dj1NVfhrGy6m_p04hO7opOaOvTsu3C_rOi1uVMNqLxyH7a3lL4fHdMYVU_FCejjJIL9imioxDujS3naCIStsYg/s800/aplikasi%20restoran%20lengkap.webp",
+    "cont3": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjlRvO0F1JQDbJkYt0nrhnxnAj0KUJCuPfil8Vtwe-CU4ofvQGUVb1MffaMHmcS_cQSRhg8CUaJhjhHEO1RvgYN8owvgOtvFqAR0VS_Dj1NVfhrGy6m_p04hO7opOaOvTsu3C_rOi1uVMNqLxyH7a3lL4fHdMYVU_FCejjJIL9imioxDujS3naCIStsYg/s800/aplikasi%20restoran%20lengkap.webp",
+    "cont3": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifkiwJC7gFgamhTqEmr7OMqzEhgZ9bzwo7E4E_2U3wnZQV4CaeURxq0qCnkB2WOOzifDvCMxmHK0WqZZHbVD1spaicoV2qR_PK-EHb6kurAyOezPdKpzG5V1PJBBCznnnDIApaCf3e8s1n0NSdCluKKZgU5N4RYWUxHBkNeUpD1iho9kIQ2ssiaEKMgw/s800/aplikasi%20toko.webp",
+    "cont4": "https://11tyshop.pages.dev/img/sikil.webp",
+    "cont5": "https://11tyshop.pages.dev/img/android.webp",
+    "sub1": "mesin kasir pos",
+    "sub2": "aplikasi restoran",
+    "sub3": "aplikasi toko",
+    "sub4": "new modern cms",
+    "sub5": "pembuatan aplikasi android",
+    "url1": "https://www.hockeycomputindo.com/p/daftar-mesin-kasir-terbaru.html",
+    "url2": "https://www.hockeycomputindo.com/p/aplikasi-rumah-makan-cafe-website.html",
+    "url3": "https://www.hockeycomputindo.com/p/aplikasi-toko-online-shop-kasir-baru.html",
+    "url4": "https://www.fiverr.com/creativitas/design-modern-headless-online-shop-ecommerce-website",
+    "url5": "https://www.fiverr.com/creativitas/create-mobile-website-design-for-you-with-single-page-app"
+  },
+  "feed": {
+    "subtitle": "Source code eleventy website template dan pembuatan website aplikasi",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://eleventyblog.vercel.app/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://eleventyblog.vercel.app/feed/feed.json"
+  },
+  "author": {
+    "name": "Creative By Dre",
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_sWpQ5LOckxnD1B5QHnPayKcK2_b-cQg9IQrCEEjX3g71-4y8RF-0GWPGT2GWvjnCPPirg-YMlw-uCdwrCT9cOMj9xKjS79Prn7GIpmDx90M2Ur3x4S3WVRlevAjrbmiVBwsO_Mu0mzghXPUxqYVA1LgJYvGFDyNNi-W99eRS2VASKuxzcSRHDCmNdA/s600/eleventy%20developer%2011ty%20static%20site.webp",
+    "email": "creativebydre@gmail.com",
+    "url": "https://creativebydre.vercel.app"
+  }
+}
