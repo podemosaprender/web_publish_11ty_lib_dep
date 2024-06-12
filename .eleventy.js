@@ -31,14 +31,20 @@ module.exports = function(eleventyConfig) {
 
 	//SEE: https://www.11ty.dev/docs/data-deep-merge/
   eleventyConfig.setDataDeepMerge(true);
-
-  // Alias `layout: post` to `layout: layouts/post.njk`
-  eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
+	eleventyConfig.addGlobalData("cfg", function () { 
+		const cfg_defaults= require('./src/1cfg_defaults.json');
+		const cfg_overrides= require('./src/this_site/_data/1cfg_manual.json');
+		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
+		return cfg;
+	}); //XXX:MOVER_A_LIB
+	//A: cfg
+  
+	eleventyConfig.addLayoutAlias("post", "layouts/post.njk"); //A: Alias `layout: post` to `layout: layouts/post.njk`
 
   eleventyConfig.addGlobalData("now", () => new Date());
 
+
   eleventyConfig.addFilter("formatDate", (dateObj, format) => {
-		console.log({dateObj,t: typeof(dateObj)})
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat(format);
   });
 

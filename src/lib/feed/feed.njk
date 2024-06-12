@@ -1,23 +1,22 @@
 ---
-# Metadata comes from _data/metadata.json
-permalink: "{{ metadata.feed.path }}"
+permalink: "{{ cfg.feed.path }}"
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-	<title>{{ metadata.title }}</title>
-	<subtitle>{{ metadata.feed.subtitle }}</subtitle>
-	{% set absoluteUrl %}{{ metadata.feed.path | url | absoluteUrl(metadata.url) }}{% endset %}
+	<title>{{ cfg.title }}</title>
+	<subtitle>{{ cfg.feed.subtitle }}</subtitle>
+	{% set absoluteUrl %}{{ cfg.feed.path | url | absoluteUrl(cfg.url) }}{% endset %}
 	<link href="{{ absoluteUrl }}" rel="self"/>
-	<link href="{{ metadata.url }}"/>
+	<link href="{{ cfg.url }}"/>
 	<updated>{{ collections.posts | rssLastUpdatedDate }}</updated>
-	<id>{{ metadata.feed.id }}</id>
+	<id>{{ cfg.feed.id }}</id>
 	<author>
-		<name>{{ metadata.author.name }}</name>
-		<email>{{ metadata.author.email }}</email>
+		<name>{{ cfg.author.name }}</name>
+		<email>{{ cfg.author.email }}</email>
 	</author>
 	{%- for post in collections.posts | reverse %}
-	{% set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{% endset %}
+	{% set absolutePostUrl %}{{ post.url | url | absoluteUrl(cfg.url) }}{% endset %}
 	<entry>
 		<title>{{ post.data.title }}</title>
 		<link href="{{ absolutePostUrl }}"/>
