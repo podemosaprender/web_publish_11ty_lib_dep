@@ -1,4 +1,5 @@
 ---
+title: Brand Archetypes
 eleventyNavigation:
   key: Home
   order: 1

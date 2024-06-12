@@ -5,6 +5,8 @@ pagination:
   alias: my
   resolve: values #A: it's an {}
 permalink: "{{ my.Archetype | slugify }}/"
+eleventyComputed:
+  title: "{{ my.Archetype }} Archetype"
 ---
 
 # {{ my.Archetype }} 

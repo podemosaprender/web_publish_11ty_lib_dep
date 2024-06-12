@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<meta name="google-site-verification" content="TODO" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title or cfg.title }}</title>
+<meta name="description" content="{{ description or cfg.description }}">
+<meta content='{{ title or cfg.title }}' property='og:title'/>
+<meta content='TODO' property='og:author'/>
+<meta content='TODO' property='og:developer'/>
+<meta content='{{ title or cfg.title }}' name='facebook:title'/>
+<meta content='website' property='og:type'/>
+<meta content='TODO' property='facebook:author'/>
+<meta content='TODO' name='facebook:image'/>
+<meta content='{{ title or cfg.title }}' property='og:site_name'/>
+<meta content='{{ description or cfg.description }}' property='facebook:description'/>
+<meta content='summary_large_image' name='twitter:card'/>
+<meta content='{{cfg.twitter}}' property='twitter:author'/>
+<meta content='{{cfg.url}}' name='twitter:site'/>
+<meta content='TODO' name='twitter:image'/>
+<meta content='{{ description or cfg.description }}' name='twitter:description'/>
+<meta content='{{ title or cfg.title }} ' name='twitter:title'/>
+<meta content='{{ title or cfg.title }}' name='keywords'/>
+<meta content='index, follow' name='robots'/>
+<link rel="apple-touch-icon" href="TODO">
+<link rel="icon" type="image/x-icon" href="TODO" />
+<link rel="author" href="https://o-o.fyi/web" />
+<link rel="alternate" href="{{ cfg.feed.path | url }}" type="application/atom+xml" title="{{ cfg.title }}">
+<link rel="alternate" href="{{ cfg.jsonfeed.path | url }}" type="application/json" title="{{ cfg.title }}">
