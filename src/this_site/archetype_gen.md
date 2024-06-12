@@ -4,6 +4,7 @@ pagination:
   size: 1
   alias: my
   resolve: values #A: it's an {}
+  addAllPagesToCollections: true
 permalink: "{{ my.Archetype | slugify }}/"
 eleventyComputed:
   title: "{{ my.Archetype }} Archetype"
