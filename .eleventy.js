@@ -1,4 +1,5 @@
 //INFO: 11ty pipeline config
+const our_lib = require('./src/lib/template-functions.js')
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
@@ -59,47 +60,7 @@ module.exports = function(eleventyConfig) {
   
 	eleventyConfig.addLayoutAlias("post", "layouts/post.njk"); //A: Alias `layout: post` to `layout: layouts/post.njk`
 
-  eleventyConfig.addGlobalData("now", () => new Date());
-
-
-  eleventyConfig.addFilter("formatDate", (dateObj, format) => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat(format);
-  });
-
-  eleventyConfig.addFilter("readableDate", dateObj => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("dd LLL yyyy");
-  });
-
-	//SEE: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
-  });
-
-  
-	eleventyConfig.addFilter("head", (array, n) => { //U: Get the first `n` elements of a collection.
-    if( n < 0 ) { return array.slice(n); }
-    return array.slice(0, n);
-  });
-
-  
-	eleventyConfig.addFilter("min", (...numbers) => { //U: Return the smallest number argument
-    return Math.min.apply(null, numbers);
-  });
-
-  eleventyConfig.addFilter("filterTagList", tags => {
-    // should match the list in tags.njk
-    return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
-  })
-
-  
-	eleventyConfig.addCollection("tagList", function(collection) { //U: Create an array of all tags
-    let tagSet = new Set();
-    collection.getAll().forEach(item => {
-      (item.data.tags || []).forEach(tag => tagSet.add(tag));
-    });
-    return [...tagSet];
-  });
-
+ 	our_lib.addToConfig(eleventyConfig); 
   
   eleventyConfig.addPassthroughCopy("src/this_site/img");
   eleventyConfig.addPassthroughCopy("src/this_site/css");
