@@ -1,3 +1,34 @@
 {
-	"FILE:1cfg_defaults.json": 1
+	"FILE:1cfg_defaults.json": 1,
+	"language": "en",
+	"brand": "TODO_cfg_brand",
+	"url": "/",
+  "title": "TODO_cfg_title",
+	"description": "XXX_metadata_description",
+	"navbar": {
+		"links": {"/hola/": "saludo","/": "inicial"}
+	},	
+	"social": {
+		"facebook": "https://TODO",
+		"youtube": "https://TODO",
+		"twitter": "@TODO",
+		"instagram": "https://TODO",
+		"github": "https://github.com/TODO"
+	},
+  "author": {
+    "name": "TODO",
+		"image": "https://TODO",
+    "email": "TODO@gmail.com",
+    "url": "https://o-o.fyi/web"
+  },
+  "feed": {
+    "subtitle": "TODO",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://TODO"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://TODO/feed/feed.json"
+  }
 }

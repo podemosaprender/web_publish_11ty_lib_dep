@@ -1,5 +1,4 @@
-const { DateTime } = require("luxon");
-const fs = require("fs");
+//INFO: 11ty pipeline config
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
@@ -7,12 +6,29 @@ const htmlmin = require("html-minifier");
 
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
+const markdownItToc = require("markdown-it-table-of-contents");
+
+const { DateTime } = require("luxon");
 const yaml = require("js-yaml");
+const fs = require("fs");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
+	
+	//SEE: https://github.com/markdown-it/markdown-it?tab=readme-ov-file#init-with-presets-and-options
+  let markdownLibrary = markdownIt({
+    html: true,
+    breaks: true,
+    linkify: true
+  }).use(markdownItAnchor, {
+    permalink: true,
+    permalinkClass: "direct-link",
+    permalinkSymbol: "#"
+	}).use(markdownItToc,{}); //SEE: https://github.com/cmaas/markdown-it-table-of-contents
+
+  eleventyConfig.setLibrary("md", markdownLibrary);
 
 	eleventyConfig.addTransform("htmlmin", function (content) {
 		if ((this.page.outputPath || "").endsWith(".html")) {
@@ -88,17 +104,7 @@ module.exports = function(eleventyConfig) {
 	//A: Copy the `img` and `css` folders to the output
 	
   
-  let markdownLibrary = markdownIt({
-    html: true,
-    breaks: true,
-    linkify: true
-  }).use(markdownItAnchor, {
-    permalink: true,
-    permalinkClass: "direct-link",
-    permalinkSymbol: "#"
-  });
-  eleventyConfig.setLibrary("md", markdownLibrary);
-
+	
   // Override Browsersync defaults (used only with --serve)
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
