@@ -15,7 +15,7 @@ module.exports.addToConfig= function (eleventyConfig, kv) {
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
-		const cfg_overrides= require('../this_site/_data/1cfg_manual.json');
+		const cfg_overrides= require('../../this_site/_data/1cfg_manual.json');
 		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
 		return cfg;
 }

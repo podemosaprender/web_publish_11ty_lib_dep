@@ -1,5 +1,5 @@
 //INFO: 11ty pipeline config
-const our_lib = require('./src/lib/template-functions.js')
+const our_lib = require('./src/lib/js/template-functions.js')
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
