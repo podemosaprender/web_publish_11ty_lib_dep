@@ -1,5 +1,7 @@
 //INFO: 11ty pipeline config
 const our_lib = require('./src/lib/js/template-functions.js')
+const lunr_index_gen = require('./src/lib/js/index-lunr.js');
+
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
@@ -9,7 +11,6 @@ const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItToc = require("markdown-it-table-of-contents");
 
-const { DateTime } = require("luxon");
 const yaml = require("js-yaml");
 const fs = require("fs");
 
@@ -45,6 +46,16 @@ module.exports = function(eleventyConfig) {
 		return content;//A: If not an HTML output, return content as-is
 	});
 
+	eleventyConfig.on( //SEE: https://www.11ty.dev/docs/events/#eleventy.after
+		"eleventy.after",
+		async ({ dir, results, runMode, outputMode }) => {
+			console.log({dir, outputMode})
+			if (outputMode=='fs') {
+				await	lunr_index_gen(dir.output+'/qidx.txt', results);
+			}
+		}
+	);
+	
 	//SEE: https://www.11ty.dev/docs/data-custom/#yaml
 	eleventyConfig.addDataExtension("yaml", (contents) => yaml.load(contents));
 
