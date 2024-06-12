@@ -26,7 +26,9 @@ module.exports = function(eleventyConfig) {
     permalink: true,
     permalinkClass: "direct-link",
     permalinkSymbol: "#"
-	}).use(markdownItToc,{}); //SEE: https://github.com/cmaas/markdown-it-table-of-contents
+	}).use(markdownItToc,{//SEE: https://github.com/cmaas/markdown-it-table-of-contents
+		includeLevel: [2,3,4],
+	}); 
 
   eleventyConfig.setLibrary("md", markdownLibrary);
 
