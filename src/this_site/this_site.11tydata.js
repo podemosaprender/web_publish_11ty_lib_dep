@@ -1,1 +1,1 @@
-../lib/this_site.11tydata.js
+../lib/template/this_site.11tydata.js

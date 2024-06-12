@@ -16,7 +16,7 @@ async function lunr_index_gen(dst, results) {
 		const url= doc.url;
 		const title= ((doc.content.match(/<title>([^<]*)<\/title>/)||[])[1] || url);
 		const body= doc.content.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
-		return { url, title, body } 
+		return { url: url+'\t'+title, title, body } //XXX: how to access title on results?
 	});
 
 	//DBG: console.error(documents);

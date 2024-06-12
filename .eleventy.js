@@ -1,6 +1,6 @@
 //INFO: 11ty pipeline config
 const our_lib = require('./src/lib/js/template-functions.js')
-const lunr_index_gen = require('./src/lib/js/index-lunr.js');
+const lunr_index_gen = require('./src/lib/js/search-lunr/create-index.js');
 
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
