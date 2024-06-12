@@ -7,7 +7,8 @@ npm install
 ## Desarrollo
 
 ~~~
-npm run start
+npm run prepare #A: copiar y linkear de lib/template
+npm run start 
 ~~~
 
 Regenera automáticamente lo que editás (tal vez debas recargar en el navegador)

@@ -64,6 +64,7 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.addPassthroughCopy("src/this_site/img");
   eleventyConfig.addPassthroughCopy("src/this_site/css");
+  eleventyConfig.addPassthroughCopy("src/this_site/js");
 	//A: Copy the `img` and `css` folders to the output
 	
   
