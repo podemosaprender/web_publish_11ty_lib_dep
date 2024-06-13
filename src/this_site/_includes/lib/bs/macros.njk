@@ -139,7 +139,7 @@
 {% macro btn_toolbar(cls='',label='Toolbar with button groups',groups={'Tools': ['save','load']}) %}
 	<div class="btn-toolbar {{cls}}" role="toolbar" aria-label="{{label}}">
 		{% for lbl,btns in groups %}
-			<div class="btn-group{% if ! loop.last %} me-2{%endif%}" role="group" aria-label="{{lbl}}">
+			<div class="btn-group{% if not loop.last %} me-2{%endif%}" role="group" aria-label="{{lbl}}">
 				{% for lbl in btns %}
 					<button type="button" class="btn btn-secondary">{{lbl}}</button>
 				{% endfor %}
@@ -150,7 +150,7 @@
 
 {# CATEGORY: breadcrumb #}
 
-{% macro breadcrumbs(cls='',entries=false, here='Home']) %}
+{% macro breadcrumbs(cls='',entries=false, here='Home') %}
 	{# SEE: https://www.11ty.dev/docs/plugins/navigation/#example-breadcrumbs #}
 	{% if entries==false %}{% set entries= collections.all | eleventyNavigationBreadcrumb(here) %}{% endif %}
 	<nav aria-label="breadcrumb {{cls}}">
@@ -181,7 +181,7 @@
 {# CATEGORY: tooltips #}
 
 {% macro tooltip(cls='',where='top',txt='',label='?',type='secondary') %}
-	<button type="button" class="btn btn-{{type} {{cls}}" data-bs-toggle="tooltip" data-bs-placement="{{where}}" data-bs-html="true" title="{{txt}}">{{label}}</button>
+	<button type="button" class="btn btn-{{type}} {{cls}}" data-bs-toggle="tooltip" data-bs-placement="{{where}}" data-bs-html="true" title="{{txt}}">{{label}}</button>
 {% endmacro %}{# tooltips_1 #}
 
 {# CATEGORY: spinners #}
@@ -194,10 +194,10 @@
 
 {# CATEGORY: progress #}
 
-{% macro progress(cls='',progress='0',type='') %}
+{% macro progress(cls='',val='0',type='') %}
 	<div class="progress {{cls}}">
-		<div class="progress-bar" role="progressbar" style="width: {{progress}}%" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
-		<div class="progress-bar progress-bar-striped progress-bar-animated {%if type%} bg-{{type}}{%endif%}" role="progressbar" style="width: {{ 100 - progress }}%" aria-valuenow="{{ 100 - progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+		<div class="progress-bar" role="progressbar" style="width: {{val}}%" aria-valuenow="{{val}}" aria-valuemin="0" aria-valuemax="100"></div>
+		<div class="progress-bar progress-bar-striped progress-bar-animated {%if type%} bg-{{type}}{%endif%}" role="progressbar" style="width: {{ 100 - val }}%" aria-valuenow="{{ 100 - val }}" aria-valuemin="0" aria-valuemax="100"></div>
 	</div>
 {% endmacro %}{# progress_2 #}
 

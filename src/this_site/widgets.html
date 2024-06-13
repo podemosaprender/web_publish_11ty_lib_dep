@@ -1,3 +1,19 @@
 {% import "lib/bs/macros.njk" as w %}
 
+{{ w.bquote(author="Mauricio Cap", source="Este sitio", text="Esta quedando bueno") }}
+
+{{ w.typo_lead(text="Esto es un parrafo, capaz me convenia probar con call?") }}
+
+{% call w.typo_lead() -%}
+Este lo escribo
+adentro con call.
+{%- endcall %}
+
+
 {{ w.table(row_cls_col_idx=2, cols=["nombre","edad"],values=[["mau",52,"table-primary"],["conrad",3,"table-danger"],["shelly",3]]) }}
+
+{{ w.progress(val=70) }}
+
+{{ w.tooltip(label='preguntame',txt='Pero ya sabes que te voy a decir') }}
+
+<p>Tenemos un {% link_to "magician" %}</p>
