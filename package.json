@@ -22,6 +22,7 @@
     "markdown-it-anchor": "^8.6.7"
   },
   "dependencies": {
+    "@codegouvfr/eleventy-plugin-calendar": "^3.0.4",
     "browserify": "^17.0.0",
     "html-minifier": "^4.0.0",
     "js-yaml": "^4.1.0",
