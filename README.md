@@ -1,4 +1,4 @@
-#INFO: 11ty test
+INFO: 11ty test
 
 ~~~
 npm install
@@ -15,16 +15,6 @@ Regenera automáticamente lo que editás (tal vez debas recargar en el navegador
 
 ## Especialización
 
-### Links
-
-Usar `{% link_to filepath %}`.
-
-Así movemos archivos sigue funcionando todo.
-
-SEE: https://www.npmjs.com/package/eleventy-plugin-link_to
-
-SEE: https://www.11ty.dev/docs/permalinks/
-
 ### Metadata y otros datos
 
 * en `src/this_site/_data/1cfg_manual.json` se configuran urls, titulos, redes sociales y otros links, etc.
@@ -38,8 +28,22 @@ SEE: https://www.11ty.dev/docs/collections/
 
 ### Plantillas = Templates
 
+SEE: https://www.11ty.dev/docs/layout-chaining/
 SEE: https://mozilla.github.io/nunjucks/templating.html#filters
 
+### Links
+
+Usar `{% link_to filepath %}`.
+
+Así movemos archivos sigue funcionando todo.
+
+SEE: https://www.npmjs.com/package/eleventy-plugin-link_to
+
+SEE: https://www.11ty.dev/docs/permalinks/
+
+### Diagramas
+
+TRY: https://www.11ty.dev/docs/shortcodes/
 
 ### Modo Dark
 
