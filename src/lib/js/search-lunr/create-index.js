@@ -12,12 +12,14 @@ const { lunr, myStemmer } = require('./common.js'),
 async function lunr_index_gen(dst, results) {
 	let all_pages_as_kv = results || await (new Eleventy()).toJSON(); 
 	//DBG: console.error(all_pages_as_kv); //url, content=html
-	const documents= all_pages_as_kv.map( doc => {
-		const url= doc.url;
-		const title= ((doc.content.match(/<title>([^<]*)<\/title>/)||[])[1] || url);
-		const body= doc.content.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
-		return { url: url+'\t'+title, title, body } //XXX: how to access title on results?
-	});
+	const documents= all_pages_as_kv
+		.map( doc => {
+			const url= doc.url;
+			const title= ((doc.content.match(/<title>([^<]*)<\/title>/)||[])[1] || url);
+			const body= doc.content.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
+			return { ref: url+'\t'+title, url, title, body } //XXX: how to access title on results?
+		})
+		.filter( doc => (doc.title && ! doc.url.match(/(\/((\.)|404|robots\.txt|search))|(((page-list\/)|(\/tags\/)|(json)|(xml))$)/) ))
 
 	//DBG: console.error(documents);
 	var idx = lunr(function () { //SEE: for custom tokenizers https://lunrjs.com/guides/customising.html#pipeline-functions
@@ -26,7 +28,7 @@ async function lunr_index_gen(dst, results) {
 
 		console.error("PIPELINE", this.pipeline.toJSON())
 
-		this.ref('url')
+		this.ref('ref')
 		this.field('title')
 		this.field('body')
 
