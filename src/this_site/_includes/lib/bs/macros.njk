@@ -32,29 +32,13 @@
 
 {# CATEGORY: typography #}
 
-{% macro typography_1(cls='') %}
-	<p class="display-1">Display 1</p>
-	<p class="display-2">Display 2</p>
-	<p class="display-3">Display 3</p>
-	<p class="display-4">Display 4</p>
-	<p class="display-5">Display 5</p>
-	<p class="display-6">Display 6</p>
-{% endmacro %}{# typography_1 #}
+{% macro typo_display(cls='',level=1,text='') %}
+	<p class="display-{{ level }} {{cls}}">{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
+{% endmacro %}
 
-{% macro typography_2(cls='') %}
-	<p class="h1">Heading 1</p>
-	<p class="h2">Heading 2</p>
-	<p class="h3">Heading 3</p>
-	<p class="h4">Heading 4</p>
-	<p class="h5">Heading 5</p>
-	<p class="h6">Heading 6</p>
-{% endmacro %}{# typography_2 #}
-
-{% macro typography_3(cls='') %}
-	<p class="lead">
-	This is a lead paragraph. It stands out from regular paragraphs.
-	</p>
-{% endmacro %}{# typography_3 #}
+{% macro typo_lead(cls='',text='') %}
+	<p class="lead">{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
+{% endmacro %}
 
 {% macro typography_4(cls='') %}
 	<p>You can use the mark tag to <mark>highlight</mark> text.</p>
@@ -67,83 +51,68 @@
 	<p><em>This line rendered as italicized text.</em></p>
 {% endmacro %}{# typography_4 #}
 
-{% macro typography_5(cls='') %}
-	<blockquote class="blockquote">
-		<p>A well-known quote, contained in a blockquote element.</p>
-		<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+{% macro bquote(cls='',text='',author='',source='') %}
+	<blockquote class="blockquote {{ cls }}">
+		{% if text != '' %}<p>{{ text }}</p>{% endif %}
+		{% if caller %}{{ caller() }}{% endif %}
+		<footer class="blockquote-footer">{{ author}} <cite title="{{ source }}">{{ source }}</cite></footer>
 	</blockquote>
-{% endmacro %}{# typography_5 #}
+{% endmacro %}
 
-{% macro typography_6(cls='') %}
-	<ul class="list-unstyled">
-		<li>This is a list.</li>
-		<li>It appears completely unstyled.</li>
-		<li>Structurally, it's still a list.</li>
-		<li>However, this style only applies to immediate child elements.</li>
-		<li>Nested lists:
-			<ul>
-				<li>are unaffected by this style</li>
-				<li>will still show a bullet</li>
-				<li>and have appropriate left margin</li>
-			</ul>
-		</li>
-		<li>This may still come in handy in some situations.</li>
+{% macro list_nostyle(cls='', items=[]) %}
+	<ul class="list-unstyled {{ cls }}">
+		{% for it in items %}
+			<li>{{ it }}</li>
+		{% endfor %}
+		{% if caller %}{{ caller() }}{% endif %}
 	</ul>
-{% endmacro %}{# typography_6 #}
+{% endmacro %}
 
-{% macro typography_7(cls='') %}
-	<ul class="list-inline">
-		<li class="list-inline-item">This is a list item.</li>
-		<li class="list-inline-item">And another one.</li>
-		<li class="list-inline-item">But they're displayed inline.</li>
+{% macro list_inline(cls='', items=[]) %}
+	<ul class="list-inline {{ cls }}">
+		{% for it in items %}
+			<li class="list-inline-item">{{ it }}</li>
+		{% endfor %}
+		{% if caller %}{{ caller() }}{% endif %}
 	</ul>
-{% endmacro %}{# typography_7 #}
+{% endmacro %}
 
 
 {# CATEGORY: images #}
 
-{% macro images_1(cls='') %}
-	<svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-{% endmacro %}{# images_1 #}
+{% macro img_resp(cls='',src='',label='Image') %}
+	<img src="{{src}}" class="img-fluid {{ cls }}" width="100%" height="250" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" />
+{% endmacro %}
 
-{% macro images_2(cls='') %}
-	<svg class="bd-placeholder-img img-thumbnail" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false"><title>A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">200x200</text></svg>
-{% endmacro %}{# images_2 #}
+{% macro img_thumb(cls='',src='',label='Image') %}) %}
+	<svg class="img-thumbnail {{cls}}" width="200" height="200" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" />
+{% endmacro %}
 
 
 {# CATEGORY: tables #}
 
-{% macro tables_1(cls='') %}
-	<table class="table table-striped">
+{% macro table(cls='',cols=[],values=[]) %}
+	<table class="table table-striped {{cls}}">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">First</th>
-				<th scope="col">Last</th>
-				<th scope="col">Handle</th>
+				{% for col in cols %}
+				<th scope="col">{{ col }}</th>
+				{% endfor %}
 			</tr>
 		</thead>
 		<tbody>
+			{% for v in values %}
 			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
+				<th scope="row">{{ loop.index }}</th>
+				{% for col in cols %}
+				<td>{{ v[loop.index0] }}</td>
+				{% endfor %}
 			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td colspan="2">Larry the Bird</td>
-				<td>@twitter</td>
-			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
-{% endmacro %}{# tables_1 #}
+{% endmacro %}
 
 {% macro tables_2(cls='') %}
 	<table class="table table-dark table-borderless">
