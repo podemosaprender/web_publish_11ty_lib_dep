@@ -129,8 +129,8 @@
 
 {# CATEGORY: buttons #}
 
-{% macro btn(cls='',type='primary',label='',outline=false,sz=false) %}
-	<button type="button" class="btn btn-{% if outline %}outline-{% endif %}{{type}} {% if sz %}btn-{{sz}} {%endif%}{{cls}}">{{label}}</button>
+{% macro btn(cls='',attr='',type='primary',label='',outline=false,sz=false) %}
+	<button type="button" class="btn btn-{% if outline %}outline-{% endif %}{{type}} {% if sz %}btn-{{sz}} {%endif%}{{cls}}" {{attr | safe}}>{{label}}</button>
 {% endmacro %}{# buttons_1 #}
 
 {# CATEGORY: button_group #}

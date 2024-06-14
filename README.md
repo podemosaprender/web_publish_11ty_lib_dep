@@ -43,6 +43,8 @@ SEE: https://www.npmjs.com/package/eleventy-plugin-link_to
 
 SEE: https://www.11ty.dev/docs/permalinks/
 
+Usamos https://github.com/ellisonleao/sharer.js ver ejemplo en widgets
+
 ### Diagramas
 
 Usamos plantuml, ver ex/
