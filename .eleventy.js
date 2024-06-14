@@ -63,7 +63,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})
 			if (outputMode=='fs') {
-				await	lunr_index_gen(dir.output+'/qidx.txt', results);
+				await	lunr_index_gen(dir.output+'/search/qidx.txt', results);
 				console.log("SEARCH INDEX DONE");
 			}
 		}

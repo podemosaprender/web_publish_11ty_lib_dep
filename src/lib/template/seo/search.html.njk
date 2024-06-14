@@ -12,7 +12,7 @@ eleventyExcludeFromCollections: true
 <script>
 	const p = new URLSearchParams(location.search)
 	const q = p.get('q')
-	fetch('/qidx.txt').then( r => r.json() ).then( j => {
+	fetch('qidx.txt').then( r => r.json() ).then( j => {
 		var idx = Lunr.lunr.Index.load(j)
 		var res= idx.search(q)
 		let html= res.map( r => {
