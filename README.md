@@ -33,6 +33,10 @@ SEE: https://mozilla.github.io/nunjucks/templating.html#filters
 
 * simular texto con `{% lorem %}`
 
+### Iconos
+
+Usamos CSS con https://icons.getbootstrap.com/#usage
+
 ### Links
 
 Usar `{% link_to filepath %}`.

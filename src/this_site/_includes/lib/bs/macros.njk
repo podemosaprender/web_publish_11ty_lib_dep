@@ -32,12 +32,12 @@
 
 {# CATEGORY: typography #}
 
-{% macro typo_display(cls='',level=1,text='') %}
-	<p class="display-{{ level }} {{cls}}">{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
+{% macro typo_display(cls='',attr='',level=1,text='') %}
+	<p class="display-{{ level }} {{cls}}" {{attr|safe}}>{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
 {% endmacro %}
 
-{% macro typo_lead(cls='',text='') %}
-	<p class="lead">{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
+{% macro typo_lead(cls='',attr='',text='') %}
+	<p class="lead {{cls}}" {{attr|safe}}>{% if caller %}{{ caller() }}{% endif %}{{ text }}</p>
 {% endmacro %}
 
 {% macro typography_4(cls='') %}
@@ -51,16 +51,16 @@
 	<p><em>This line rendered as italicized text.</em></p>
 {% endmacro %}{# typography_4 #}
 
-{% macro bquote(cls='',text='',author='',source='') %}
-	<blockquote class="blockquote {{ cls }}">
+{% macro bquote(cls='',attr='',text='',author='',source='') %}
+	<blockquote class="blockquote {{ cls }}" {{attr|safe}}>
 		{% if text != '' %}<p>{{ text }}</p>{% endif %}
 		{% if caller %}{{ caller() }}{% endif %}
 		<footer class="blockquote-footer">{{ author}} <cite title="{{ source }}">{{ source }}</cite></footer>
 	</blockquote>
 {% endmacro %}
 
-{% macro list_nostyle(cls='', items=[]) %}
-	<ul class="list-unstyled {{ cls }}">
+{% macro list_nostyle(cls='',attr='', items=[]) %}
+	<ul class="list-unstyled {{ cls }}" {{attr|safe}}>
 		{% for it in items %}
 			<li>{{ it }}</li>
 		{% endfor %}
@@ -68,8 +68,8 @@
 	</ul>
 {% endmacro %}
 
-{% macro list_inline(cls='', items=[]) %}
-	<ul class="list-inline {{ cls }}">
+{% macro list_inline(cls='',attr='', items=[]) %}
+	<ul class="list-inline {{ cls }}" {{attr|safe}}>
 		{% for it in items %}
 			<li class="list-inline-item">{{ it }}</li>
 		{% endfor %}
@@ -80,18 +80,18 @@
 
 {# CATEGORY: images #}
 
-{% macro img_resp(cls='',src='',label='Image') %}
-	<img src="{{src}}" class="img-fluid {{ cls }}" width="100%" height="250" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" />
+{% macro img_resp(cls='',attr='',src='',label='Image') %}
+	<img src="{{src}}" class="img-fluid {{ cls }}" width="100%" height="250" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" {{attr|safe}}/>
 {% endmacro %}
 
-{% macro img_thumb(cls='',src='',label='Image') %}) %}
-	<svg class="img-thumbnail {{cls}}" width="200" height="200" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" />
+{% macro img_thumb(cls='',attr='',src='',label='Image') %}) %}
+	<svg class="img-thumbnail {{cls}}" width="200" height="200" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false" {{attr|safe}}/>
 {% endmacro %}
 
 {# CATEGORY: figures #}
 
-{% macro img_fig(cls='', label='', src='') %}
-	<figure class="figure {{cls}}">
+{% macro img_fig(cls='',attr='', label='', src='') %}
+	<figure class="figure {{cls}}" {{attr|safe}}>
 		<img class="figure-img img-fluid rounded" src="{{src}}" width="400" height="300" role="img" aria-label="{{label}}" preserveAspectRatio="xMidYMid slice" focusable="false"/>
 		<figcaption class="figure-caption">{{label}}</figcaption>
 	</figure>
@@ -99,8 +99,8 @@
 
 {# CATEGORY: carousel #}
 
-{% macro carousel(cls='',id='carousel',slides={}) %}
-	<div id="{{id}}" class="carousel slide {{cls}}" data-bs-ride="carousel">
+{% macro carousel(cls='',attr='',id='carousel',slides={}) %}
+	<div id="{{id}}" class="carousel slide {{cls}}" data-bs-ride="carousel" {{attr|safe}}>
 		<div class="carousel-indicators">
 			{% for lbl,data in slides %}
 				<button type="button" data-bs-target="#{{id}}" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="{{lbl}}"></button>
@@ -127,6 +127,16 @@
 	</div>
 {% endmacro %}{# carousel_1 #}
 
+{# CATEGORY: badge #}
+
+{% macro badge(cls='',attr='',type='',txt='',rounded=false) %}
+	<span class="badge {% if rounded %}rounded-pill{% endif %}bg-{{type}} {{cls}}" {{attr|safe}}>{{txt}}</span>
+{% endmacro %}{# badge_1 #}
+
+{% macro icon(cls='',attr='',type='primary',label='',color='',sz='1rem') %}
+	<i class="bi-{{label}} {%if type %}text-{{type}}{%endif%} {{cls}}" style="font-size: {{sz}}; {% if color %}color: {{color}}{%endif%};" {{attr|safe}}></i>
+{% endmacro %}
+
 {# CATEGORY: buttons #}
 
 {% macro btn(cls='',attr='',type='primary',label='',outline=false,sz=false) %}
@@ -136,7 +146,7 @@
 {# CATEGORY: button_group #}
 
 {# XXX:interaccion? alpine? byId? #}
-{% macro btn_toolbar(cls='',label='Toolbar with button groups',groups={'Tools': ['save','load']}) %}
+{% macro btn_toolbar(cls='',attr='',label='Toolbar with button groups',groups={'Tools': ['save','load']}) %}
 	<div class="btn-toolbar {{cls}}" role="toolbar" aria-label="{{label}}">
 		{% for lbl,btns in groups %}
 			<div class="btn-group{% if not loop.last %} me-2{%endif%}" role="group" aria-label="{{lbl}}">
@@ -150,10 +160,10 @@
 
 {# CATEGORY: breadcrumb #}
 
-{% macro breadcrumbs(cls='',entries=false, here='Home') %}
+{% macro breadcrumbs(cls='',attr='',entries=false, here='Home') %}
 	{# SEE: https://www.11ty.dev/docs/plugins/navigation/#example-breadcrumbs #}
 	{% if entries==false %}{% set entries= collections.all | eleventyNavigationBreadcrumb(here) %}{% endif %}
-	<nav aria-label="breadcrumb {{cls}}">
+	<nav aria-label="breadcrumb {{cls}}" {{attr|safe}}>
 		<ol class="breadcrumb">
 			{% for it in entries %}
 				<li class="breadcrumb-item{% if it.url==page.url %}active" aria-current="page{% endif %}"><a href="{{it.url}}">{{it.title}}</a></li>
@@ -164,29 +174,24 @@
 
 {# CATEGORY: alerts #}
 
-{% macro alert(cls='', type='primary',title='',txt='') %}
-	<div class="alert alert-{{type}} alert-dismissible fade show {{cls}}" role="alert">
+{% macro alert(cls='',attr='', type='primary',title='',txt='') %}
+	<div class="alert alert-{{type}} alert-dismissible fade show {{cls}}" role="alert" {{attr|safe}}>
 		{% if title!='' %}<h4 class="alert-heading">{{ title }}</h4>{% endif %}
 		{% if caller %}{{ caller() }}{% endif %}{{ txt }}
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 {% endmacro %}
 
-{# CATEGORY: badge #}
-
-{% macro badge(cls='',type='',txt='',rounded=false) %}
-	<span class="badge {% if rounded %}rounded-pill{% endif %}bg-{{type}} {{cls}}">{{txt}}</span>
-{% endmacro %}{# badge_1 #}
 
 {# CATEGORY: tooltips #}
 
-{% macro tooltip(cls='',where='top',txt='',label='?',type='secondary') %}
+{% macro tooltip(cls='',attr='',where='top',txt='',label='?',type='secondary') %}
 	<button type="button" class="btn btn-{{type}} {{cls}}" data-bs-toggle="tooltip" data-bs-placement="{{where}}" data-bs-html="true" title="{{txt}}">{{label}}</button>
 {% endmacro %}{# tooltips_1 #}
 
 {# CATEGORY: spinners #}
 
-{% macro wait(cls='',type='primary',label='working') %}
+{% macro wait(cls='',attr='',type='primary',label='working') %}
 	<div class="spinner-border text-{{type}} {{cls}}" role="status">
 		<span class="visually-hidden">{{label}}</span>
 	</div>
@@ -194,7 +199,7 @@
 
 {# CATEGORY: progress #}
 
-{% macro progress(cls='',val='0',type='') %}
+{% macro progress(cls='',attr='',val='0',type='') %}
 	<div class="progress {{cls}}">
 		<div class="progress-bar" role="progressbar" style="width: {{val}}%" aria-valuenow="{{val}}" aria-valuemin="0" aria-valuemax="100"></div>
 		<div class="progress-bar progress-bar-striped progress-bar-animated {%if type%} bg-{{type}}{%endif%}" role="progressbar" style="width: {{ 100 - val }}%" aria-valuenow="{{ 100 - val }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -220,7 +225,7 @@
 {# CATEGORY: tables #}
 
 {# cls in table-dark table-borderless #}
-{% macro table(cls='',cols=[],values=[],row_cls_col_idx=-1) %}{# U: cols=list, values=list of lists, put transformations elsewhere #}
+{% macro table(cls='',attr='',cols=[],values=[],row_cls_col_idx=-1) %}{# U: cols=list, values=list of lists, put transformations elsewhere #}
 	<table class="table table-striped table-hover {{cls}}">
 		<thead>
 			<tr>
