@@ -4,18 +4,21 @@ const { DateTime } = require("luxon");
 const yaml = require("js-yaml");
 const fs = require("fs");
 const plantUmlToSvg= require("./plantuml.js");
+const loremIpsum = require("lorem-ipsum").loremIpsum;
 
-module.exports = { data: {}, filter: {}, collection: {}, shortCodePaired: {} }
+module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {} }
 
 module.exports.addToConfig= function (eleventyConfig, kv) {
 	kv= kv || module.exports;
 	Object.entries(kv.data).forEach( ([k,v]) => eleventyConfig.addGlobalData(k,v) );
 	Object.entries(kv.shortCodePaired).forEach( ([k,v]) => eleventyConfig.addPairedShortcode(k,v) );
+	Object.entries(kv.shortCode).forEach( ([k,v]) => eleventyConfig.addShortcode(k,v) );
 	Object.entries(kv.filter).forEach( ([k,v]) => eleventyConfig.addFilter(k,v) );
 	Object.entries(kv.collection).forEach( ([k,v]) => eleventyConfig.addCollection(k,v) );
 }
 
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
+module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');

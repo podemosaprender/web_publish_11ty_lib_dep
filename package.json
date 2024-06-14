@@ -26,6 +26,7 @@
     "browserify": "^17.0.0",
     "html-minifier": "^4.0.0",
     "js-yaml": "^4.1.0",
+    "lorem-ipsum": "^2.0.8",
     "lunr": "^2.3.9",
     "lunr-languages": "^1.14.0",
     "markdown-it-table-of-contents": "^0.6.0",
