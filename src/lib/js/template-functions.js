@@ -3,15 +3,19 @@
 const { DateTime } = require("luxon");
 const yaml = require("js-yaml");
 const fs = require("fs");
+const plantUmlToSvg= require("./plantuml.js");
 
-module.exports = { data: {}, filter: {}, collection: {} }
+module.exports = { data: {}, filter: {}, collection: {}, shortCodePaired: {} }
 
 module.exports.addToConfig= function (eleventyConfig, kv) {
 	kv= kv || module.exports;
 	Object.entries(kv.data).forEach( ([k,v]) => eleventyConfig.addGlobalData(k,v) );
-	Object.entries(kv.filter).forEach( ([k,v]) => { console.log(k); eleventyConfig.addFilter(k,v)} );
+	Object.entries(kv.shortCodePaired).forEach( ([k,v]) => eleventyConfig.addPairedShortcode(k,v) );
+	Object.entries(kv.filter).forEach( ([k,v]) => eleventyConfig.addFilter(k,v) );
 	Object.entries(kv.collection).forEach( ([k,v]) => eleventyConfig.addCollection(k,v) );
 }
+
+module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');

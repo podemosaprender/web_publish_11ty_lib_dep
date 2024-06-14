@@ -2,6 +2,8 @@
 //SEE: https://lunrjs.com/guides/index_prebuilding.html#serialization
 //SEE: https://www.11ty.dev/docs/programmatic/#json-output 
 
+const DBG= process.env.DBG_SEARCH;
+
 const Eleventy = require("@11ty/eleventy");
 const { lunr, myStemmer } = require('./common.js'),
 	fs = require('fs'),
@@ -26,7 +28,7 @@ async function lunr_index_gen(dst, results) {
 		this.use(lunr.multiLanguage('en', 'es')) //SEE: https://lunrjs.com/guides/language_support.html#multi-language-content
 		this.use(myStemmer);
 
-		console.error("PIPELINE", this.pipeline.toJSON())
+		//DBG: console.error("PIPELINE", this.pipeline.toJSON())
 
 		this.ref('ref')
 		this.field('title')

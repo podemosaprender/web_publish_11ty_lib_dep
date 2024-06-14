@@ -56,12 +56,11 @@ module.exports = function(eleventyConfig) {
 		return content;//A: If not an HTML output, return content as-is
 	});
 
-	eleventyConfig.on( //SEE: https://www.11ty.dev/docs/events/#eleventy.after
-		"eleventy.after",
-		async ({ dir, results, runMode, outputMode }) => {
-			console.log({dir, outputMode})
+	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
+		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})
 			if (outputMode=='fs') {
 				await	lunr_index_gen(dir.output+'/qidx.txt', results);
+				console.log("SEARCH INDEX DONE");
 			}
 		}
 	);
@@ -71,13 +70,6 @@ module.exports = function(eleventyConfig) {
 
 	//SEE: https://www.11ty.dev/docs/data-deep-merge/
 	eleventyConfig.setDataDeepMerge(true);
-	eleventyConfig.addGlobalData("cfg", function () { 
-		const cfg_defaults= require('./src/1cfg_defaults.json');
-		const cfg_overrides= require('./src/this_site/_data/1cfg_manual.json');
-		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
-		return cfg;
-	}); //XXX:MOVER_A_LIB
-	//A: cfg
 
 	eleventyConfig.addLayoutAlias("post", "layouts/post.njk"); //A: Alias `layout: post` to `layout: layouts/post.njk`
 
