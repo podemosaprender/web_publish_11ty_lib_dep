@@ -8,6 +8,13 @@ if find -iname "*.ipynb" | grep .; then #A: necesitamos nbconvert !
 	fi
 fi
 
+if [ -f _builder/plantuml.jar ]; then echo "plantuml.jar is here" ;
+else 
+	echo "Downloading plantuml.jar" ;
+	wget -O _builder/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-lgpl-1.2024.5.jar
+	ls -l _builder/plantuml.jar
+fi
+
 (
 	cd _builder
 	if ! [ -d node_modules ]; then npm ci --legacy-peer-deps; fi

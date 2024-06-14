@@ -2,4 +2,4 @@ _site/
 _IS_LIB_DEP
 _builder
 node_modules/
-package-lock.json
+plantuml.jar
