@@ -4,11 +4,10 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
-{% import "lib/bs/macros.njk" as w %}
 
 # Hola
 
-este es el index
+este es el index de prueba. Probablemente quieras mirar los 
 
 {{ w.bquote(author="Mauricio Cap", source="Este sitio", text="Esta quedando bueno") }}
 

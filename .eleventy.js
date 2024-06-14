@@ -48,6 +48,41 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.setLibrary("md", markdownLibrary);
 
+	//XXX: PRELUDE {
+	let Nunjucks = require("nunjucks");
+	let MyLoader = Nunjucks.FileSystemLoader.extend({
+    getSource: function(name) {
+        var result = Nunjucks.FileSystemLoader.prototype.getSource.call(this, name); // !!!
+        if (!result) return null;
+				if (name!="lib/bs/macros.njk") {
+					result.src= `{% import "lib/bs/macros.njk" as w %}\n`+result.src; //XXX:prelude 
+				}
+				console.log("LOAD",name,result);
+        return result;
+    }
+	}); 
+	let nunjucksEnvironment = new Nunjucks.Environment(
+		new Nunjucks.FileSystemLoader("./src/this_site/_includes")
+	);
+	nunjucksEnvironment.compile_ori= Nunjucks.compile;
+	nunjucksEnvironment.render_ori= nunjucksEnvironment.render;
+	nunjucksEnvironment.renderString_ori= nunjucksEnvironment.renderString;
+	nunjucksEnvironment.compile= function (str,env,path) {
+		console.log("COMPILE",{path,env,str})
+		return this.compile_ori(str,env,path);
+	}
+	nunjucksEnvironment.render= function (name,ctx,cb) {
+		console.log("RENDER",{name,ctx})
+		return this.render_ori(str,env,path);
+	}
+	nunjucksEnvironment.renderString= function (str,ctx,cb) {
+		console.log("RSTRING",{ctx,str})
+		return this.renderString_ori(str,ctx,cb);
+	}
+
+	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
+	//XXX: PRELUDE }
+
 	eleventyConfig.addTransform("htmlmin", function (content) {
 		if ((this.page.outputPath || "").endsWith(".html")) {
 			let minified = htmlmin.minify(content, {
@@ -107,10 +142,9 @@ module.exports = function(eleventyConfig) {
 		// Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
 		pathPrefix: BasePath,
 
-
-		templateFormats: [ "md", "njk", "html", "liquid" ], //A: Control which files Eleventy will process
-		markdownTemplateEngine: "njk",//A: Pre-process *.md files with:
-		htmlTemplateEngine: "njk",//A: Pre-process *.html files with:
+		templateFormats: [ "md", "njk", "html" ], //A: Control which files Eleventy will process
+		markdownTemplateEngine: "njk",//A: Pre-process *.md files with: njk
+		htmlTemplateEngine: "njk",//A: Pre-process *.html files with: njk
 		dataTemplateEngine: false,//A: Opt-out of pre-processing global data JSON files
 		dir: {
 			input: "src/this_site",
