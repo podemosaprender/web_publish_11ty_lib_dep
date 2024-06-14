@@ -79,7 +79,7 @@
 	
 	<link href="https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml" rel="self"/>
 	<link href="https://XXX_metadata_site_url/"/>
-	<updated>2024-06-14T03:40:25Z</updated>
+	<updated>2024-06-14T11:44:19Z</updated>
 	<id>https://TODO</id>
 	<author>
 		<name>TODO</name>
@@ -93,7 +93,8 @@
 			<footer class="pt-5 my-5 text-muted border-top">
 				Archetypes &middot; &copy; 2024
 			</footer>
-			 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 			<script src="/js/color-toggle.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 	</body>
 </html>
