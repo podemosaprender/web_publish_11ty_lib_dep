@@ -1,9 +1,10 @@
 {
-  "name": "bootstrap11ty-blog",
+  "name": "web_publish_11ty_lib_dep",
   "version": "2.1.2",
-  "description": "A starter eleventy SEO blog with bootstrap",
+	"repository": "https://github.com/podemosaprender/web_publish_11ty_lib_dep",
+  "description": "A ready to use site builder using 11ty",
   "scripts": {
-    "build": "eleventy",
+    "build": "npm run prepare ; eleventy",
     "watch": "eleventy --watch",
     "serve": "eleventy --serve",
     "start": "eleventy --serve",

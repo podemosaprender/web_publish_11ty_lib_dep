@@ -4668,14 +4668,14 @@ require('lunr-languages/lunr.multi')(lunr)
 require("lunr-languages/lunr.es")(lunr)
 
 myTokenDbgImpl= function (token,logName) {
-	console.error("TK",logName,token);
+	//DBG: console.error("TK",logName,token);
 	return token;
 }
 const myTokenDbgEndImpl= (tk) => myTokenDbgImpl(tk,'END');
 
 myStemmerImpl= function (token) {
 	let dontStem= token.str=='socialismo';
-	console.error("TK",dontStem,token)
+	//DBG: console.error("TK",dontStem,token)
 	let tks= []
 	if (dontStem) { tks.push({...token}) }
 	else { tks.push( lunr['es'].stemmer( lunr.stemmer(token) ) ); }

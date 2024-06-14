@@ -31,6 +31,8 @@ SEE: https://www.11ty.dev/docs/collections/
 SEE: https://www.11ty.dev/docs/layout-chaining/
 SEE: https://mozilla.github.io/nunjucks/templating.html#filters
 
+* simular texto con `{% lorem %}`
+
 ### Links
 
 Usar `{% link_to filepath %}`.
@@ -43,7 +45,7 @@ SEE: https://www.11ty.dev/docs/permalinks/
 
 ### Diagramas
 
-TRY: https://www.11ty.dev/docs/shortcodes/
+Usamos plantuml, ver ex/
 
 ### Modo Dark
 

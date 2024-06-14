@@ -1,0 +1,54 @@
+name: Deploy Colab + 11ty
+
+on:
+  push:
+    branches: ["main"] #A: on pushes targeting the default branch
+  workflow_dispatch:
+    #A: Allows you to run this workflow manually from the Actions tab
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  #A: permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+  #A: only one concurrent deployment, skip runs queued between the run in-progress and latest queued.
+  #A: do NOT cancel in-progress runs
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python #A: for Colab, nbconvert
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Setup Java #A: for plantuml
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'oracle' 
+          java-version: '17'
+      - name: Setup Graphviz #A: for plantuml
+        uses: ts-graphviz/setup-graphviz@v1
+      - name: Prepare builder if needed
+        run: _build/prepare.sh 
+      #A: base software installed
+      - name: Build Site
+        run: ./_builder/src/bin/build.sh
+      - name: Deploy with gh-pages #SEE: https://www.npmjs.com/package/gh-pages#deploying-with-github-actions
+        run: |
+           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+           npx gh-pages --nojekyll -d _builder/_site -u "github-actions-bot <support+actions@github.com>"
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           CACHE_DIR: "/tmp"
+

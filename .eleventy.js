@@ -1,6 +1,9 @@
 //INFO: 11ty pipeline config
 const our_lib = require('./src/lib/js/template-functions.js')
 const lunr_index_gen = require('./src/lib/js/search-lunr/create-index.js');
+const { BasePath } = require('./src/lib/env.js');
+
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
@@ -17,6 +20,7 @@ const yaml = require("js-yaml");
 const fs = require("fs");
 
 module.exports = function(eleventyConfig) {
+	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginSyntaxHighlight);
 	eleventyConfig.addPlugin(pluginNavigation);
@@ -98,10 +102,10 @@ module.exports = function(eleventyConfig) {
 		ghostMode: false
 	});
 
-	return {
+	const CFG= {
 		// If your site deploys to a subdirectory, change `pathPrefix`.
 		// Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
-		pathPrefix: "/",
+		pathPrefix: BasePath,
 
 
 		templateFormats: [ "md", "njk", "html", "liquid" ], //A: Control which files Eleventy will process
@@ -112,7 +116,9 @@ module.exports = function(eleventyConfig) {
 			input: "src/this_site",
 			includes: "_includes",
 			data: "_data",
-			output: "_site"
+			output: "_site",
 		}
 	};
+	console.log("CFG",CFG);
+	return CFG;
 };
