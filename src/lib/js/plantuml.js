@@ -17,7 +17,7 @@ function plantUmlToSvg(content) {
 	//XXX:cache const diag_hash= hash_s(content);
 	//DBG: console.log("diagram",diag_hash, content, this.page);
 	if ( ! content.match(/\n!theme/) ) { content= content.replace(/(^|\n)@start[^\n]*\n/,'$&!theme cyborg-outline\n') }
-	console.log(content);
+	//DBG: console.log(content);
 	const rb= execFileSync('plantuml',['-tsvg','-pipe','-nometadata'],{input: content})
 	const r= rb.toString('utf8');
 	//DBG: console.log("UML", r);
