@@ -61,7 +61,6 @@ SEE: https://getbootstrap.com/docs/5.3/customize/color-modes/#building-with-sass
 ### 
 TRY: https://github.com/nc7s/eleventy-multisite
 TRY: https://github.com/zephraph/nunjucks-markdown pero con el procesador que estamos usando.
-TRY: solo markdown pero podria andar con el de arriba https://www.npmjs.com/package/eleventy-plugin-plantuml
 TRY: https://github.com/liamfiddler/eleventy-plugin-lazyimages?tab=readme-ov-file
 TRY: https://www.npmjs.com/package/eleventy-plugin-rollup (watch, path y url auto)
 TRY: https://github.com/KiwiKilian/eleventy-plugin-og-image (genera og con template)
