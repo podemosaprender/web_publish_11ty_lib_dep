@@ -87,11 +87,9 @@ module.exports = function(eleventyConfig) {
 
 	our_lib.addToConfig(eleventyConfig); 
 
-	eleventyConfig.addPassthroughCopy("src/this_site/img");
-	eleventyConfig.addPassthroughCopy("src/this_site/css");
-	eleventyConfig.addPassthroughCopy("src/this_site/js");
+	eleventyConfig.addPassthroughCopy("src/this_site/**/{js,css,img,fonts}/**");
+	eleventyConfig.addPassthroughCopy("src/this_site/**/*.{js,css,png,jpg,svg,webp}");
 	//A: Copy the `img` and `css` folders to the output
-
 
 
 	// Override Browsersync defaults (used only with --serve)
