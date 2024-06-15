@@ -16,7 +16,7 @@ module.exports.addToConfig= function (eleventyConfig, kv) {
 	Object.entries(kv.filter).forEach( ([k,v]) => eleventyConfig.addFilter(k,v) );
 	Object.entries(kv.collection).forEach( ([k,v]) => eleventyConfig.addCollection(k,v) );
 
-	eleventyConfig.addNunjucksGlobal('wlib','bs')
+	//eleventyConfig.addNunjucksGlobal('wlib','bs')
 }
 
 
