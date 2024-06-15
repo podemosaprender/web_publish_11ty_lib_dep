@@ -16,6 +16,24 @@ function set_f(fpath, content) {
 	fs.writeFileSync(fpath, content);
 }
 
+parse_opts= {
+	lowerCaseTagName: true,
+	comment: true,
+	voidTag:{
+		tags: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'],
+		closingSlash: true //A: void tag serialisation, add a final slash <br/>
+	},
+	blockTextElements: { //A: keep text content when parsing
+		script: true, noscript: true, style: true, pre: true
+	}
+}
+function  norm_html(html) {
+	let html_ast= parse(html,parse_opts)
+	let html_norm= html_ast.outerHTML //.replace(/<[^>]+/gs,(m) => m.replace(/\s+/gs,' ').trim())
+	//DBG: console.log(html_norm)
+	return html_norm;
+}
+
 async function pretty_html(h) {
 	let s= await prettier.format(h,{parser: 'html', useTabs: true, printWidth: 2000})
 	return s.replace(/\{% include/gs,'\n$&');
@@ -29,22 +47,8 @@ src_fname= src_path.match(/[^\/]+$/)[0];
 
 html= fs.readFileSync(src_path,'utf8');
 html= html.replace(new RegExp('"'+escapeRegex(src_fname),'gs'),'"');
-console.log(html);
-
-parse_opts= {
-	lowerCaseTagName: true,
-	comment: true,
-	voidTag:{
-		tags: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'],
-		closingSlash: true //A: void tag serialisation, add a final slash <br/>
-	},
-	blockTextElements: { //A: keep text content when parsing
-		script: true, noscript: true, style: true, pre: true
-	}
-}
-html_ast= parse(html,parse_opts)
-html_norm= html_ast.outerHTML //.replace(/<[^>]+/gs,(m) => m.replace(/\s+/gs,' ').trim())
-//DBG: console.log(html_norm)
+//DBG: console.log(html);
+html_norm= norm_html(html);
 //A: espacios normalizados dentro de los tags
 
 strs= {};
@@ -70,15 +74,20 @@ html_vars= html_norm.replace(/(<([^\s>\/]+)[^>]+>)([^<]+)/gs, (n,tag,tagname,s)=
 links= {}
 html_links= html_vars.replace(/(<([^>\s\/]+)[^>]*?((?:src)|(?:href))="([^"]*)"[^>]*?)((?:(\/\s*)>)|(?:>(.*?)<\/\2))/gsi, 
 	(m,tag,tagname,attr,v,_1,_2,content) => {
+		if (tagname=="script" || tagname=="link") return m; //A: dejamos igual
+
 		vn= (content && content.match(/\{\{ (v_\w+) \}\}/)||[])[1]
-		vname= vn ? `${vn}_${attr}` : `v_${tagname}_${attr}_${vn || v}`;
+		if (vn) { vname= `${vn}_${attr}`; } //A: teniamos var
+		else { vname=`v_${tagname}_${attr}_${v.replace(/[^a-z0-9]+/gsi,'_')}`; }
 		links[vname]= {tagname,attr,v,tag,content};
+		vars[vname]= v;
+		return m.replace(new RegExp(escapeRegex(`${attr}="${v}"`),'g'),`${attr}="{{ ${vname} }}"`);
 	}
 );
-console.log(links);
+//DBG: console.log(links);
 
 sections_html= {}
-sections_html.BASE_= html_vars.replace(/<!--\s*(.*?)\s+Start\s*-->(.*?)<!--\s*\1\s+End.*?-->/gsi, (m,name,content) => {
+sections_html.BASE_= html_links.replace(/<!--\s*(.*?)\s+Start\s*-->(.*?)<!--\s*\1\s+End.*?-->/gsi, (m,name,content) => {
 	name_clean= name.toLowerCase().trim().replace(/\W+/gs,'_');
 	sections_html[name_clean]= content;
 	return `{% include "${out_dir}/s_${name_clean}.njk" %}`
@@ -92,6 +101,7 @@ Object.entries(sections_html).forEach( async ([k,v]) => set_f(`xo/_includes/${ou
 ))
 
 set_f(`xo/page/index.json`,JSON.stringify(vars, Object.keys(vars).sort(), 2));
+set_f(`xo/page/links.json`,JSON.stringify(links, Object.keys(links).sort(), 2));
 set_f(`xo/page/index.njk`, `---\nlayout:\n---\n`+await pretty_html(sections_html.BASE_))
 }
 
