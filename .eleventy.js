@@ -48,40 +48,13 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.setLibrary("md", markdownLibrary);
 
-	//XXX: PRELUDE {
+	//XXX: MULTI_INCLUDES? {
 	let Nunjucks = require("nunjucks");
-	let MyLoader = Nunjucks.FileSystemLoader.extend({
-    getSource: function(name) {
-        var result = Nunjucks.FileSystemLoader.prototype.getSource.call(this, name); // !!!
-        if (!result) return null;
-				if (name!="lib/bs/macros.njk") {
-					result.src= `{% import "lib/bs/macros.njk" as w %}\n`+result.src; //XXX:prelude 
-				}
-				console.log("LOAD",name,result);
-        return result;
-    }
-	}); 
 	let nunjucksEnvironment = new Nunjucks.Environment(
 		new Nunjucks.FileSystemLoader("./src/this_site/_includes")
 	);
-	nunjucksEnvironment.compile_ori= Nunjucks.compile;
-	nunjucksEnvironment.render_ori= nunjucksEnvironment.render;
-	nunjucksEnvironment.renderString_ori= nunjucksEnvironment.renderString;
-	nunjucksEnvironment.compile= function (str,env,path) {
-		console.log("COMPILE",{path,env,str})
-		return this.compile_ori(str,env,path);
-	}
-	nunjucksEnvironment.render= function (name,ctx,cb) {
-		console.log("RENDER",{name,ctx})
-		return this.render_ori(str,env,path);
-	}
-	nunjucksEnvironment.renderString= function (str,ctx,cb) {
-		console.log("RSTRING",{ctx,str})
-		return this.renderString_ori(str,ctx,cb);
-	}
-
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
-	//XXX: PRELUDE }
+	//XXX: MULTI_INCLUDES? }
 
 	eleventyConfig.addTransform("htmlmin", function (content) {
 		if ((this.page.outputPath || "").endsWith(".html")) {

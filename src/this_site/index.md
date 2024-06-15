@@ -4,6 +4,7 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
+{% import "lib/" + wlib + "/macros.njk" as w with context %}
 
 # Hola
 

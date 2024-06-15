@@ -1,5 +1,4 @@
-{% import 'lib/bs/macros.njk' as cmp with context %}
-
+{% import "lib/" + wlib + "/macros.njk" as w with context %}
 <!doctype html>
 <html lang="{{ cfg.language }}">
 	<head>
@@ -9,7 +8,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	</head>
 	<body>
-		{{ cmp.navbar() }}
+		{{ w.navbar() }}
 		<div class="col-lg-8 mx-auto p-3 py-md-5">
 			<main{% if templateClass %} class="container pt-3 {{ templateClass }}"{% endif %}>
 				<div class="row">

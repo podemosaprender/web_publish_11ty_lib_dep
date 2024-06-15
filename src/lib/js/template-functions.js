@@ -15,7 +15,10 @@ module.exports.addToConfig= function (eleventyConfig, kv) {
 	Object.entries(kv.shortCode).forEach( ([k,v]) => eleventyConfig.addShortcode(k,v) );
 	Object.entries(kv.filter).forEach( ([k,v]) => eleventyConfig.addFilter(k,v) );
 	Object.entries(kv.collection).forEach( ([k,v]) => eleventyConfig.addCollection(k,v) );
+
+	eleventyConfig.addNunjucksGlobal('wlib','bs')
 }
+
 
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function

@@ -5,5 +5,6 @@
 	"navbar": {
 		"links": {"/hola/": "saludo","/": "inicial"}
 	},	
-	"description": "XXX_metadata_description"
+	"description": "XXX_metadata_description",
+	"wlib": "bs"
 }
