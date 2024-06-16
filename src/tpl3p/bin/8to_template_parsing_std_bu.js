@@ -156,3 +156,5 @@ async function main_catch(){
 }
 
 main_catch();
+
+//XXX: tratar como patt de entrada, DESPUES si hay una sola instancia NO definir macro
