@@ -8,9 +8,9 @@ const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
 //XXX:LIB }
 
-DBG=0;
+DBG=1;
 
-const ast_norm= (n) => {
+const ast_norm= (n) => { //U: HTMLToJSON al formato que queremos comparar con diff
 	if (typeof(n)!="object") { return n; }
 	DBG && console.log(n);
 	if (n.attributes?.class) { 
@@ -22,7 +22,7 @@ const ast_norm= (n) => {
 	}
 }
 
-const ast_norm_r= (n) => {
+const ast_norm_r= (n) => { //U: el que procesamos con diff al que necesita JSONToHTML
 	if (typeof(n)!="object") { return n; }
 	DBG && console.log(n);
 	if (n.attributes?.class) { 
@@ -32,33 +32,13 @@ const ast_norm_r= (n) => {
 	else if (n.txt) { n.content=[n.txt]; delete n.txt; }	
 }
 
-
-async function main() {
-	src_path= process.argv[2];
-	out_dir= process.argv[3] || 'xo';
-	src_fname= src_path.match(/[^\/]+$/)[0];
-
-	html= fs.readFileSync(src_path,'utf8');
-	html= html.replace(new RegExp('"'+escapeRegex(src_fname),'gs'),'"');
-	//DBG: console.log(html);
-	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
-	root_selector= '#navbar-navlist'
-	root_selector= '#pricing .row:nth-child(2)'
-
-	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
-	ast= await HTMLToJSON(body.outerHTML);
-	//A: ast
-
-	ast_norm(ast);
-	//A: class es array, si content era solo texto va a txt XXX:vars para href, imagenes, etc. DESPUES de to_for?
-	DBG && console.log(JSON.stringify(ast,null,2));
-
-	vals= [{}];
-	chs= ast.content;
-	chC= chs[0]; 
-	for (let i=1; i<chs.length;i++) { chi= chs[i]; vals[i]= {}
+const to_for_grp= (chs) => {
+	let vals= [{}];
+	let chC= chs[0]; 
+	for (let i=1; i<chs.length;i++) { let chi= chs[i]; vals[i]= {}
 		let df= diff(chC, chi);
 		df.forEach( (dfj,j) => {
+			DBG && console.log('DBG:diff',j,dfj)
 			let [plast]= dfj.path.slice(-1)
 			if (plast=='class') return;
 
@@ -73,7 +53,52 @@ async function main() {
 		});
 	}
 	DBG && console.log("CHG",vals,JSON.stringify(chC,null,2))
-	ast.content= [{type:'div', attributes: {'XXX':'FOR'}, content: [chC]}];
+	return [{type:'div', attributes: {'XXX':'FOR'}, content: [chC]}];
+}
+
+const to_for= (ast) => {
+	const chs= ast.content;
+	if (! (chs?.length>0)) return; //A: nada que hacer
+	DBG && console.log("DBG:to_for",ast.type)
+	chs.forEach(to_for); //A: depth first
+
+	DBG && console.log("DBG:to_for_top",chs)
+
+	let chs_grps_acc= chs.reduce( ([g,tcur,gcur],chx) => {
+		let tx= typeof(chx)=='object' ? chx.type : ''
+		if (tx!=tcur) { gcur= []; g.push(gcur); } //A: empieza tipo, agregar grupo
+		gcur.push(chx) //A: agregar al grupo actual
+		return [g,tx,gcur]
+	}, [[]])
+	let chs_grps= chs_grps_acc[0]
+	DBG && console.log("DBG:to_for_grp",chs_grps)
+		
+	ast.content= chs_grps.map( g => (g.length>1 ? to_for_grp(g) : g[0]) ).flat()
+	DBG && console.log("DBG:to_for_R",ast)
+}
+
+async function main() {
+	src_path= process.argv[2];
+	out_dir= process.argv[3] || 'xo';
+	src_fname= src_path.match(/[^\/]+$/)[0];
+
+	html= fs.readFileSync(src_path,'utf8');
+	html= html.replace(new RegExp('"'+escapeRegex(src_fname),'gs'),'"');
+	DBG && console.log("DBG:HTML_NOFILENAME",html);
+
+	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
+	root_selector= '#navbar-navlist'
+	root_selector= '#pricing .row:nth-child(2)'
+
+	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
+	ast= await HTMLToJSON(body.outerHTML);
+	//A: ast
+
+	ast_norm(ast);
+	//A: class es array, si content era solo texto va a txt XXX:vars para href, imagenes, etc. DESPUES de to_for?
+	DBG && console.log("DBG:AST_NORM", JSON.stringify(ast,null,2));
+
+	to_for(ast);
 
 	ast_norm_r(ast);
 	h2= (await JSONToHTML(ast))
