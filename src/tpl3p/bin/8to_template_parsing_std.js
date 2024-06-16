@@ -46,13 +46,14 @@ const ast_norm_r= (n) => { //U: el que procesamos con diff al que necesita JSONT
 const to_for_grp= (chs) => {
 	let vals= [{}];
 	let chC= chs[0]; 
+	let types_differ= false;
 	for (let i=1; i<chs.length;i++) { let chi= chs[i]; vals[i]= {}
 		let df= diff(chC, chi);
 		df.forEach( (dfj,j) => {
-			DBG && logmx('DBG:diff',j,dfj)
+			DBG && logmx('DBG:diff',j,types_differ,dfj)
 			let [plast]= dfj.path.slice(-1)
+			if ( types_differ= types_differ|| plast=='type') { return } //A: demasiado diferentes
 			if (plast=='class') return;
-
 			let vname= 'XXX_'+dfj.path.join('__');
 			DBG && logmx("DFj",j,vname,dfj);
 			if (i==1 && dfj.lhs!=vname) { vals[i-1][vname]= dfj.lhs }
@@ -64,8 +65,9 @@ const to_for_grp= (chs) => {
 		});
 	}
 	DBG && logmx("DBG:to_for_grp_R",chC,vals)
-	//XXX:NO UNIFICAR DEMASIADO DIFERENTES! COMO?
-	return [{type:'XXXFOR', content: [chC]}];
+	//XXX:NO UNIFICAR DEMASIADO DIFERENTES! COMO? ej. div de cada seccion!
+	//XXX:los top eran MISMO tipo ej div, pero adentro es todo diferente!
+	return types_differ ? chs : [{type:'XXXFOR', content: [chC]}];
 }
 
 const to_for= (ast) => {
@@ -100,8 +102,8 @@ async function main() {
 
 	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
 	root_selector= '#navbar-navlist'
-	//root_selector= '#pricing .row:nth-child(2)'
-	root_selector= '#blog'
+	root_selector= '#pricing'
+	//root_selector= '#blog'
 
 	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
 	ast= await HTMLToJSON(body.outerHTML);
