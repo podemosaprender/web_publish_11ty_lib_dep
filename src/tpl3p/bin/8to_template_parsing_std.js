@@ -13,15 +13,19 @@ const logmx=  (m,...args) => {
 
 DBG=1;
 
-const ast_norm= (n) => { //U: HTMLToJSON al formato que queremos comparar con diff
+PFX2EL= {}
+const ast_norm= (n,path=[]) => { //U: HTMLToJSON al formato que queremos comparar con diff
 	if (typeof(n)!="object") { return n; }
+	let npath= [n.type,...path]; //A: prefix order
+	let spath= npath.join(' ');
+	( PFX2EL[spath] ||=	[] ).push(n)
 	DBG && logmx(n);
 	if (n.attributes?.class) { 
 		n.attributes.class= n.attributes.class.split(/\s+/); 
 	}
 	if (n.content) { 
 		if (n.content.length==1 && typeof(n.content[0])=="string")  { n.txt= n.content[0]; delete n.content; }
-		else { n.content.forEach(ast_norm) }
+		else { n.content.forEach((n) => ast_norm(n,npath)) }
 	}
 }
 
@@ -101,9 +105,10 @@ async function main() {
 	DBG && logmx("DBG:HTML_NOFILENAME",html);
 
 	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
-	root_selector= '#navbar-navlist'
-	root_selector= '#pricing'
+	//root_selector= '#navbar-navlist'
+	//root_selector= '#pricing'
 	//root_selector= '#blog'
+	root_selector=null;
 
 	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
 	ast= await HTMLToJSON(body.outerHTML);
@@ -120,6 +125,7 @@ async function main() {
 	h2= h2.replace(/<([^\s>]+)([^>]*)><\/\1>/gs,'<$1$2 />')
 	h2= await htmlutil.pretty_html(h2);
 	logmx("RESULT",h2);	
+	logmx("PFX2EL",PFX2EL);
 }
 
 main();
