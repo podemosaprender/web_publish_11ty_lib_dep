@@ -4,11 +4,33 @@
 const htmlutil= require('./htmlutil.js');
 const { escapeRegex, set_f, sort_kv }= htmlutil;
 //XXX:LIB {
-const { HTMLToJSON } = require('html-to-json-parser');
+const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
 //XXX:LIB }
 
 DBG=0;
+
+const ast_norm= (n) => {
+		if (typeof(n)!="object") { return n; }
+		DBG && console.log(n);
+		if (n.attributes?.class) { 
+			n.attributes.class= n.attributes.class.split(/\s+/); 
+		}
+		if (n.content) { 
+			if (n.content.length==1 && typeof(n.content[0])=="string")  { n.txt= n.content[0]; delete n.content; }
+			else { n.content.forEach(ast_norm) }
+		}
+	}
+	const ast_norm_r= (n) => {
+		if (typeof(n)!="object") { return n; }
+		DBG && console.log(n);
+		if (n.attributes?.class) { 
+			n.attributes.class= n.attributes.class.join(' '); 
+		}
+		if (n.content) { n.content.forEach(ast_norm) }
+		else if (n.txt) { n.content=[n.txt]; delete n.txt; }	
+	}
+
 
 async function main() {
 	src_path= process.argv[2];
@@ -26,22 +48,10 @@ async function main() {
 	ast= await HTMLToJSON(body.outerHTML);
 	//A: ast
 	
-	const ast_norm= (n) => {
-		if (typeof(n)!="object") { return n; }
-		DBG && console.log(n);
-		if (n.attributes?.class) { 
-			n.attributes.class= n.attributes.class.split(/\s+/); 
-		}
-		if (n.content) { 
-			if (n.content.length==1 && typeof(n.content[0])=="string")  { n.txt= n.content[0]; delete n.content; }
-			else { n.content.forEach(ast_norm) }
-		}
-	}
 	ast_norm(ast);
-	//A: 
+	//A: class es array, si content era solo texto va a txt XXX:vars para href, imagenes, etc. DESPUES de to_for?
+	DBG && console.log(JSON.stringify(ast,null,2));
 
-	//DBG: 
-	console.log(JSON.stringify(ast,null,2));
 	vals= [{}];
 	chs= ast.content;
 	chC= chs[0]; 
@@ -61,7 +71,10 @@ async function main() {
 			//diff.applyChange(chC,chi,dfi);
 		});
 	}
-	console.log("CHG",vals,JSON.stringify(chC,null,2))
+	DBG && console.log("CHG",vals,JSON.stringify(chC,null,2))
+	ast_norm_r(ast);
+	h2= JSONToHTML(ast);
+	console.log(h2);
 }
 
 main();
