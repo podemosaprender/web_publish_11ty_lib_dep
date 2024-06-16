@@ -8,7 +8,7 @@ const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
 //XXX:LIB }
 
-DBG=1;
+DBG=0;
 
 const ast_norm= (n) => {
 	if (typeof(n)!="object") { return n; }
@@ -73,7 +73,7 @@ async function main() {
 		});
 	}
 	DBG && console.log("CHG",vals,JSON.stringify(chC,null,2))
-	ast.content= [{type:'XXXFOR', content: [chC]}];
+	ast.content= [{type:'div', attributes: {'XXX':'FOR'}, content: [chC]}];
 
 	ast_norm_r(ast);
 	h2= (await JSONToHTML(ast))
