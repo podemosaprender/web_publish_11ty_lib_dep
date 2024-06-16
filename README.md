@@ -67,3 +67,16 @@ TRY: https://github.com/KiwiKilian/eleventy-plugin-og-image (genera og con templ
 
 NO ANDA: https://www.npmjs.com/package/eleventy-plugin-gen-favicons falla instalando sharp, instale con wasm32 pero no reconoce, intenta instalar y falla
 NO USAR: https://github.com/gfscott/eleventy-plugin-embed-everything (no customizable, complejisimo sin sentido)
+
+### Fabrica
+
+~~~
+cd src/tpl3
+bin/main.sh "https://themesbrand.com/lezir/layout/layout-one-6.html"
+~~~
+
+* separa en una BASE (layout), e includes, con los includes define macros (funciona pasar vars)
+* para combinar macros en "temas"
+  * se arma un archivo que importa todos los archivos necesarios, cada uno as w1, w2, etc.
+  * se reexporta el nombre con set, por ej `{% set navbar= w1.navbar %}{%set boton= w2.boton%}`
+  * en la pagina se importa el del renglon de arriba

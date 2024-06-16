@@ -36,7 +36,7 @@ function  norm_html(html) {
 
 async function pretty_html(h) {
 	let s= await prettier.format(h,{parser: 'html', useTabs: true, printWidth: 2000})
-	return s.replace(/\{% include/gs,'\n$&');
+	return s.replace(/\{{ tw\./gs,'\n$&');
 }
 //XXX:LIB }
 
@@ -63,7 +63,7 @@ html_vars= html_norm.replace(/(<([^\s>\/]+)[^>]+>)([^<]+)/gs, (n,tag,tagname,s)=
 		//DBG: console.log("V",s_varname,tagname,tag,s_clean)
 		strs[s_clean]= (strs[s_clean] || 0)+1; 
 		vars[s_varname]= s_clean;
-		return `${ tag }{{ ${s_varname} }}`;
+		return `${ tag }{{ p.${s_varname} }}`;
 	}
 	return n;
 })
@@ -74,14 +74,14 @@ html_vars= html_norm.replace(/(<([^\s>\/]+)[^>]+>)([^<]+)/gs, (n,tag,tagname,s)=
 links= {}
 html_links= html_vars.replace(/(<([^>\s\/]+)[^>]*?((?:src)|(?:href))="([^"]*)"[^>]*?)((?:(\/\s*)>)|(?:>(.*?)<\/\2))/gsi, 
 	(m,tag,tagname,attr,v,_1,_2,content) => {
-		if (tagname=="script" || tagname=="link") return m; //A: dejamos igual
+		if (tagname=="script" || tagname=="link" || v.match(/^\s*javascript:/)) return m; //A: dejamos igual
 
 		vn= (content && content.match(/\{\{ (v_\w+) \}\}/)||[])[1]
 		if (vn) { vname= `${vn}_${attr}`; } //A: teniamos var
 		else { vname=`v_${tagname}_${attr}_${v.replace(/[^a-z0-9]+/gsi,'_')}`; }
 		links[vname]= {tagname,attr,v,tag,content};
 		vars[vname]= v;
-		return m.replace(new RegExp(escapeRegex(`${attr}="${v}"`),'g'),`${attr}="{{ ${vname} }}"`);
+		return m.replace(new RegExp(escapeRegex(`${attr}="${v}"`),'g'),`${attr}="{{ p.${vname} }}"`);
 	}
 );
 //DBG: console.log(links);
@@ -90,19 +90,40 @@ sections_html= {}
 sections_html.BASE_= html_links.replace(/<!--\s*(.*?)\s+Start\s*-->(.*?)<!--\s*\1\s+End.*?-->/gsi, (m,name,content) => {
 	name_clean= name.toLowerCase().trim().replace(/\W+/gs,'_');
 	sections_html[name_clean]= content;
-	return `{% include "${out_dir}/s_${name_clean}.njk" %}`
+	return `{{ tw.${name_clean}(data) }}`
 });
 
 //DBG: console.log(html)
 //DBG: console.log(sections_html)
 
+function sort_kv(kv) {
+	return Object.assign({},...Object.entries(kv).sort().map(([k,v])=>({[k]:v})));
+}
+
+set_f(`xo/page/index.json`,JSON.stringify({data: sort_kv(vars)},null, 2));
+set_f(`xo/page/links.json`,JSON.stringify(links, Object.keys(links).sort(), 2));
+
 Object.entries(sections_html).forEach( async ([k,v]) => set_f(`xo/_includes/${out_dir}/s_${k}.njk`, 
 	await pretty_html(v)
 ))
 
-set_f(`xo/page/index.json`,JSON.stringify(vars, Object.keys(vars).sort(), 2));
-set_f(`xo/page/links.json`,JSON.stringify(links, Object.keys(links).sort(), 2));
-set_f(`xo/page/index.njk`, `---\nlayout:\n---\n`+await pretty_html(sections_html.BASE_))
+set_f(`xo/_includes/${out_dir}/macros.njk`, 
+	Object.keys(sections_html).map( (k) => k=='BASE_' ? '' :
+`
+{% macro ${k}(p) %}	
+	{% include "xo/s_${k}.njk" %}
+{% endmacro %}
+`
+	).join('')
+)
+
+set_f(`xo/page/index.njk`, 
+`---
+	layout:
+---
+{% import "xo/macros.njk" as tw %}
+`
+	+await pretty_html(sections_html.BASE_))
 }
 
 main();
