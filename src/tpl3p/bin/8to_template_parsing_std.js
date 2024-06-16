@@ -88,7 +88,7 @@ async function main() {
 
 	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
 	root_selector= '#navbar-navlist'
-	root_selector= '#pricing .row:nth-child(2)'
+	//root_selector= '#pricing .row:nth-child(2)'
 
 	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
 	ast= await HTMLToJSON(body.outerHTML);
