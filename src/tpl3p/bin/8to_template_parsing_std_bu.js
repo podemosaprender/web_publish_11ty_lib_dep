@@ -12,7 +12,7 @@ const logmm=  (m,...args) => {
 }
 //XXX:LIB }
 
-DBG=0;
+DBG=1;
 
 PFX2EL= {}
 const ast_norm= (n,path=[]) => { //U: HTMLToJSON al formato que queremos comparar con diff
@@ -59,7 +59,7 @@ const ast_patt= (n,path=[]) => { //U: reemplazar por patterns en ast normalizado
 				if (p.type!=tcur) { tcur=p.type; gcur= []; grp.push(gcur); }
 				gcur.push(p);
 				return [grp,gcur,tcur];
-			},[[]])[0]
+			},[[],null,' '])[0]
 				.map( 
 					g=> (g.length>1 && g[0].type.startsWith('XXXPAT')) 
 								? {type: 'XXXFOR', patt: g[0].type, vals: g.map(e => e.vals)} 
@@ -103,7 +103,11 @@ const to_for_grp= (chs) => {
 			let [plast]= dfj.path.slice(-1)
 			if (plast=='class') return;
 			if ( types_differ= types_differ|| plast=='type') { return } //A: demasiado diferentes
-			if (types_differ= types_differ||( plast=='content' && dfj.path.length<20)) { return }
+			if ( plast=='content' )  { 
+				types_differ= (dfj.item.rhs?.content || dfj.item.lhs?.content)!=null
+				DBG && logmm("DBG:diff_content",j,types_differ,dfj);
+				if (types_differ) return 
+			}
 
 			let vname= 'XXX_'+dfj.path.join('__');
 			DBG && logmm("DFj",j,vname,dfj);
@@ -158,3 +162,4 @@ async function main_catch(){
 main_catch();
 
 //XXX: tratar como patt de entrada, DESPUES si hay una sola instancia NO definir macro
+//XXX: elegir el pattern que da "menos diferencia" en TAGS (ideal, solo cambio texto)
