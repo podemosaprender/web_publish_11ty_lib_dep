@@ -80,3 +80,4 @@ bin/main.sh "https://themesbrand.com/lezir/layout/layout-one-6.html"
   * se arma un archivo que importa todos los archivos necesarios, cada uno as w1, w2, etc.
   * se reexporta el nombre con set, por ej `{% set navbar= w1.navbar %}{%set boton= w2.boton%}`
   * en la pagina se importa el del renglon de arriba
+* se puede llamar la macro con una variable ej `tw[tipo](data)` y asi sacar las secciones del json!
