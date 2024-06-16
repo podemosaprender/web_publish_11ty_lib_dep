@@ -3,6 +3,7 @@
 
 //XXX:LIB {
 fs= require('node:fs');
+yaml = require('js-yaml');
 prettier= require("prettier");
 const { parse }= require('node-html-parser');
 
@@ -100,8 +101,8 @@ function sort_kv(kv) {
 	return Object.assign({},...Object.entries(kv).sort().map(([k,v])=>({[k]:v})));
 }
 
-set_f(`xo/page/index.json`,JSON.stringify({data: sort_kv(vars)},null, 2));
-set_f(`xo/page/links.json`,JSON.stringify(links, Object.keys(links).sort(), 2));
+set_f(`xo/page/index.yaml`,yaml.dump({data: sort_kv(vars)}));
+set_f(`xo/page/links.yaml`,yaml.dump(sort_kv(links)));
 
 Object.entries(sections_html).forEach( async ([k,v]) => set_f(`xo/_includes/${out_dir}/s_${k}.njk`, 
 	await pretty_html(v)
