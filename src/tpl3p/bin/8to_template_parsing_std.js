@@ -8,28 +8,29 @@ const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
 //XXX:LIB }
 
-DBG=0;
+DBG=1;
 
 const ast_norm= (n) => {
-		if (typeof(n)!="object") { return n; }
-		DBG && console.log(n);
-		if (n.attributes?.class) { 
-			n.attributes.class= n.attributes.class.split(/\s+/); 
-		}
-		if (n.content) { 
-			if (n.content.length==1 && typeof(n.content[0])=="string")  { n.txt= n.content[0]; delete n.content; }
-			else { n.content.forEach(ast_norm) }
-		}
+	if (typeof(n)!="object") { return n; }
+	DBG && console.log(n);
+	if (n.attributes?.class) { 
+		n.attributes.class= n.attributes.class.split(/\s+/); 
 	}
-	const ast_norm_r= (n) => {
-		if (typeof(n)!="object") { return n; }
-		DBG && console.log(n);
-		if (n.attributes?.class) { 
-			n.attributes.class= n.attributes.class.join(' '); 
-		}
-		if (n.content) { n.content.forEach(ast_norm) }
-		else if (n.txt) { n.content=[n.txt]; delete n.txt; }	
+	if (n.content) { 
+		if (n.content.length==1 && typeof(n.content[0])=="string")  { n.txt= n.content[0]; delete n.content; }
+		else { n.content.forEach(ast_norm) }
 	}
+}
+
+const ast_norm_r= (n) => {
+	if (typeof(n)!="object") { return n; }
+	DBG && console.log(n);
+	if (n.attributes?.class) { 
+		n.attributes.class= n.attributes.class.join(' '); 
+	}
+	if (n.content) { n.content.forEach(ast_norm_r) }
+	else if (n.txt) { n.content=[n.txt]; delete n.txt; }	
+}
 
 
 async function main() {
@@ -47,7 +48,7 @@ async function main() {
 	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
 	ast= await HTMLToJSON(body.outerHTML);
 	//A: ast
-	
+
 	ast_norm(ast);
 	//A: class es array, si content era solo texto va a txt XXX:vars para href, imagenes, etc. DESPUES de to_for?
 	DBG && console.log(JSON.stringify(ast,null,2));
@@ -72,9 +73,13 @@ async function main() {
 		});
 	}
 	DBG && console.log("CHG",vals,JSON.stringify(chC,null,2))
+	ast.content= [{type:'XXXFOR', content: [chC]}];
+
 	ast_norm_r(ast);
-	h2= JSONToHTML(ast);
-	console.log(h2);
+	h2= (await JSONToHTML(ast))
+	h2= h2.replace(/<([^\s>]+)([^>]*)><\/\1>/gs,'<$1$2 />')
+	h2= await htmlutil.pretty_html(h2);
+	console.log(h2);	
 }
 
 main();
