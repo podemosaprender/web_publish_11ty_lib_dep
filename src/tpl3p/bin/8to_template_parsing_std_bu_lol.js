@@ -172,7 +172,7 @@ async function main() {
 		return r;
 	}
 
-	let lol= expand('__68') //2529')
+	let lol= expand(ast_lol)
 	
 	const lol_to_html= (lol) => {
 		if (!Array.isArray(lol)) return lol;
