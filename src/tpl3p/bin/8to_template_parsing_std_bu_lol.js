@@ -8,7 +8,7 @@ const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
 const logmm=  (m,...args) => {
 	let f= (m.startsWith("ERR:EX")) ? 'trace' : 'log';
-	console[f](m,...(args||[]).map(v => (typeof(v)=="object" ? JSON.stringify(v,null,2): v)))
+	console[f](m,...(args||[]).map(v => (typeof(v)=="object" ? JSON.stringify(v): v)))
 }
 //XXX:LIB }
 
@@ -52,6 +52,26 @@ const kv_to_lol= (n) => {
 	return tadd(r);
 }
 
+const listdiff= (l1,l2,diff_idx_min) => {
+	//l2= [ '__class', 'rounded', 'text-center','verde', 'active', 'very', 'p-4' ] 
+	//l1= [ '__class', 'pricing-box', 'rounded', 'text-center','rojo', 'p-4','ymas!','mucho mas' ]
+	//l1= 'nada que ver p-4'.split(' ')
+	logmm("DBG:listdiff",l1,l2,diff_idx_min)
+	let patt=[], a1=[],a2=[];
+	let i1=0;i2=0;
+	while (i1<l1.length || i2<l2.length) { let w1= l1[i1], w2= l2[i2];
+		if (w1==w2) { patt.push(w1); i1++; i2++; }
+		else { if (diff_idx_min && patt.length<diff_idx_min) { patt= false; break; }
+			let n1= l1.indexOf(w2,i1), n2=l2.indexOf(w1,i2);
+			if (n1<0 && n2<0) { patt.push('__a'+a1.length); a1.push(w1); a2.push(w2); i1++; i2++; }
+			else if (n2<0) { patt.push('__a'+a1.length); a1.push(w1); a2.push(undefined); i1++; }
+			else { patt.push('__a'+a1.length); a1.push(undefined); a2.push(w2); i2++; }
+		}
+	}
+	logmm("DBG:listdiff_R",{patt,a1,a2,l1,l2})
+	return [patt,a1,a2]
+}
+
 async function main() {
 	src_path= process.argv[2];
 	out_dir= process.argv[3] || 'xo';
@@ -92,55 +112,77 @@ async function main() {
 	set_f('xast_ti.yaml',yaml.dump(TInv,{flowLevel:1}))
 	//TInv queda ordenado en prefix order
 
-	const patt_min_len=2
+	const patt_min_len=1
 	const TInvPatt= {}
+				
 	const patt_pending= {}
-	let kprev, vprev;
-	Object.entries(TInv).forEach( ([k,v]) => {
+
+	const patt_try= ([kprev,vprev],[k,v]) => { //XXX:usar con CUALQUIER par, lo que MAS me importa es el FOR!
+		logmm("DBG:patt",{k,kprev},v,vprev)
 		if (vprev) {
-			let xpatt= [], xprev=[], xthis=[], last_non_a=null; skip=0;
-			v.every( (w,i) => { 
-				let wp= vprev[i+skip], eq= (w==wp);
-				console.log("XXX",i,eq,w,wp) 
-				if (eq) { xpatt[i]= w; last_non_a=i; }
-				else { if (i<patt_min_len) { xpatt= null; return false; } //A: stop attempt
-					xpatt[i]=`__a${xthis.length}`;
-					xprev.push(wp); xthis.push(w);
-				}
-				return true;
-			})
-			if (xpatt) {
-				for (let i=v.length; i<vprev.length; i++) { //A: el valor anterior tenia mas elementos
-						xpatt[i]=`__a${i}`;
-						xprev.push(vprev[i]); 
-				}
-			}
-			console.log("XXXp",xpatt,last_non_a ,xprev,xthis,v,vprev)
+			let [xpatt, xprev, xthis]= listdiff(vprev,v,patt_min_len);
 			let pattId;
+			if (xpatt && xpatt.length>1 && xpatt[1]=='__a0') { //A: class! considerar distancia
+				let c1= TInvPatt[xprev[0]]; let c2= TInvPatt[xthis[0]];
+				logmm("DBG:patt_class",k,kprev,c1,c2,xthis,xprev,v,vprev)
+				xpatt= false;
+			}
 			if (xpatt) {
-				if (last_non_a<xpatt.length-1) { //A: todos los ultimos son argumentos
-					xpatt= xpatt.slice(0,last_non_a+1);
-					console.log({xpatt})
-					if (xpatt.slice(-1)[0]=='__a0') { xpatt.pop(); }
+				let last_non_arg_idx= xpatt.findLastIndex( e => !e.startsWith('__a') )
+				logmm("DBG:patt_star",last_non_arg_idx,xpatt);
+				if (last_non_arg_idx<xpatt.length-1) { //A: todos los ultimos son argumentos
+					xpatt= xpatt.slice(0,last_non_arg_idx+1);
 					xpatt.push('__a*');
-					console.log({xpatt})
+					logmm("DBG:patt_star_R",last_non_arg_idx,xpatt);
 				}
-				if (xpatt.indexOf('__a0')>-1 || xpatt.length>patt_min_len ) { pattId= tadd(xpatt); patt_pending[pattId]= xpatt; }
+				if (xpatt.find(e => e.startsWith('__a')) || xpatt.length>patt_min_len ) { 
+					pattId= tadd(xpatt); patt_pending[pattId]= xpatt; 
+				}
 			}
 
 			if (pattId) {
-				logmm("DBG:patt_add",pattId,xpatt,xprev,vprev,xthis,v)
+				logmm("DBG:patt_add",pattId,kprev,k,xpatt,xprev,vprev,xthis,v)
 				TInvPatt[kprev]= [pattId,xprev];
 				TInvPatt[k]= [pattId,xthis];
 			} else {
 				TInvPatt[k]= ['',v];
 			}
 		}
-		kprev=k; vprev= v;
-	})
-	Object.entries(patt_pending).forEach(([k,v]) => {
-		TInvPatt[k]= ['__p',v];
-	}); //A: agrego los patterns
+	}; //END: patt_try
+
+	
+	Object.entries(TInv).forEach(([k,v]) => { TInvPatt[k]= ['',v]; }); //A: agrego sin patterns
+	let kvprev=[]; Object.entries(TInv).filter(kv=>(kv[1].length>1 && kv[1][0]=='__class')).forEach(kv => { patt_try(kvprev,kv); kvprev= kv });  //A: patterns para class
+	Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
+
+	logmm("DBG:BF");
+	const visit_breadthfirst1= (from_id) => { 
+		if (!from_id?.match(/^__\d+/)) return {};
+
+		const from= TInvPatt[from_id];
+		const grp= from[1].slice(3).map(id =>[id,TInvPatt[id]])
+			.reduce((acc,[k,v]) => { (acc[v[1][0]] ||= []).push([k,v[1]]); return	acc },{})
+		logmm("DBG:BF_GRP",grp);
+		Object.values(grp).forEach(els => { 
+			logmm("DBG:BF_GRP1",els);
+			let kvprev=[]; els.forEach( me => { patt_try(kvprev,me); kvprev= me })
+		})
+		return grp;
+	}
+	const visit_breadthfirst= (from_id,max_i=3) => {
+		let gq= []; 
+		gq.push( visit_breadthfirst1(ast_lol) ); //A: encolamos grupos para visitar	
+		for (let i=0; i<max_i && i<gq.length;i++) { let gn= gq[i];
+			Object.values(gn).forEach(kvs => kvs.forEach(kv => {
+				logmm("DBG:BFQ",i,gq.length,kv)
+				kv[1].slice(3).forEach( fid => gq.push( visit_breadthfirst1(fid) ) )
+			}))
+		}
+	}
+	visit_breadthfirst(ast_lol,100000)
+	Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
+
+
 	set_f('xast_tip.yaml',yaml.dump(TInvPatt,{flowLevel:1}))
 
 
@@ -180,11 +222,11 @@ async function main() {
 		if (lol[0]=='__txt') return lol[1];
 		let [h,[_1,...cls],[_2,...att],...content]= lol;
 		console.log({content},lol)
-		let hasContent= (content[0][1] || content.length>1) //A: siempre viene un __txt
+		let hasContent= content.length>0 && (content[0][1] || content.length>1) //A: siempre viene un __txt
 		DBG && logmm("DBG:lol_to_html",{h,hasContent,cls,att,content},lol)
 		let r= ['<',h, 
-			cls?.length>0 ? ` class="${cls.join(' ')}"` : '', 
-			att?.length>0 ? ` ${att.map(([k,v]) => (k==v ? k : k+'="'+v+'"')).join(' ')}` : '', 
+			cls?.length>0 ? ` class="${cls.filter(e=>e).join(' ')}"` : '', 
+			att?.length>0 ? ` ${att.filter(e=>e).map(([k,v]) => (k==v ? k : k+'="'+v+'"')).join(' ')}` : '', 
 			'>',...content.map(lol_to_html),
 			htmlutil.voidTags.indexOf(h)>-1 ? '': `</${h}>`,
 		].join('');
