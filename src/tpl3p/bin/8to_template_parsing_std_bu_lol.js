@@ -34,8 +34,9 @@ const ast_norm= (n,path=[]) => { //U: HTMLToJSON al formato que queremos compara
 
 let Nid= 1;
 const T={}
-const tadd1= (w,p) => { p ||= T; let r= (p[w] ||= {__id__: `__${Nid++}`}); return r }
-const tadd= (t,p) => t.reduce( (p, e) => tadd1(e,p), null ).__id__;
+const tadd1= (w,p) => { p ||= T; let r= (p[w] ||= {__id__: `__${Nid++}`,__cnt__: 0}); r.__cnt__++; return r }
+tadd1('__END__') //A: para que tenga id facil
+const tadd= (t,p) => tadd1('__END__', t.reduce( (p, e) => tadd1(e,p), null )).__id__;
 
 const kv_to_lol= (n) => {
 	if (typeof(n)!="object" || Array.isArray(n)) { return [n]; }
@@ -81,12 +82,13 @@ async function main() {
 
 	const TInv= {}
 	const tinvert= (kv,p=[]) => {
-		Object.entries(kv).forEach( ([k,v]) => { if (k!='__id__') {
-			TInv[v.__id__]= p //A: como llegar a ese id
+		if (p.slice(-1)[0]=='__END__') { TInv[kv.__id__]= p } //A: como llegar a ese id
+		Object.entries(kv).forEach( ([k,v]) => { if (k!='__id__' && k!='__cnt__') {
 			tinvert(v,[...p,k]);
 		}})
-	})
-	set_f('xast_ti.yaml',yaml.dump(TInv))
+	}
+	tinvert(T);
+	set_f('xast_ti.yaml',yaml.dump(TInv,{flowLevel:1}))
 }
 
 async function main_catch(){
