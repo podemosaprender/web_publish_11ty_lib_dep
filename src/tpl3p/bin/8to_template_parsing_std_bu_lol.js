@@ -103,7 +103,7 @@ async function main() {
 				console.log("XXX",i,eq,w,wp) 
 				if (eq) { xpatt[i]= w }
 				else { if (i<patt_min_len) { xpatt= null; return false; } //A: stop attempt
-					xpatt[i]=`__a${i}`;
+					xpatt[i]=`__a${xthis.length}`;
 					xprev.push(wp); xthis.push(w);
 				}
 				return true;
