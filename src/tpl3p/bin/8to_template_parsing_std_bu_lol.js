@@ -39,12 +39,13 @@ tadd1('__END__') //A: para que tenga id facil
 const tadd= (t,p) => tadd1('__END__', t.reduce( (p, e) => tadd1(e,p), null )).__id__;
 
 const kv_to_lol= (n) => {
-	if (typeof(n)!="object" || Array.isArray(n)) { return [n]; }
+	if (typeof(n)!="object") { return ['__txt',n.replace(/\s+/gs,' ').trim()] }
+	if (Array.isArray(n)) { return [n]; }
 	let r= [
 		n.type, 
-		['class', ...(n.attributes?.class || [])],
-		['att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
-		['txt',n.txt ? n.txt.replace(/\s+/gs,' ') : undefined],
+		['__class', ...(n.attributes?.class || [])],
+		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
+		['__txt',n.txt ? n.txt.replace(/\s+/gs,' ').trim() : undefined],
 		...((n.content||[]).map(kv_to_lol)),
 	].map(e => (typeof(e)=="object" ? tadd(e) : e));
 	logmm("DBG:to_lol",r,n);
@@ -97,22 +98,31 @@ async function main() {
 	let kprev, vprev;
 	Object.entries(TInv).forEach( ([k,v]) => {
 		if (vprev) {
-			let xpatt= [], xprev=[], xthis=[], skip=0;
+			let xpatt= [], xprev=[], xthis=[], last_non_a=null; skip=0;
 			v.every( (w,i) => { 
 				let wp= vprev[i+skip], eq= (w==wp);
 				console.log("XXX",i,eq,w,wp) 
-				if (eq) { xpatt[i]= w }
+				if (eq) { xpatt[i]= w; last_non_a=i; }
 				else { if (i<patt_min_len) { xpatt= null; return false; } //A: stop attempt
 					xpatt[i]=`__a${xthis.length}`;
 					xprev.push(wp); xthis.push(w);
 				}
 				return true;
 			})
-			console.log("XXXp",xpatt,xprev,xthis,v,vprev)
+			console.log("XXXp",xpatt,last_non_a ,xprev,xthis,v,vprev)
+			let pattId;
 			if (xpatt) {
-				let pid= tadd(xpatt); patt_pending[pid]= xpatt;
-				TInvPatt[kprev]= [pid,xprev];
-				TInvPatt[k]= [pid,xthis];
+				if (last_non_a<xpatt.length-1) { //A: todos los ultimos son argumentos
+					xpatt= xpatt.slice(0,last_non_a);
+					if (xpatt.slice(-1)[0]=='__a0') { xpatt.pop() };
+					xpatt.push('__a*');
+				}
+				if (xpatt.indexOf('__a0')>-1 || xpatt.length>patt_min_len ) { pattId= tadd(xpatt); patt_pending[pattId]= xpatt; }
+			}
+
+			if (pattId) {
+				TInvPatt[kprev]= [pattId,xprev];
+				TInvPatt[k]= [pattId,xthis];
 			} else {
 				TInvPatt[k]= ['',v];
 			}
