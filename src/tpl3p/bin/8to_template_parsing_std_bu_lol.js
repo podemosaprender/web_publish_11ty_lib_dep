@@ -133,6 +133,14 @@ async function main() {
 		TInvPatt[k]= ['__p',v];
 	}); //A: agrego los patterns
 	set_f('xast_tip.yaml',yaml.dump(TInvPatt,{flowLevel:1}))
+
+
+	const expand= (id) => {
+		let [pidP,d]= TInvPatt[id];
+		logmm('DBG:expand',pidP,d);
+	}
+
+	expand('__840')
 	
 }
 
