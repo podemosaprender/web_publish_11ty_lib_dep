@@ -169,6 +169,7 @@ async function main() {
 			r= r.map(expand)
 			DBG && logmm('DBG:expand_patt_R',pidP,patt,r,dex);
 		}
+		try { let [_1,_2,[_3,att]]= r; att.push(['ID___',id]); } catch () {}
 		return r;
 	}
 
