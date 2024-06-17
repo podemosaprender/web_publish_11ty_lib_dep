@@ -76,7 +76,17 @@ async function main() {
 
 	let ast_lol= kv_to_lol(ast);
 	set_f('xast_lol.yaml',yaml.dump(ast_lol,{flowLevel:0}))
+
 	set_f('xast_t.yaml',yaml.dump(T))
+
+	const TInv= {}
+	const tinvert= (kv,p=[]) => {
+		Object.entries(kv).forEach( ([k,v]) => { if (k!='__id__') {
+			TInv[v.__id__]= p //A: como llegar a ese id
+			tinvert(v,[...p,k]);
+		}})
+	})
+	set_f('xast_ti.yaml',yaml.dump(TInv))
 }
 
 async function main_catch(){
