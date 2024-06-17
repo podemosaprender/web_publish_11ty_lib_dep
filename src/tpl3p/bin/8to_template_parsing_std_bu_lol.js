@@ -44,7 +44,7 @@ const kv_to_lol= (n) => {
 		n.type, 
 		['class', ...(n.attributes?.class || [])],
 		['att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
-		['txt',n.txt],
+		['txt',n.txt ? n.txt.replace(/\s+/gs,' ') : undefined],
 		...((n.content||[]).map(kv_to_lol)),
 	].map(e => (typeof(e)=="object" ? tadd(e) : e));
 	logmm("DBG:to_lol",r,n);
@@ -64,7 +64,7 @@ async function main() {
 	root_selector= '#navbar-navlist'
 	root_selector= '#pricing'
 	//root_selector= '#blog'
-	//root_selector=null;
+	root_selector=null;
 
 	body= htmlutil.parse_html(html_norm).querySelector(root_selector||'body')
 	ast= await HTMLToJSON(body.outerHTML);
@@ -82,7 +82,7 @@ async function main() {
 
 	const TInv= {}
 	const tinvert= (kv,p=[]) => {
-		if (p.slice(-1)[0]=='__END__') { TInv[kv.__id__]= p } //A: como llegar a ese id
+		if (p.slice(-1)[0]=='__END__') { TInv[kv.__id__]= p.slice(0,-1) } //A: como llegar a ese id
 		Object.entries(kv).forEach( ([k,v]) => { if (k!='__id__' && k!='__cnt__') {
 			tinvert(v,[...p,k]);
 		}})
@@ -91,15 +91,38 @@ async function main() {
 	set_f('xast_ti.yaml',yaml.dump(TInv,{flowLevel:1}))
 	//TInv queda ordenado en prefix order
 
+	const patt_min_len=2
 	const TInvPatt= {}
-	let vprev;
+	const patt_pending= {}
+	let kprev, vprev;
 	Object.entries(TInv).forEach( ([k,v]) => {
 		if (vprev) {
-			let skip=0;
-			v.forEach( (w,i) => console.log("XXX",i,w==vprev[i+skip],w,v) )
+			let xpatt= [], xprev=[], xthis=[], skip=0;
+			v.every( (w,i) => { 
+				let wp= vprev[i+skip], eq= (w==wp);
+				console.log("XXX",i,eq,w,wp) 
+				if (eq) { xpatt[i]= w }
+				else { if (i<patt_min_len) { xpatt= null; return false; } //A: stop attempt
+					xpatt[i]=`__a${i}`;
+					xprev.push(wp); xthis.push(w);
+				}
+				return true;
+			})
+			console.log("XXXp",xpatt,xprev,xthis,v,vprev)
+			if (xpatt) {
+				let pid= tadd(xpatt); patt_pending[pid]= xpatt;
+				TInvPatt[kprev]= [pid,xprev];
+				TInvPatt[k]= [pid,xthis];
+			} else {
+				TInvPatt[k]= ['',v];
+			}
 		}
-		vprev= v;
+		kprev=k; vprev= v;
 	})
+	Object.entries(patt_pending).forEach(([k,v]) => {
+		TInvPatt[k]= ['__p',v];
+	}); //A: agrego los patterns
+	set_f('xast_tip.yaml',yaml.dump(TInvPatt,{flowLevel:1}))
 	
 }
 
