@@ -32,12 +32,10 @@ const ast_norm= (n,path=[]) => { //U: HTMLToJSON al formato que queremos compara
 	return n;
 }
 
-let Nid= 0;
+let Nid= 1;
 const T={}
-const tadd1= (w,p) => { p =|| T; return (T[w] =|| {id__: Nid++}) }
-const tadd= (t,p) => t.reduce( (p, e) => tadd1(e,p) ).id__;
-
-logmm("A1",tadd('lista de palabras 1'.split(' ')));
+const tadd1= (w,p) => { p ||= T; let r= (p[w] ||= {__id__: `__${Nid++}`}); return r }
+const tadd= (t,p) => t.reduce( (p, e) => tadd1(e,p), null ).__id__;
 
 const kv_to_lol= (n) => {
 	if (typeof(n)!="object" || Array.isArray(n)) { return [n]; }
@@ -47,8 +45,9 @@ const kv_to_lol= (n) => {
 		['att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
 		['txt',n.txt],
 		...((n.content||[]).map(kv_to_lol)),
-	];
-	return r;
+	].map(e => (typeof(e)=="object" ? tadd(e) : e));
+	logmm("DBG:to_lol",r,n);
+	return tadd(r);
 }
 
 async function main() {
@@ -77,6 +76,7 @@ async function main() {
 
 	let ast_lol= kv_to_lol(ast);
 	set_f('xast_lol.yaml',yaml.dump(ast_lol,{flowLevel:0}))
+	set_f('xast_t.yaml',yaml.dump(T))
 }
 
 async function main_catch(){
