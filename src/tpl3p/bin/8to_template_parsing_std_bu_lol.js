@@ -45,7 +45,7 @@ const kv_to_lol= (n) => {
 		n.type, 
 		['__class', ...(n.attributes?.class || [])],
 		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
-		['__txt',n.txt ? n.txt.replace(/\s+/gs,' ').trim() : undefined],
+		['__txt',...(n.txt ? [ n.txt.replace(/\s+/gs,' ').trim()] : [])],
 		...((n.content||[]).map(kv_to_lol)),
 	].map(e => (typeof(e)=="object" ? tadd(e) : e));
 	logmm("DBG:to_lol",r,n);
@@ -136,11 +136,32 @@ async function main() {
 
 
 	const expand= (id) => {
+		if (! (typeof(id)=='string' && id.match(/^__\d+/))) return id;
+
+		let r;
+		logmm('DBG:expand',id);
 		let [pidP,d]= TInvPatt[id];
-		logmm('DBG:expand',pidP,d);
+		logmm('DBG:expand_def',pidP,d);
+		let dex= d.map( expand ); r=dex; //DFLT
+		logmm('DBG:expand_data',pidP,d,dex);
+		if (pidP.match(/^__\d+/)) {
+			let patt= expand(pidP);
+			logmm('DBG:expand_patt',pidP,patt,d,dex);
+			let idx_last=-1;
+			r= patt
+					.map( e => { 
+						let idx= (e.match && e.match(/__a(\d+)/)||[])[0] 
+						if (idx) { idx_last= idx; return dex[idx] }
+						return e;
+					})
+			if (patt.slice(-1)[0]=='__a*') {
+				r.pop(); r= [...r, ...dex.slice(idx_last+1)]	
+			}
+		}
+		return r;
 	}
 
-	expand('__840')
+	expand('__2334')
 	
 }
 
