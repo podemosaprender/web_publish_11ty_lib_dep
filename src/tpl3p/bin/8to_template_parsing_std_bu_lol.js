@@ -184,9 +184,8 @@ async function main() {
 		let r= ['<',h, 
 			cls?.length>0 ? ` class="${cls.join(' ')}"` : '', 
 			att?.length>0 ? ` ${att.map(([k,v]) => (k==v ? k : k+'="'+v+'"')).join(' ')}` : '', 
-			hasContent ? '': '/',
 			'>',...content.map(lol_to_html),
-			hasContent ? `</${h}>`: '',
+			htmlutil.voidTags.indexOf(h)>-1 ? '': `</${h}>`,
 		].join('');
 		logmm("DBG:lol_to_html_R",r);
 		return r;
