@@ -44,7 +44,7 @@ const kv_to_lol= (n) => {
 	let r= [
 		n.type, 
 		['__class', ...(n.attributes?.class || [])],
-		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) ).flat()],
+		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => tadd([k, n.attributes[k]])) )],
 		['__txt',...(n.txt ? [ n.txt.replace(/\s+/gs,' ').trim()] : [])],
 		...((n.content||[]).map(kv_to_lol)),
 	].map(e => (typeof(e)=="object" ? tadd(e) : e));
@@ -109,18 +109,27 @@ async function main() {
 				}
 				return true;
 			})
+			if (xpatt) {
+				for (let i=v.length; i<vprev.length; i++) { //A: el valor anterior tenia mas elementos
+						xpatt[i]=`__a${i}`;
+						xprev.push(vprev[i]); 
+				}
+			}
 			console.log("XXXp",xpatt,last_non_a ,xprev,xthis,v,vprev)
 			let pattId;
 			if (xpatt) {
 				if (last_non_a<xpatt.length-1) { //A: todos los ultimos son argumentos
-					xpatt= xpatt.slice(0,last_non_a);
-					if (xpatt.slice(-1)[0]=='__a0') { xpatt.pop() };
+					xpatt= xpatt.slice(0,last_non_a+1);
+					console.log({xpatt})
+					if (xpatt.slice(-1)[0]=='__a0') { xpatt.pop(); }
 					xpatt.push('__a*');
+					console.log({xpatt})
 				}
 				if (xpatt.indexOf('__a0')>-1 || xpatt.length>patt_min_len ) { pattId= tadd(xpatt); patt_pending[pattId]= xpatt; }
 			}
 
 			if (pattId) {
+				logmm("DBG:patt_add",pattId,xpatt,xprev,vprev,xthis,v)
 				TInvPatt[kprev]= [pattId,xprev];
 				TInvPatt[k]= [pattId,xthis];
 			} else {
@@ -139,30 +148,53 @@ async function main() {
 		if (! (typeof(id)=='string' && id.match(/^__\d+/))) return id;
 
 		let r;
-		logmm('DBG:expand',id);
+		DBG && logmm('DBG:expand',id);
 		let [pidP,d]= TInvPatt[id];
-		logmm('DBG:expand_def',pidP,d);
+		DBG && logmm('DBG:expand_def',pidP,d);
 		let dex= d.map( expand ); r=dex; //DFLT
-		logmm('DBG:expand_data',pidP,d,dex);
+		DBG && logmm('DBG:expand_data',pidP,d,dex);
 		if (pidP.match(/^__\d+/)) {
-			let patt= expand(pidP);
-			logmm('DBG:expand_patt',pidP,patt,d,dex);
+			let patt= TInvPatt[pidP][1];
+			DBG && logmm('DBG:expand_patt',pidP,patt,d,dex);
 			let idx_last=-1;
 			r= patt
 					.map( e => { 
-						let idx= (e.match && e.match(/__a(\d+)/)||[])[0] 
+						let idx= (e.match && e.match(/__a(\d+)/)||[])[1] 
 						if (idx) { idx_last= idx; return dex[idx] }
-						return e;
+						return e; 
 					})
 			if (patt.slice(-1)[0]=='__a*') {
 				r.pop(); r= [...r, ...dex.slice(idx_last+1)]	
 			}
+			r= r.map(expand)
+			DBG && logmm('DBG:expand_patt_R',pidP,patt,r,dex);
 		}
 		return r;
 	}
 
-	expand('__2334')
+	let lol= expand('__68') //2529')
 	
+	const lol_to_html= (lol) => {
+		if (!Array.isArray(lol)) return lol;
+		if (lol[0]=='__txt') return lol[1];
+		let [h,[_1,...cls],[_2,...att],...content]= lol;
+		console.log({content},lol)
+		let hasContent= (content[0][1] || content.length>1) //A: siempre viene un __txt
+		DBG && logmm("DBG:lol_to_html",{h,hasContent,cls,att,content},lol)
+		let r= ['<',h, 
+			cls?.length>0 ? ` class="${cls.join(' ')}"` : '', 
+			att?.length>0 ? ` ${att.map(([k,v]) => (k==v ? k : k+'="'+v+'"')).join(' ')}` : '', 
+			hasContent ? '': '/',
+			'>',...content.map(lol_to_html),
+			hasContent ? `</${h}>`: '',
+		].join('');
+		logmm("DBG:lol_to_html_R",r);
+		return r;
+	}
+	htmlg= lol_to_html(lol);
+	logmm("DBG:HTMLG",htmlg)
+	set_f('xg.html',htmlg.replace(/</gs,'\n<'));
+	set_f('xexpand.html',await htmlutil.pretty_html(htmlg));
 }
 
 async function main_catch(){
