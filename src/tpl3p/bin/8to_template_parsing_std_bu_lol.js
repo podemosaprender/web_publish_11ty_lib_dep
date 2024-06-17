@@ -89,6 +89,18 @@ async function main() {
 	}
 	tinvert(T);
 	set_f('xast_ti.yaml',yaml.dump(TInv,{flowLevel:1}))
+	//TInv queda ordenado en prefix order
+
+	const TInvPatt= {}
+	let vprev;
+	Object.entries(TInv).forEach( ([k,v]) => {
+		if (vprev) {
+			let skip=0;
+			v.forEach( (w,i) => console.log("XXX",i,w==vprev[i+skip],w,v) )
+		}
+		vprev= v;
+	})
+	
 }
 
 async function main_catch(){
