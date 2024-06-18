@@ -36,7 +36,7 @@ let Nid= 1;
 const T={}
 const tadd1= (w,p) => { p ||= T; let r= (p[w] ||= {__id__: `__${Nid++}`,__cnt__: 0}); r.__cnt__++; return r }
 tadd1('__END__') //A: para que tenga id facil
-const tadd= (t,p) => tadd1('__END__', t.reduce( (p, e) => tadd1(e,p), null )).__id__;
+const tadd= (t,p) => tadd1('__END__', t.reduce( (p, e) => tadd1(Array.isArray(e) ? tadd(e) : e,p), null )).__id__;
 
 const kv_to_lol= (n) => {
 	if (typeof(n)!="object") { return ['__txt',n.replace(/\s+/gs,' ').trim()] }
@@ -44,7 +44,7 @@ const kv_to_lol= (n) => {
 	let r= [
 		n.type, 
 		['__class', ...(n.attributes?.class || [])],
-		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => tadd([k, n.attributes[k]])) )],
+		['__att',...(Object.keys(n.attributes||{}).filter(k => (k!='class')).sort().map(k => [k, n.attributes[k]]) )],
 		['__txt',...(n.txt ? [ n.txt.replace(/\s+/gs,' ').trim()] : [])],
 		...((n.content||[]).map(kv_to_lol)),
 	].map(e => (typeof(e)=="object" ? tadd(e) : e));
@@ -119,13 +119,13 @@ async function main() {
 
 	const patt_try= ([kprev,vprev],[k,v]) => { //XXX:usar con CUALQUIER par, lo que MAS me importa es el FOR!
 		logmm("DBG:patt",{k,kprev},v,vprev)
-		if (vprev) {
+		if (vprev && kprev!=k) {
 			let [xpatt, xprev, xthis]= listdiff(vprev,v,patt_min_len);
 			let pattId;
 			if (xpatt && xpatt.length>1 && xpatt[1]=='__a0') { //A: class! considerar distancia
 				let c1= TInvPatt[xprev[0]]; let c2= TInvPatt[xthis[0]];
-				logmm("DBG:patt_class",k,kprev,c1,c2,xthis,xprev,v,vprev)
-				xpatt= false;
+				logmm("DBG:patt_class",{k,kprev,c1,c2,xthis,xprev,v,vprev})
+				xpatt= v.length-xthis.length>1 ? xpatt : false;
 			}
 			if (xpatt) {
 				let last_non_arg_idx= xpatt.findLastIndex( e => !e.startsWith('__a') )
@@ -156,35 +156,42 @@ async function main() {
 	Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
 
 	logmm("DBG:BF");
-	const visit_breadthfirst1= (from_id) => { 
-		if (!from_id?.match(/^__\d+/)) return {};
+	const grp_by_head= (ids,grp) =>	(
+		ids.map(id =>[id,TInvPatt[id]])
+			.reduce((acc,[k,v]) => { (acc[v[1][0]] ||= []).push([k,v[1]]); return	acc }, grp)
+	)
 
-		const from= TInvPatt[from_id];
-		const grp= from[1].slice(3).map(id =>[id,TInvPatt[id]])
-			.reduce((acc,[k,v]) => { (acc[v[1][0]] ||= []).push([k,v[1]]); return	acc },{})
-		logmm("DBG:BF_GRP",grp);
-		Object.values(grp).forEach(els => { 
-			logmm("DBG:BF_GRP1",els);
-			let kvprev=[]; els.forEach( me => { patt_try(kvprev,me); kvprev= me })
-		})
-		return grp;
-	}
 	const visit_breadthfirst= (from_id,max_i=3) => {
-		let gq= []; 
-		gq.push( visit_breadthfirst1(ast_lol) ); //A: encolamos grupos para visitar	
-		for (let i=0; i<max_i && i<gq.length;i++) { let gn= gq[i];
-			Object.values(gn).forEach(kvs => kvs.forEach(kv => {
-				logmm("DBG:BFQ",i,gq.length,kv)
-				kv[1].slice(3).forEach( fid => gq.push( visit_breadthfirst1(fid) ) )
-			}))
+		if (!from_id?.match(/^__\d+/)) return {};
+		const from= TInvPatt[from_id];
+		const ids= from[1].slice(3)
+		const gq= grp_by_head(ids,{});
+		const kvprev= {}
+		for (let i=0; i<max_i;) { 
+			Object.entries(gq).forEach(([t,kvs]) => { logmm("DBG:BFQ",i,t,kvs.length,kvs);
+				if (t.match(/^__\d+/)) return ; //A: no hacemos pattern de pattern!
+				let idq=[], fid='CALC';
+				for (let idx= 0;fid;idx++) { 
+					for (let j=0;j<kvs.length;j++) {
+						let kv= kvs[j][1]; fid= kv[3+idx]; logmm("BFG:BFQ1",{idx,j,fid,kv});
+						if (fid && fid!= idq.slice(-1)[0]) { idq.push(fid) }
+					}	
+				}
+				logmm("DBG:BFQL",i,t,idq)
+				i += idq.length; grp_by_head(idq,gq);
+				idq.forEach(id => { let kv= [id,TInvPatt[id][1]], h= kv[1][0];
+					logmm("DBG:BFQL1",{h},kv)
+					if (!h || h.match(/^__\d+/)) return;
+					patt_try(kvprev[h] || [], kv); kvprev[h]= kv;
+				});  //A: patterns para class
+			})
+			Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
 		}
 	}
-	visit_breadthfirst(ast_lol,100000)
-	Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
+	visit_breadthfirst(ast_lol,1000)
 
 
 	set_f('xast_tip.yaml',yaml.dump(TInvPatt,{flowLevel:1}))
-
 
 	const expand= (id) => {
 		if (! (typeof(id)=='string' && id.match(/^__\d+/))) return id;
@@ -192,38 +199,41 @@ async function main() {
 		let r;
 		DBG && logmm('DBG:expand',id);
 		let [pidP,d]= TInvPatt[id];
-		DBG && logmm('DBG:expand_def',pidP,d);
+		DBG && logmm('DBG:expand_def',{id,pidP},d);
 		let dex= d.map( expand ); r=dex; //DFLT
-		DBG && logmm('DBG:expand_data',pidP,d,dex);
+		DBG && logmm('DBG:expand_data',{id,pidP},{d,dex});
 		if (pidP.match(/^__\d+/)) {
 			let patt= TInvPatt[pidP][1];
-			DBG && logmm('DBG:expand_patt',pidP,patt,d,dex);
+			DBG && logmm('DBG:expand_patt',{id,pidP},{patt,d,dex});
 			let idx_last=-1;
 			r= patt
 					.map( e => { 
 						let idx= (e.match && e.match(/__a(\d+)/)||[])[1] 
-						if (idx) { idx_last= idx; return dex[idx] }
+						if (idx) { idx_last= idx; return dex[idx]}
 						return e; 
 					})
 			if (patt.slice(-1)[0]=='__a*') {
+				DBG && logmm('DBG:expand_patt_star',{id,pidP,idx_last},{patt,d,dex});
 				r.pop(); r= [...r, ...dex.slice(idx_last+1)]	
 			}
 			r= r.map(expand)
-			DBG && logmm('DBG:expand_patt_R',pidP,patt,r,dex);
+			DBG && logmm('DBG:expand_patt_R',{id,pidP},{r,patt,dex});
 		}
-		try { r[2].push(['ID___',id]); r[2].push(['IDP___',pidP]); } catch(ex) {}
-		return r;
+		try { if (r[2][0]=='__att') { r[2].push(['ID___',id]); r[2].push(['IDP___',pidP]); }} catch(ex) {}
+		return r.filter(e => e!=null);
 	}
 
 	let lol= expand(ast_lol)
 	
 	const lol_to_html= (lol) => {
+		if (Array.isArray(lol) && lol.length==1 && Array.isArray(lol[0])) lol=lol[0] //XXX:FIXME!
 		if (!Array.isArray(lol)) return lol;
 		if (lol[0]=='__txt') return lol[1];
+		logmm("DBG:lol_to_html",lol)
 		let [h,[_1,...cls],[_2,...att],...content]= lol;
 		console.log({content},lol)
 		let hasContent= content.length>0 && (content[0][1] || content.length>1) //A: siempre viene un __txt
-		DBG && logmm("DBG:lol_to_html",{h,hasContent,cls,att,content},lol)
+		DBG && logmm("DBG:lol_to_html",{h,hasContent,cls,att,content})
 		let r= ['<',h, 
 			cls?.length>0 ? ` class="${cls.filter(e=>e).join(' ')}"` : '', 
 			att?.length>0 ? ` ${att.filter(e=>e).map(([k,v]) => (k==v ? k : k+'="'+v+'"')).join(' ')}` : '', 
