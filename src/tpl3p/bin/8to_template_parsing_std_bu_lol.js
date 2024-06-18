@@ -115,7 +115,10 @@ async function main() {
 	const patt_min_len=1
 	const TInvPatt= {}
 				
-	const patt_pending= {}
+	let patt_pending= {}
+	const patt_pending_add= () => {
+		Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); patt_pending={} //A: agrego los patterns nuevos
+	}
 
 	const patt_try= ([kprev,vprev],[k,v]) => { //XXX:usar con CUALQUIER par, lo que MAS me importa es el FOR!
 		logmm("DBG:patt",{k,kprev},v,vprev)
@@ -153,7 +156,7 @@ async function main() {
 	
 	Object.entries(TInv).forEach(([k,v]) => { TInvPatt[k]= ['',v]; }); //A: agrego sin patterns
 	let kvprev=[]; Object.entries(TInv).filter(kv=>(kv[1].length>1 && kv[1][0]=='__class')).forEach(kv => { patt_try(kvprev,kv); kvprev= kv });  //A: patterns para class
-	Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
+	patt_pending_add()	
 
 	logmm("DBG:BF");
 	const grp_by_head= (ids,grp) =>	(
@@ -183,27 +186,27 @@ async function main() {
 					logmm("DBG:BFQL1",{h},kv)
 					if (!h || h.match(/^__\d+/)) return;
 					patt_try(kvprev[h] || [], kv); kvprev[h]= kv;
+					patt_pending_add()
 				});  //A: patterns para class
 			})
-			Object.entries(patt_pending).forEach(([k,v]) => { TInvPatt[k]= ['__p',v]; }); //A: agrego los patterns nuevos
 		}
 	}
-	visit_breadthfirst(ast_lol,1000)
+	visit_breadthfirst(ast_lol,10000)
 
 
 	set_f('xast_tip.yaml',yaml.dump(TInvPatt,{flowLevel:1}))
 
-	const expand= (id) => {
+	const expand= (id, DB, no_id_attr) => {
 		if (! (typeof(id)=='string' && id.match(/^__\d+/))) return id;
-
+		DB ||= TInvPatt
 		let r;
 		DBG && logmm('DBG:expand',id);
-		let [pidP,d]= TInvPatt[id];
+		let [pidP,d]= DB[id];
 		DBG && logmm('DBG:expand_def',{id,pidP},d);
-		let dex= d.map( expand ); r=dex; //DFLT
+		let dex= d.map( (e) => expand(e,DB) ); r=dex; //DFLT
 		DBG && logmm('DBG:expand_data',{id,pidP},{d,dex});
 		if (pidP.match(/^__\d+/)) {
-			let patt= TInvPatt[pidP][1];
+			let patt= DB[pidP][1];
 			DBG && logmm('DBG:expand_patt',{id,pidP},{patt,d,dex});
 			let idx_last=-1;
 			r= patt
@@ -216,14 +219,17 @@ async function main() {
 				DBG && logmm('DBG:expand_patt_star',{id,pidP,idx_last},{patt,d,dex});
 				r.pop(); r= [...r, ...dex.slice(idx_last+1)]	
 			}
-			r= r.map(expand)
+			r= r.map(e => expand(e,DB))
 			DBG && logmm('DBG:expand_patt_R',{id,pidP},{r,patt,dex});
 		}
-		try { if (r[2][0]=='__att') { r[2].push(['ID___',id]); r[2].push(['IDP___',pidP]); }} catch(ex) {}
+		try { if (!no_id_att &&r[2][0]=='__att') { r[2].push(['ID___',id]); r[2].push(['IDP___',pidP]); }} catch(ex) {}
 		return r.filter(e => e!=null);
 	}
 
-	let lol= expand(ast_lol)
+	let DBori= {}; Object.entries(TInv).forEach(([k,v])=>DBori[k]=["",v])
+	set_f('xdbori.yaml',yaml.dump(DBori))
+	let lol= expand(ast_lol,DBori,true)
+	set_f('xlol.yaml',yaml.dump(lol))
 	
 	const lol_to_html= (lol) => {
 		if (Array.isArray(lol) && lol.length==1 && Array.isArray(lol[0])) lol=lol[0] //XXX:FIXME!
@@ -247,6 +253,8 @@ async function main() {
 	logmm("DBG:HTMLG",htmlg)
 	set_f('xg.html',htmlg.replace(/</gs,'\n<'));
 	set_f('xexpand.html',await htmlutil.pretty_html(htmlg));
+
+	console.log(lol_to_html(expand('__1104',DBori)))
 }
 
 async function main_catch(){

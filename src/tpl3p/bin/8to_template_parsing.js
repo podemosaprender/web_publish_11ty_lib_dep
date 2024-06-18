@@ -25,7 +25,7 @@ function node_diff(a,b,vs) {
 	let r= a.clone();
 	let vs1= {}
 	try {
-		let a_attr= a.attributes || {} ; let b_attr= b.attributes || {}
+	 	let a_attr= a.attributes || {} ; let b_attr= b.attributes || {}
 		let c_attr= {};
 		Object.entries(a_attr).forEach( ([k,v]) => { let vb= b_attr[k];
 			if (vb==null) { c_attr['X_v_attr_SAFE']=''; vs1[k]=[v,vb] }
@@ -37,7 +37,7 @@ function node_diff(a,b,vs) {
 
 		let a_ch= a.childNodes;
 		let b_ch= b.childNodes;
-		if (a_ch.length==0 || a_ch.length!=b_ch.length) { console.log("CH LEN DIFFi O VACIO"); }
+		if (a_ch.length==0 || a_ch.length!=b_ch.length) { console.log("CH LEN DIFF O VACIO"); }
 		else {
 			for (let i=0;i<a_ch.length;i++) {
 				if (a_ch[i].outerHTML && b_ch[i].outerHTML) {

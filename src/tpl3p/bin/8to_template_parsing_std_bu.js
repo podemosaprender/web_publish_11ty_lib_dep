@@ -2,7 +2,7 @@
 //U: bin/8to_template_parsing_std_bu.js my_template/index.html
 
 const htmlutil= require('./htmlutil.js');
-const { escapeRegex, set_f, sort_kv }= htmlutil;
+const { escapeRegex, set_f, sort_kv, yaml }= htmlutil;
 //XXX:LIB {
 const { HTMLToJSON, JSONToHTML } = require('html-to-json-parser');
 const diff = require('deep-diff')
@@ -36,22 +36,27 @@ const ast_patt= (n,path=[]) => { //U: reemplazar por patterns en ast normalizado
 	if (typeof(n)!="object") { return n; }
 	let npath= [n.type,...path]; let spath= npath.join(' ');//A: prefix order
 
+
 	try {
 		let patterns= ( PFX2EL[n.type] ||= []);
 		DBG && logmm("DBG:patt_try",n.type,patterns);
+		let matches;
 		if (patterns.length>0) {
-			let matches= patterns.map( p => to_for_grp([p,n]) ).filter( ([matched]) => matched );
-			DBG && logmm("DBG:patt_maybe",n.type,matches);
-			if (matches.length>0) {
-				let [matched,pattern,vals]= matches[0]; //XXX:elegir el mejor
-				DBG && logmm("DBG:patt_find",n.type,pattern,vals);
-				let r= {type: `XXXPAT${n.type}_${patterns.indexOf(pattern)}`, vals: vals[1]};
-				return r;
-			}
+			matches= patterns
+				.map( p => to_for_grp([p,n]) )
+				.filter( ([matched]) => matched )
+				.sort( (a,b) => (a[3]-b[3]) )
+			DBG && logmm("DBG:patt_maybe",n.type,matches.length,matches);
+		}
+		patterns.push(n) //A: todos a patterns
+		if (matches?.length>0) {
+			let [matched,pattern,vals]= matches[0]; //XXX:elegir el mejor
+			DBG && logmm("DBG:patt_find",n.type,pattern,vals);
+			let r= {type: `XXXPAT${n.type}_${patterns.indexOf(pattern)}`, vals: vals[1]};
+			return r;
 		}
 		//A: si encontro pattern devolvio
 
-		patterns.push(n) 
 		if (n.content?.length>0) {
 			n.content= n.content.reduce(([grp,gcur,tcur], ch) => {
 				let p= ast_patt(ch,npath)
@@ -104,7 +109,7 @@ const to_for_grp= (chs) => {
 			if (plast=='class') return;
 			if ( types_differ= types_differ|| plast=='type') { return } //A: demasiado diferentes
 			if ( plast=='content' )  { 
-				types_differ= (dfj.item.rhs?.content || dfj.item.lhs?.content)!=null
+				//types_differ= (dfj.item.rhs?.content || dfj.item.lhs?.content)!=null
 				DBG && logmm("DBG:diff_content",j,types_differ,dfj);
 				if (types_differ) return 
 			}
@@ -122,7 +127,7 @@ const to_for_grp= (chs) => {
 	DBG && logmm("DBG:to_for_grp_R",chC,vals)
 	//XXX:NO UNIFICAR DEMASIADO DIFERENTES! COMO? ej. div de cada seccion!
 	//XXX:los top eran MISMO tipo ej div, pero adentro es todo diferente!
-	return types_differ ? [false,chs,{}] : [true,chC,vals];
+	return types_differ ? [false,chs,{}] : [true,chC,vals,Object.values(vals).reduce((c,v) => c+typeof(v)=="object"?10:1,0) ];
 }
 
 async function main() {
@@ -147,11 +152,15 @@ async function main() {
 	ast_norm(ast);
 	//A: class es array, si content era solo texto va a txt XXX:vars para href, imagenes, etc. DESPUES de to_for?
 	DBG && logmm("DBG:AST_NORM", ast);
+	set_f('xast_norm.yaml',yaml.dump(ast,{sortKeys: true}))
 
 	apatt= ast_patt(ast)
 	DBG && logmm("DBG:AST_PATT", apatt);
-	Object.entries(PFX2EL).forEach(([t,vs]) => vs.forEach( (v,i) => logmm("R:PATT:"+`XXXPAT${t}_${i}`,v))) 
+	let PATT={}
+	Object.entries(PFX2EL).forEach(([t,vs]) => vs.forEach( (v,i) => (PATT[`XXXPAT${t}_${i}`]=v))) 
+	set_f('xast_patt.yaml',yaml.dump(PATT));
 	logmm("R", apatt);
+	set_f('xast_gen.yaml',yaml.dump(apatt,{sortKeys: true}))
 }
 
 async function main_catch(){
