@@ -3,7 +3,7 @@
 
 const htmlutil= require('./htmlutil.js');
 const { escapeRegex, set_f, sort_kv }= htmlutil;
-const { vars,links,strs }= htmlutil; //XXX:encapsular
+const { out_dir }= htmlutil;
 //XXX:LIB {
 //XXX:LIB }
 
@@ -44,6 +44,43 @@ async function main() {
 {% import "xo/macros.njk" as tw %}
 `
 		+await htmlutil.pretty_html(sections_html.BASE_))
+
+
+	const RE_BLOCK=/((\n\s+)<((?:li)|(?:div))) .*?\2<\/\3>(\1 .*?\2<\/(\3)>)*[ \t]*/si; //A: de afuera a dentro
+	const RE_LINE=/(\n\s+<((?:li))) .*?<\/\2>(\1 .*?<\/(\2)>)*/gsi;
+	
+	//DBG: console.log(x)
+	const to_tpl= function(x,acc={},parent='r_') {
+		let i,xp;
+		for (i=0,xp=''; x!=xp && i<1000; i++) { xp= x;		
+			x= xp.replace(RE_BLOCK,
+				(m,...a) => {
+					let d= {id: [parent,'b',i].join('')}; acc[d.id]= d;
+					console.log('DBG:MATCH',d,{m});
+					let [_1,indent,mcont]= m.match(/^(\s+)<[^>]+>(.*?)\s*<[^>]+>\s*$/s)
+					console.log("DBG:CONT",d,{mcont})
+					d.cont= to_tpl(mcont,acc,d.id);
+					return `${indent}XXX_${d.id}\n`  //A: bloques interiores, match va de afuera hacia adentro
+				}
+			);
+		}
+		for (xp=''; x!=xp && i<1000; i++) { xp= x;		
+			x= xp.replace(RE_LINE,
+				(m,...a) => {
+					let d= {id: [parent,'l',i].join('')}; acc[d.id]= d;
+					console.log('DBG:MATCH_L',d,{m});
+					d.cont= m;
+					let [_1,indent]= m.match(/^(\s+)<[^>]+>/s)
+					return `${indent}XXX_${d.id}\n`  //A: bloques interiores, match va de afuera hacia adentro
+				}
+			);
+		}
+		return x;
+	}
+	x= sections_html.pricing;
+	xfin= to_tpl(x, acc=[]);
+	console.log({xfin});
+	console.log({acc});
 }
 
 main();
