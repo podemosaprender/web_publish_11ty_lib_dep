@@ -1,4 +1,6 @@
 //INFO: 11ty pipeline config
+const DBG=process.env.DBG
+
 const our_lib = require('./src/lib/js/template-functions.js')
 const lunr_index_gen = require('./src/lib/js/search-lunr/create-index.js');
 const { BasePath } = require('./src/lib/env.js');
@@ -56,17 +58,19 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
 
-	eleventyConfig.addTransform("htmlmin", function (content) {
-		if ((this.page.outputPath || "").endsWith(".html")) {
-			let minified = htmlmin.minify(content, {
-				useShortDoctype: true,
-				removeComments: true,
-				collapseWhitespace: true,
-			});
-			return minified;
-		}
-		return content;//A: If not an HTML output, return content as-is
-	});
+	if (!DBG) {
+		eleventyConfig.addTransform("htmlmin", function (content) {
+			if ((this.page.outputPath || "").endsWith(".html")) {
+				let minified = htmlmin.minify(content, {
+					useShortDoctype: true,
+					removeComments: true,
+					collapseWhitespace: true,
+				});
+				return minified;
+			}
+			return content;//A: If not an HTML output, return content as-is
+		});
+	}
 
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})

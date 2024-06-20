@@ -1,4 +1,4 @@
-
+{############################################################}
 {% macro light_dark_mode(p) %}	
 	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
 		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
@@ -20,6 +20,7 @@
 	</div>
 {% endmacro %}
 
+{############################################################}
 {% macro navbar_1_3(p) %}	
 	<a class="navbar-brand logo" href="{{ p.v_a_href_https_themesbrand_com_lezir_layout_layout_one_1_html }}">
 		<img src="images/logo-dark.png" alt="" class="logo-dark" height="24" />
@@ -51,11 +52,11 @@
 	<ul class="navbar-nav navbar-center">
 		<li class="nav-item">
 			<a href="{{ p.v_a_href__login }}" class="nav-link" data-bs-toggle="modal"
-																												 data-bs-target="#exampleModalCenter">{{ p.v_a_Login }}</a>
+																												 data-bs-target="#loginModal">{{ p.v_a_Login }}</a>
 		</li>
 		<li class="nav-item">
 			<a href="{{ p.v_a_href__login }}" class="nav-link" data-bs-toggle="modal"
-																												 data-bs-target="#exampleModalCenter-1">{{ p.v_a_Register }}</a>
+																												 data-bs-target="#loginModal-1">{{ p.v_a_Register }}</a>
 		</li>
 	</ul>
 {% endmacro %}
@@ -95,6 +96,7 @@
 	</nav>
 {% endmacro %}
 
+{############################################################}
 {% macro home_3_1_1_1(p) %}	
 	<div class="text-center">
 		<h1 class="text-white hero-6-title mb-4 line-height-1_4">{{ p.v_txt_2 }}</h1>
@@ -163,171 +165,174 @@
 	</section>
 {% endmacro %}
 
-{% macro r_23_1_1_1_1_1_1(p) %}	
+{############################################################}
+
+{% macro whyus_1_1_1_1_1_1(p) %}	
 	<div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
 {% endmacro %}
 
-{% macro r_23_1_1_1_1_1(p) %}	
+{% macro whyus_1_1_1_1_1(p) %}	
 	<div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
-		{{ r_23_1_1_1_1_1_1(p) }}
+		{{ whyus_1_1_1_1_1_1(p) }}
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_1_1_7(p) %}	
+{% macro whyus_1_1_1_1_7(p) %}	
 	<a href="{{ p.v_a_href__ }}" class="btn btn-outline-primary">{{ p.v_txt_7 }}</a>
 {% endmacro %}
 
-{% macro r_23_1_1_1_1(p) %}	
+{% macro whyus_1_1_1_1(p) %}	
 	<div class="mb-4 mb-lg-0">
 
-		{{ r_23_1_1_1_1_1(p) }}
+		{{ whyus_1_1_1_1_1(p) }}
 
 		<h3 class="">{{ p.v_txt_5 }}</h3>
 		<p class="text-muted mb-4">{{ p.v_txt_6 }}</p>
-		{{ r_23_1_1_1_1_7(p) }}
+		{{ whyus_1_1_1_1_7(p) }}
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_1(p) %}	
+{% macro whyus_1_1_1(p) %}	
 	<div class="col-lg-4 align-self-center">
 
-		{{ r_23_1_1_1_1(p) }}
+		{{ whyus_1_1_1_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_1_1_1(p) %}	
+{% macro whyus_1_1_3_1_1_1_1(p) %}	
 	<div class="wc-box-icon">
 		<i class="mdi mdi-collage"></i>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_1_1(p) %}	
+{% macro whyus_1_1_3_1_1_1(p) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4 mt-md-5">
 
-		{{ r_23_1_1_3_1_1_1_1(p) }}
+		{{ whyus_1_1_3_1_1_1_1(p) }}
 
 		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_8 }}</h5>
 		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_9 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_1_3_1(p) %}	
+{% macro whyus_1_1_3_1_1_3_1(p) %}	
 	<div class="wc-box-icon">
 		<i class="mdi mdi-trending-up"></i>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_1_3(p) %}	
+{% macro whyus_1_1_3_1_1_3(p) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4">
 
-		{{ r_23_1_1_3_1_1_3_1(p) }}
+		{{ whyus_1_1_3_1_1_3_1(p) }}
 
 		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_10 }}</h5>
 		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_11 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_1(p) %}	
+{% macro whyus_1_1_3_1_1(p) %}	
 	<div class="col-md-6">
 
-		{{ r_23_1_1_3_1_1_1(p) }}
+		{{ whyus_1_1_3_1_1_1(p) }}
 
 
-		{{ r_23_1_1_3_1_1_3(p) }}
+		{{ whyus_1_1_3_1_1_3(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_3_1_1(p) %}	
+{% macro whyus_1_1_3_1_3_1_1(p) %}	
 	<div class="wc-box-icon">
 		<i class="mdi mdi-security"></i>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_3_1(p) %}	
+{% macro whyus_1_1_3_1_3_1(p) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4">
 
-		{{ r_23_1_1_3_1_3_1_1(p) }}
+		{{ whyus_1_1_3_1_3_1_1(p) }}
 
 		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_12 }}</h5>
 		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_13 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_3_3_1(p) %}	
+{% macro whyus_1_1_3_1_3_3_1(p) %}	
 	<div class="wc-box-icon">
 		<i class="mdi mdi-database-lock"></i>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_3_3(p) %}	
+{% macro whyus_1_1_3_1_3_3(p) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4">
 
-		{{ r_23_1_1_3_1_3_3_1(p) }}
+		{{ whyus_1_1_3_1_3_3_1(p) }}
 
 		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_14 }}</h5>
 		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_15 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1_3(p) %}	
+{% macro whyus_1_1_3_1_3(p) %}	
 	<div class="col-md-6">
 
-		{{ r_23_1_1_3_1_3_1(p) }}
+		{{ whyus_1_1_3_1_3_1(p) }}
 
 
-		{{ r_23_1_1_3_1_3_3(p) }}
+		{{ whyus_1_1_3_1_3_3(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3_1(p) %}	
+{% macro whyus_1_1_3_1(p) %}	
 	<div class="row">
 
-		{{ r_23_1_1_3_1_1(p) }}
+		{{ whyus_1_1_3_1_1(p) }}
 
 
-		{{ r_23_1_1_3_1_3(p) }}
+		{{ whyus_1_1_3_1_3(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1_3(p) %}	
+{% macro whyus_1_1_3(p) %}	
 	<div class="col-lg-8 align-self-center">
 
-		{{ r_23_1_1_3_1(p) }}
+		{{ whyus_1_1_3_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1_1(p) %}	
+{% macro whyus_1_1(p) %}	
 	<div class="row justify-content-center">
 
-		{{ r_23_1_1_1(p) }}
+		{{ whyus_1_1_1(p) }}
 
 
-		{{ r_23_1_1_3(p) }}
+		{{ whyus_1_1_3(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23_1(p) %}	
+{% macro whyus_1(p) %}	
 	<div class="container">
 
-		{{ r_23_1_1(p) }}
+		{{ whyus_1_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r_23(p) %}	
+{% macro whyus(p) %}	
 	<section class="section">
 
-		{{ r_23_1(p) }}
+		{{ whyus_1(p) }}
 
 	</section>
 {% endmacro %}
 
+{############################################################}
 {% macro features_1_1_1_1(p) %}	
 	<div class="text-center mb-5">
 		<h3 class="title mb-3">{{ p.v_txt_16 }}</h3>
@@ -429,6 +434,8 @@
 	</section>
 {% endmacro %}
 
+
+{############################################################}
 {% macro r_31_1_1_1_11_1(p) %}	
 	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_a_Read_20More }}</a>
 {% endmacro %}
@@ -502,6 +509,8 @@
 	</section>
 {% endmacro %}
 
+
+{############################################################}
 {% macro pricing_1_1_1_1(p) %}	
 	<div class="text-center mb-5">
 		<h3 class="title mb-3">{{ p.v_txt_21 }}</h3>
@@ -739,6 +748,8 @@
 	</div>
 {% endmacro %}
 
+
+{############################################################}
 {% macro blog_1_1_1(p) %}	
 	<div class="col-lg-6">
 
@@ -900,6 +911,8 @@
 	</section>
 {% endmacro %}
 
+
+{############################################################}
 {% macro contact_1_1_1_1(p) %}	
 	<div class="text-center mb-5">
 		<h3 class="title mb-3">{{ p.v_txt_49 }}</h3>
@@ -1021,6 +1034,9 @@
 	</section>
 {% endmacro %}
 
+
+{############################################################}
+
 {% macro r_55_1_1_1_1_5(p) %}	
 	<ul class="list-inline footer-social-icon-content">
 		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon facebook"><i                                         class="" data-feather="facebook"></i></a></li>
@@ -1101,58 +1117,33 @@
 {% macro r_55_1_1_3_1_5(p) %}	
 	<div class="col-md-4">
 		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_Support }}</h6>
-
 		{{ r_55_1_1_3_1_5_3(p) }}
-
 	</div>
 {% endmacro %}
 
 {% macro r_55_1_1_3_1(p) %}	
 	<div class="row">
-
 		{{ r_55_1_1_3_1_1(p) }}
-
-
 		{{ r_55_1_1_3_1_3(p) }}
-
-
 		{{ r_55_1_1_3_1_5(p) }}
-
 	</div>
 {% endmacro %}
 
 {% macro r_55_1_1_3(p) %}	
 	<div class="col-lg-7 offset-lg-1">
-
 		{{ r_55_1_1_3_1(p) }}
-
 	</div>
 {% endmacro %}
 
-{% macro r_55_1_1(p) %}	
-	<div class="row">
-
-		{{ r_55_1_1_1(p) }}
-
-
-		{{ r_55_1_1_3(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_55_1(p) %}	
-	<div class="container">
-
-		{{ r_55_1_1(p) }}
-
-	</div>
-{% endmacro %}
 
 {% macro r_55(p) %}	
 	<section class="footer" style="background-image: url(images/footer-bg.png)">
-
-		{{ r_55_1(p) }}
-
+		<div class="container">
+			<div class="row">
+				{{ r_55_1_1_1(p) }}
+				{{ r_55_1_1_3(p) }}
+			</div>
+		</div>
 	</section>
 {% endmacro %}
 
@@ -1196,25 +1187,27 @@
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1(p) %}	
+
+{############################################################}
+{% macro registerModal_1_1_1(p) %}	
 	<div class="modal-body">
 
-		{{ exampleModalCenter_1_1_1_1_1(p) }}
+		{{ registerModal_1_1_1_1(p) }}
 
 
-		{{ exampleModalCenter_1_1_1_1_3(p) }}
+		{{ registerModal_1_1_1_3(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_3_3(p) %}	
+{% macro registerModal_1_1_3_3(p) %}	
 	<div class="position-relative text-center mt-4">
 		<span class="login-border"></span>
 		<p class="social-login text-muted font-size-17">{{ p.v_txt_68 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_3_5_1(p) %}	
+{% macro registerModal_1_1_3_5_1(p) %}	
 	<ul class="list-inline mt-2 mb-3">
 		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-primary"><i                                             class="icon-xs" data-feather="facebook"></i></a></li>
 		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-info"><i                                             class="icon-xs" data-feather="twitter"></i></a></li>
@@ -1223,16 +1216,16 @@
 	</ul>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_3_5(p) %}	
+{% macro registerModal_1_1_3_5(p) %}	
 	<div class="text-center">
 
-		{{ exampleModalCenter_1_1_1_3_5_1(p) }}
+		{{ registerModal_1_1_3_5_1(p) }}
 
 		<p class="text-muted mb-0">{{ p.v_txt_69 }}<a href="{{ p.v_a_href__ }}" class="text-primary">{{ p.v_a_Signup }}</a></p>
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_3(p) %}	
+{% macro registerModal_1_1_3(p) %}	
 	<div class="login-form mt-4">
 		<form>
 			<div class="form-group">
@@ -1256,61 +1249,61 @@
 			</div>
 		</form>
 
-		{{ exampleModalCenter_1_1_1_3_3(p) }}
+		{{ registerModal_1_1_3_3(p) }}
 
 
-		{{ exampleModalCenter_1_1_1_3_5(p) }}
+		{{ registerModal_1_1_3_5(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1(p) %}	
+{% macro registerModal_1_1(p) %}	
 	<div class="modal-content login-page">
 
-		{{ exampleModalCenter_1_1_1_1(p) }}
+		{{ registerModal_1_1_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1(p) %}	
+{% macro registerModal_1(p) %}	
 	<div class="modal-dialog modal-dialog-centered" role="document">
 
-		{{ exampleModalCenter_1_1_1(p) }}
+		{{ registerModal_1_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1(p) %}	
-	<div class="modal fade" id="exampleModalCenter-1" tabindex="-1" role="dialog" aria-hidden="true">
+{% macro registerModal(p) %}	
+	<div class="modal fade" id="loginModal-1" tabindex="-1" role="dialog" aria-hidden="true">
 
-		{{ exampleModalCenter_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro exampleModalCenter(p) %}	
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
-
-		{{ exampleModalCenter_1(p) }}
+		{{ registerModal_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1_1(p) %}	
+{% macro loginModal(p) %}	
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+		{{ registerModal(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro registerModal_1_1_1_1(p) %}	
 	<div class="text-center">
 		<h3 class="title mb-4">{{ p.v_txt_70 }}</h3>
 		<h4 class="text-uppercase text-primary"><b>Register</b></h4>
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1_3_3(p) %}	
+{% macro registerModal_1_1_1_3_3(p) %}	
 	<div class="position-relative text-center mt-4">
 		<span class="login-border"></span>
 		<p class="social-login text-muted font-size-17">{{ p.v_txt_76 }}</p>
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1_3_5_1(p) %}	
+{% macro registerModal_1_1_1_3_5_1(p) %}	
 	<ul class="list-inline mt-2 mb-3">
 		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-primary"><i                                             class="icon-xs" data-feather="facebook"></i></a></li>
 		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-info"><i                                             class="icon-xs" data-feather="twitter"></i></a></li>
@@ -1319,15 +1312,15 @@
 	</ul>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1_3_5(p) %}	
+{% macro registerModal_1_1_1_3_5(p) %}	
 	<div class="text-center">
 
-		{{ exampleModalCenter_1_1_1_1_3_5_1(p) }}
+		{{ registerModal_1_1_1_3_5_1(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro exampleModalCenter_1_1_1_1_3(p) %}	
+{% macro registerModal_1_1_1_3(p) %}	
 	<div class="login-form mt-4">
 		<form>
 			<div class="form-group">
@@ -1356,93 +1349,46 @@
 			</div>
 		</form>
 
-		{{ exampleModalCenter_1_1_1_1_3_3(p) }}
+		{{ registerModal_1_1_1_3_3(p) }}
 
 
-		{{ exampleModalCenter_1_1_1_1_3_5(p) }}
+		{{ registerModal_1_1_1_3_5(p) }}
 
 	</div>
 {% endmacro %}
 
-{% macro r(p) %}	
+
+{############################################################}
+{% set twme= {
+	'home': home,
+	'whyus': whyus,
+	'features': features,
+	'r_31': r_31,
+	'pricing': pricing,
+	'blog': blog,
+	'contact': contact
+} %}
+
+{% macro r(p,tw) %}	
 	<body>
-
-		<!-- light-dark mode -->
-
-
 		{{ light_dark_mode(p) }}
-
-		<!-- Loader -->
-
 		{{ preloader(p) }}
-
-
-		<!--Navbar Start-->
-
 		{{ navbar(p) }}
 
-		<!-- Navbar End -->
-
-		<!-- Hero Start -->
-
-		{{ home(p) }}
-
-		<!-- Hero End -->
-
-		<!-- Why Choose Us Start -->
-
-		{{ r_23(p) }}
-
-		<!-- Why Choose Us End -->
-
-		<!-- Features Start -->
-
-		{{ features(p) }}
-
-
-
-		{{ r_31(p) }}
-
-		<!-- Features End -->
-
-		<!-- Pricing Start -->
-
-		{{ pricing(p) }}
-
-		<!-- Pricing End -->
-
-		<!-- Blog start -->
-
-		{{ blog(p) }}
-
-		<!-- Blog End -->
-
-		<!-- Contact Us Start -->
-
-		{{ contact(p) }}
-
-		<!-- Contact Us End -->
+		<pre>{{ p.sections | dump | safe }}</pre>
+		{% for id, data in p.sections %}
+			<!-- SECTION {{id}} {{data.type}} -->
+			{%  if twme[data.type] %}{{ twme[data.type](p) }}
+			{% else %}<div style="background: red;>{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>{% endif %}
+		{% endfor %}
 
 		<!-- Footer Start -->
-
 		{{ r_55(p) }}
-
-
 		{{ r_57(p) }}
-
 		<!-- Footer End -->
 
-		<!-- login Modal Start -->
-
-		{{ exampleModalCenter(p) }}
-
-		<!-- login Modal End -->
-
-		<!-- Register Modal Start-->
-
-		{{ exampleModalCenter_1(p) }}
-
-		<!-- Register Modal End-->
+		{{ loginModal(p) }}
+		{{ registerModal(p) }}
 
 		<!-- javascript -->
 		<script src="js/bootstrap.bundle.min.js"></script>

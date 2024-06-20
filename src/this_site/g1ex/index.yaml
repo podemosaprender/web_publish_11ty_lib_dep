@@ -1,150 +1,158 @@
-data:
-  TITLE_: Lezir - Responsive Bootstrap 5.3 Landing Page Template
-  v_a_Blog: Blog
-  v_a_Buy_20Now: Buy Now
-  v_a_Customers: Customers
-  v_a_Developers: Developers
-  v_a_Features: Features
-  v_a_Guide: Guide
-  v_a_Home: Home
-  v_a_Login: Login
-  v_a_Mission: Mission
-  v_a_Popular: Popular
-  v_a_Press: Press
-  v_a_Pricing: Pricing
-  v_a_Read_20More: Read More
-  v_a_Register: Register
-  v_a_Releases: Releases
-  v_a_Signup: Signup
-  v_a_Strategy: Strategy
-  v_a_Support: Support
-  v_a_Tranding: Tranding
-  v_a_Works: Works
-  v_a_href__: '#'
-  v_a_href__blog: '#blog'
-  v_a_href__contact: '#contact'
-  v_a_href__features: '#features'
-  v_a_href__home: '#home'
-  v_a_href__login: '#login'
-  v_a_href__pricing: '#pricing'
-  v_a_href_https_themesbrand_com_lezir_layout_layout_one_1_html: https://themesbrand.com/lezir/layout/layout-one-1.html
-  v_button_Login: Login
-  v_h3_Build: Build
-  v_h4_Basic: Basic
-  v_h4_Pro: Pro
-  v_h4_Simple: Simple
-  v_h6_About_20Us: About Us
-  v_h6_Customers: Customers
-  v_h6_Support: Support
-  v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
-  v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
-  v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
-  v_img_src_images_features_img_1_png: images/features-img-1.png
-  v_img_src_images_features_img_png: images/features-img.png
-  v_img_src_images_logo_light_png: images/logo-light.png
-  v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
-  v_label_Email: Email
-  v_label_Name_: Name*
-  v_sup__24: $
-  v_txt_1: Contact Us
-  v_txt_10: Grow Your Revenue
-  v_txt_11: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-  v_txt_12: Analytics Security
-  v_txt_13: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-  v_txt_14: Data Privacy
-  v_txt_15: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-  v_txt_16: Awesome Features
-  v_txt_17: >-
-    Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-    cum soluta nobis eligendi cumque.
-  v_txt_18: >-
-    Temporibus autem quibusdam et aut officiis debitis aut rerum a
-    necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-    recusandae itaque.
-  v_txt_19: We do the work you
-  v_txt_2: We help startups launch their products with awesome website
-  v_txt_20: >-
-    Temporibus autem quibusdam et aut officiis debitis aut rerum a
-    necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-    recusandae itaque.
-  v_txt_21: Choose Your Plan
-  v_txt_22: >-
-    Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-    cum soluta nobis eligendi cumque.
-  v_txt_23: User / Month
-  v_txt_24: 'Bandwidth: 1GB'
-  v_txt_25: 'Onlinespace: 500MB'
-  v_txt_26: 'Support: Yes'
-  v_txt_27: User / Month
-  v_txt_28: 'Bandwidth: 2GB'
-  v_txt_29: 'Onlinespace: 1GB'
-  v_txt_3: >-
-    Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-    cumque nihil impedit quo minus quod maxime.
-  v_txt_30: 'Support: Yes'
-  v_txt_31: User / Month
-  v_txt_32: 'Bandwidth: 3GB'
-  v_txt_33: 'Onlinespace: 1.5GB'
-  v_txt_34: 'Support: Yes'
-  v_txt_35: Latest News
-  v_txt_36: >-
-    Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-    cum soluta nobis eligendi cumque.
-  v_txt_37: Best Traveling Place
-  v_txt_38: >-
-    Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-    adipiscing phasellus ullamcorper ipsum rutrum punc.
-  v_txt_39: Learn More
-  v_txt_4: Subscribe
-  v_txt_40: '&#8594;'
-  v_txt_41: Private Meeting Room
-  v_txt_42: >-
-    Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-    adipiscing phasellus ullamcorper ipsum rutrum punc.
-  v_txt_43: Learn More
-  v_txt_44: '&#8594;'
-  v_txt_45: The Best Business Ideas
-  v_txt_46: >-
-    Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-    adipiscing phasellus ullamcorper ipsum rutrum punc.
-  v_txt_47: Learn More
-  v_txt_48: '&#8594;'
-  v_txt_49: Contact Us
-  v_txt_5: Why Choose Us ?
-  v_txt_50: >-
-    Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-    cum soluta nobis eligendi cumque.
-  v_txt_51: Email Address*
-  v_txt_52: Message*
-  v_txt_53: Send Message
-  v_txt_54: support@website.com
-  v_txt_55: www.website.com
-  v_txt_56: (+001) 123 456 7890
-  v_txt_57: 9:00 AM - 6:00 PM
-  v_txt_58: 1644 Deer Ridge Drive Rochelle Park, NJ 07662
-  v_txt_59: >-
-    Cras ultricies mi eu turpis sit hendrerit fringilla vestibulum ante ipsum
-    primis in faucibus ultrices posuere cubilia.
-  v_txt_6: >-
-    Nam libero tempore cum soluta as nobis est eligendi optio cumque nihile
-    impedite quo minus id quod maxime.
-  v_txt_60: Customer Service
-  v_txt_61: Get Started
-  v_txt_62: document.write(new Date().getFullYear())
-  v_txt_63: Welcome To Lezir
-  v_txt_64: Username / Email
-  v_txt_65: Password
-  v_txt_66: Forgot Password.?
-  v_txt_67: Remember Me
-  v_txt_68: Social Login
-  v_txt_69: New User?
-  v_txt_7: Learn More
-  v_txt_70: Welcome To Lezir
-  v_txt_71: User Name
-  v_txt_72: Password
-  v_txt_73: Forgot Password.?
-  v_txt_74: Remember Me
-  v_txt_75: Register
-  v_txt_76: Social Login
-  v_txt_8: Easy To Use
-  v_txt_9: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+data: &alldata
+  defaults: &defaults
+    TITLE_: Lezir - Responsive Bootstrap 5.3 Landing Page Template
+    v_a_Blog: Blog
+    v_a_Buy_20Now: Buy Now
+    v_a_Customers: Customers
+    v_a_Developers: Developers
+    v_a_Features: Features
+    v_a_Guide: Guide
+    v_a_Home: Home
+    v_a_Login: Login
+    v_a_Mission: Mission
+    v_a_Popular: Popular
+    v_a_Press: Press
+    v_a_Pricing: Pricing
+    v_a_Read_20More: Read More
+    v_a_Register: Register
+    v_a_Releases: Releases
+    v_a_Signup: Signup
+    v_a_Strategy: Strategy
+    v_a_Support: Support
+    v_a_Tranding: Tranding
+    v_a_Works: Works
+    v_a_href__: '#'
+    v_a_href__blog: '#blog'
+    v_a_href__contact: '#contact'
+    v_a_href__features: '#features'
+    v_a_href__home: '#home'
+    v_a_href__login: '#login'
+    v_a_href__pricing: '#pricing'
+    v_a_href_https_themesbrand_com_lezir_layout_layout_one_1_html: https://themesbrand.com/lezir/layout/layout-one-1.html
+    v_button_Login: Login
+    v_h3_Build: Build
+    v_h4_Basic: Basic
+    v_h4_Pro: Pro
+    v_h4_Simple: Simple
+    v_h6_About_20Us: About Us
+    v_h6_Customers: Customers
+    v_h6_Support: Support
+    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
+    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
+    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
+    v_img_src_images_features_img_1_png: images/features-img-1.png
+    v_img_src_images_features_img_png: images/features-img.png
+    v_img_src_images_logo_light_png: images/logo-light.png
+    v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
+    v_label_Email: Email
+    v_label_Name_: Name*
+    v_sup__24: $
+    v_txt_1: Contact Us
+    v_txt_10: Grow Your Revenue
+    v_txt_11: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+    v_txt_12: Analytics Security
+    v_txt_13: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+    v_txt_14: Data Privacy
+    v_txt_15: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+    v_txt_16: Awesome Features
+    v_txt_17: >-
+      Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cum soluta nobis eligendi cumque.
+    v_txt_18: >-
+      Temporibus autem quibusdam et aut officiis debitis aut rerum a
+      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
+      recusandae itaque.
+    v_txt_19: We do the work you
+    v_txt_2: We help startups launch their products with awesome website
+    v_txt_20: >-
+      Temporibus autem quibusdam et aut officiis debitis aut rerum a
+      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
+      recusandae itaque.
+    v_txt_21: Choose Your Plan
+    v_txt_22: >-
+      Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cum soluta nobis eligendi cumque.
+    v_txt_23: User / Month
+    v_txt_24: 'Bandwidth: 1GB'
+    v_txt_25: 'Onlinespace: 500MB'
+    v_txt_26: 'Support: Yes'
+    v_txt_27: User / Month
+    v_txt_28: 'Bandwidth: 2GB'
+    v_txt_29: 'Onlinespace: 1GB'
+    v_txt_3: >-
+      Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cumque nihil impedit quo minus quod maxime.
+    v_txt_30: 'Support: Yes'
+    v_txt_31: User / Month
+    v_txt_32: 'Bandwidth: 3GB'
+    v_txt_33: 'Onlinespace: 1.5GB'
+    v_txt_34: 'Support: Yes'
+    v_txt_35: Latest News
+    v_txt_36: >-
+      Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cum soluta nobis eligendi cumque.
+    v_txt_37: Best Traveling Place
+    v_txt_38: >-
+      Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
+      adipiscing phasellus ullamcorper ipsum rutrum punc.
+    v_txt_39: Learn More
+    v_txt_4: Subscribe
+    v_txt_40: '&#8594;'
+    v_txt_41: Private Meeting Room
+    v_txt_42: >-
+      Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
+      adipiscing phasellus ullamcorper ipsum rutrum punc.
+    v_txt_43: Learn More
+    v_txt_44: '&#8594;'
+    v_txt_45: The Best Business Ideas
+    v_txt_46: >-
+      Integer ante arcu accumsan a consectetuer eget posuere mauris praesent
+      adipiscing phasellus ullamcorper ipsum rutrum punc.
+    v_txt_47: Learn More
+    v_txt_48: '&#8594;'
+    v_txt_49: Contact Us
+    v_txt_5: Why Choose Us ?
+    v_txt_50: >-
+      Et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cum soluta nobis eligendi cumque.
+    v_txt_51: Email Address*
+    v_txt_52: Message*
+    v_txt_53: Send Message
+    v_txt_54: support@website.com
+    v_txt_55: www.website.com
+    v_txt_56: (+001) 123 456 7890
+    v_txt_57: 9:00 AM - 6:00 PM
+    v_txt_58: 1644 Deer Ridge Drive Rochelle Park, NJ 07662
+    v_txt_59: >-
+      Cras ultricies mi eu turpis sit hendrerit fringilla vestibulum ante ipsum
+      primis in faucibus ultrices posuere cubilia.
+    v_txt_6: >-
+      Nam libero tempore cum soluta as nobis est eligendi optio cumque nihile
+      impedite quo minus id quod maxime.
+    v_txt_60: Customer Service
+    v_txt_61: Get Started
+    v_txt_62: document.write(new Date().getFullYear())
+    v_txt_63: Welcome To Lezir
+    v_txt_64: Username / Email
+    v_txt_65: Password
+    v_txt_66: Forgot Password.?
+    v_txt_67: Remember Me
+    v_txt_68: Social Login
+    v_txt_69: New User?
+    v_txt_7: Learn More
+    v_txt_70: Welcome To Lezir
+    v_txt_71: User Name
+    v_txt_72: Password
+    v_txt_73: Forgot Password.?
+    v_txt_74: Remember Me
+    v_txt_75: Register
+    v_txt_76: Social Login
+    v_txt_8: Easy To Use
+    v_txt_9: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+  sections:
+    mihome: 
+      << : *defaults
+      type: home
+    miotra:
+      << : *defaults
+      type: contact
