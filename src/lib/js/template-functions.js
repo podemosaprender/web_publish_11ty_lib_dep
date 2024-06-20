@@ -22,6 +22,7 @@ module.exports.addToConfig= function (eleventyConfig, kv) {
 
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
+module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; }
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
