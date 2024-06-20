@@ -2,98 +2,55 @@
 data:
   navactions: true
   defaults: &defaults
+    v_site_url: https://o-o.fyi
+    title_: Xtitle_ 
+    v_brand_name: AgencyClient
+    v_agency_name: AgencyName
     v_currency: "$"
     v_action_txt: "XACTION TEXT"
     v_pricing_title: choose your plan
     v_pricing_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
-    #pricing
-    title_: lezir - responsive bootstrap 5.3 landing page template
-    v_a_blog: blog
-    v_a_buy_now: buy now
-    v_a_customers: customers
-    v_a_developers: developers
-    v_a_features: features
-    v_a_guide: guide
-    v_a_home: home
-    v_a_login: login
-    v_a_mission: mission
-    v_a_popular: popular
-    v_a_press: press
-    v_a_pricing: pricing
-    v_a_read_20more: read more
-    v_a_register: register
-    v_a_releases: releases
-    v_a_signup: signup
-    v_a_strategy: strategy
-    v_a_support: support
-    v_a_tranding: tranding
-    v_a_works: works
-    v_why_us_action_href: '#'
-    v_a_href__blog: '#blog'
-    v_a_href__contact: '#contact'
-    v_a_href__features: '#features'
-    v_a_href__home: '#home'
-    v_a_href__login: '#login'
-    v_a_href__pricing: '#pricing'
-    v_site_url: https://themesbrand.com/lezir/layout/layout-one-1.html
-    v_button_login: login
-    v_h3_build: build
-    v_h4_basic: basic
-    v_h4_pro: pro
-    v_h4_simple: simple
-    v_h6_about_20us: about us
-    v_h6_customers: customers
-    v_h6_support: support
-    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
-    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
-    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
-    v_img_src_images_features_img_1_png: images/features-img-1.png
-    v_img_src_images_features_img_png: images/features-img.png
-    v_img_src_images_logo_light_png: images/logo-light.png
     v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
-    v_label_email: email
-    v_label_name_: name*
-    v_sup__24: $
-    v_txt_1: contact us
+    #pricing
+    v_why_us_action_href: '#'
     v_txt_10: grow your revenue
     v_txt_11: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
     v_txt_12: analytics security
     v_txt_13: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
     v_txt_14: data privacy
     v_txt_15: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+    #XXX_whyus
+    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
+    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
+    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
+    #XXX_blog
+    v_img_src_images_features_img_1_png: images/features-img-1.png
+    v_img_src_images_features_img_png: images/features-img.png
     v_txt_16: awesome features
     v_txt_17: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
+    #XXX_features
+    v_label_email: email
+    v_label_name_: name*
     v_txt_18: >-
       temporibus autem quibusdam et aut officiis debitis aut rerum a
       necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
       recusandae itaque.
     v_txt_19: we do the work you
+    #XXX
     v_txt_hero_big: we help startups launch their products with awesome website
+    v_txt_hero_small: >-
+      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cumque nihil impedit quo minus quod maxime.
+    #XXXhero
     v_txt_20: >-
       temporibus autem quibusdam et aut officiis debitis aut rerum a
       necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
       recusandae itaque.
-    v_txt_23: user / month
-    v_txt_24: 'bandwidth: 1gb'
-    v_txt_25: 'onlinespace: 500mb'
-    v_txt_26: 'support: yes'
-    v_txt_27: user / month
-    v_txt_28: 'bandwidth: 2gb'
-    v_txt_29: 'onlinespace: 1gb'
-    v_txt_hero_small: >-
-      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-      cumque nihil impedit quo minus quod maxime.
-    v_txt_30: 'support: yes'
-    v_txt_31: user / month
-    v_txt_32: 'bandwidth: 3gb'
-    v_txt_33: 'onlinespace: 1.5gb'
-    v_txt_34: 'support: yes'
-    v_txt_35: latest news
-    v_txt_36: >-
+    v_blog_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     v_txt_37: best traveling place
@@ -136,7 +93,7 @@ data:
       impedite quo minus id quod maxime.
     v_txt_60: customer service
     v_txt_61: get started
-    v_txt_62: document.write(new date().getfullyear())
+    v_txt_62: 
     v_txt_63: welcome to lezir
     v_txt_64: username / email
     v_txt_65: password
@@ -181,7 +138,7 @@ data:
 
     mihome: 
       << : *defaults
-      type: home
+      type: hero
     miotra:
       << : *defaults
       type: contact
@@ -272,81 +229,52 @@ data:
 	</nav>
 {% endmacro %}
 
-{############################################################}
-{% macro home_3_1_1_1(p) %}	
-	<div class="text-center">
-		<h1 class="text-white hero-6-title mb-4 line-height-1_4">{{ p.v_txt_hero_big }}</h1>
-		<p class="text-white-50 w-75 mx-auto font-size-15">{{ p.v_txt_hero_small }}</p>
-	</div>
-{% endmacro %}
-
-{% macro home_3_1_1(p) %}	
-	<div class="col-lg-8">
-		{{ home_3_1_1_1(p) }}
-	</div>
-{% endmacro %}
-
-{% macro home_3_1(p) %}	
+{# HERO #####################################################}
+{% macro hero_slogan(p) %}	
 	<div class="row justify-content-center">
-		{{ home_3_1_1(p) }}
+		<div class="col-lg-8">
+			<div class="text-center">
+				<h1 class="text-white hero-6-title mb-4 line-height-1_4">{{ p.v_txt_hero_big }}</h1>
+				<p class="text-white-50 w-75 mx-auto font-size-15">{{ p.v_txt_hero_small }}</p>
+			</div>
+		</div>
 	</div>
 {% endmacro %}
 
-{% macro home_3_3_1_1(p) %}	
-	<div class="text-center Subcribe-form mt-5">
-		<form action="#">
-			<input type="text" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
-			<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_subscribe }}</button>
-		</form>
-	</div>
-{% endmacro %}
-
-{% macro home_3_3_1(p) %}	
-	<div class="col-lg-8 ">
-		{{ home_3_3_1_1(p) }}
-	</div>
-{% endmacro %}
-
-{% macro home_3_3(p) %}	
+{% macro hero_action(p) %}	
 	<div class="row justify-content-center">
-		{{ home_3_3_1(p) }}
+		<div class="col-lg-8 ">
+			<div class="text-center Subcribe-form mt-5">
+				<form action="#">
+					<input type="text" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
+					<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_subscribe }}</button>
+				</form>
+			</div>
+		</div>
 	</div>
 {% endmacro %}
 
 
-{% macro home(p) %}	
-	{{ DBG(p,"home") }}
+{% macro hero(p) %}	
+	{{ DBG(p,"hero") }}
 	<section class="hero-6-bg position-relative" style="background-image: url(images/hero-6-bg-img.jpg)" id="{{p.id}}">
 		<div class="bg-overlay"></div>
 		<div class="container">
-			{{ home_3_1(p) }}
-			{{ home_3_3(p) }}
+			{{ hero_slogan(p) }}
+			{{ hero_action(p) }}
 		</div>
 	</section>
 {% endmacro %}
 
 {############################################################}
-
-{% macro whyus_1_1_1_1_1_1(p) %}	
-	<div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
-{% endmacro %}
-
-{% macro whyus_1_1_1_1_1(p) %}	
-	<div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
-		{{ whyus_1_1_1_1_1_1(p) }}
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_1_1_7(p) %}	
-	<a href="{{ p.v_why_us_action_href }}" class="btn btn-outline-primary">{{ p.v_whyus_action_txt }}</a>
-{% endmacro %}
-
 {% macro whyus_1_1_1_1(p) %}	
 	<div class="mb-4 mb-lg-0">
-		{{ whyus_1_1_1_1_1(p) }}
+		<div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
+			<div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
+		</div>
 		<h3 class="">{{ p.v_whyus_title }}</h3>
 		<p class="text-muted mb-4">{{ p.v_whyus_txt }}</p>
-		{{ whyus_1_1_1_1_7(p) }}
+		<a href="{{ p.v_why_us_action_href }}" class="btn btn-outline-primary">{{ p.v_whyus_action_txt }}</a>
 	</div>
 {% endmacro %}
 
@@ -511,7 +439,6 @@ data:
 	</section>
 {% endmacro %}
 
-
 {############################################################}
 {% macro r_31_1_1_1_11_1(p) %}	
 	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_a_Read_20More }}</a>
@@ -555,258 +482,68 @@ data:
 	</div>
 {% endmacro %}
 
-{% macro r_31_1_1(p) %}	
-	<div class="row justify-content-center">
-		{{ r_31_1_1_1(p) }}
-		{{ r_31_1_1_3(p) }}
-	</div>
-{% endmacro %}
 
-{% macro r_31_1(p) %}	
-	<div class="container">
-		{{ r_31_1_1(p) }}
-	</div>
-{% endmacro %}
 
 {% macro r_31(p) %}	
 	<section class="section feather-bg-img" style="background-image: url(images/features-bg-img-1.png)">
-		{{ r_31_1(p) }}
+		<div class="container">
+			<div class="row justify-content-center">
+				{{ r_31_1_1_1(p) }}
+				{{ r_31_1_1_3(p) }}
+			</div>
+		</div>
 	</section>
 {% endmacro %}
 
 
-{############################################################}
 
-{% macro pricing_header(p) %}	
+{############################################################}
+{% macro blog_header(p) %}	
 	<div class="row justify-content-center">
 		<div class="col-lg-6">
 			<div class="text-center mb-5">
-				<h3 class="title mb-3">{{ p.v_pricing_title }}</h3>
-				<p class="text-muted font-size-15">{{ p.v_pricing_txt }}</p>
+				<h3 class="title mb-3">{{ p.v_blog_title }}</h3>
+				<p class="text-muted font-size-15"{{ p.v_blog_txt }}</p>
 			</div>
 		</div>
 	</div>
 {% endmacro %}
 
-{% macro pricing_1_3_1_1_1(p) %}	
-	<div class="pricing-icon-bg my-4">
-		<i class="mdi mdi-account h1"></i>
-	</div>
-{% endmacro %}
-
-{% macro pricing_features(p,o) %}	
-	<ul class="list-unstyled pricing-item mb-4">
-		{% for feature in o.v_features %}
-			<li class="text-muted">{{ feature }}</li>
-		{% endfor %}
-	</ul>
-{% endmacro %}
-
-
-{% macro pricing_footer(p) %}	
-	<div class="mt-4">
-		<div class="hero-bottom-img">
-			<img src="{{ p.v_img_src_images_pricing_bottom_bg_png }}" alt="" class="img-fluid d-block mx-auto" />
-		</div>
-	</div>
-{% endmacro %}
-
-{% macro pricing_option(p,o) %}	
-	<div class="col-lg-4">
-		<div class="pricing-box rounded text-center {{ "active" if o.v_highlighted }} p-4">
-			<div class="pricing-icon-bg my-4">
-				<i class="mdi mdi-account-multiple h1"></i>
-			</div>
-			<h4 class="title mb-3">{{o.v_title}}</h4>
-			<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_currency }}</sup>{{ o.v_price }}</b></h1>
-			<p class="text-muted font-weight-semibold">{{ o.v_unit }}</p>
-			{{ pricing_features(p,o) }}
-			<a href="{{ o.v_action_link }}" class="btn btn-primary pr-btn">{{ o.v_action_txt or p.v_action_txt }}</a>
-			{{ pricing_footer(p) }}
-		</div>
-	</div>
-{% endmacro %}
-
-
-{% macro pricing(p) %}	
-	<section class="section bg-light" id="{{p.id}}">
-		<div class="container">
-			{{ pricing_header(p) }}
-			<div class="row">
-				{% for o in p.options %}
-					{{ pricing_option(p,o) }}
-				{% endfor %}
-			</div>
-		</div>
-	</section>
-{% endmacro %}
-
-
-{############################################################}
-{% macro blog_1_1_1_1(p) %}	
-	<div class="text-center mb-5">
-		<h3 class="title mb-3">{{ p.v_txt_35 }}</h3>
-		<p class="text-muted font-size-15">{{ p.v_txt_36 }}</p>
-	</div>
-{% endmacro %}
-{% macro blog_1_1_1(p) %}	
-	<div class="col-lg-6">
-
-		{{ blog_1_1_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro blog_1_1(p) %}	
-	<div class="row justify-content-center">
-
-		{{ blog_1_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3_1_1_3(p) %}	
+{% macro blog_post_meta(p,post) %}	
 	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
 		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
 																				 data-feather="calendar"></i> April 10 2020</li>
 		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
-			Admin</li>
+			Author</li>
 	</ul>
 {% endmacro %}
 
-{% macro blog_1_3_1_1_5(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_37 }}</a>
-{% endmacro %}
-
-{% macro blog_1_3_1_1_9(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_39 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_40 }}</span></a>
-{% endmacro %}
-
-{% macro blog_1_3_1_1(p) %}	
-	<div class="blog-box mb-4 mb-lg-0">
-		<img src="{{ p.v_img_src_images_blog_img_1_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
-
-		{{ blog_1_3_1_1_3(p) }}
-
-		{{ blog_1_3_1_1_5(p) }}
-		<p class="text-muted font-size-15">{{ p.v_txt_38 }}</p>
-		{{ blog_1_3_1_1_9(p) }}
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3_1(p) %}	
+{% macro blog_post_1(p,post) %}	
 	<div class="col-lg-4">
-
-		{{ blog_1_3_1_1(p) }}
-
+		<div class="blog-box mb-4 mb-lg-0">
+			<img src="{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto rounded" />
+			{{ blog_post_meta(p,post) }}
+			<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_37 }}</a>
+			<p class="text-muted font-size-15">{{ p.v_txt_38 }}</p>
+			<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_39 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_40 }}</span></a>
+		</div>
 	</div>
 {% endmacro %}
 
-{% macro blog_1_3_3_1_3(p) %}	
-	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
-		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
-																				 data-feather="calendar"></i> April 11 2020</li>
-		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
-			Admin</li>
-	</ul>
-{% endmacro %}
-
-{% macro blog_1_3_3_1_5(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_41 }}</a>
-{% endmacro %}
-
-{% macro blog_1_3_3_1_9(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="text-primary   font-weight-semibold">{{ p.v_txt_43 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_44 }}</span></a>
-{% endmacro %}
-
-{% macro blog_1_3_3_1(p) %}	
-	<div class="blog-box blog-box mb-4 mb-lg-0">
-		<img src="{{ p.v_img_src_images_blog_img_2_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
-
-		{{ blog_1_3_3_1_3(p) }}
-
-		{{ blog_1_3_3_1_5(p) }}
-		<p class="text-muted font-size-15">{{ p.v_txt_42 }}</p>
-		{{ blog_1_3_3_1_9(p) }}
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3_3(p) %}	
-	<div class="col-lg-4">
-
-		{{ blog_1_3_3_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3_5_1_3(p) %}	
-	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
-		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
-																				 data-feather="calendar"></i> April 12 2020</li>
-		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
-			Admin</li>
-	</ul>
-{% endmacro %}
-
-{% macro blog_1_3_5_1_5(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_45 }}</a>
-{% endmacro %}
-
-{% macro blog_1_3_5_1_9(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_47 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_48 }}</span></a>
-{% endmacro %}
-
-{% macro blog_1_3_5_1(p) %}	
-	<div class="blog-box blog-box mb-4 mb-lg-0">
-		<img src="{{ p.v_img_src_images_blog_img_3_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
-
-		{{ blog_1_3_5_1_3(p) }}
-
-		{{ blog_1_3_5_1_5(p) }}
-		<p class="text-muted font-size-15">{{ p.v_txt_46 }}</p>
-		{{ blog_1_3_5_1_9(p) }}
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3_5(p) %}	
-	<div class="col-lg-4">
-
-		{{ blog_1_3_5_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro blog_1_3(p) %}	
+{% macro blog_post_1(p) %}	
 	<div class="row">
-
-		{{ blog_1_3_1(p) }}
-
-
-		{{ blog_1_3_3(p) }}
-
-
-		{{ blog_1_3_5(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro blog_1(p) %}	
-	<div class="container">
-
-		{{ blog_1_1(p) }}
-
-
-
-		{{ blog_1_3(p) }}
-
+		{% for post in p.posts %}
+			{{ blog_post_1(p,post) }}
+		{% endfor %}
 	</div>
 {% endmacro %}
 
 {% macro blog(p) %}	
 	<section class="section" id="{{p.id}}">
-
-		{{ blog_1(p) }}
-
+		<div class="container">
+			{{ blog_header(p) }}
+			{{ blog_posts(p) }}
+		</div>
 	</section>
 {% endmacro %}
 
@@ -934,170 +671,97 @@ data:
 {% endmacro %}
 
 
-{############################################################}
-
-{% macro r_55_1_1_1_1_5(p) %}	
+{# FOOTER ###################################################}
+{% macro footer_links_contact(p) %}	
 	<ul class="list-inline footer-social-icon-content">
-		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon facebook"><i                                         class="" data-feather="facebook"></i></a></li>
-		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
-																																																 data-feather="twitter"></i></a></li>
-		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
-																																																 data-feather="instagram"></i></a></li>
-		<li class="list-inline-item"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
-																																														data-feather="linkedin"></i></a></li>
+		{% for where, hrefandtext in p.v_contact_links %}
+			<li class="list-inline-item me-4"><a href="{{ hrefandtext.link }}" class="footer-social-icon {{ where }}"><i class="" data-feather="{{where}}"></i></a></li>
+		{% endfor %}
 	</ul>
 {% endmacro %}
 
-{% macro r_55_1_1_1_1(p) %}	
-	<div class="mb-5">
-		<img src="{{ p.v_img_src_images_logo_light_png }}" alt="" class="" height="24" />
-		<p class="text-white-50 my-4 font-size-15">{{ p.v_txt_59 }}</p>
-
-		{{ r_55_1_1_1_1_5(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_55_1_1_1(p) %}	
+{% macro footer_links_contact_col(p) %}	
 	<div class="col-lg-4">
-
-		{{ r_55_1_1_1_1(p) }}
-
+	<div class="mb-5">
+		<img src="images/logo-light.png" alt="" class="" height="24" />
+		<p class="text-white-50 my-4 font-size-15">{{ p.v_txt_59 }}</p>
+		{{ footer_links_contact(p) }}
+	</div>
 	</div>
 {% endmacro %}
 
-{% macro r_55_1_1_3_1_1_3(p) %}	
+{% macro footer_links(p,col) %}	
 	<ul class="list-unstyled footer-sub-menu">
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Works }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Strategy }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Releases }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Press }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Mission }}</a></li>
+		{% for link,text in col %}
+			<li><a href="{{ link }}" class="footer-link">{{ test or link }}</a></li>
+		{% endfor %}
 	</ul>
 {% endmacro %}
 
-{% macro r_55_1_1_3_1_1(p) %}	
-	<div class="col-md-4">
-		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_About_20Us }}</h6>
-
-		{{ r_55_1_1_3_1_1_3(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_55_1_1_3_1_3_3(p) %}	
-	<ul class="list-unstyled footer-sub-menu">
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Tranding }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Popular }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Customers }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Features }}</a></li>
-	</ul>
-{% endmacro %}
-
-{% macro r_55_1_1_3_1_3(p) %}	
-	<div class="col-md-4">
-		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_Customers }}</h6>
-
-		{{ r_55_1_1_3_1_3_3(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_55_1_1_3_1_5_3(p) %}	
-	<ul class="list-unstyled footer-sub-menu">
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Developers }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Support }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_txt_60 }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_txt_61 }}</a></li>
-		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Guide }}</a></li>
-	</ul>
-{% endmacro %}
-
-{% macro r_55_1_1_3_1_5(p) %}	
+{% macro footer_links_col(p,col) %}	
 	<div class="col-md-4">
 		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_Support }}</h6>
-		{{ r_55_1_1_3_1_5_3(p) }}
+		{{ footer_links(p, col) }}
 	</div>
 {% endmacro %}
 
-{% macro r_55_1_1_3_1(p) %}	
-	<div class="row">
-		{{ r_55_1_1_3_1_1(p) }}
-		{{ r_55_1_1_3_1_3(p) }}
-		{{ r_55_1_1_3_1_5(p) }}
-	</div>
-{% endmacro %}
-
-{% macro r_55_1_1_3(p) %}	
+{% macro footer_cols(p) %}	
 	<div class="col-lg-7 offset-lg-1">
-		{{ r_55_1_1_3_1(p) }}
+		<div class="row">
+			{% for title,col in p.footer_cols %}
+				{{ footer_links_col(p,col) }}
+			{% endfor %}
+		</div>
 	</div>
 {% endmacro %}
 
-
-{% macro r_55(p) %}	
+{% macro footer_link_cols(p) %}	
 	<section class="footer" style="background-image: url(images/footer-bg.png)">
 		<div class="container">
 			<div class="row">
-				{{ r_55_1_1_1(p) }}
-				{{ r_55_1_1_3(p) }}
+				{{ footer_links_contact_col(p) }}
+				{{ footer_cols(p) }}
 			</div>
 		</div>
 	</section>
 {% endmacro %}
 
-{% macro r_57_1_1_1_1(p) %}	
-	<div class="text-center">
-		<p class="text-white-50 font-size-15 mb-0">
-		<script>{{ p.v_txt_62 }}</script> © Lezir. Design By Themesbrand
-		</p>
-	</div>
+{% macro copyright_text(p) %}
+	<script>document.write(new date().getfullyear())</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
 {% endmacro %}
 
-{% macro r_57_1_1_1(p) %}	
-	<div class="col-lg-12">
-
-		{{ r_57_1_1_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_57_1_1(p) %}	
-	<div class="row">
-
-		{{ r_57_1_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_57_1(p) %}	
-	<div class="container">
-
-		{{ r_57_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro r_57(p) %}	
+{% macro footer_copyright_band(p) %}	
 	<div class="footer-alt py-3">
-
-		{{ r_57_1(p) }}
-
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="text-center">
+						<p class="text-white-50 font-size-15 mb-0">
+						{{ copyright_text(p) }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endmacro %}
 
-
-{############################################################}
-{% macro registerModal_1_1_1(p) %}	
-	<div class="modal-body">
-
-		{{ registerModal_1_1_1_1(p) }}
-
-
-		{{ registerModal_1_1_1_3(p) }}
-
-	</div>
+{% macro footer(p) %}
+	{{ footer_link_cols(p) }}
+	{{ footer_copyright_band(p) }}
 {% endmacro %}
+
+		{############################################################}
+		{% macro registerModal_1_1_1(p) %}	
+			<div class="modal-body">
+
+				{{ registerModal_1_1_1_1(p) }}
+
+
+				{{ registerModal_1_1_1_3(p) }}
+
+			</div>
+		{% endmacro %}
 
 {% macro registerModal_1_1_3_3(p) %}	
 	<div class="position-relative text-center mt-4">
@@ -1182,11 +846,11 @@ data:
 
 {% macro loginModal(p) %}	
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-
 		{{ registerModal(p) }}
-
 	</div>
 {% endmacro %}
+
+{# MODAL REGISTER ###########################################}
 
 {% macro registerModal_1_1_1_1(p) %}	
 	<div class="text-center">
@@ -1256,10 +920,75 @@ data:
 	</div>
 {% endmacro %}
 
+{# PRICING ##################################################}
+{% macro pricing_header(p) %}	
+	<div class="row justify-content-center">
+		<div class="col-lg-6">
+			<div class="text-center mb-5">
+				<h3 class="title mb-3">{{ p.v_pricing_title }}</h3>
+				<p class="text-muted font-size-15">{{ p.v_pricing_txt }}</p>
+			</div>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_1(p) %}	
+	<div class="pricing-icon-bg my-4">
+		<i class="mdi mdi-account h1"></i>
+	</div>
+{% endmacro %}
+
+{% macro pricing_features(p,o) %}	
+	<ul class="list-unstyled pricing-item mb-4">
+		{% for feature in o.v_features %}
+			<li class="text-muted">{{ feature }}</li>
+		{% endfor %}
+	</ul>
+{% endmacro %}
+
+{% macro pricing_footer(p) %}	
+	<div class="mt-4">
+		<div class="hero-bottom-img">
+			<img src="{{ p.v_img_src_images_pricing_bottom_bg_png }}" alt="" class="img-fluid d-block mx-auto" />
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro pricing_option(p,o) %}	
+	<div class="col-lg-4">
+		<div class="pricing-box rounded text-center {{ "active" if o.v_highlighted }} p-4">
+			<div class="pricing-icon-bg my-4">
+				<i class="mdi mdi-account-multiple h1"></i>
+			</div>
+			<h4 class="title mb-3">{{o.v_title}}</h4>
+			<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_currency }}</sup>{{ o.v_price }}</b></h1>
+			<p class="text-muted font-weight-semibold">{{ o.v_unit }}</p>
+			{{ pricing_features(p,o) }}
+			<a href="{{ o.v_action_link }}" class="btn btn-primary pr-btn">{{ o.v_action_txt or p.v_action_txt }}</a>
+			{{ pricing_footer(p) }}
+		</div>
+	</div>
+{% endmacro %}
+
+
+{% macro pricing(p) %}	
+	<section class="section bg-light" id="{{p.id}}">
+		<div class="container">
+			{{ pricing_header(p) }}
+			<div class="row">
+				{% for o in p.options %}
+					{{ pricing_option(p,o) }}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endmacro %}
+
+
 
 {############################################################}
 {% set twme= {
-'home': home,
+'hero': hero,
 'whyus': whyus,
 'features': features,
 'r_31': r_31,
@@ -1289,10 +1018,7 @@ data:
 				{% endif %}
 			{% endfor %}
 
-			<!-- Footer Start -->
-			{{ r_55(p) }}
-			{{ r_57(p) }}
-			<!-- Footer End -->
+			{{ footer(p.defaults) }}
 
 			{{ loginModal(p) }}
 			{{ registerModal(p) }}

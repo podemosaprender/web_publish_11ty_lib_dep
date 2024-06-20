@@ -1,98 +1,55 @@
 data:
   navactions: true
   defaults: &defaults
+    v_site_url: https://o-o.fyi
+    title_: Xtitle_ 
+    v_brand_name: AgencyClient
+    v_agency_name: AgencyName
     v_currency: "$"
     v_action_txt: "XACTION TEXT"
     v_pricing_title: choose your plan
     v_pricing_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
-    #pricing
-    title_: lezir - responsive bootstrap 5.3 landing page template
-    v_a_blog: blog
-    v_a_buy_now: buy now
-    v_a_customers: customers
-    v_a_developers: developers
-    v_a_features: features
-    v_a_guide: guide
-    v_a_home: home
-    v_a_login: login
-    v_a_mission: mission
-    v_a_popular: popular
-    v_a_press: press
-    v_a_pricing: pricing
-    v_a_read_20more: read more
-    v_a_register: register
-    v_a_releases: releases
-    v_a_signup: signup
-    v_a_strategy: strategy
-    v_a_support: support
-    v_a_tranding: tranding
-    v_a_works: works
-    v_why_us_action_href: '#'
-    v_a_href__blog: '#blog'
-    v_a_href__contact: '#contact'
-    v_a_href__features: '#features'
-    v_a_href__home: '#home'
-    v_a_href__login: '#login'
-    v_a_href__pricing: '#pricing'
-    v_site_url: https://themesbrand.com/lezir/layout/layout-one-1.html
-    v_button_login: login
-    v_h3_build: build
-    v_h4_basic: basic
-    v_h4_pro: pro
-    v_h4_simple: simple
-    v_h6_about_20us: about us
-    v_h6_customers: customers
-    v_h6_support: support
-    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
-    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
-    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
-    v_img_src_images_features_img_1_png: images/features-img-1.png
-    v_img_src_images_features_img_png: images/features-img.png
-    v_img_src_images_logo_light_png: images/logo-light.png
     v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
-    v_label_email: email
-    v_label_name_: name*
-    v_sup__24: $
-    v_txt_1: contact us
+    #pricing
+    v_why_us_action_href: '#'
     v_txt_10: grow your revenue
     v_txt_11: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
     v_txt_12: analytics security
     v_txt_13: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
     v_txt_14: data privacy
     v_txt_15: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+    #XXX_whyus
+    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
+    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
+    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
+    #XXX_blog
+    v_img_src_images_features_img_1_png: images/features-img-1.png
+    v_img_src_images_features_img_png: images/features-img.png
     v_txt_16: awesome features
     v_txt_17: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
+    #XXX_features
+    v_label_email: email
+    v_label_name_: name*
     v_txt_18: >-
       temporibus autem quibusdam et aut officiis debitis aut rerum a
       necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
       recusandae itaque.
     v_txt_19: we do the work you
+    #XXX
     v_txt_hero_big: we help startups launch their products with awesome website
+    v_txt_hero_small: >-
+      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
+      cumque nihil impedit quo minus quod maxime.
+    #XXXhero
     v_txt_20: >-
       temporibus autem quibusdam et aut officiis debitis aut rerum a
       necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
       recusandae itaque.
-    v_txt_23: user / month
-    v_txt_24: 'bandwidth: 1gb'
-    v_txt_25: 'onlinespace: 500mb'
-    v_txt_26: 'support: yes'
-    v_txt_27: user / month
-    v_txt_28: 'bandwidth: 2gb'
-    v_txt_29: 'onlinespace: 1gb'
-    v_txt_hero_small: >-
-      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-      cumque nihil impedit quo minus quod maxime.
-    v_txt_30: 'support: yes'
-    v_txt_31: user / month
-    v_txt_32: 'bandwidth: 3gb'
-    v_txt_33: 'onlinespace: 1.5gb'
-    v_txt_34: 'support: yes'
-    v_txt_35: latest news
-    v_txt_36: >-
+    v_blog_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     v_txt_37: best traveling place
@@ -135,7 +92,7 @@ data:
       impedite quo minus id quod maxime.
     v_txt_60: customer service
     v_txt_61: get started
-    v_txt_62: document.write(new date().getfullyear())
+    v_txt_62: 
     v_txt_63: welcome to lezir
     v_txt_64: username / email
     v_txt_65: password
@@ -180,7 +137,7 @@ data:
 
     mihome: 
       << : *defaults
-      type: home
+      type: hero
     miotra:
       << : *defaults
       type: contact
