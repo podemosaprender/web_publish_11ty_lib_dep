@@ -161,13 +161,23 @@ data:
         - v_title: opt1
           v_price: 19
           v_unit: año
+          v_features:
+            - copado
+            - veraniego
         - v_title: optB
           v_price: 59
           v_unit: mes
           v_highlighted: true
+          v_features:
+            - la que va
+            - mejor
         - v_title: optC
           v_price: 959
           v_unit: vida 
+          v_features:
+            - a todo culo
+            - procelanato
+
     mihome: 
       << : *defaults
       type: home
