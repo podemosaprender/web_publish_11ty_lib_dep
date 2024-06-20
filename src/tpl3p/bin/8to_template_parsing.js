@@ -3,20 +3,9 @@
 
 const htmlutil= require('./htmlutil.js');
 const { escapeRegex, set_f, sort_kv }= htmlutil;
+const { out_dir }= htmlutil;
 //XXX:LIB {
 //XXX:LIB }
-
-function cmp_str(stl,stlx) {
-	let cmp= stl.map( (l,i) => {
-		let lx= stxl[i];
-		let p= l.trim().split('.')
-		let px= lx.trim().split('.')
-		let ponly= p.filter( e => (px.indexOf(e)<0) )
-		let pxonly= px.filter( e => (p.indexOf(e)<0) )
-		return [l==lx ? '=':'X', ponly, pxonly, l, lx] 
-	})
-	return cmp;
-}
 
 function node_diff(a,b,vs) {
 	console.log("DFF0",a.outerHTML,b.outerHTML);
@@ -69,40 +58,46 @@ function to_for(g,vs) {
 	g.set_content(f);
 }
 
-async function main() {
-	src_path= process.argv[2];
-	out_dir= process.argv[3] || 'xo';
-	src_fname= src_path.match(/[^\/]+$/)[0];
-
-	html= fs.readFileSync(src_path,'utf8');
-	html= html.replace(new RegExp('"'+escapeRegex(src_fname),'gs'),'"');
-	//DBG: console.log(html);
-	html_norm= htmlutil.norm_html(html).replace(/>\s+</gs,'><'); //A: espacios normalizados dentro de los tags
-	ast= htmlutil.parse_html(html_norm).getElementsByTagName('body')[0]
-	//DBG: console.log(ast)
-	//g= ast.querySelector('.navbar-nav'); console.log(g.structure)
-	g= ast.querySelector('#pricing .row:nth-child(2)'); console.log(g.structure)
-	ch= g.childNodes
-	if (false) { //by structure
-		st= ch[0].structure; console.log(st);
-		stl= st.split(/\n/);
-		for (i=1;i<ch.length;i++) {
-			stx= ch[i].structure
-			stxl= stx.split(/\n/)
-			cmp= cmp_str(stl, stxl)
-			console.log(st==stx,cmp)
+function split_to_macros(g,p='r',acc={}) {
+	let ch= g.childNodes
+	//DBG: console.log(g.outerHTML)
+	if (ch.length>1) {
+		for (let i=0;i<ch.length;i++) { let chi=ch[i]; 
+			if (chi && chi.rawTagName && chi.innerHTML) {
+				let wants_split= "div section ul nav".indexOf(chi.rawTagName)>-1
+				let id = (chi.attributes.id || p+'_'+i).replace(/\W/gsi,'_');
+				console.log(i,{tag: chi.rawTagName, wants_split, id}, '\n'+chi.outerHTML);
+				if (wants_split) {
+					split_to_macros(chi.clone(),id,acc);
+					let before= chi.innerHTML.match(/^(\s*)/)[0];
+					let after= chi.innerHTML.match(/(\s*)$/)[0];
+					chi.replaceWith(`${before}{{ ${id}(p) }}${after}`)
+				}
+				//		ch[i].setAttribute('X_SAFE_v_mivar','')
+			}
 		}
 	}
-	for (i=0;i<ch.length;i++) {
-		console.log(i,ch[i].attributes);
-		ch[i].setAttribute('X_SAFE_v_mivar','')
-	}
-	console.log(g.outerHTML)
+	console.log("CONT", p, g.outerHTML);
+	acc[p]= g;
+	return acc;
+}
 
-	let vs=[]
-	to_for(g,vs)
-	console.log(g.outerHTML)
-	console.log(JSON.stringify(vs,null,2));
+async function main() {
+	let html= htmlutil.html_read(); //A:norm, vars y links
+	//g= ast.querySelector('.navbar-nav'); console.log(g.structure)
+
+	let g= html.html_ast.querySelector('body'); 
+	let parts= split_to_macros(g);
+	set_f('xo/_includes/macros.njk', Object.entries(parts).sort((a,b) => a[0]>b[0]).map(([k,v]) => {
+		return `
+{% macro ${k}(p) %}	
+${v.outerHTML}
+{% endmacro %}
+`
+	}).join(''));
+
+	htmlutil.data(html);
+	htmlutil.page('{{ r(data); }}');
 }
 
 main();

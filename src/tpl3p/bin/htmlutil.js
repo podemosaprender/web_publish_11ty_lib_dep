@@ -101,9 +101,29 @@ function html_read(fpath) {
 	norm_html(r); //A: espacios normalizados dentro de los tags
 	html_vars(r); //A: constantes a var
 	html_links(r); //A: links a var
+	r.html= r.html_links
+	norm_html(r); //A: normalizado Y con vars y links
 	return r;
+}
+
+function page(html) {
+	set_f(`xo/page/index.njk`, 
+`---
+	layout: xo/base.njk
+---
+{% import "xo/macros.njk" as tw %}
+
+${html||''}
+`
+	)
+}
+
+function data(html) {
+	set_f(`xo/page/index.yaml`,yaml.dump({data: sort_kv(html.vars)}));
+	set_f(`xo/page/links.yaml`,yaml.dump(sort_kv(html.links)));
 }
 
 module.exports= {fs,set_f,yaml,escapeRegex,sort_kv,norm_html,pretty_html,parse_html: parse,voidTags, html_vars, html_links, out_dir,
 	html_read,
+	page, data,
 };

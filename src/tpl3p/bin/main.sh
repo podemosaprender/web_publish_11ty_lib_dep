@@ -10,5 +10,6 @@ else
 	find themesbrand.com/ -iname "*\?*" -exec bash -c 'i="{}"; mv "$i" "${i%%\?*}"' \;
 fi
 
-rm -Rf xo/ ; node bin/8to_template.js "$DLD"  2>&1 #A: separa en templates
+rm -Rf xo/ ; mkdir -p xo/page; 
+node bin/8to_template_parsing.js "$DLD"  2>&1 #A: separa en templates
 cp -r "${DLD%/*}"/* xo/page/ ; rm xo/page/$HTML

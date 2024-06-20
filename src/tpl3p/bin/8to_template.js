@@ -46,21 +46,24 @@ async function main() {
 		+await htmlutil.pretty_html(sections_html.BASE_))
 
 
-	const RE_BLOCK=/(((\n\s+)<((?:li)|(?:div))).*?\3<\/\4>)(\2 .*?\3<\/(\4)>)*[ \t]*/si //A: de afuera a dentro
+	const RE_BLOCK=/((\n\s+)<((?:li)|(?:div)|(?:section))[^>]*>(.*?)\2<\/\3>)*[ \t]*/sgi //A: de afuera a dentro (\2 .*?\3<\/(\4)>)
 	const RE_LINE=/((\n\s+<((?:li))) .*?<\/\2>)(\1 .*?<\/(\2)>)*/gsi;
 	
 	//DBG: console.log(x)
 	const to_tpl= function(x,acc={},parent='r_') {
 		let i,xp;
 		for (i=0,xp=''; x!=xp && i<1000; i++) { xp= x;		
+			console.log({i,xp})
 			x= xp.replace(RE_BLOCK,
-				(m,...a) => {
-					let d= {id: [parent,'b',i].join('')}; acc[d.id]= d;
+				(m,...a) => { if (!m) return '';
+					let d= {id: [parent,'b',i].join('')}; 
 					console.log('DBG:MATCH',d,{m});
-					let [_1,indent,mcont]= m.match(/^(\s+)<[^>]+>(.*?)\s*<[^>]+>\s*$/s)
+					let [_1,indent,tag,mcont]= m.match(/^(\s+)<(\w+)[^>]*>(.*?)\1<\/|2>[ \t]*$/s);
 					console.log("DBG:CONT",d,{mcont})
-					d.cont= to_tpl(mcont,acc,d.id);
-					return `${indent}XXX_${d.id}\n`  //A: bloques interiores, match va de afuera hacia adentro
+					if (mcont) { acc[d.id]= d;
+						d.cont= to_tpl(mcont,acc,d.id);
+						return `${indent}XXX_${d.id}\n`  //A: bloques interiores, match va de afuera hacia adentro
+					} else return '';
 				}
 			);
 		}
