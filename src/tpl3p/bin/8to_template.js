@@ -46,8 +46,8 @@ async function main() {
 		+await htmlutil.pretty_html(sections_html.BASE_))
 
 
-	const RE_BLOCK=/((\n\s+)<((?:li)|(?:div))) .*?\2<\/\3>(\1 .*?\2<\/(\3)>)*[ \t]*/si; //A: de afuera a dentro
-	const RE_LINE=/(\n\s+<((?:li))) .*?<\/\2>(\1 .*?<\/(\2)>)*/gsi;
+	const RE_BLOCK=/(((\n\s+)<((?:li)|(?:div))).*?\3<\/\4>)(\2 .*?\3<\/(\4)>)*[ \t]*/si //A: de afuera a dentro
+	const RE_LINE=/((\n\s+<((?:li))) .*?<\/\2>)(\1 .*?<\/(\2)>)*/gsi;
 	
 	//DBG: console.log(x)
 	const to_tpl= function(x,acc={},parent='r_') {
@@ -81,6 +81,23 @@ async function main() {
 	xfin= to_tpl(x, acc=[]);
 	console.log({xfin});
 	console.log({acc});
+
+	set_f('xo/macros.njk', Object.entries(acc).map(([k,v]) => {
+		let indent= v.cont.match(/^\s+/)[0]
+		let cont_clean= v.cont
+			.replace(new RegExp(indent,'gm'),'\n\t')
+			.replace(/^\t(\s+)/gm,(m) => ''.padStart(m.length/4+1,'\t'))
+			.replace(/^\n*/,'').replace(/\s*$/,'')
+			.replace(/XXX_(\S+)/g,'{{ $1(p) }}')
+		let s= `
+{% macro ${k}(p) %}
+${cont_clean}
+{% endmacro %} {# ${k} #}
+`;
+		return s;	
+	}).join(''))
+
+
 }
 
 main();
