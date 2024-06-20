@@ -1,4 +1,5 @@
 data: &alldata
+  navactions: true
   defaults: &defaults
     TITLE_: Lezir - Responsive Bootstrap 5.3 Landing Page Template
     v_a_Blog: Blog

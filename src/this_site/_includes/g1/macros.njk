@@ -1,4 +1,8 @@
 
+{% macro DBG(p,txt) %}
+<!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
+{% endmacro %}
+
 {############################################################}
 {% macro light_dark_mode(p) %}	
 	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
@@ -39,7 +43,7 @@
 	</ul>
 {% endmacro %}
 
-{% macro navbarCollapse_3(p) %}	
+{% macro navbar_actions(p) %}
 	<ul class="navbar-nav navbar-center">
 		<li class="nav-item">
 			<a href="{{ p.v_a_href__login }}" class="nav-link" data-bs-toggle="modal"
@@ -55,7 +59,7 @@
 {% macro navbarCollapse(p) %}	
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		{{ navbar_navlist(p) }}
-		{{ navbarCollapse_3(p) }}
+		{% if p.navactions %}{{ navbar_actions(p) }}{% endif %}
 	</div>
 {% endmacro %}
 
@@ -86,17 +90,13 @@
 
 {% macro home_3_1_1(p) %}	
 	<div class="col-lg-8">
-
 		{{ home_3_1_1_1(p) }}
-
 	</div>
 {% endmacro %}
 
 {% macro home_3_1(p) %}	
 	<div class="row justify-content-center">
-
 		{{ home_3_1_1(p) }}
-
 	</div>
 {% endmacro %}
 
@@ -111,35 +111,25 @@
 
 {% macro home_3_3_1(p) %}	
 	<div class="col-lg-8 ">
-
 		{{ home_3_3_1_1(p) }}
-
 	</div>
 {% endmacro %}
 
 {% macro home_3_3(p) %}	
 	<div class="row justify-content-center">
-
 		{{ home_3_3_1(p) }}
-
 	</div>
 {% endmacro %}
 
-{% macro home_3(p) %}	
-	<div class="container">
-
-		{{ home_3_1(p) }}
-
-
-		{{ home_3_3(p) }}
-
-	</div>
-{% endmacro %}
 
 {% macro home(p) %}	
+	{{ DBG(p,"home") }}
 	<section class="hero-6-bg position-relative" style="background-image: url(images/hero-6-bg-img.jpg)" id="{{p.id}}">
 		<div class="bg-overlay"></div>
-		{{ home_3(p) }}
+		<div class="container">
+			{{ home_3_1(p) }}
+			{{ home_3_3(p) }}
+		</div>
 	</section>
 {% endmacro %}
 
@@ -1352,18 +1342,17 @@
 		{{ light_dark_mode(p) }}
 		{{ preloader(p) }}
 
-		{% set_k p, "navitems", {} %}
+		{% set_k p.defaults, "navitems", {} %}
 		{% for id, data in p.sections %}
-			{% set_k p.navitems,'#'+id, id %}
+			{% set_k p.defaults.navitems,'#'+id, id %}
 		{% endfor %}
-		{{ navbar(p) }}
+		{{ navbar(p.defaults) }}
 
-		<!-- {{ p.sections | dump | safe }} -->
 		{%for id, data in p.sections %}
-			<!-- SECTION {{id}} {{data.type}} -->
+			{{ DBG(data,"SECTION "+id+" "+data.type) }}
 			{%  if twme[data.type] %}
 				{% set_k p, "id", id %}
-				{{ twme[data.type](p) }}
+				{{ twme[data.type](data) }}
 			{% else %}
 				<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
 				{% endif %}
