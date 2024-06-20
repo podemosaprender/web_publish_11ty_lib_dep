@@ -8,78 +8,40 @@ data:
     v_agency_name: AgencyName
     v_currency: "$"
     v_action_txt: "XACTION TEXT"
+    v_contactus_txt: contact us
+    v_lbl_emailaddr: email address*
+    v_lbl_message: message*
+    v_lbl_sendmessage: send message
+    v_lbl_userormail: username / email
+    v_lbl_forgotpass: forgot password.?
+    v_lbl_remember: remember me
+    v_lbl_newuser: register
+    v_lbl_oauth: social login
+    v_lbl_pass: password
+    v_lbl_welcome: welcome
+    v_txt_subscribe: subscribe
     v_pricing_title: choose your plan
     v_pricing_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
     #pricing
-    v_why_us_action_href: '#'
-    v_txt_10: grow your revenue
-    v_txt_11: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    v_txt_12: analytics security
-    v_txt_13: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    v_txt_14: data privacy
-    v_txt_15: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    #XXX_whyus
-    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
-    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
-    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
-    #XXX_blog
-    v_img_src_images_features_img_1_png: images/features-img-1.png
     v_img_src_images_features_img_png: images/features-img.png
-    v_txt_16: awesome features
     v_txt_17: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     #XXX_features
-    v_label_email: email
-    v_label_name_: name*
-    v_txt_18: >-
-      temporibus autem quibusdam et aut officiis debitis aut rerum a
-      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-      recusandae itaque.
-    v_txt_19: we do the work you
     #XXX
     v_txt_hero_big: we help startups launch their products with awesome website
     v_txt_hero_small: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cumque nihil impedit quo minus quod maxime.
     #XXXhero
-    v_txt_20: >-
-      temporibus autem quibusdam et aut officiis debitis aut rerum a
-      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-      recusandae itaque.
-    v_blog_txt: >-
-      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-      cum soluta nobis eligendi cumque.
-    v_txt_37: best traveling place
-    v_txt_38: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_39: learn more
-    v_txt_subscribe: subscribe
-    v_txt_40: '&#8594;'
-    v_txt_41: private meeting room
-    v_txt_42: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_43: learn more
-    v_txt_44: '&#8594;'
-    v_txt_45: the best business ideas
-    v_txt_46: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_47: learn more
-    v_txt_48: '&#8594;'
-    v_txt_49: contact us
     v_whyus_title: why choose us ?
     v_txt_50: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
-    v_txt_51: email address*
-    v_txt_52: message*
-    v_txt_53: send message
+    #XXXwhyus
     v_txt_54: support@website.com
     v_txt_55: www.website.com
     v_txt_56: (+001) 123 456 7890
@@ -88,30 +50,15 @@ data:
     v_txt_59: >-
       cras ultricies mi eu turpis sit hendrerit fringilla vestibulum ante ipsum
       primis in faucibus ultrices posuere cubilia.
-    v_whyus_txt: >-
-      nam libero tempore cum soluta as nobis est eligendi optio cumque nihile
-      impedite quo minus id quod maxime.
-    v_txt_60: customer service
-    v_txt_61: get started
-    v_txt_62: 
-    v_txt_63: welcome to lezir
-    v_txt_64: username / email
-    v_txt_65: password
-    v_txt_66: forgot password.?
-    v_txt_67: remember me
-    v_txt_68: social login
-    v_txt_69: new user?
-    v_whyus_action_txt: learn more
-    v_txt_70: welcome to lezir
+    #XXXfooter
     v_txt_71: user name
-    v_txt_72: password
-    v_txt_73: forgot password.?
-    v_txt_74: remember me
-    v_txt_75: register
-    v_txt_76: social login
-    v_txt_8: easy to use
-    v_txt_9: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
   sections:
+    mifeatures:
+      << : *defaults
+      type: features
+    miwhyus:
+      << : *defaults
+      type: whyus
     miprice:
       << : *defaults
       type: pricing
@@ -135,13 +82,18 @@ data:
           v_features:
             - a todo culo
             - procelanato
-
     mihome: 
       << : *defaults
       type: hero
     miotra:
       << : *defaults
       type: contact
+      contact_items:
+        mail: x@y.com
+        link: podemosaprender.org
+        phone-call: 54 11 3030 4444
+        clock: 9AM - 6PM
+        map-pin: Av Calchaqui 3131
 
 #}
 {# 
@@ -266,236 +218,99 @@ data:
 	</section>
 {% endmacro %}
 
-{############################################################}
-{% macro whyus_1_1_1_1(p) %}	
-	<div class="mb-4 mb-lg-0">
-		<div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
-			<div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
-		</div>
-		<h3 class="">{{ p.v_whyus_title }}</h3>
-		<p class="text-muted mb-4">{{ p.v_whyus_txt }}</p>
-		<a href="{{ p.v_why_us_action_href }}" class="btn btn-outline-primary">{{ p.v_whyus_action_txt }}</a>
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_1(p) %}	
-	<div class="col-lg-4 align-self-center">
-		{{ whyus_1_1_1_1(p) }}
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_3_1_1_1_1(p) %}	
-	<div class="wc-box-icon">
-		<i class="mdi mdi-collage"></i>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_1_3_1(p) %}	
-	<div class="wc-box-icon">
-		<i class="mdi mdi-trending-up"></i>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_3_1_1(p) %}	
-	<div class="wc-box-icon">
-		<i class="mdi mdi-security"></i>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_3_3_1(p) %}	
-	<div class="wc-box-icon">
-		<i class="mdi mdi-database-lock"></i>
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_3_1_1_1(p) %}	
+{# WHY US ###################################################}
+{% macro whyus_reason_box(p,reason) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4 mt-md-5">
-		{{ whyus_1_1_3_1_1_1_1(p) }}
-		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_8 }}</h5>
-		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_9 }}</p>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_1_3(p) %}	
-	<div class="wc-box rounded text-center wc-box-primary p-4">
-		{{ whyus_1_1_3_1_1_3_1(p) }}
-		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_10 }}</h5>
-		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_11 }}</p>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_3_1(p) %}	
-	<div class="wc-box rounded text-center wc-box-primary p-4">
-		{{ whyus_1_1_3_1_3_1_1(p) }}
-		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_12 }}</h5>
-		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_13 }}</p>
-	</div>
-{% endmacro %}
-{% macro whyus_1_1_3_1_3_3(p) %}	
-	<div class="wc-box rounded text-center wc-box-primary p-4">
-		{{ whyus_1_1_3_1_3_3_1(p) }}
-		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_14 }}</h5>
-		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_15 }}</p>
+		<div class="wc-box-icon">
+			<i class="mdi mdi-collage"></i>
+		</div>
+		<h5 class="fw-bold mb-2 wc-title mt-4">{{ reason.title }}</h5>
+		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ reason.text }}</p>
 	</div>
 {% endmacro %}
 
-{% macro whyus_1_1_3_1_1(p) %}	
+{% macro whyus_reason_col(p) %}	
 	<div class="col-md-6">
-		{{ whyus_1_1_3_1_1_1(p) }} {# XXX:FOR #}
-		{{ whyus_1_1_3_1_1_3(p) }}
+		{% for reason in p.v_reasons %}
+			{{ whyus_reason_box(p, reason) }}
+		{% endfor %}
 	</div>
 {% endmacro %}
 
-{% macro whyus_1_1_3_1_3(p) %}	
-	<div class="col-md-6">
-		{{ whyus_1_1_3_1_3_1(p) }}
-		{{ whyus_1_1_3_1_3_3(p) }}
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_3_1(p) %}	
-	<div class="row">
-		{{ whyus_1_1_3_1_1(p) }}
-		{{ whyus_1_1_3_1_3(p) }}
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1_3(p) %}	
+{% macro whyus_reason_row(p) %}	
 	<div class="col-lg-8 align-self-center">
-		{{ whyus_1_1_3_1(p) }}
-	</div>
-{% endmacro %}
-
-{% macro whyus_1_1(p) %}	
-	<div class="row justify-content-center">
-		{{ whyus_1_1_1(p) }}
-		{{ whyus_1_1_3(p) }}
+		<div class="row">
+			{{ whyus_reason_col(p) }}
+			{{ whyus_reason_col(p) }}
+		</div>
 	</div>
 {% endmacro %}
 
 {% macro whyus(p) %}	
 	<section class="section">
-	<div class="container">
-		{{ whyus_1_1(p) }}
-	</div>
+		<div class="container">
+			<div class="row justify-content-center">
+				{{ whyus_reason_row(p) }} {# XXXFOR #}
+				{{ whyus_reason_row(p) }}
+			</div>
+		</div>
 	</section>
 {% endmacro %}
 
-{############################################################}
-
-{% macro features_1_1(p) %}	
+{# FEATURES #################################################}
+{% macro features_header(p) %}	
 	<div class="row justify-content-center">
 		<div class="col-lg-6">
 			<div class="text-center mb-5">
-				<h3 class="title mb-3">{{ p.v_txt_16 }}</h3>
-				<p class="text-muted font-size-15">{{ p.v_txt_17 }}</p>
+				<h3 class="title mb-3">{{ p.v_title }}</h3>
+				<p class="text-muted font-size-15">{{ p.v_txt }}</p>
 			</div>
 		</div>
 	</div>
 {% endmacro %}
 
-{% macro features_1_3_1_1(p) %}	
-	<div class="mb-4 mb-lg-0">
-		<img src="{{ p.v_img_src_images_features_img_png }}" alt="" class="img-fluid d-block mx-auto" />
-	</div>
-{% endmacro %}
-
-{% macro features_1_3_1(p) %}	
+{% macro features_1_img(p,feature) %}	
 	<div class="col-lg-6 align-self-center">
-		{{ features_1_3_1_1(p) }}
+		<div class="mb-4 mb-lg-0">
+  		<img src="{{ feature.v_img }}" alt="" class="img-fluid d-block mx-auto" />
+		</div>
 	</div>
 {% endmacro %}
 
-{% macro features_1_3_3_11(p) %}	
-	<div class="mt-5">
-	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_ask_txt }}</a>
-	<a href="{{ p.v_a_href__ }}" class="btn btn-soft-primary">{{ p.v_action_txt }}</a>
-	</div>
-{% endmacro %}
-
-{% macro features_1_3_3(p) %}	
+{% macro features_1_desc(p,feature) %}	
 	<div class="col-lg-5 offset-lg-1 align-self-center">
-		<p class="font-weight-medium text-uppercase mb-2"><i                             class="mdi mdi-chart-bubble h2 text-primary me-1 align-middle"></i> Creative Features</p>
-		<h3 class="font-weight-semibold line-height-1_4 mb-4">{{ p.v_h3_Build }}<b>community</b> & <b>conversion</b>
-			with our suite of <b>social tool</b></h3>
-		<p class="text-muted font-size-15 mb-4">{{ p.v_txt_18 }}</p>
+		<p class="font-weight-medium text-uppercase mb-2"><i class="mdi mdi-chart-bubble h2 text-primary me-1 align-middle"></i> {{feature.v_group_txt}}</p>
+		<h3 class="font-weight-semibold line-height-1_4 mb-4">{{ feature.v_title }}</h3>
+		<p class="text-muted font-size-15 mb-4">{{ feature.v_txt_1 }}</p>
 		<p class="text-muted mb-2"><i class="icon-xs me-1" data-feather="layout"></i> Donec pede justo
 		fringilla vel nec.</p>
 		<p class="text-muted"><i class="icon-xs me-1" data-feather="life-buoy"></i> Cras ultricies mi eu
 		turpis hendrerit fringilla.</p>
-		{{ features_1_3_3_11(p) }}
+		<div class="mt-5">
+			<a href="{{ feature.v_ask_link }}" class="btn btn-primary me-2">{{ feature.v_ask_txt }}</a>
+			<a href="{{ feature.v_act_link }}" class="btn btn-soft-primary">{{ feature.v_act_txt }}</a>
+		</div>
 	</div>
 {% endmacro %}
 
-{% macro features_1_3(p) %}	
+{% macro features_1(p,feature) %}	
 	<div class="row justify-content-center">
-		{{ features_1_3_1(p) }}
-		{{ features_1_3_3(p) }}
+		{{ features_1_img(p,feature) }}{#XXX: alternar izq der#}
+		{{ features_1_desc(p,feature) }}
 	</div>
 {% endmacro %}
 
-{% macro features(p) %}	
+{% macro features(p) %}{#XXX:for#}	
 	<section class="section bg-light feather-bg-img" style="background-image: url(images/features-bg-img.png);"
 																									 id="{{p.id}}">
-	<div class="container">
-		{{ features_1_1(p) }}
-		{{ features_1_3(p) }}
-	</div>
-	</section>
-{% endmacro %}
-
-{############################################################}
-{% macro r_31_1_1_1_11_1(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_a_Read_20More }}</a>
-{% endmacro %}
-
-{% macro r_31_1_1_1_11_3(p) %}	
-	<a href="{{ p.v_a_href__ }}" class="btn btn-soft-primary">{{ p.v_a_Buy_20Now }}</a>
-{% endmacro %}
-
-{% macro r_31_1_1_1_11(p) %}	
-	<div class="mt-5">
-		{{ r_31_1_1_1_11_1(p) }}
-		{{ r_31_1_1_1_11_3(p) }}
-	</div>
-{% endmacro %}
-
-{% macro r_31_1_1_1(p) %}	
-	<div class="col-lg-5 align-self-center">
-		<p class="font-weight-medium text-uppercase mb-2"><i class="mdi mdi-chart-bubble h2 text-primary me-1 align-middle"></i> Creative Features</p>
-		<h3 class="font-weight-semibold line-height-1_4 mb-4">{{ p.v_txt_19 }}<b>stay focused</b> on
-			<b>your customers</b>.
-		</h3>
-		<p class="text-muted font-size-15 mb-4">{{ p.v_txt_20 }}</p>
-		<p class="text-muted mb-2"><i class="icon-xs me-1" data-feather="server"></i> Donec pede justo
-		fringilla vel nec.</p>
-		<p class="text-muted"><i class="icon-xs me-1" data-feather="rss"></i> Cras ultricies mi eu turpis
-		hendrerit fringilla.</p>
-		{{ r_31_1_1_1_11(p) }}
-	</div>
-{% endmacro %}
-
-{% macro r_31_1_1_3_1(p) %}	
-	<div class="mt-4 mt-lg-0">
-		<img src="{{ p.v_img_src_images_features_img_1_png }}" alt="" class="img-fluid d-block mx-auto" />
-	</div>
-{% endmacro %}
-
-{% macro r_31_1_1_3(p) %}	
-	<div class="col-lg-6 offset-lg-1 align-self-center">
-		{{ r_31_1_1_3_1(p) }}
-	</div>
-{% endmacro %}
-
-
-
-{% macro r_31(p) %}	
-	<section class="section feather-bg-img" style="background-image: url(images/features-bg-img-1.png)">
 		<div class="container">
-			<div class="row justify-content-center">
-				{{ r_31_1_1_1(p) }}
-				{{ r_31_1_1_3(p) }}
-			</div>
+			{{ features_header(p) }}
+			{% for feature in p.features %}
+				{{ features_1(p,feature) }}
+			{% endfor %}
 		</div>
 	</section>
 {% endmacro %}
-
-
 
 {############################################################}
 {% macro blog_header(p) %}	
@@ -523,9 +338,9 @@ data:
 		<div class="blog-box mb-4 mb-lg-0">
 			<img src="{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto rounded" />
 			{{ blog_post_meta(p,post) }}
-			<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_37 }}</a>
-			<p class="text-muted font-size-15">{{ p.v_txt_38 }}</p>
-			<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_39 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_40 }}</span></a>
+			<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ post.v_title }}</a>
+			<p class="text-muted font-size-15">{{ post.v_txt }}</p>
+			<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ post.v_ask_txt }}<span                                 class="ms-2 right-icon">&#8594;</span></a>
 		</div>
 	</div>
 {% endmacro %}
@@ -549,30 +364,18 @@ data:
 
 
 {############################################################}
-{% macro contact_1_1_1_1(p) %}	
-	<div class="text-center mb-5">
-		<h3 class="title mb-3">{{ p.v_txt_49 }}</h3>
-		<p class="text-muted font-size-15">{{ p.v_txt_50 }}</p>
-	</div>
-{% endmacro %}
-
-{% macro contact_1_1_1(p) %}	
-	<div class="col-lg-6">
-
-		{{ contact_1_1_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro contact_1_1(p) %}	
+{% macro contact_header(p) %}	
 	<div class="row justify-content-center">
-
-		{{ contact_1_1_1(p) }}
-
+		<div class="col-lg-6">
+			<div class="text-center mb-5">
+				<h3 class="title mb-3">{{ p.v_contactus_txt }}</h3>
+				<p class="text-muted font-size-15">{{ p.v_txt_50 }}</p>
+			</div>
+		</div>
 	</div>
 {% endmacro %}
 
-{% macro contact_1_3_1_1(p) %}	
+{% macro contact_form(p) %}	
 	<div class="custom-form mb-5 mb-lg-0">
 		<form method="post" name="myForm" onsubmit="return validateForm()">
 			<p id="error-msg"></p>
@@ -587,7 +390,7 @@ data:
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="email">{{ p.v_txt_51 }}</label>
+						<label for="email">{{ p.v_lbl_emailaddr }}</label>
 						<input name="email" id="email" type="email" class="form-control"
 																												placeholder="Your email..." />
 					</div>
@@ -596,7 +399,7 @@ data:
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="form-group">
-						<label for="comments">{{ p.v_txt_52 }}</label>
+						<label for="comments">{{ p.v_lbl_message }}</label>
 						<textarea name="comments" id="comments" rows="4" class="form-control"
 																														 placeholder="Your message..."></textarea>
 					</div>
@@ -604,72 +407,32 @@ data:
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<button type="submit" id="submit" name="send" class="btn btn-primary">{{ p.v_txt_53 }}<i class="icon-size-15 ms-2 icon" data-feather="send"></i></button>
+					<button type="submit" id="submit" name="send" class="btn btn-primary">{{ p.v_lbl_sendmessage }}<i class="icon-size-15 ms-2 icon" data-feather="send"></i></button>
 				</div>
 			</div>
 		</form>
 	</div>
 {% endmacro %}
 
-{% macro contact_1_3_1(p) %}	
-	<div class="col-lg-7 align-self-center">
-
-		{{ contact_1_3_1_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro contact_1_3_3_1(p) %}	
+{% macro contact_detail(p) %}	
 	<div class="contact-detail text-muted ms-lg-5">
-		<p class=""><i class="icon-xs icon me-1" data-feather="mail"></i> :
-		<span>{{ p.v_txt_54 }}</span>
-		</p>
-		<p class=""><i class="icon-xs icon me-1" data-feather="link"></i> : <span>{{ p.v_txt_55 }}</span>
-		</p>
-		<p class=""><i class="icon-xs icon me-1" data-feather="phone-call"></i> : <span>{{ p.v_txt_56 }}</span></p>
-		<p class=""><i class="icon-xs icon me-1" data-feather="clock"></i> : <span>{{ p.v_txt_57 }}</span></p>
-		<p class=""><i class="icon-xs icon me-1" data-feather="map-pin"></i> : <span>{{ p.v_txt_58 }}</span></p>
-	</div>
-{% endmacro %}
-
-{% macro contact_1_3_3(p) %}	
-	<div class="col-lg-5 align-self-center">
-
-		{{ contact_1_3_3_1(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro contact_1_3(p) %}	
-	<div class="row justify-content-center">
-
-		{{ contact_1_3_1(p) }}
-
-
-		{{ contact_1_3_3(p) }}
-
-	</div>
-{% endmacro %}
-
-{% macro contact_1(p) %}	
-	<div class="container">
-
-		{{ contact_1_1(p) }}
-
-
-		{{ contact_1_3(p) }}
-
+		{% for type,text in p.contact_items %}
+			<p class=""><i class="icon-xs icon me-1" data-feather="{{type}}"></i> : <span>{{ text }}</span> </p>
+		{% endfor %}
 	</div>
 {% endmacro %}
 
 {% macro contact(p) %}	
 	<section class="section bg-light" id="{{ p.id }}">
-
-		{{ contact_1(p) }}
-
+		<div class="container">
+			{{ contact_header(p) }}
+			<div class="row justify-content-center">
+				<div class="col-lg-7 align-self-center"> {{ contact_form(p) }} </div>
+				<div class="col-lg-5 align-self-center"> {{ contact_detail(p) }} </div>
+			</div>
+		</div>
 	</section>
 {% endmacro %}
-
 
 {# FOOTER ###################################################}
 {% macro footer_links_contact(p) %}	
@@ -766,7 +529,7 @@ data:
 {% macro registerModal_1_1_3_3(p) %}	
 	<div class="position-relative text-center mt-4">
 		<span class="login-border"></span>
-		<p class="social-login text-muted font-size-17">{{ p.v_txt_68 }}</p>
+		<p class="social-login text-muted font-size-17">{{ p.v_lbl_oauth }}</p>
 	</div>
 {% endmacro %}
 
@@ -784,7 +547,7 @@ data:
 
 		{{ registerModal_1_1_3_5_1(p) }}
 
-		<p class="text-muted mb-0">{{ p.v_txt_69 }}<a href="{{ p.v_a_href__ }}" class="text-primary">{{ p.v_a_Signup }}</a></p>
+		<p class="text-muted mb-0">{{ p.v_lbl_newuser }}<a href="{{ p.v_a_href__ }}" class="text-primary">{{ p.v_a_Signup }}</a></p>
 	</div>
 {% endmacro %}
 
@@ -792,19 +555,19 @@ data:
 	<div class="login-form mt-4">
 		<form>
 			<div class="form-group">
-				<label for="exampleInputEmail1">{{ p.v_txt_64 }}</label>
+				<label for="exampleInputEmail1">{{ p.v_lbl_userormail }}</label>
 				<input type="email" class="form-control" id="exampleInputEmail1"
 																								 placeholder="Youremail@gmail.com" />
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">{{ p.v_txt_65 }}</label>
+				<label for="exampleInputPassword1">{{ p.v_lbl_pass }}</label>
 				<input type="password" class="form-control" id="exampleInputPassword1"
 																										placeholder="Password" />
 			</div>
-			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_txt_66 }}</a>
+			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_lbl_forgotpass }}</a>
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input" id="customCheck1" />
-				<label class="custom-control-label font-size-15" for="customCheck1">{{ p.v_txt_67 }}</label>
+				<label class="custom-control-label font-size-15" for="customCheck1">{{ p.v_lbl_remember }}</label>
 			</div>
 			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary">{{ p.v_button_Login }}<i class="icon-size-15 icon ms-1"
@@ -854,7 +617,7 @@ data:
 
 {% macro registerModal_1_1_1_1(p) %}	
 	<div class="text-center">
-		<h3 class="title mb-4">{{ p.v_txt_70 }}</h3>
+		<h3 class="title mb-4">{{ p.v_lbl_welcome }}</h3>
 		<h4 class="text-uppercase text-primary"><b>Register</b></h4>
 	</div>
 {% endmacro %}
@@ -862,7 +625,7 @@ data:
 {% macro registerModal_1_1_1_3_3(p) %}	
 	<div class="position-relative text-center mt-4">
 		<span class="login-border"></span>
-		<p class="social-login text-muted font-size-17">{{ p.v_txt_76 }}</p>
+		<p class="social-login text-muted font-size-17">{{ p.v_lbl_oauth }}</p>
 	</div>
 {% endmacro %}
 
@@ -897,17 +660,17 @@ data:
 																								 placeholder="Youremail@gmail.com" />
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword2">{{ p.v_txt_72 }}</label>
+				<label for="exampleInputPassword2">{{ p.v_lbl_pass }}</label>
 				<input type="password" class="form-control" id="exampleInputPassword2"
 																										placeholder="Password" />
 			</div>
-			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_txt_73 }}</a>
+			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_lbl_forgotpass }}</a>
 			<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input" id="customCheck2" />
-				<label class="custom-control-label font-size-15" for="customCheck2">{{ p.v_txt_74 }}</label>
+				<label class="custom-control-label font-size-15" for="customCheck2">{{ p.v_lbl_remember }}</label>
 			</div>
 			<div class="text-center mt-4">
-				<button type="submit" class="btn btn-primary">{{ p.v_txt_75 }}<i class="icon-size-15 icon ms-1"
+				<button type="submit" class="btn btn-primary">{{ p.v_lbl_newuser }}<i class="icon-size-15 icon ms-1"
 																																				 data-feather="arrow-right-circle"></i></button>
 			</div>
 		</form>
@@ -991,7 +754,6 @@ data:
 'hero': hero,
 'whyus': whyus,
 'features': features,
-'r_31': r_31,
 'pricing': pricing,
 'blog': blog,
 'contact': contact

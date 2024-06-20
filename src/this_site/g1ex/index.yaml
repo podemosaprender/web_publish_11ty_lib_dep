@@ -7,78 +7,40 @@ data:
     v_agency_name: AgencyName
     v_currency: "$"
     v_action_txt: "XACTION TEXT"
+    v_contactus_txt: contact us
+    v_lbl_emailaddr: email address*
+    v_lbl_message: message*
+    v_lbl_sendmessage: send message
+    v_lbl_userormail: username / email
+    v_lbl_forgotpass: forgot password.?
+    v_lbl_remember: remember me
+    v_lbl_newuser: register
+    v_lbl_oauth: social login
+    v_lbl_pass: password
+    v_lbl_welcome: welcome
+    v_txt_subscribe: subscribe
     v_pricing_title: choose your plan
     v_pricing_txt: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     v_img_src_images_pricing_bottom_bg_png: images/pricing-bottom-bg.png
     #pricing
-    v_why_us_action_href: '#'
-    v_txt_10: grow your revenue
-    v_txt_11: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    v_txt_12: analytics security
-    v_txt_13: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    v_txt_14: data privacy
-    v_txt_15: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-    #XXX_whyus
-    v_img_src_images_blog_img_1_jpg: images/blog/img-1.jpg
-    v_img_src_images_blog_img_2_jpg: images/blog/img-2.jpg
-    v_img_src_images_blog_img_3_jpg: images/blog/img-3.jpg
-    #XXX_blog
-    v_img_src_images_features_img_1_png: images/features-img-1.png
     v_img_src_images_features_img_png: images/features-img.png
-    v_txt_16: awesome features
     v_txt_17: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
     #XXX_features
-    v_label_email: email
-    v_label_name_: name*
-    v_txt_18: >-
-      temporibus autem quibusdam et aut officiis debitis aut rerum a
-      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-      recusandae itaque.
-    v_txt_19: we do the work you
     #XXX
     v_txt_hero_big: we help startups launch their products with awesome website
     v_txt_hero_small: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cumque nihil impedit quo minus quod maxime.
     #XXXhero
-    v_txt_20: >-
-      temporibus autem quibusdam et aut officiis debitis aut rerum a
-      necessitatibus saepe eveniet ut et voluptates repudiandae sint molestiae non
-      recusandae itaque.
-    v_blog_txt: >-
-      et harum quidem rerum facilis est et expedita distinctio nam libero tempore
-      cum soluta nobis eligendi cumque.
-    v_txt_37: best traveling place
-    v_txt_38: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_39: learn more
-    v_txt_subscribe: subscribe
-    v_txt_40: '&#8594;'
-    v_txt_41: private meeting room
-    v_txt_42: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_43: learn more
-    v_txt_44: '&#8594;'
-    v_txt_45: the best business ideas
-    v_txt_46: >-
-      integer ante arcu accumsan a consectetuer eget posuere mauris praesent
-      adipiscing phasellus ullamcorper ipsum rutrum punc.
-    v_txt_47: learn more
-    v_txt_48: '&#8594;'
-    v_txt_49: contact us
     v_whyus_title: why choose us ?
     v_txt_50: >-
       et harum quidem rerum facilis est et expedita distinctio nam libero tempore
       cum soluta nobis eligendi cumque.
-    v_txt_51: email address*
-    v_txt_52: message*
-    v_txt_53: send message
+    #XXXwhyus
     v_txt_54: support@website.com
     v_txt_55: www.website.com
     v_txt_56: (+001) 123 456 7890
@@ -87,30 +49,15 @@ data:
     v_txt_59: >-
       cras ultricies mi eu turpis sit hendrerit fringilla vestibulum ante ipsum
       primis in faucibus ultrices posuere cubilia.
-    v_whyus_txt: >-
-      nam libero tempore cum soluta as nobis est eligendi optio cumque nihile
-      impedite quo minus id quod maxime.
-    v_txt_60: customer service
-    v_txt_61: get started
-    v_txt_62: 
-    v_txt_63: welcome to lezir
-    v_txt_64: username / email
-    v_txt_65: password
-    v_txt_66: forgot password.?
-    v_txt_67: remember me
-    v_txt_68: social login
-    v_txt_69: new user?
-    v_whyus_action_txt: learn more
-    v_txt_70: welcome to lezir
+    #XXXfooter
     v_txt_71: user name
-    v_txt_72: password
-    v_txt_73: forgot password.?
-    v_txt_74: remember me
-    v_txt_75: register
-    v_txt_76: social login
-    v_txt_8: easy to use
-    v_txt_9: sed ut perspiciatis unde omnis iste natus error sit voluptatem.
   sections:
+    mifeatures:
+      << : *defaults
+      type: features
+    miwhyus:
+      << : *defaults
+      type: whyus
     miprice:
       << : *defaults
       type: pricing
@@ -134,12 +81,16 @@ data:
           v_features:
             - a todo culo
             - procelanato
-
     mihome: 
       << : *defaults
       type: hero
     miotra:
       << : *defaults
       type: contact
+      contact_items:
+        mail: x@y.com
+        link: podemosaprender.org
+        phone-call: 54 11 3030 4444
+        clock: 9AM - 6PM
+        map-pin: Av Calchaqui 3131
 
-#}
