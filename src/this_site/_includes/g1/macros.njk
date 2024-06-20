@@ -1,0 +1,1459 @@
+
+{% macro light_dark_mode(p) %}	
+	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
+		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
+		<i class="mdi mdi-moon-waning-crescent mode-dark"></i>
+	</a>
+{% endmacro %}
+
+{% macro status(p) %}	
+	<div id="status">
+		<div class="spinner"></div>
+	</div>
+{% endmacro %}
+
+{% macro preloader(p) %}	
+	<div id="preloader">
+
+		{{ status(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro navbar_1_3(p) %}	
+	<a class="navbar-brand logo" href="{{ p.v_a_href_https_themesbrand_com_lezir_layout_layout_one_1_html }}">
+		<img src="images/logo-dark.png" alt="" class="logo-dark" height="24" />
+		<img src="images/logo-light.png" alt="" class="logo-light" height="24" />
+	</a>
+{% endmacro %}
+
+{% macro navbar_navlist(p) %}	
+	<ul class="navbar-nav mx-auto navbar-center" id="navbar-navlist">
+		<li class="nav-item">
+			<a data-scroll href="{{ p.v_a_href__home }}" class="nav-link">{{ p.v_a_Home }}</a>
+		</li>
+		<li class="nav-item">
+			<a data-scroll href="{{ p.v_a_href__features }}" class="nav-link">{{ p.v_a_Features }}</a>
+		</li>
+		<li class="nav-item">
+			<a data-scroll href="{{ p.v_a_href__pricing }}" class="nav-link">{{ p.v_a_Pricing }}</a>
+		</li>
+		<li class="nav-item">
+			<a data-scroll href="{{ p.v_a_href__blog }}" class="nav-link">{{ p.v_a_Blog }}</a>
+		</li>
+		<li class="nav-item">
+			<a data-scroll href="{{ p.v_a_href__contact }}" class="nav-link">{{ p.v_txt_1 }}</a>
+		</li>
+	</ul>
+{% endmacro %}
+
+{% macro navbarCollapse_3(p) %}	
+	<ul class="navbar-nav navbar-center">
+		<li class="nav-item">
+			<a href="{{ p.v_a_href__login }}" class="nav-link" data-bs-toggle="modal"
+																												 data-bs-target="#exampleModalCenter">{{ p.v_a_Login }}</a>
+		</li>
+		<li class="nav-item">
+			<a href="{{ p.v_a_href__login }}" class="nav-link" data-bs-toggle="modal"
+																												 data-bs-target="#exampleModalCenter-1">{{ p.v_a_Register }}</a>
+		</li>
+	</ul>
+{% endmacro %}
+
+{% macro navbarCollapse(p) %}	
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+
+		{{ navbar_navlist(p) }}
+
+
+		{{ navbarCollapse_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro navbar_1(p) %}	
+	<div class="container">
+		<!-- LOGO -->
+
+		{{ navbar_1_3(p) }}
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+																																					 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="mdi mdi-menu"></i>
+		</button>
+
+		{{ navbarCollapse(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro navbar(p) %}	
+	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark" id="navbar">
+
+		{{ navbar_1(p) }}
+
+	</nav>
+{% endmacro %}
+
+{% macro home_3_1_1_1(p) %}	
+	<div class="text-center">
+		<h1 class="text-white hero-6-title mb-4 line-height-1_4">{{ p.v_txt_2 }}</h1>
+		<p class="text-white-50 w-75 mx-auto font-size-15">{{ p.v_txt_3 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro home_3_1_1(p) %}	
+	<div class="col-lg-8">
+
+		{{ home_3_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro home_3_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ home_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro home_3_3_1_1(p) %}	
+	<div class="text-center Subcribe-form mt-5">
+		<form action="#">
+			<input type="text" placeholder="Enter your Email..." />
+			<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_4 }}</button>
+		</form>
+	</div>
+{% endmacro %}
+
+{% macro home_3_3_1(p) %}	
+	<div class="col-lg-8 ">
+
+		{{ home_3_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro home_3_3(p) %}	
+	<div class="row justify-content-center">
+
+		{{ home_3_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro home_3(p) %}	
+	<div class="container">
+
+		{{ home_3_1(p) }}
+
+
+		{{ home_3_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro home(p) %}	
+	<section class="hero-6-bg position-relative" style="background-image: url(images/hero-6-bg-img.jpg)" id="home">
+		<div class="bg-overlay"></div>
+
+		{{ home_3(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro r_23_1_1_1_1_1_1(p) %}	
+	<div class="icon-xxl uim-icon-primary"><i class="uim uim-cube"></i></div>
+{% endmacro %}
+
+{% macro r_23_1_1_1_1_1(p) %}	
+	<div class="p-2 bg-soft-primary d-inline-block rounded mb-4">
+		{{ r_23_1_1_1_1_1_1(p) }}
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_1_1_7(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-outline-primary">{{ p.v_txt_7 }}</a>
+{% endmacro %}
+
+{% macro r_23_1_1_1_1(p) %}	
+	<div class="mb-4 mb-lg-0">
+
+		{{ r_23_1_1_1_1_1(p) }}
+
+		<h3 class="">{{ p.v_txt_5 }}</h3>
+		<p class="text-muted mb-4">{{ p.v_txt_6 }}</p>
+		{{ r_23_1_1_1_1_7(p) }}
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_1(p) %}	
+	<div class="col-lg-4 align-self-center">
+
+		{{ r_23_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_1_1_1(p) %}	
+	<div class="wc-box-icon">
+		<i class="mdi mdi-collage"></i>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_1_1(p) %}	
+	<div class="wc-box rounded text-center wc-box-primary p-4 mt-md-5">
+
+		{{ r_23_1_1_3_1_1_1_1(p) }}
+
+		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_8 }}</h5>
+		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_9 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_1_3_1(p) %}	
+	<div class="wc-box-icon">
+		<i class="mdi mdi-trending-up"></i>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_1_3(p) %}	
+	<div class="wc-box rounded text-center wc-box-primary p-4">
+
+		{{ r_23_1_1_3_1_1_3_1(p) }}
+
+		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_10 }}</h5>
+		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_11 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_1(p) %}	
+	<div class="col-md-6">
+
+		{{ r_23_1_1_3_1_1_1(p) }}
+
+
+		{{ r_23_1_1_3_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_3_1_1(p) %}	
+	<div class="wc-box-icon">
+		<i class="mdi mdi-security"></i>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_3_1(p) %}	
+	<div class="wc-box rounded text-center wc-box-primary p-4">
+
+		{{ r_23_1_1_3_1_3_1_1(p) }}
+
+		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_12 }}</h5>
+		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_13 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_3_3_1(p) %}	
+	<div class="wc-box-icon">
+		<i class="mdi mdi-database-lock"></i>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_3_3(p) %}	
+	<div class="wc-box rounded text-center wc-box-primary p-4">
+
+		{{ r_23_1_1_3_1_3_3_1(p) }}
+
+		<h5 class="fw-bold mb-2 wc-title mt-4">{{ p.v_txt_14 }}</h5>
+		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ p.v_txt_15 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1_3(p) %}	
+	<div class="col-md-6">
+
+		{{ r_23_1_1_3_1_3_1(p) }}
+
+
+		{{ r_23_1_1_3_1_3_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3_1(p) %}	
+	<div class="row">
+
+		{{ r_23_1_1_3_1_1(p) }}
+
+
+		{{ r_23_1_1_3_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1_3(p) %}	
+	<div class="col-lg-8 align-self-center">
+
+		{{ r_23_1_1_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ r_23_1_1_1(p) }}
+
+
+		{{ r_23_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23_1(p) %}	
+	<div class="container">
+
+		{{ r_23_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_23(p) %}	
+	<section class="section">
+
+		{{ r_23_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro features_1_1_1_1(p) %}	
+	<div class="text-center mb-5">
+		<h3 class="title mb-3">{{ p.v_txt_16 }}</h3>
+		<p class="text-muted font-size-15">{{ p.v_txt_17 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro features_1_1_1(p) %}	
+	<div class="col-lg-6">
+
+		{{ features_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ features_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features_1_3_1_1(p) %}	
+	<div class="mb-4 mb-lg-0">
+		<img src="{{ p.v_img_src_images_features_img_png }}" alt="" class="img-fluid d-block mx-auto" />
+	</div>
+{% endmacro %}
+
+{% macro features_1_3_1(p) %}	
+	<div class="col-lg-6 align-self-center">
+
+		{{ features_1_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features_1_3_3_11_1(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_a_Read_20More }}</a>
+{% endmacro %}
+
+{% macro features_1_3_3_11_3(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-soft-primary">{{ p.v_a_Buy_20Now }}</a>
+{% endmacro %}
+
+{% macro features_1_3_3_11(p) %}	
+	<div class="mt-5">
+		{{ features_1_3_3_11_1(p) }}
+		{{ features_1_3_3_11_3(p) }}
+	</div>
+{% endmacro %}
+
+{% macro features_1_3_3(p) %}	
+	<div class="col-lg-5 offset-lg-1 align-self-center">
+		<p class="font-weight-medium text-uppercase mb-2"><i                             class="mdi mdi-chart-bubble h2 text-primary me-1 align-middle"></i> Creative Features</p>
+		<h3 class="font-weight-semibold line-height-1_4 mb-4">{{ p.v_h3_Build }}<b>community</b> & <b>conversion</b>
+			with our suite of <b>social tool</b></h3>
+		<p class="text-muted font-size-15 mb-4">{{ p.v_txt_18 }}</p>
+		<p class="text-muted mb-2"><i class="icon-xs me-1" data-feather="layout"></i> Donec pede justo
+		fringilla vel nec.</p>
+		<p class="text-muted"><i class="icon-xs me-1" data-feather="life-buoy"></i> Cras ultricies mi eu
+		turpis hendrerit fringilla.</p>
+
+		{{ features_1_3_3_11(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features_1_3(p) %}	
+	<div class="row justify-content-center">
+
+		{{ features_1_3_1(p) }}
+
+
+
+		{{ features_1_3_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features_1(p) %}	
+	<div class="container">
+
+		{{ features_1_1(p) }}
+
+
+
+		{{ features_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro features(p) %}	
+	<section class="section bg-light feather-bg-img" style="background-image: url(images/features-bg-img.png);"
+																									 id="features">
+
+		{{ features_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro r_31_1_1_1_11_1(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-primary me-2">{{ p.v_a_Read_20More }}</a>
+{% endmacro %}
+
+{% macro r_31_1_1_1_11_3(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-soft-primary">{{ p.v_a_Buy_20Now }}</a>
+{% endmacro %}
+
+{% macro r_31_1_1_1_11(p) %}	
+	<div class="mt-5">
+		{{ r_31_1_1_1_11_1(p) }}
+		{{ r_31_1_1_1_11_3(p) }}
+	</div>
+{% endmacro %}
+
+{% macro r_31_1_1_1(p) %}	
+	<div class="col-lg-5 align-self-center">
+		<p class="font-weight-medium text-uppercase mb-2"><i                             class="mdi mdi-chart-bubble h2 text-primary me-1 align-middle"></i> Creative Features</p>
+		<h3 class="font-weight-semibold line-height-1_4 mb-4">{{ p.v_txt_19 }}<b>stay focused</b> on
+			<b>your customers</b>.
+		</h3>
+		<p class="text-muted font-size-15 mb-4">{{ p.v_txt_20 }}</p>
+		<p class="text-muted mb-2"><i class="icon-xs me-1" data-feather="server"></i> Donec pede justo
+		fringilla vel nec.</p>
+		<p class="text-muted"><i class="icon-xs me-1" data-feather="rss"></i> Cras ultricies mi eu turpis
+		hendrerit fringilla.</p>
+
+		{{ r_31_1_1_1_11(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_31_1_1_3_1(p) %}	
+	<div class="mt-4 mt-lg-0">
+		<img src="{{ p.v_img_src_images_features_img_1_png }}" alt="" class="img-fluid d-block mx-auto" />
+	</div>
+{% endmacro %}
+
+{% macro r_31_1_1_3(p) %}	
+	<div class="col-lg-6 offset-lg-1 align-self-center">
+
+		{{ r_31_1_1_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_31_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ r_31_1_1_1(p) }}
+
+
+		{{ r_31_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_31_1(p) %}	
+	<div class="container">
+
+		{{ r_31_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_31(p) %}	
+	<section class="section feather-bg-img" style="background-image: url(images/features-bg-img-1.png)">
+
+		{{ r_31_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro pricing_1_1_1_1(p) %}	
+	<div class="text-center mb-5">
+		<h3 class="title mb-3">{{ p.v_txt_21 }}</h3>
+		<p class="text-muted font-size-15">{{ p.v_txt_22 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_1_1(p) %}	
+	<div class="col-lg-6">
+
+		{{ pricing_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ pricing_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_1(p) %}	
+	<div class="pricing-icon-bg my-4">
+		<i class="mdi mdi-account h1"></i>
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_9(p) %}	
+	<ul class="list-unstyled pricing-item mb-4">
+		<li class="text-muted">{{ p.v_txt_24 }}</li>
+		<li class="text-muted">{{ p.v_txt_25 }}</li>
+		<li class="text-muted">{{ p.v_txt_26 }}</li>
+	</ul>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_11(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-outline-primary pr-btn">{{ p.v_a_Buy_20Now }}</a>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_13_1(p) %}	
+	<div class="hero-bottom-img">
+		<img src="{{ p.v_img_src_images_pricing_bottom_bg_png }}" alt="" class="img-fluid d-block mx-auto" />
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1_13(p) %}	
+	<div class="mt-4">
+
+		{{ pricing_1_3_1_1_13_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1_1(p) %}	
+	<div class="pricing-box rounded text-center p-4">
+
+		{{ pricing_1_3_1_1_1(p) }}
+
+		<h4 class="title mb-3">{{ p.v_h4_Simple }}</h4>
+		<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_sup__24 }}</sup>19</b></h1>
+		<p class="text-muted font-weight-semibold">{{ p.v_txt_23 }}</p>
+
+		{{ pricing_1_3_1_1_9(p) }}
+
+		{{ pricing_1_3_1_1_11(p) }}
+
+		{{ pricing_1_3_1_1_13(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_1(p) %}	
+	<div class="col-lg-4">
+
+		{{ pricing_1_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1_1(p) %}	
+	<div class="pricing-icon-bg my-4">
+		<i class="mdi mdi-account-multiple h1"></i>
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1_9(p) %}	
+	<ul class="list-unstyled pricing-item mb-4">
+		<li class="text-muted">{{ p.v_txt_28 }}</li>
+		<li class="text-muted">{{ p.v_txt_29 }}</li>
+		<li class="text-muted">{{ p.v_txt_30 }}</li>
+	</ul>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1_11(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-primary pr-btn">{{ p.v_a_Buy_20Now }}</a>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1_13_1(p) %}	
+	<div class="hero-bottom-img">
+		<img src="{{ p.v_img_src_images_pricing_bottom_bg_png }}" alt="" class="img-fluid d-block mx-auto" />
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1_13(p) %}	
+	<div class="mt-4">
+
+		{{ pricing_1_3_3_1_13_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_3_1(p) %}	
+	<div class="pricing-box rounded text-center active p-4">
+
+		{{ pricing_1_3_3_1_1(p) }}
+
+		<h4 class="title mb-3">{{ p.v_h4_Basic }}</h4>
+		<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_sup__24 }}</sup>49</b></h1>
+		<p class="text-muted font-weight-semibold">{{ p.v_txt_27 }}</p>
+
+		{{ pricing_1_3_3_1_9(p) }}
+
+		{{ pricing_1_3_3_1_11(p) }}
+
+		{{ pricing_1_3_3_1_13(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_3(p) %}	
+	<div class="col-lg-4">
+
+		{{ pricing_1_3_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1_1(p) %}	
+	<div class="pricing-icon-bg my-4">
+		<i class="mdi mdi-account-group h1"></i>
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1_9(p) %}	
+	<ul class="list-unstyled pricing-item mb-4">
+		<li class="text-muted">{{ p.v_txt_32 }}</li>
+		<li class="text-muted">{{ p.v_txt_33 }}</li>
+		<li class="text-muted">{{ p.v_txt_34 }}</li>
+	</ul>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1_11(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="btn btn-outline-primary pr-btn">{{ p.v_a_Buy_20Now }}</a>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1_13_1(p) %}	
+	<div class="hero-bottom-img">
+		<img src="{{ p.v_img_src_images_pricing_bottom_bg_png }}" alt="" class="img-fluid d-block mx-auto" />
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1_13(p) %}	
+	<div class="mt-4">
+
+		{{ pricing_1_3_5_1_13_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_5_1(p) %}	
+	<div class="pricing-box rounded text-center p-4">
+
+		{{ pricing_1_3_5_1_1(p) }}
+
+		<h4 class="title mb-3">{{ p.v_h4_Pro }}</h4>
+		<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_sup__24 }}</sup>89</b></h1>
+		<p class="text-muted font-weight-semibold">{{ p.v_txt_31 }}</p>
+
+		{{ pricing_1_3_5_1_9(p) }}
+
+		{{ pricing_1_3_5_1_11(p) }}
+
+		{{ pricing_1_3_5_1_13(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3_5(p) %}	
+	<div class="col-lg-4">
+
+		{{ pricing_1_3_5_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1_3(p) %}	
+	<div class="row">
+
+		{{ pricing_1_3_1(p) }}
+
+
+		{{ pricing_1_3_3(p) }}
+
+
+		{{ pricing_1_3_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing_1(p) %}	
+	<div class="container">
+
+		{{ pricing_1_1(p) }}
+
+
+		{{ pricing_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro pricing(p) %}	
+	<section class="section bg-light" id="pricing">
+
+		{{ pricing_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro blog_1_1_1_1(p) %}	
+	<div class="text-center mb-5">
+		<h3 class="title mb-3">{{ p.v_txt_35 }}</h3>
+		<p class="text-muted font-size-15">{{ p.v_txt_36 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro blog_1_1_1(p) %}	
+	<div class="col-lg-6">
+
+		{{ blog_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ blog_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_1_1_3(p) %}	
+	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
+		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
+																				 data-feather="calendar"></i> April 10 2020</li>
+		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
+			Admin</li>
+	</ul>
+{% endmacro %}
+
+{% macro blog_1_3_1_1_5(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_37 }}</a>
+{% endmacro %}
+
+{% macro blog_1_3_1_1_9(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_39 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_40 }}</span></a>
+{% endmacro %}
+
+{% macro blog_1_3_1_1(p) %}	
+	<div class="blog-box mb-4 mb-lg-0">
+		<img src="{{ p.v_img_src_images_blog_img_1_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
+
+		{{ blog_1_3_1_1_3(p) }}
+
+		{{ blog_1_3_1_1_5(p) }}
+		<p class="text-muted font-size-15">{{ p.v_txt_38 }}</p>
+		{{ blog_1_3_1_1_9(p) }}
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_1(p) %}	
+	<div class="col-lg-4">
+
+		{{ blog_1_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_3_1_3(p) %}	
+	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
+		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
+																				 data-feather="calendar"></i> April 11 2020</li>
+		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
+			Admin</li>
+	</ul>
+{% endmacro %}
+
+{% macro blog_1_3_3_1_5(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_41 }}</a>
+{% endmacro %}
+
+{% macro blog_1_3_3_1_9(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="text-primary   font-weight-semibold">{{ p.v_txt_43 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_44 }}</span></a>
+{% endmacro %}
+
+{% macro blog_1_3_3_1(p) %}	
+	<div class="blog-box blog-box mb-4 mb-lg-0">
+		<img src="{{ p.v_img_src_images_blog_img_2_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
+
+		{{ blog_1_3_3_1_3(p) }}
+
+		{{ blog_1_3_3_1_5(p) }}
+		<p class="text-muted font-size-15">{{ p.v_txt_42 }}</p>
+		{{ blog_1_3_3_1_9(p) }}
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_3(p) %}	
+	<div class="col-lg-4">
+
+		{{ blog_1_3_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_5_1_3(p) %}	
+	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
+		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
+																				 data-feather="calendar"></i> April 12 2020</li>
+		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
+			Admin</li>
+	</ul>
+{% endmacro %}
+
+{% macro blog_1_3_5_1_5(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="fw-bold h5">{{ p.v_txt_45 }}</a>
+{% endmacro %}
+
+{% macro blog_1_3_5_1_9(p) %}	
+	<a href="{{ p.v_a_href__ }}" class="text-primary  font-weight-semibold">{{ p.v_txt_47 }}<span                                 class="ms-2 right-icon">{{ p.v_txt_48 }}</span></a>
+{% endmacro %}
+
+{% macro blog_1_3_5_1(p) %}	
+	<div class="blog-box blog-box mb-4 mb-lg-0">
+		<img src="{{ p.v_img_src_images_blog_img_3_jpg }}" alt="" class="img-fluid d-block mx-auto rounded" />
+
+		{{ blog_1_3_5_1_3(p) }}
+
+		{{ blog_1_3_5_1_5(p) }}
+		<p class="text-muted font-size-15">{{ p.v_txt_46 }}</p>
+		{{ blog_1_3_5_1_9(p) }}
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3_5(p) %}	
+	<div class="col-lg-4">
+
+		{{ blog_1_3_5_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1_3(p) %}	
+	<div class="row">
+
+		{{ blog_1_3_1(p) }}
+
+
+		{{ blog_1_3_3(p) }}
+
+
+		{{ blog_1_3_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog_1(p) %}	
+	<div class="container">
+
+		{{ blog_1_1(p) }}
+
+
+
+		{{ blog_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro blog(p) %}	
+	<section class="section" id="blog">
+
+		{{ blog_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro contact_1_1_1_1(p) %}	
+	<div class="text-center mb-5">
+		<h3 class="title mb-3">{{ p.v_txt_49 }}</h3>
+		<p class="text-muted font-size-15">{{ p.v_txt_50 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro contact_1_1_1(p) %}	
+	<div class="col-lg-6">
+
+		{{ contact_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact_1_1(p) %}	
+	<div class="row justify-content-center">
+
+		{{ contact_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact_1_3_1_1(p) %}	
+	<div class="custom-form mb-5 mb-lg-0">
+		<form method="post" name="myForm" onsubmit="return validateForm()">
+			<p id="error-msg"></p>
+			<div id="simple-msg"></div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name">{{ p.v_label_Name_ }}</label>
+						<input name="name" id="name" type="text" class="form-control"
+																										 placeholder="Your name..." />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="email">{{ p.v_txt_51 }}</label>
+						<input name="email" id="email" type="email" class="form-control"
+																												placeholder="Your email..." />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="form-group">
+						<label for="comments">{{ p.v_txt_52 }}</label>
+						<textarea name="comments" id="comments" rows="4" class="form-control"
+																														 placeholder="Your message..."></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<button type="submit" id="submit" name="send" class="btn btn-primary">{{ p.v_txt_53 }}<i class="icon-size-15 ms-2 icon" data-feather="send"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endmacro %}
+
+{% macro contact_1_3_1(p) %}	
+	<div class="col-lg-7 align-self-center">
+
+		{{ contact_1_3_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact_1_3_3_1(p) %}	
+	<div class="contact-detail text-muted ms-lg-5">
+		<p class=""><i class="icon-xs icon me-1" data-feather="mail"></i> :
+		<span>{{ p.v_txt_54 }}</span>
+		</p>
+		<p class=""><i class="icon-xs icon me-1" data-feather="link"></i> : <span>{{ p.v_txt_55 }}</span>
+		</p>
+		<p class=""><i class="icon-xs icon me-1" data-feather="phone-call"></i> : <span>{{ p.v_txt_56 }}</span></p>
+		<p class=""><i class="icon-xs icon me-1" data-feather="clock"></i> : <span>{{ p.v_txt_57 }}</span></p>
+		<p class=""><i class="icon-xs icon me-1" data-feather="map-pin"></i> : <span>{{ p.v_txt_58 }}</span></p>
+	</div>
+{% endmacro %}
+
+{% macro contact_1_3_3(p) %}	
+	<div class="col-lg-5 align-self-center">
+
+		{{ contact_1_3_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact_1_3(p) %}	
+	<div class="row justify-content-center">
+
+		{{ contact_1_3_1(p) }}
+
+
+		{{ contact_1_3_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact_1(p) %}	
+	<div class="container">
+
+		{{ contact_1_1(p) }}
+
+
+		{{ contact_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro contact(p) %}	
+	<section class="section bg-light" id="contact">
+
+		{{ contact_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro r_55_1_1_1_1_5(p) %}	
+	<ul class="list-inline footer-social-icon-content">
+		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon facebook"><i                                         class="" data-feather="facebook"></i></a></li>
+		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
+																																																 data-feather="twitter"></i></a></li>
+		<li class="list-inline-item me-4"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
+																																																 data-feather="instagram"></i></a></li>
+		<li class="list-inline-item"><a href="{{ p.v_a_href__ }}" class="footer-social-icon"><i class=""
+																																														data-feather="linkedin"></i></a></li>
+	</ul>
+{% endmacro %}
+
+{% macro r_55_1_1_1_1(p) %}	
+	<div class="mb-5">
+		<img src="{{ p.v_img_src_images_logo_light_png }}" alt="" class="" height="24" />
+		<p class="text-white-50 my-4 font-size-15">{{ p.v_txt_59 }}</p>
+
+		{{ r_55_1_1_1_1_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_1(p) %}	
+	<div class="col-lg-4">
+
+		{{ r_55_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_1_3(p) %}	
+	<ul class="list-unstyled footer-sub-menu">
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Works }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Strategy }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Releases }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Press }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Mission }}</a></li>
+	</ul>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_1(p) %}	
+	<div class="col-md-4">
+		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_About_20Us }}</h6>
+
+		{{ r_55_1_1_3_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_3_3(p) %}	
+	<ul class="list-unstyled footer-sub-menu">
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Tranding }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Popular }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Customers }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Features }}</a></li>
+	</ul>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_3(p) %}	
+	<div class="col-md-4">
+		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_Customers }}</h6>
+
+		{{ r_55_1_1_3_1_3_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_5_3(p) %}	
+	<ul class="list-unstyled footer-sub-menu">
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Developers }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Support }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_txt_60 }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_txt_61 }}</a></li>
+		<li><a href="{{ p.v_a_href__ }}" class="footer-link">{{ p.v_a_Guide }}</a></li>
+	</ul>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1_5(p) %}	
+	<div class="col-md-4">
+		<h6 class="text-white text-uppercase mb-3">{{ p.v_h6_Support }}</h6>
+
+		{{ r_55_1_1_3_1_5_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_3_1(p) %}	
+	<div class="row">
+
+		{{ r_55_1_1_3_1_1(p) }}
+
+
+		{{ r_55_1_1_3_1_3(p) }}
+
+
+		{{ r_55_1_1_3_1_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1_3(p) %}	
+	<div class="col-lg-7 offset-lg-1">
+
+		{{ r_55_1_1_3_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1_1(p) %}	
+	<div class="row">
+
+		{{ r_55_1_1_1(p) }}
+
+
+		{{ r_55_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55_1(p) %}	
+	<div class="container">
+
+		{{ r_55_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_55(p) %}	
+	<section class="footer" style="background-image: url(images/footer-bg.png)">
+
+		{{ r_55_1(p) }}
+
+	</section>
+{% endmacro %}
+
+{% macro r_57_1_1_1_1(p) %}	
+	<div class="text-center">
+		<p class="text-white-50 font-size-15 mb-0">
+		<script>{{ p.v_txt_62 }}</script> © Lezir. Design By Themesbrand
+		</p>
+	</div>
+{% endmacro %}
+
+{% macro r_57_1_1_1(p) %}	
+	<div class="col-lg-12">
+
+		{{ r_57_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_57_1_1(p) %}	
+	<div class="row">
+
+		{{ r_57_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_57_1(p) %}	
+	<div class="container">
+
+		{{ r_57_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r_57(p) %}	
+	<div class="footer-alt py-3">
+
+		{{ r_57_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1(p) %}	
+	<div class="modal-body">
+
+		{{ exampleModalCenter_1_1_1_1_1(p) }}
+
+
+		{{ exampleModalCenter_1_1_1_1_3(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_3_3(p) %}	
+	<div class="position-relative text-center mt-4">
+		<span class="login-border"></span>
+		<p class="social-login text-muted font-size-17">{{ p.v_txt_68 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_3_5_1(p) %}	
+	<ul class="list-inline mt-2 mb-3">
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-primary"><i                                             class="icon-xs" data-feather="facebook"></i></a></li>
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-info"><i                                             class="icon-xs" data-feather="twitter"></i></a></li>
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-danger"><i                                             class="icon-xs" data-feather="instagram"></i></a></li>
+		<li class="list-inline-item"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-success"><i                                             class="icon-xs" data-feather="linkedin"></i></a></li>
+	</ul>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_3_5(p) %}	
+	<div class="text-center">
+
+		{{ exampleModalCenter_1_1_1_3_5_1(p) }}
+
+		<p class="text-muted mb-0">{{ p.v_txt_69 }}<a href="{{ p.v_a_href__ }}" class="text-primary">{{ p.v_a_Signup }}</a></p>
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_3(p) %}	
+	<div class="login-form mt-4">
+		<form>
+			<div class="form-group">
+				<label for="exampleInputEmail1">{{ p.v_txt_64 }}</label>
+				<input type="email" class="form-control" id="exampleInputEmail1"
+																								 placeholder="Youremail@gmail.com" />
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">{{ p.v_txt_65 }}</label>
+				<input type="password" class="form-control" id="exampleInputPassword1"
+																										placeholder="Password" />
+			</div>
+			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_txt_66 }}</a>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="customCheck1" />
+				<label class="custom-control-label font-size-15" for="customCheck1">{{ p.v_txt_67 }}</label>
+			</div>
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-primary">{{ p.v_button_Login }}<i class="icon-size-15 icon ms-1"
+																																							 data-feather="arrow-right-circle"></i></button>
+			</div>
+		</form>
+
+		{{ exampleModalCenter_1_1_1_3_3(p) }}
+
+
+		{{ exampleModalCenter_1_1_1_3_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1(p) %}	
+	<div class="modal-content login-page">
+
+		{{ exampleModalCenter_1_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1(p) %}	
+	<div class="modal-dialog modal-dialog-centered" role="document">
+
+		{{ exampleModalCenter_1_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1(p) %}	
+	<div class="modal fade" id="exampleModalCenter-1" tabindex="-1" role="dialog" aria-hidden="true">
+
+		{{ exampleModalCenter_1_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter(p) %}	
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+
+		{{ exampleModalCenter_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1_1(p) %}	
+	<div class="text-center">
+		<h3 class="title mb-4">{{ p.v_txt_70 }}</h3>
+		<h4 class="text-uppercase text-primary"><b>Register</b></h4>
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1_3_3(p) %}	
+	<div class="position-relative text-center mt-4">
+		<span class="login-border"></span>
+		<p class="social-login text-muted font-size-17">{{ p.v_txt_76 }}</p>
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1_3_5_1(p) %}	
+	<ul class="list-inline mt-2 mb-3">
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-primary"><i                                             class="icon-xs" data-feather="facebook"></i></a></li>
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-info"><i                                             class="icon-xs" data-feather="twitter"></i></a></li>
+		<li class="list-inline-item me-3"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-danger"><i                                             class="icon-xs" data-feather="instagram"></i></a></li>
+		<li class="list-inline-item"><a href="{{ p.v_a_href__ }}" class="login-social-icon icon-success"><i                                             class="icon-xs" data-feather="linkedin"></i></a></li>
+	</ul>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1_3_5(p) %}	
+	<div class="text-center">
+
+		{{ exampleModalCenter_1_1_1_1_3_5_1(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro exampleModalCenter_1_1_1_1_3(p) %}	
+	<div class="login-form mt-4">
+		<form>
+			<div class="form-group">
+				<label for="exampleInputUsername">{{ p.v_txt_71 }}</label>
+				<input type="text" class="form-control" id="exampleInputUsername"
+																								placeholder="Enter Name" />
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail2">{{ p.v_label_Email }}</label>
+				<input type="email" class="form-control" id="exampleInputEmail2"
+																								 placeholder="Youremail@gmail.com" />
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword2">{{ p.v_txt_72 }}</label>
+				<input type="password" class="form-control" id="exampleInputPassword2"
+																										placeholder="Password" />
+			</div>
+			<a href="{{ p.v_a_href__ }}" class="float-end text-muted font-size-15">{{ p.v_txt_73 }}</a>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="customCheck2" />
+				<label class="custom-control-label font-size-15" for="customCheck2">{{ p.v_txt_74 }}</label>
+			</div>
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-primary">{{ p.v_txt_75 }}<i class="icon-size-15 icon ms-1"
+																																				 data-feather="arrow-right-circle"></i></button>
+			</div>
+		</form>
+
+		{{ exampleModalCenter_1_1_1_1_3_3(p) }}
+
+
+		{{ exampleModalCenter_1_1_1_1_3_5(p) }}
+
+	</div>
+{% endmacro %}
+
+{% macro r(p) %}	
+	<body>
+
+		<!-- light-dark mode -->
+
+
+		{{ light_dark_mode(p) }}
+
+		<!-- Loader -->
+
+		{{ preloader(p) }}
+
+
+		<!--Navbar Start-->
+
+		{{ navbar(p) }}
+
+		<!-- Navbar End -->
+
+		<!-- Hero Start -->
+
+		{{ home(p) }}
+
+		<!-- Hero End -->
+
+		<!-- Why Choose Us Start -->
+
+		{{ r_23(p) }}
+
+		<!-- Why Choose Us End -->
+
+		<!-- Features Start -->
+
+		{{ features(p) }}
+
+
+
+		{{ r_31(p) }}
+
+		<!-- Features End -->
+
+		<!-- Pricing Start -->
+
+		{{ pricing(p) }}
+
+		<!-- Pricing End -->
+
+		<!-- Blog start -->
+
+		{{ blog(p) }}
+
+		<!-- Blog End -->
+
+		<!-- Contact Us Start -->
+
+		{{ contact(p) }}
+
+		<!-- Contact Us End -->
+
+		<!-- Footer Start -->
+
+		{{ r_55(p) }}
+
+
+		{{ r_57(p) }}
+
+		<!-- Footer End -->
+
+		<!-- login Modal Start -->
+
+		{{ exampleModalCenter(p) }}
+
+		<!-- login Modal End -->
+
+		<!-- Register Modal Start-->
+
+		{{ exampleModalCenter_1(p) }}
+
+		<!-- Register Modal End-->
+
+		<!-- javascript -->
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/smooth-scroll.polyfills.min.js"></script>
+		<script src="js/gumshoe.polyfills.min.js"></script>
+		<!-- feather icon -->
+		<script src="js/feather.js"></script>
+		<!-- unicons icon -->
+		<script src="js/unicons.js"></script>
+		<!-- Main Js -->
+		<script src="js/app.js"></script>
+
+	</body>
+{% endmacro %}

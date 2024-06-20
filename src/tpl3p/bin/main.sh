@@ -13,3 +13,4 @@ fi
 rm -Rf xo/ ; mkdir -p xo/page; 
 node bin/8to_template_parsing.js "$DLD"  2>&1 #A: separa en templates
 cp -r "${DLD%/*}"/* xo/page/ ; rm xo/page/$HTML
+cp h.html xo/_includes/base.njk
