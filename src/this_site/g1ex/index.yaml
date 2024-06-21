@@ -103,13 +103,32 @@ data:
       type: pricing
       v_pricing_title: p.v_pricing_title
       v_pricing_txt: p.v_pricing_txt
-      pricings:
-        - feature: p.feature
-          v_img: p.v_img
-          v_title: o.v_title
+      v_action_txt: "Comprar"
+      options:
+        - v_title: opt1
+          v_price: 19
+          v_unit: año
+          v_features:
+            - copado
+            - veraniego
+          v_action_link: o.v_action_link
+        - v_title: optB
+          v_price: 59
+          v_unit: mes
+          v_highlighted: true
+          v_features:
+            - la que va
+            - mejor
+          v_action_link: o.v_action_link
+        - v_title: optC
+          v_price: 959
           v_currency: p.v_currency
-          v_price: o.v_price
-          v_unit: o.v_unit
+          v_unit: vida 
+          v_features:
+            - a todo culo
+            - procelanato
+          v_img: p.v_img
+          v_action_txt: "Consultar"
           v_action_link: o.v_action_link
     a_whyus:
       << : *labels
@@ -128,3 +147,4 @@ data:
           v71: p.v71
 
 
+#}

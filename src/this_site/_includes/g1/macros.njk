@@ -104,13 +104,32 @@ data:
       type: pricing
       v_pricing_title: p.v_pricing_title
       v_pricing_txt: p.v_pricing_txt
-      pricings:
-        - feature: p.feature
-          v_img: p.v_img
-          v_title: o.v_title
+      v_action_txt: "Comprar"
+      options:
+        - v_title: opt1
+          v_price: 19
+          v_unit: año
+          v_features:
+            - copado
+            - veraniego
+          v_action_link: o.v_action_link
+        - v_title: optB
+          v_price: 59
+          v_unit: mes
+          v_highlighted: true
+          v_features:
+            - la que va
+            - mejor
+          v_action_link: o.v_action_link
+        - v_title: optC
+          v_price: 959
           v_currency: p.v_currency
-          v_price: o.v_price
-          v_unit: o.v_unit
+          v_unit: vida 
+          v_features:
+            - a todo culo
+            - procelanato
+          v_img: p.v_img
+          v_action_txt: "Consultar"
           v_action_link: o.v_action_link
     a_whyus:
       << : *labels
@@ -267,7 +286,7 @@ data:
 	<ul class="navbar-nav mx-auto navbar-center" id="navbar-navlist">
 		{% for link, text in p.navitems %}
 			<li class="nav-item">
-				<a data-scroll href="{{ p.link }}" class="nav-link">{{ p.text }}</a>
+				<a data-scroll href="{{ link }}" class="nav-link">{{ text }}</a>
 			</li>
 		{% endfor %}
 	</ul>
@@ -286,27 +305,19 @@ data:
 	</ul>
 {% endmacro %}
 
-{% macro navbarCollapse(p) %}	
-	<div class="collapse navbar-collapse" id="navbarCollapse">
-		{{ navbar_navlist(p) }}
-		{% if p.navactions %}{{ navbar_actions(p) }}{% endif %}
-	</div>
-{% endmacro %}
-
-{% macro navbar_1(p) %}	
-	<div class="container">
-		{{ navbar_logo(p) }}
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-																																					 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			<i class="mdi mdi-menu"></i>
-		</button>
-		{{ navbarCollapse(p) }}
-	</div>
-{% endmacro %}
-
 {% macro navbar(p) %}	
 	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark" id="navbar">
-		{{ navbar_1(p) }}
+		<div class="container">
+			{{ navbar_logo(p) }}
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+																																						 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="mdi mdi-menu"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				{{ navbar_navlist(p) }}
+				{% if p.navactions %}{{ navbar_actions(p) }}{% endif %}
+			</div>
+		</div>
 	</nav>
 {% endmacro %}
 
@@ -376,7 +387,7 @@ data:
 {% endmacro %}
 
 {% macro ws_whyus(p) %}	
-	<section class="section">
+	<section class="section" id="{{ p.id }}">
 		<div class="container">
 			<div class="row justify-content-center">
 				{{ ws_whyus_reason_row(p) }} {# XXXFOR #}
@@ -864,16 +875,16 @@ data:
 		{{ light_dark_mode(p) }}
 		{{ preloader(p) }}
 
-		{% set_k p.defaults, "navitems", {} %}
+		{% set_k p.navbar, "navitems", {} %}
 		{% for id, data in p.sections %}
-			{% set_k p.defaults.navitems,'#'+id, id %}
+			{% set_k p.navbar.navitems,'#'+id, id %}
 		{% endfor %}
-		{{ navbar(p.defaults) }}
+		{{ navbar(p.navbar) }}
 
 		{%for id, data in p.sections %}
 			{{ DBG(data,"SECTION "+id+" "+data.type) }}
 			{%  if twme[data.type] %}
-				{% set_k p, "id", id %}
+				{% set_k data, "id", id %}
 				{{ twme[data.type](data) }}
 			{% else %}
 				<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
