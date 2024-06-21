@@ -2,10 +2,25 @@
 data:
   defaults:
     XXX: 1
+  labels: &labels
+    v_lbl_email: p.v_lbl_email
+    v_lbl_emailaddr: p.v_lbl_emailaddr
+    v_lbl_forgotpass: p.v_lbl_forgotpass
+    v_lbl_login: p.v_lbl_login
+    v_lbl_message: p.v_lbl_message
+    v_lbl_name: p.v_lbl_name
+    v_lbl_newuser: p.v_lbl_newuser
+    v_lbl_oauth: p.v_lbl_oauth
+    v_lbl_pass: p.v_lbl_pass
+    v_lbl_remember: p.v_lbl_remember
+    v_lbl_sendmessage: p.v_lbl_sendmessage
+    v_lbl_userormail: p.v_lbl_userormail
+    v_lbl_welcome: p.v_lbl_welcome
   site: &site
     v_brand_name: site.v_brand_name
     v_agency_name: site.v_agency_name
   footer:
+    << : *labels
     << : *site
     link: p.link
     where: p.where
@@ -29,26 +44,17 @@ data:
     v_a_register: p.v_a_register
   r:
     type: data.type
-  v_lbl_email: p.v_lbl_email
-  v_lbl_emailaddr: p.v_lbl_emailaddr
-  v_lbl_forgotpass: p.v_lbl_forgotpass
-  v_lbl_login: p.v_lbl_login
-  v_lbl_message: p.v_lbl_message
-  v_lbl_name: p.v_lbl_name
-  v_lbl_newuser: p.v_lbl_newuser
-  v_lbl_oauth: p.v_lbl_oauth
-  v_lbl_pass: p.v_lbl_pass
-  v_lbl_remember: p.v_lbl_remember
-  v_lbl_sendmessage: p.v_lbl_sendmessage
-  v_lbl_userormail: p.v_lbl_userormail
-  v_lbl_welcome: p.v_lbl_welcome
   sections:
     a_hero:
+      << : *labels
+      << : *site
       type: hero
       v_txt_hero_big: p.v_txt_hero_big
       v_txt_hero_small: p.v_txt_hero_small
       v_txt_subscribe: p.v_txt_subscribe
     a_blog:
+      << : *labels
+      << : *site
       type: blog
       v_blog_title: p.v_blog_title
       v_blog_txt: p.v_blog_txt
@@ -61,13 +67,20 @@ data:
           v_txt: post.v_txt
           v_ask_txt: post.v_ask_txt
     a_contact:
+      << : *labels
+      << : *site
       type: contact
-      v_contactus_txt: p.v_contactus_txt
+      v_contact_title: p.v_contact_title
       v_contact_txt: p.v_contact_txt
-      contacts:
-        - type: p.type
-          text: p.text
+      contact_items:
+        mail: x@y.com
+        link: podemosaprender.org
+        phone-call: 54 11 3030 4444
+        clock: 9AM - 6PM
+        map-pin: Av Calchaqui 3131
     a_features:
+      << : *labels
+      << : *site
       type: features
       v_title: p.v_title
       v_txt: p.v_txt
@@ -85,6 +98,8 @@ data:
           v_act_link: feature.v_act_link
           v_act_txt: feature.v_act_txt
     a_pricing:
+      << : *labels
+      << : *site
       type: pricing
       v_pricing_title: p.v_pricing_title
       v_pricing_txt: p.v_pricing_txt
@@ -97,11 +112,15 @@ data:
           v_unit: o.v_unit
           v_action_link: o.v_action_link
     a_whyus:
+      << : *labels
+      << : *site
       type: whyus
       reasons:
         - title: reason.title
           text: reason.text
     a_registerModal:
+      << : *labels
+      << : *site
       type: registerModal
       registerModals:
         - v_link: p.v_link
@@ -109,4 +128,3 @@ data:
           v71: p.v71
 
 
-#}
