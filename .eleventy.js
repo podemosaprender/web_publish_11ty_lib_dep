@@ -1,5 +1,6 @@
 //INFO: 11ty pipeline config
 const DBG=process.env.DBG
+const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
 
 const our_lib = require('./src/lib/js/template-functions.js')
 const lunr_index_gen = require('./src/lib/js/search-lunr/create-index.js');
@@ -53,7 +54,7 @@ module.exports = function(eleventyConfig) {
 	//XXX: MULTI_INCLUDES? {
 	let Nunjucks = require("nunjucks");
 	let nunjucksEnvironment = new Nunjucks.Environment(
-		new Nunjucks.FileSystemLoader("./src/this_site/_includes")
+		new Nunjucks.FileSystemLoader(`${P_SITE_DIR}/_includes`)
 	);
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
@@ -91,8 +92,8 @@ module.exports = function(eleventyConfig) {
 
 	our_lib.addToConfig(eleventyConfig); 
 
-	eleventyConfig.addPassthroughCopy("src/this_site/**/{js,css,img,fonts}/**");
-	eleventyConfig.addPassthroughCopy("src/this_site/**/*.{js,css,png,jpg,svg,webp}");
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{js,css,img,fonts}/**`);
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css,png,jpg,svg,webp}`);
 	//A: Copy the `img` and `css` folders to the output
 
 
@@ -122,7 +123,7 @@ module.exports = function(eleventyConfig) {
 		htmlTemplateEngine: "njk",//A: Pre-process *.html files with: njk
 		dataTemplateEngine: false,//A: Opt-out of pre-processing global data JSON files
 		dir: {
-			input: "src/this_site",
+			input: P_SITE_DIR,
 			includes: "_includes",
 			data: "_data",
 			output: "_site",

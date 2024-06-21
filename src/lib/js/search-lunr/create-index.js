@@ -38,6 +38,9 @@ async function lunr_index_gen(dst, results) {
 	})
 
 	if (dst) {
+		let path= dst.replace(/\/[^\/]+$/,'')
+		path && fs.mkdirSync(path, {recursive: true});
+		console.log("MKDIR",path);
 		fs.writeFileSync(dst, JSON.stringify(idx))
 	} else {
 		stdout.write(JSON.stringify(idx))
