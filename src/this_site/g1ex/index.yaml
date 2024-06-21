@@ -13,6 +13,13 @@ data:
     v_title: p.v_title
     v_contact_links:
       facebook: https://facebook.com/brand_fb_user
+    footer_cols:
+      "footer col a":
+        https://link.uno.com: sitio uno
+        https://link.dos.com: sitio dos
+      "footer col b":
+        https://link.uno.com: sitio uno
+        https://link.dos.com: sitio dos
   navbar:
     v_site_url: p.v_site_url
     link: p.link
