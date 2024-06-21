@@ -105,24 +105,26 @@ data:
       v_pricing_txt: p.v_pricing_txt
       v_action_txt: "Comprar"
       options:
-        - v_title: opt1
+        "Rata": 
           v_price: 19
+          v_currency: $
           v_unit: año
           v_features:
             - copado
             - veraniego
           v_action_link: o.v_action_link
-        - v_title: optB
-          v_price: 59
-          v_unit: mes
+        "La Que Va": 
           v_highlighted: true
+          v_price: 59
+          v_currency: ARS
+          v_unit: mes
           v_features:
             - la que va
             - mejor
           v_action_link: o.v_action_link
-        - v_title: optC
+        "Manteca al techo":
           v_price: 959
-          v_currency: p.v_currency
+          v_currency: USD
           v_unit: vida 
           v_features:
             - a todo culo

@@ -106,24 +106,26 @@ data:
       v_pricing_txt: p.v_pricing_txt
       v_action_txt: "Comprar"
       options:
-        - v_title: opt1
+        "Rata": 
           v_price: 19
+          v_currency: $
           v_unit: año
           v_features:
             - copado
             - veraniego
           v_action_link: o.v_action_link
-        - v_title: optB
-          v_price: 59
-          v_unit: mes
+        "La Que Va": 
           v_highlighted: true
+          v_price: 59
+          v_currency: ARS
+          v_unit: mes
           v_features:
             - la que va
             - mejor
           v_action_link: o.v_action_link
-        - v_title: optC
+        "Manteca al techo":
           v_price: 959
-          v_currency: p.v_currency
+          v_currency: USD
           v_unit: vida 
           v_features:
             - a todo culo
@@ -814,7 +816,7 @@ data:
 {% macro ws_pricing_1_features(p,o) %}	
 	<ul class="list-unstyled pricing-item mb-4">
 		{% for feature in o.v_features %}
-			<li class="text-muted">{{ p.feature }}</li>
+			<li class="text-muted">{{ feature }}</li>
 		{% endfor %}
 	</ul>
 {% endmacro %}
@@ -827,14 +829,14 @@ data:
 	</div>
 {% endmacro %}
 
-{% macro ws_pricing_1_option(p,o) %}	
+{% macro ws_pricing_1_option(p,o,title) %}	
 	<div class="col-lg-4">
 		<div class="pricing-box rounded text-center {{ "active" if o.v_highlighted }} p-4">
 			<div class="pricing-icon-bg my-4">
 				<i class="mdi mdi-account-multiple h1"></i>
 			</div>
-			<h4 class="title mb-3">{{ o.v_title }}</h4>
-			<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ p.v_currency }}</sup>{{ o.v_price }}</b></h1>
+			<h4 class="title mb-3">{{ title }}</h4>
+			<h1 class="fw-bold mb-0"><b><sup class="h4 me-2 fw-bold">{{ o.v_currency }}</sup>{{ o.v_price }}</b></h1>
 			<p class="text-muted font-weight-semibold">{{ o.v_unit }}</p>
 			{{ ws_pricing_1_features(p,o) }}
 			<a href="{{ o.v_action_link }}" class="btn btn-primary pr-btn">{{ o.v_action_txt or p.v_action_txt }}</a>
@@ -849,8 +851,8 @@ data:
 		<div class="container">
 			{{ ws_pricing_header(p) }}
 			<div class="row">
-				{% for o in p.options %}
-					{{ ws_pricing_1_option(p,o) }}
+				{% for title,o in p.options %}
+					{{ ws_pricing_1_option(p,o,title) }}
 				{% endfor %}
 			</div>
 		</div>
