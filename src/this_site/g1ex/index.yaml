@@ -137,8 +137,16 @@ data:
       << : *site
       type: whyus
       reasons:
-        - title: reason.title
-          text: reason.text
+        - title: reason1.title
+          text: reason1.text
+          icon: checkbox-marked
+        - title: reason2.title
+          text: reason2.text
+        - title: reason3.title
+          text: reason3.text
+          icon: speedometer
+        - title: reason4.title
+          text: reason4.text
     a_registerModal:
       << : *labels
       << : *site

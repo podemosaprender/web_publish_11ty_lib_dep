@@ -138,8 +138,16 @@ data:
       << : *site
       type: whyus
       reasons:
-        - title: reason.title
-          text: reason.text
+        - title: reason1.title
+          text: reason1.text
+          icon: checkbox-marked
+        - title: reason2.title
+          text: reason2.text
+        - title: reason3.title
+          text: reason3.text
+          icon: speedometer
+        - title: reason4.title
+          text: reason4.text
     a_registerModal:
       << : *labels
       << : *site
@@ -364,26 +372,28 @@ data:
 {% macro ws_whyus_reason_1(p,reason) %}	
 	<div class="wc-box rounded text-center wc-box-primary p-4 mt-md-5">
 		<div class="wc-box-icon">
-			<i class="mdi mdi-collage"></i>
+			<i class="mdi mdi-{{ reason.icon or "collage" }}"></i>
 		</div>
 		<h5 class="fw-bold mb-2 wc-title mt-4">{{ reason.title }}</h5>
 		<p class="text-muted mb-0 font-size-15 wc-subtitle">{{ reason.text }}</p>
 	</div>
 {% endmacro %}
 
-{% macro ws_whyus_reason_col(p) %}	
+{% macro ws_whyus_reason_col(p,reasons) %}	
 	<div class="col-md-6">
-		{% for reason in p.v_reasons %}
+		{% for reason in reasons %}
 			{{ ws_whyus_reason_1(p, reason) }}
 		{% endfor %}
 	</div>
 {% endmacro %}
 
-{% macro ws_whyus_reason_row(p) %}	
+{% macro ws_whyus_reason_row(p, reasons) %}	
 	<div class="col-lg-8 align-self-center">
 		<div class="row">
-			{{ ws_whyus_reason_col(p) }}
-			{{ ws_whyus_reason_col(p) }}
+			{% set medio= (p.reasons) | length / 2 %}
+			{% for reasons_half in p.reasons | slice(medio) %}
+				{{ ws_whyus_reason_col(p, reasons_half) }}
+			{% endfor %}
 		</div>
 	</div>
 {% endmacro %}
@@ -392,8 +402,7 @@ data:
 	<section class="section" id="{{ p.id }}">
 		<div class="container">
 			<div class="row justify-content-center">
-				{{ ws_whyus_reason_row(p) }} {# XXXFOR #}
-				{{ ws_whyus_reason_row(p) }}
+					{{ ws_whyus_reason_row(p) }}
 			</div>
 		</div>
 	</section>
