@@ -81,3 +81,28 @@ bin/main.sh "https://themesbrand.com/lezir/layout/layout-one-6.html"
   * se reexporta el nombre con set, por ej `{% set navbar= w1.navbar %}{%set boton= w2.boton%}`
   * en la pagina se importa el del renglon de arriba
 * se puede llamar la macro con una variable ej `tw[tipo](data)` y asi sacar las secciones del json!
+
+### Workflow sitio
+
+Copias carpeta modelo como g1ex con
+
+* page.njk , frontmatter con secciones configurables
+* css.njk, frontmatter con colores configurables
+* agregas tus imagenes y otros archivos estaticos
+
+### Workflow framework
+
+Pruebo con ex/catalogo que es como me gustaria escribir ej SOLO poner page.njk con SOLO frontmater
+
+Uso l1b_ para todo lo comun asi no malgasto un shortlink copado de o-o
+Agregue un transform en .eleventy.js que expande regex #O-O#...
+Lo use en `_includes/g1/base.njk` para probar si hay style.css en la misma carpeta o uso el general
+
+
+Lo importante es que la lib se pueda copiar a "this_site" para desarrollar interactivo
+
+XXX: me gustaria poder agrupar en carpetitas la "libreria" ej donde quiero tener search
+
+Puedo automatizar operaciones como hago con search buscando en el html final (ojo, minificado)
+* pagina que pasa data a collection con nombre
+* 

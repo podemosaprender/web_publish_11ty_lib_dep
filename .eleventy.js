@@ -23,6 +23,24 @@ const yaml = require("js-yaml");
 const fs = require("fs");
 
 module.exports = function(eleventyConfig) {
+	const CFG= {
+		// If your site deploys to a subdirectory, change `pathPrefix`.
+		// Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
+		pathPrefix: BasePath,
+
+		templateFormats: [ "md", "njk", "html" ], //A: Control which files Eleventy will process
+		markdownTemplateEngine: "njk",//A: Pre-process *.md files with: njk
+		htmlTemplateEngine: "njk",//A: Pre-process *.html files with: njk
+		dataTemplateEngine: false,//A: Opt-out of pre-processing global data JSON files
+		dir: {
+			input: P_SITE_DIR,
+			includes: "_includes",
+			data: "_data",
+			output: "_site",
+		}
+	};
+	console.log("CFG",CFG);
+
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginSyntaxHighlight);
@@ -59,6 +77,26 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
 
+	eleventyConfig.addTransform("O-O:COMMANDS", function (content) {
+		if ((this.page.outputPath || "").endsWith(".html")) {
+			content= content.replace(/#O-O#(\w+)(.)(.*?)\2/gs,(m,cmd,sep,cmd_s) => {
+				console.log("O-O:COMMANDS",{cmd,cmd_s})
+				console.log(this.page)
+				if (cmd=="TRY_PATHS") {
+					let base= this.page.outputPath.replace(/\/?[^\/]*$/,'');
+					let opts= cmd_s.split(/\s+/)
+						.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
+					console.log("O-O:COMMANDS:TRY_PATHS",{out_dir: CFG.dir.output, opts})
+					let found= opts.find(p => fs.existsSync(p))
+					if (found) { return found.substr(CFG.dir.output.length) }
+					else { return "O-O:ERROR:NONE FOUND:"+m	}
+				}
+				return "O-O:ERROR:"+m
+			});
+		}
+		return content;
+	});
+
 	if (!DBG) {
 		eleventyConfig.addTransform("htmlmin", function (content) {
 			if ((this.page.outputPath || "").endsWith(".html")) {
@@ -74,6 +112,7 @@ module.exports = function(eleventyConfig) {
 	}
 
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
+		//XXX:mover a O-OCOMMAND
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})
 			if (outputMode=='fs') {
 				await	lunr_index_gen(dir.output+'/search/qidx.txt', results);
@@ -113,22 +152,5 @@ module.exports = function(eleventyConfig) {
 		ghostMode: false
 	});
 
-	const CFG= {
-		// If your site deploys to a subdirectory, change `pathPrefix`.
-		// Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
-		pathPrefix: BasePath,
-
-		templateFormats: [ "md", "njk", "html" ], //A: Control which files Eleventy will process
-		markdownTemplateEngine: "njk",//A: Pre-process *.md files with: njk
-		htmlTemplateEngine: "njk",//A: Pre-process *.html files with: njk
-		dataTemplateEngine: false,//A: Opt-out of pre-processing global data JSON files
-		dir: {
-			input: P_SITE_DIR,
-			includes: "_includes",
-			data: "_data",
-			output: "_site",
-		}
-	};
-	console.log("CFG",CFG);
 	return CFG;
 };
