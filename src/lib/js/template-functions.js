@@ -54,12 +54,10 @@ module.exports.filter.htmlDateString= (dateObj) => {
 	return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
 }
 
-
 module.exports.filter.head= (array, n) => { //U: Get the first `n` elements of a collection.
 	if( n < 0 ) { return array.slice(n); }
 	return array.slice(0, n);
 }
-
 
 module.exports.filter.min= (...numbers) => { //U: Return the smallest number argument
 	return Math.min.apply(null, numbers);
@@ -76,6 +74,3 @@ module.exports.collection.tagList= function(collection) { //U: Create an array o
 	});
 	return [...tagSet];
 }
-
-
-

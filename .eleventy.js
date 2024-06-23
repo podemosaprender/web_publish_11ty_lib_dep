@@ -77,13 +77,15 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
 
+	const O_OCMD= {}
+	O_OCMD.TRY_PATHS= {}
 	eleventyConfig.addTransform("O-O:COMMANDS", function (content) {
 		if ((this.page.outputPath || "").endsWith(".html")) {
 			content= content.replace(/#O-O#(\w+)(.)(.*?)\2/gs,(m,cmd,sep,cmd_s) => {
 				console.log("O-O:COMMANDS",{cmd,cmd_s})
 				console.log(this.page)
+				let base= this.page.outputPath.replace(/\/?[^\/]*$/,'');
 				if (cmd=="TRY_PATHS") {
-					let base= this.page.outputPath.replace(/\/?[^\/]*$/,'');
 					let opts= cmd_s.split(/\s+/)
 						.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
 					console.log("O-O:COMMANDS:TRY_PATHS",{out_dir: CFG.dir.output, opts})
@@ -91,7 +93,20 @@ module.exports = function(eleventyConfig) {
 					if (found) { return found.substr(CFG.dir.output.length) }
 					else { return "O-O:ERROR:NONE FOUND:"+m	}
 				} else if (cmd=="SEARCH_IDX") {
-
+					let opts= cmd_s.split(/\s+/)
+					let idx_url= opts.shift()+'.txt'; //A: required by webservers
+					const gen_idx= async () => {
+						let docs= await Promise.all(opts.map( async o => { let [p,url]= o.split('=');
+							let content= fs.readFileSync(p,'utf8');
+							let title= (content.match(/<title>([^<]*)<\/title>/si)||[])[1]||'untitled';
+							return {url,content,title}
+						}));
+						let dst= (idx_url.startsWith('/') ? CFG.dir.output : base+'/')+idx_url;
+						await	lunr_index_gen(dst, docs);
+						console.log(`#O-O#${cmd} DONE`,dst,idx_url);
+					};
+					gen_idx();
+					return idx_url;
 				}
 				return "O-O:ERROR:"+m
 			});
