@@ -114,4 +114,11 @@ Para las colecciones:
 
 XXX: tengo
 * data y frontmatter data
-* un dato es layout y la cadena de layouts suma su frontmatter data (defaults)
+* una entrada es layout y la cadena de layouts suma su frontmatter data (defaults)
+* cuando se expande el layout ya estan disponibles las variables de la instancia, incluida content (solo HTML!) y se puede usar en njk como variable ej adentro de un bloque
+
+ENTONCES:
+* macros es lo que mas libertad me da
+* y puedo elegir cuales incluyo tipo "toolkit" con una variable en el {%include del layout que puede cambiar la pagina-frontmatter, pagina.yaml, carpeta.yaml, 
+   * los toolkits se pueden componer usando "set" en el archivo con las macros, porque exporta su env
+* y si tengo que hacer algo muy distinto puedo incluir y reusar las macros del nivel que necesite en la pagina

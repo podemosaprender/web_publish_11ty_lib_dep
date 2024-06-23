@@ -69,7 +69,7 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.setLibrary("md", markdownLibrary);
 
-	//XXX: MULTI_INCLUDES? {
+	//XXX: MULTI_INCLUDES? { //XXX:OjO! el renderer de Markdown usa su propio engine, hardcoded
 	let Nunjucks = require("nunjucks");
 	let nunjucksEnvironment = new Nunjucks.Environment(
 		new Nunjucks.FileSystemLoader(`${P_SITE_DIR}/_includes`)
@@ -131,7 +131,7 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addLayoutAlias("post", "layouts/post.njk"); //A: Alias `layout: post` to `layout: layouts/post.njk`
 
-	our_lib.addToConfig(eleventyConfig); 
+	our_lib.addToConfig(eleventyConfig, {md: markdownLibrary}); 
 
 	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{js,css,img,fonts}/**`);
 	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css,png,jpg,svg,webp}`);

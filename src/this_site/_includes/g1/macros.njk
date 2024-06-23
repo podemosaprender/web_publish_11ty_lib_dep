@@ -171,6 +171,18 @@ data:
 {% endmacro %}
 
 {# XXX:MOVER A LIB ##########################################}
+{% macro ws_html(p) %}
+	<section class="section" id="{{ p.id }}">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					{{ p.html | safe }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endmacro %}
+
 {% macro light_dark_mode(p) %}	
 	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
 		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
@@ -260,7 +272,6 @@ data:
 
 
 {% macro ws_hero(p) %}	
-	{{ DBG(p,"hero") }}
 	<section class="hero-6-bg position-relative" style="background-image: url(images/hero-6-bg-img.jpg)" id="{{ p.id }}">
 		<div class="bg-overlay"></div>
 		<div class="container">
@@ -772,8 +783,7 @@ data:
 {% endmacro %}
 
 
-
-{############################################################}
+{# S: compose toolkit (you may import from other tk) ########}
 {% set twme= {
 'hero': ws_hero,
 'whyus': ws_whyus,
@@ -781,10 +791,15 @@ data:
 'pricing': ws_pricing,
 'blog': ws_blog,
 'contact': ws_contact,
+'html': ws_html,
 'registerModal': ws_registerModal
 } %}
 
-{% macro r(p,tw) %}	
+{% macro r(p,content,tw) %}	{% set tw= tw or twme %}
+	{% set_k p,"sections",p.sections or {} %}
+	{% if content %}
+		{% set_k p.sections,"content",{'type': 'html', 'html': content} %}
+	{% endif %}
 	<body>
 		{{ light_dark_mode(p) }}
 		{{ preloader(p) }}
@@ -800,8 +815,8 @@ data:
 			{% if data %}
 				{{ DBG(data,"SECTION "+id+" "+data.type) }}
 				{% set data_full= data | mix_kv (p.labels, p.site, data, {'id': id }) %}
-				{%  if twme[data.type] %}
-					{{ twme[data.type](data) }}
+				{%  if tw[data.type] %}
+					{{ twme[data.type](data_full) }}
 				{% else %}
 					<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
 					{% endif %}
@@ -813,8 +828,7 @@ data:
 			{{ DBG(footer_data, "FOOTER") }}
 			{{ footer(footer_data) }}
 
-			{{ ws_logimModal(p) }}
-			{{ ws_registerModal(p) }}
+			<!-- XXX:modals van aca -->
 
 			<script src="/l1b_/g1/js/bootstrap.bundle.min.js"></script>
 			<script src="/l1b_/g1/js/smooth-scroll.polyfills.min.js"></script>

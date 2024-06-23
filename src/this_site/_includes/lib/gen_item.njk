@@ -1,4 +1,5 @@
 ---
+layout: g1/page_data.njk
 mytpl: "x2.njk"
 pagination:
   data: items
@@ -11,10 +12,9 @@ eleventyComputed:
   title: "{{ my_title }}"
   permalink: "{{ page.filePathStem }}/{{ my_title | slugify }}/"
 ---
-{% extends (mytpl or "x.njk") %}
-
-{% block content %}
-
+{% if content | trim == "" %}
+{% set content %}
+{% markdown %}
 # {{ my_title }}
 
 [[toc]]
@@ -24,5 +24,10 @@ eleventyComputed:
 
 {{ v | safe }}
 
-{% endfor %}
-{% endblock %}
+{% endfor %}    
+{% endmarkdown %}
+{% endset %}
+{% endif %}
+
+{% import (page_theme or "g1")+"/macros.njk" as tw %}
+{{ tw.r(data,content) }}

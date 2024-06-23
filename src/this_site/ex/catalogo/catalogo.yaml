@@ -1,5 +1,5 @@
 layout: g1/page.njk
 data:
   site:
-    v_site_base_path: "/ex/catalogo/"
+    v_site_base_path: /ex/catalogo/
 

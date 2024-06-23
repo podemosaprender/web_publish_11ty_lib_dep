@@ -1,4 +1,5 @@
 //INFO: generic functions to keep reusable but add to 11ty
+//SEE: this.page this.eleventy https://www.11ty.dev/docs/shortcodes/#scoped-data-in-shortcodes
 
 const { DateTime } = require("luxon");
 const yaml = require("js-yaml");
@@ -8,8 +9,10 @@ const loremIpsum = require("lorem-ipsum").loremIpsum;
 
 module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {} }
 
-module.exports.addToConfig= function (eleventyConfig, kv) {
+let CFG; //A: set by addToConfig options param
+module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	kv= kv || module.exports;
+	CFG= options;
 	Object.entries(kv.data).forEach( ([k,v]) => eleventyConfig.addGlobalData(k,v) );
 	Object.entries(kv.shortCodePaired).forEach( ([k,v]) => eleventyConfig.addPairedShortcode(k,v) );
 	Object.entries(kv.shortCode).forEach( ([k,v]) => eleventyConfig.addShortcode(k,v) );
@@ -21,10 +24,12 @@ module.exports.addToConfig= function (eleventyConfig, kv) {
 
 
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
+module.exports.shortCodePaired.markdown= (content) => CFG.md.render(content)
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
-module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
+
+module.exports.filter.mix_kv = (kv1,...kvs) => Object.assign({},kv1,...kvs);  //U: better, no side effects
 module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); return ''}
-module.exports.filter.mix_kv = (kv1,...kvs) => Object.assign({},kv1,...kvs); 
+module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
