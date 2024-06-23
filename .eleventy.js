@@ -80,15 +80,18 @@ module.exports = function(eleventyConfig) {
 	const O_OCMD= {}
 	O_OCMD.TRY_PATHS= {}
 	eleventyConfig.addTransform("O-O:COMMANDS", function (content) {
-		if ((this.page.outputPath || "").endsWith(".html")) {
+		const opath=this.page.outputPath || '';
+		const ext= (opath.match(/\.[^\.]+$/)||[])[0];
+		console.log("O-O:COMMANDS TRY:",{ext, opath})
+		if (opath && ['.html','.css'].indexOf(ext)>-1) {
 			content= content.replace(/#O-O#(\w+)(.)(.*?)\2/gs,(m,cmd,sep,cmd_s) => {
-				console.log("O-O:COMMANDS",{cmd,cmd_s})
+				console.log("O-O:COMMANDS:"+opath,{cmd,cmd_s})
 				console.log(this.page)
 				let base= this.page.outputPath.replace(/\/?[^\/]*$/,'');
 				if (cmd=="TRY_PATHS") {
 					let opts= cmd_s.split(/\s+/)
 						.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
-					console.log("O-O:COMMANDS:TRY_PATHS",{out_dir: CFG.dir.output, opts})
+					console.log("O-O:COMMANDS:TRY_PATHS:"+opath,{out_dir: CFG.dir.output, opts})
 					let found= opts.find(p => fs.existsSync(p)) //XXX:REQUIERE DOS BUILDS! sino puede no estar AUN!
 					if (found) { return found.substr(CFG.dir.output.length) }
 					else { return "O-O:ERROR:NONE FOUND:"+m	}
@@ -103,7 +106,7 @@ module.exports = function(eleventyConfig) {
 						}));
 						let dst= (idx_url.startsWith('/') ? CFG.dir.output : base+'/')+idx_url;
 						await	lunr_index_gen(dst, docs);
-						console.log(`#O-O#${cmd} DONE`,dst,idx_url);
+						console.log(`#O-O#${cmd}:${opath} DONE`,dst,idx_url);
 					};
 					gen_idx();
 					return idx_url;

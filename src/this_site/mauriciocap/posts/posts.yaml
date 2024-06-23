@@ -1,0 +1,2 @@
+tags: mauriciocap_posts
+permalink: "{{ data.site.v_site_base_path }}{{ page.fileSlug }}/index.html"

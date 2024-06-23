@@ -207,8 +207,8 @@ data:
 {# NAVBAR ###################################################}
 {% macro navbar_logo(p) %}	
 	<a class="navbar-brand logo" href="{{ p.v_site_url }}">
-		<img src="#O-O#TRY_PATHS#{{ p.v_site_base_path }}images/logo-dark.png /l1b_/g1/images/logo-dark.png#" alt="" class="logo-dark" height="24" />
-		<img src="#O-O#TRY_PATHS#{{ p.v_site_base_path }}images/logo-light.png /l1b_/g1/images/logo-light.png#" alt="" class="logo-light" height="24" />
+		<img src="#O-O#TRY_PATHS#{{ p.v_site_base_path }}images/logo-dark.png /l1b_/g1/images/logo-dark.png#" alt="{{ p.v_brand_name}} logo" class="logo-dark logo" />
+		<img src="#O-O#TRY_PATHS#{{ p.v_site_base_path }}images/logo-light.png /l1b_/g1/images/logo-light.png#" alt="{{ p.v_brand_name}} logo" class="logo-light logo" />
 	</a>
 {% endmacro %}
 
@@ -278,7 +278,7 @@ data:
 
 
 {% macro ws_hero(p) %}	
-	<section class="hero-6-bg position-relative" style="background-image: url(images/hero-6-bg-img.jpg)" id="{{ p.id }}">
+	<section class="hero-6-bg position-relative" style="background-image: url(#O-O#TRY_PATHS:{{p.v_base_path}}images/hero-bg-1.jpg /l1b_/g1/images/hero-6-bg-img.jpg):" id="{{ p.id }}">
 		<div class="bg-overlay"></div>
 		<div class="container">
 			{{ ws_hero_slogan(p) }}
@@ -547,7 +547,7 @@ data:
 {% endmacro %}
 
 {% macro footer_link_cols(p) %}	
-	<section class="footer" style="background-image: url(images/footer-bg.png)">
+	<section class="footer" style="background-image: url(#O-O#TRY_PATHS:images/footer-bg.png {{ data.site.v_site_base_path}}images/footer-bg.png /l1b_/g1/images/footer-bg.png:)">
 		<div class="container">
 			<div class="row">
 				{{ footer_links_contact_col(p) }}
