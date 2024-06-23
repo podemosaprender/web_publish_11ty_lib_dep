@@ -1,0 +1,19 @@
+---
+data:
+  sections:
+    banner:
+      type: banner
+    hero:
+      type: hero
+    carousel:
+      type: carousel
+    portfolio:
+      type: portfolio
+    flashsale:
+      type: flashsale
+    service:
+      type: service
+---
+{% import "o-o/macros.njk" as tw with context %}
+
+{{ tw.r(data) }}

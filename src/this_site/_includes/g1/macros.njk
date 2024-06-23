@@ -166,11 +166,12 @@ data:
 @d = 'ggjv/^#:s/\t/  /gggjv/^#k:w! g1ex/index.yaml' :
 #}
 
+
+{# XXX:MOVER A LIB ##########################################}
 {% macro DBG(p,txt) %}
 <!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
 {% endmacro %}
 
-{# XXX:MOVER A LIB ##########################################}
 {% macro ws_html(p) %}
 	<section class="section" id="{{ p.id }}">
 		<div class="container">
@@ -198,7 +199,12 @@ data:
 	<div id="preloader">{{ status(p) }}</div>
 {% endmacro %}
 
-{############################################################}
+{% macro copyright_text(p) %}
+	{{ DBG(p,"copyright_text") }}
+	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
+{% endmacro %}
+
+{# NAVBAR ###################################################}
 {% macro navbar_logo(p) %}	
 	<a class="navbar-brand logo" href="{{ p.v_site_url }}">
 		<img src="#O-O#TRY_PATHS#{{ p.v_site_base_path }}images/logo-dark.png /l1b_/g1/images/logo-dark.png#" alt="" class="logo-dark" height="24" />
@@ -374,7 +380,7 @@ data:
 	</section>
 {% endmacro %}
 
-{############################################################}
+{# BLOG #####################################################}
 {% macro ws_blog_header(p) %}	
 	<div class="row justify-content-center">
 		<div class="col-lg-6">
@@ -425,7 +431,7 @@ data:
 {% endmacro %}
 
 
-{############################################################}
+{# CONTACT ##################################################}
 {% macro ws_contact_header(p) %}	
 	<div class="row justify-content-center">
 		<div class="col-lg-6">
@@ -551,10 +557,6 @@ data:
 	</section>
 {% endmacro %}
 
-{% macro copyright_text(p) %}
-	{{ DBG(p,"copyright_text") }}
-	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
-{% endmacro %}
 
 {% macro footer_copyright_band(p) %}	
 	<div class="footer-alt py-3">

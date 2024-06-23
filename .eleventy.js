@@ -149,7 +149,7 @@ module.exports = function(eleventyConfig) {
 	our_lib.addToConfig(eleventyConfig, {md: markdownLibrary}); 
 
 	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{js,css,img,fonts}/**`);
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css,png,jpg,svg,webp}`);
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css,png,jpg,jpeg,svg,webp}`);
 	//A: Copy the `img` and `css` folders to the output
 
 

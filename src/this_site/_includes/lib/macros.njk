@@ -1,3 +1,46 @@
+{% macro DBG(p,txt) %}
+<!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
+{% endmacro %}
+
+{# CSS NEUTRAL ###################################################}
+{% macro copyright_text(p) %}
+	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
+{% endmacro %}
+
+{# CSS OUR STANDARD ##############################################}
+{% macro ws_html(p) %}
+	<section class="section" id="{{ p.id }}">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					{{ p.html | safe }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endmacro %}
+
+{% macro light_dark_mode(p) %}	
+	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
+		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
+		<i class="mdi mdi-moon-waning-crescent mode-dark"></i>
+	</a>
+{% endmacro %}
+
+{% macro status(p) %}	
+	<div id="status"><div class="spinner"></div></div>
+{% endmacro %}
+
+{% macro preloader(p) %}	
+	<div id="preloader">{{ status(p) }}</div>
+{% endmacro %}
+
+{% macro copyright_text(p) %}
+	{{ DBG(p,"copyright_text") }}
+	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
+{% endmacro %}
+
+{# SEARCH ###################################################}
 {% macro collection_urls(colname) %}
 {%- for e in collections[colname] %} {{e.page.outputPath}}={{e.page.url}}{% endfor -%}
 {% endmacro %}
