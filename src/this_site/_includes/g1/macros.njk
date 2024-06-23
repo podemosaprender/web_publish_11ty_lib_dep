@@ -170,7 +170,7 @@ data:
 <!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
 {% endmacro %}
 
-{############################################################}
+{# XXX:MOVER A LIB ##########################################}
 {% macro light_dark_mode(p) %}	
 	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
 		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
@@ -179,22 +179,18 @@ data:
 {% endmacro %}
 
 {% macro status(p) %}	
-	<div id="status">
-		<div class="spinner"></div>
-	</div>
+	<div id="status"><div class="spinner"></div></div>
 {% endmacro %}
 
 {% macro preloader(p) %}	
-	<div id="preloader">
-		{{ status(p) }}
-	</div>
+	<div id="preloader">{{ status(p) }}</div>
 {% endmacro %}
 
 {############################################################}
 {% macro navbar_logo(p) %}	
 	<a class="navbar-brand logo" href="{{ p.v_site_url }}">
-		<img src="images/logo-dark.png" alt="" class="logo-dark" height="24" />
-		<img src="images/logo-light.png" alt="" class="logo-light" height="24" />
+		<img src="{{ p.v_site_base_path }}images/logo-dark.png" alt="" class="logo-dark" height="24" />
+		<img src="{{ p.v_site_base_path }}images/logo-light.png" alt="" class="logo-light" height="24" />
 	</a>
 {% endmacro %}
 
@@ -212,11 +208,11 @@ data:
 	<ul class="navbar-nav navbar-center">
 		<li class="nav-item">
 			<a href="{{ p.v_linklogin }}" class="nav-link" data-bs-toggle="modal"
-																												 data-bs-target="#loginModal">{{ p.v_a_login }}</a>
+																										 data-bs-target="#loginModal">{{ p.v_a_login }}</a>
 		</li>
 		<li class="nav-item">
 			<a href="{{ p.v_linklogin }}" class="nav-link" data-bs-toggle="modal"
-																												 data-bs-target="#loginModal-1">{{ p.v_a_register }}</a>
+																										 data-bs-target="#loginModal-1">{{ p.v_a_register }}</a>
 		</li>
 	</ul>
 {% endmacro %}
@@ -308,7 +304,7 @@ data:
 	<section class="section" id="{{ p.id }}">
 		<div class="container">
 			<div class="row justify-content-center">
-					{{ ws_whyus_reason_row(p) }}
+				{{ ws_whyus_reason_row(p) }}
 			</div>
 		</div>
 	</section>
@@ -329,7 +325,7 @@ data:
 {% macro ws_features_1_img(p,feature) %}	
 	<div class="col-lg-6 align-self-center">
 		<div class="mb-4 mb-lg-0">
-  		<img src="{{ feature.v_img }}" alt="" class="img-fluid d-block mx-auto" />
+			<img src="{{ p.v_site_base_path }}{{ feature.v_img }}" alt="" class="img-fluid d-block mx-auto" />
 		</div>
 	</div>
 {% endmacro %}
@@ -391,7 +387,7 @@ data:
 {% macro ws_blog_post_1(p,post) %}	
 	<div class="col-lg-4">
 		<div class="blog-box mb-4 mb-lg-0">
-			<img src="{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto rounded" />
+			<img src="{{ p.v_site_base_path }}{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto rounded" />
 			{{ ws_blog_post_1_meta(p,post) }}
 			<a href="{{ p.v_link }}" class="fw-bold h5">{{ post.v_title }}</a>
 			<p class="text-muted font-size-15">{{ post.v_txt }}</p>
@@ -500,11 +496,11 @@ data:
 
 {% macro footer_links_contact_col(p) %}	
 	<div class="col-lg-4">
-	<div class="mb-5">
-		<img src="images/logo-light.png" alt="" class="" height="24" />
-		<p class="text-white-50 my-4 font-size-15">{{ p.v_txt }}</p>
-		{{ footer_links_contact(p) }}
-	</div>
+		<div class="mb-5">
+			<img src="{{ p.v_site_base_path }}images/logo-light.png" alt="" class="" height="24" />
+			<p class="text-white-50 my-4 font-size-15">{{ p.v_txt }}</p>
+			{{ footer_links_contact(p) }}
+		</div>
 	</div>
 {% endmacro %}
 
@@ -545,6 +541,7 @@ data:
 {% endmacro %}
 
 {% macro copyright_text(p) %}
+	{{ DBG(p,"copyright_text") }}
 	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
 {% endmacro %}
 
@@ -620,7 +617,7 @@ data:
 			</div>
 			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary">{{ p.v_lbl_login }}<i class="icon-size-15 icon ms-1"
-																																							 data-feather="arrow-right-circle"></i></button>
+																																						data-feather="arrow-right-circle"></i></button>
 			</div>
 		</form>
 		{{ ws_registerModal_1_1_3_3(p) }}
@@ -739,7 +736,7 @@ data:
 {% macro ws_pricing_1_footer(p) %}	
 	<div class="mt-4">
 		<div class="hero-bottom-img">
-			<img src="{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto" />
+			<img src="{{ p.v_site_base_path }}{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto" />
 		</div>
 	</div>
 {% endmacro %}
@@ -792,23 +789,29 @@ data:
 		{{ light_dark_mode(p) }}
 		{{ preloader(p) }}
 
-		{% set_k p.navbar, "navitems", {} %}
+		{% set navbar_data= {} | mix_kv(p.labels, p.site, p.navbar,{'navitems':{} }) %}
 		{% for id, data in p.sections %}
-			{% set_k p.navbar.navitems,'#'+id, id %}
+			{% set_k navbar_data.navitems,'#'+id, id %}
 		{% endfor %}
-		{{ navbar(p.navbar) }}
+		{{ DBG(navbar_data,"NAVBAR") }}
+		{{ navbar(navbar_data) }}
 
 		{%for id, data in p.sections %}
-			{{ DBG(data,"SECTION "+id+" "+data.type) }}
-			{%  if twme[data.type] %}
-				{% set_k data, "id", id %}
-				{{ twme[data.type](data) }}
-			{% else %}
-				<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
+			{% if data %}
+				{{ DBG(data,"SECTION "+id+" "+data.type) }}
+				{% set data_full= data | mix_kv (p.labels, p.site, data, {'id': id }) %}
+				{%  if twme[data.type] %}
+					{{ twme[data.type](data) }}
+				{% else %}
+					<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
+					{% endif %}
 				{% endif %}
 			{% endfor %}
 
-			{{ footer(p.footer) }}
+			{% set footer_data= {} %}{# XXX:inventar una forma mejor de merge #}
+			{% mix_kv footer_data, p.labels, p.site, p.footer %}
+			{{ DBG(footer_data, "FOOTER") }}
+			{{ footer(footer_data) }}
 
 			{{ ws_logimModal(p) }}
 			{{ ws_registerModal(p) }}

@@ -98,7 +98,6 @@ Uso l1b_ para todo lo comun asi no malgasto un shortlink copado de o-o
 Agregue un transform en .eleventy.js que expande regex #O-O#...
 Lo use en `_includes/g1/base.njk` para probar si hay style.css en la misma carpeta o uso el general
 
-
 Lo importante es que la lib se pueda copiar a "this_site" para desarrollar interactivo
 
 XXX: me gustaria poder agrupar en carpetitas la "libreria" ej donde quiero tener search
@@ -106,3 +105,9 @@ XXX: me gustaria poder agrupar en carpetitas la "libreria" ej donde quiero tener
 Puedo automatizar operaciones como hago con search buscando en el html final (ojo, minificado)
 * pagina que pasa data a collection con nombre
 * 
+
+Para las colecciones:
+* en la pagina uso layout: con uno de includes para escribir minimo frontmatter
+* uso {% extends (mytemplate or "dflt.njk") %} de nunjujs **en el layout** asi desde la pagina puedo cambiar lo que envuelve a mi contenido
+* puedo poner un archivito json o 11tydata.js que se llame igual que la pagina para los datos
+* puedo tener modelo ej para bajar de una planilla de google (solo le cambio la url), etc

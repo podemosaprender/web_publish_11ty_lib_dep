@@ -87,9 +87,11 @@ module.exports = function(eleventyConfig) {
 					let opts= cmd_s.split(/\s+/)
 						.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
 					console.log("O-O:COMMANDS:TRY_PATHS",{out_dir: CFG.dir.output, opts})
-					let found= opts.find(p => fs.existsSync(p))
+					let found= opts.find(p => fs.existsSync(p)) //XXX:REQUIERE DOS BUILDS! sino puede no estar AUN!
 					if (found) { return found.substr(CFG.dir.output.length) }
 					else { return "O-O:ERROR:NONE FOUND:"+m	}
+				} else if (cmd=="SEARCH_IDX") {
+
 				}
 				return "O-O:ERROR:"+m
 			});
