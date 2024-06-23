@@ -80,21 +80,21 @@ module.exports = function(eleventyConfig) {
 	const O_OCMD= {}
 	O_OCMD.TRY_PATHS= {}
 	eleventyConfig.addTransform("O-O:COMMANDS", function (content) {
-		const opath=this.page.outputPath || '';
+		const opath= this.page.outputPath || '';
 		const ext= (opath.match(/\.[^\.]+$/)||[])[0];
-		console.log("O-O:COMMANDS TRY:",{ext, opath})
+		DBG>5 && console.log("O-O:COMMANDS TRY:",{ext, opath})
 		if (opath && ['.html','.css'].indexOf(ext)>-1) {
 			content= content.replace(/#O-O#(\w+)(.)(.*?)\2/gs,(m,cmd,sep,cmd_s) => {
-				console.log("O-O:COMMANDS:"+opath,{cmd,cmd_s})
-				console.log(this.page)
-				let base= this.page.outputPath.replace(/\/?[^\/]*$/,'');
+				let opts= cmd_s.split(/\s+/);
+				DBG>5 && console.log("O-O:COMMANDS:"+opath,{cmd,cmd_s})
+				DBG>5 && console.log(this.page)
+				let base= opath.replace(/\/?[^\/]*$/,'');
 				if (cmd=="TRY_PATHS") {
-					let opts= cmd_s.split(/\s+/)
-						.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
-					console.log("O-O:COMMANDS:TRY_PATHS:"+opath,{out_dir: CFG.dir.output, opts})
-					let found= opts.find(p => fs.existsSync(p)) //XXX:REQUIERE DOS BUILDS! sino puede no estar AUN!
+					let paths= opts.map(p => ((p.startsWith('/') ? CFG.dir.output : base+'/')+p) )
+					let found= paths.find(p => fs.existsSync(p)) //XXX:REQUIERE DOS BUILDS! sino puede no estar AUN!
+					DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+opath,{found, out_dir: CFG.dir.output, paths})
 					if (found) { return found.substr(CFG.dir.output.length) }
-					else { return "O-O:ERROR:NONE FOUND:"+m	}
+					else { return "O-O:ERROR:TRY_PATHS:NONE FOUND:"+m	}
 				} else if (cmd=="SEARCH_IDX") {
 					let opts= cmd_s.split(/\s+/)
 					let idx_url= opts.shift()+'.txt'; //A: required by webservers
@@ -106,7 +106,7 @@ module.exports = function(eleventyConfig) {
 						}));
 						let dst= (idx_url.startsWith('/') ? CFG.dir.output : base+'/')+idx_url;
 						await	lunr_index_gen(dst, docs);
-						console.log(`#O-O#${cmd}:${opath} DONE`,dst,idx_url);
+						DBG>5 && console.log(`#O-O#${cmd}:${opath} DONE`,dst,idx_url);
 					};
 					gen_idx();
 					return idx_url;

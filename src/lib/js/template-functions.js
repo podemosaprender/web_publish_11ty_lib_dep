@@ -54,6 +54,8 @@ module.exports.filter.htmlDateString= (dateObj) => {
 	return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
 }
 
+module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
+
 module.exports.filter.head= (array, n) => { //U: Get the first `n` elements of a collection.
 	if( n < 0 ) { return array.slice(n); }
 	return array.slice(0, n);

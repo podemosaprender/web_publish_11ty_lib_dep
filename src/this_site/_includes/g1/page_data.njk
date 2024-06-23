@@ -1,5 +1,4 @@
 ---
-layout: g1/base.njk
 data:
   defaults:
     XXX: 1
@@ -17,13 +16,17 @@ data:
     v_lbl_sendmessage: p.v_lbl_sendmessage
     v_lbl_userormail: p.v_lbl_userormail
     v_lbl_welcome: p.v_lbl_welcome
+    v_lbl_more: p.v_lbl_more
   site:
     v_brand_name: v_brand_name
     v_agency_name: o-o.fyi
-    v_site_base_path: "XXXv_site_base_path"
-    v_contact_mail: v_contact_mail
-  navbar:
     v_site_url: p.v_site_url
+    v_site_base_path: "XXXv_site_base_path"
+    v_contact_links:
+      mail: v_contact_mail
+      facebook: v_contact_facebook
+      twitter: v_contact_twitter
+  navbar:
     link: p.link
     text: p.text
     v_linklogin: p.v_linklogin
@@ -34,8 +37,6 @@ data:
     where: p.where
     v_txt: p.v_txt
     v_title: p.v_title
-    v_contact_links:
-      facebook: https://facebook.com/brand_fb_user
     footer_cols:
       "footer col a":
         https://link.uno.com: sitio uno

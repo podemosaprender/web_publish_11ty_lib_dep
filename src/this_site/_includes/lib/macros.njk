@@ -3,6 +3,37 @@
 {% endmacro %}
 
 {# CSS NEUTRAL ###################################################}
+{% macro head_meta(p) %}
+	<meta charset="utf-8">
+	<meta name="google-site-verification" content="TODO" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ title or p.title }}</title>
+	<link rel="shortcut icon" href="{{ p.v_site_base_path }}images/favicon.ico">
+	<meta name="description" content="{{ description or cfg.description }}">
+	<meta content='{{ title or p.title }}' property='og:title'/>
+	<meta content='{{ p.v_brand_name }}' property='og:author'/>
+	<meta content='{{ p.v_agency_name }}' property='og:developer'/>
+	<meta content='{{ title or cfg.title }}' name='facebook:title'/>
+	<meta content='website' property='og:type'/>
+	<meta content='TODO' property='facebook:author'/>
+	<meta content='TODO' name='facebook:image'/>
+	<meta content='{{ p.v_brand_name }}' property='og:site_name'/>
+	<meta content='{{ description or p.description }}' property='facebook:description'/>
+	<meta content='TODOsummary_large_image' name='twitter:card'/>
+	<meta content='{{ p.v_contact_links.twitter }}' property='twitter:author'/>
+	<meta content='{{ p.v_site_url }}' name='twitter:site'/>
+	<meta content='TODO' name='twitter:image'/>
+	<meta content='{{ description or p.description }}' name='twitter:description'/>
+	<meta content='{{ title or p.title }} ' name='twitter:title'/>
+	<meta content='{{ title or p.title }}' name='keywords'/>
+	<meta content='index, follow' name='robots'/>
+	<link rel="apple-touch-icon" href="TODO">
+	<link rel="icon" type="image/x-icon" href="TODO" />
+	<link rel="author" href="{{ p.v_agency_url }}" />
+	<link rel="alternate" href="{{ TODO_feed_xml }}" type="application/atom+xml" title="{{ title or p.title }}">
+	<link rel="alternate" href="{{ TODO_feed_json }}" type="application/json" title="{{ title or p.title }}">
+{% endmacro %}
+
 {% macro copyright_text(p) %}
 	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
 {% endmacro %}

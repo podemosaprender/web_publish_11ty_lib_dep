@@ -1,208 +1,12 @@
-{#
-
-data:
-  defaults:
-    XXX: 1
-  labels: &labels
-    v_lbl_email: p.v_lbl_email
-    v_lbl_emailaddr: p.v_lbl_emailaddr
-    v_lbl_forgotpass: p.v_lbl_forgotpass
-    v_lbl_login: p.v_lbl_login
-    v_lbl_message: p.v_lbl_message
-    v_lbl_name: p.v_lbl_name
-    v_lbl_newuser: p.v_lbl_newuser
-    v_lbl_oauth: p.v_lbl_oauth
-    v_lbl_pass: p.v_lbl_pass
-    v_lbl_remember: p.v_lbl_remember
-    v_lbl_sendmessage: p.v_lbl_sendmessage
-    v_lbl_userormail: p.v_lbl_userormail
-    v_lbl_welcome: p.v_lbl_welcome
-  site: &site
-    v_brand_name: site.v_brand_name
-    v_agency_name: site.v_agency_name
-  footer:
-    << : *labels
-    << : *site
-    link: p.link
-    where: p.where
-    v_txt: p.v_txt
-    v_title: p.v_title
-    v_contact_links:
-      facebook: https://facebook.com/brand_fb_user
-    footer_cols:
-      "footer col a":
-        https://link.uno.com: sitio uno
-        https://link.dos.com: sitio dos
-      "footer col b":
-        https://link.uno.com: sitio uno
-        https://link.dos.com: sitio dos
-  navbar:
-    v_site_url: p.v_site_url
-    link: p.link
-    text: p.text
-    v_linklogin: p.v_linklogin
-    v_a_login: p.v_a_login
-    v_a_register: p.v_a_register
-  r:
-    type: data.type
-  sections:
-    a_hero:
-      << : *labels
-      << : *site
-      type: hero
-      v_txt_hero_big: p.v_txt_hero_big
-      v_txt_hero_small: p.v_txt_hero_small
-      v_txt_subscribe: p.v_txt_subscribe
-    a_blog:
-      << : *labels
-      << : *site
-      type: blog
-      v_blog_title: p.v_blog_title
-      v_blog_txt: p.v_blog_txt
-      posts:
-        - v_date: post.v_date
-          v_author: post.v_author
-          v_img: p.v_img
-          v_link: p.v_link
-          v_title: post.v_title
-          v_txt: post.v_txt
-          v_ask_txt: post.v_ask_txt
-    a_contact:
-      << : *labels
-      << : *site
-      type: contact
-      v_contact_title: p.v_contact_title
-      v_contact_txt: p.v_contact_txt
-      contact_items:
-        mail: x@y.com
-        link: podemosaprender.org
-        phone-call: 54 11 3030 4444
-        clock: 9AM - 6PM
-        map-pin: Av Calchaqui 3131
-    a_features:
-      << : *labels
-      << : *site
-      type: features
-      v_title: p.v_title
-      v_txt: p.v_txt
-      features:
-        - v_img: feature.v_img
-          v_group_txt: feature.v_group_txt
-          v_title: feature.v_title
-          v1: feature.v1
-          v_icon_2: bar-chart
-          v2: feature.v2
-          v_icon_3: award
-          v3: feature.v3
-          v_ask_link: feature.v_ask_link
-          v_ask_txt: feature.v_ask_txt
-          v_act_link: feature.v_act_link
-          v_act_txt: feature.v_act_txt
-    a_pricing:
-      << : *labels
-      << : *site
-      type: pricing
-      v_pricing_title: p.v_pricing_title
-      v_pricing_txt: p.v_pricing_txt
-      v_action_txt: "Comprar"
-      options:
-        "Rata": 
-          v_price: 19
-          v_currency: $
-          v_unit: año
-          v_features:
-            - copado
-            - veraniego
-          v_action_link: o.v_action_link
-        "La Que Va": 
-          v_highlighted: true
-          v_price: 59
-          v_currency: ARS
-          v_unit: mes
-          v_features:
-            - la que va
-            - mejor
-          v_action_link: o.v_action_link
-        "Manteca al techo":
-          v_price: 959
-          v_currency: USD
-          v_unit: vida 
-          v_features:
-            - a todo culo
-            - procelanato
-          v_img: p.v_img
-          v_action_txt: "Consultar"
-          v_action_link: o.v_action_link
-    a_whyus:
-      << : *labels
-      << : *site
-      type: whyus
-      reasons:
-        - title: reason1.title
-          text: reason1.text
-          icon: checkbox-marked
-        - title: reason2.title
-          text: reason2.text
-        - title: reason3.title
-          text: reason3.text
-          icon: speedometer
-        - title: reason4.title
-          text: reason4.text
-    a_registerModal:
-      << : *labels
-      << : *site
-      type: registerModal
-      registerModals:
-        - v_link: p.v_link
-          v_a_signup: p.v_a_signup
-          v71: p.v71
-
-
-#}
-
 {# ICONOS: https://feathericons.com/ #}
-
 {# 
 @d = 'ggjv/^#:s/\t/  /gggjv/^#k:w! g1ex/index.yaml' :
 #}
 
+{% import "lib/macros.njk" as gw with context %}
+{% set DBG= gw.DBG %}
 
 {# XXX:MOVER A LIB ##########################################}
-{% macro DBG(p,txt) %}
-<!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
-{% endmacro %}
-
-{% macro ws_html(p) %}
-	<section class="section" id="{{ p.id }}">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-8">
-					{{ p.html | safe }}
-				</div>
-			</div>
-		</div>
-	</section>
-{% endmacro %}
-
-{% macro light_dark_mode(p) %}	
-	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
-		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
-		<i class="mdi mdi-moon-waning-crescent mode-dark"></i>
-	</a>
-{% endmacro %}
-
-{% macro status(p) %}	
-	<div id="status"><div class="spinner"></div></div>
-{% endmacro %}
-
-{% macro preloader(p) %}	
-	<div id="preloader">{{ status(p) }}</div>
-{% endmacro %}
-
-{% macro copyright_text(p) %}
-	{{ DBG(p,"copyright_text") }}
-	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
-{% endmacro %}
 
 {# NAVBAR ###################################################}
 {% macro navbar_logo(p) %}	
@@ -355,7 +159,7 @@ data:
 		<p class="text-muted mb-2"><i class="icon-xs me-1" data-feather="{{ feature.v_icon_2  or 'layout'}}"></i> {{ feature.v2 }}</p>
 		<p class="text-muted"><i class="icon-xs me-1" data-feather="{{ feature.v_icon_3 or 'life-buoy'}}"></i>{{ feature.v3 }}</p>
 		<div class="mt-5">
-			<a href="{{ feature.v_ask_link }}" class="btn btn-primary me-2">{{ feature.v_ask_txt }}</a>
+			<a href="{{ feature.v_ask_link }}" class="btn btn-primary me-2">{{ feature.v_ask_txt or p.v_lbl_more }}</a>
 			<a href="{{ feature.v_act_link }}" class="btn btn-soft-primary">{{ feature.v_act_txt }}</a>
 		</div>
 	</div>
@@ -381,6 +185,7 @@ data:
 {% endmacro %}
 
 {# BLOG #####################################################}
+{#- formato de collections SEE: https://www.11ty.dev/docs/collections/#collection-item-data-structure -#}	
 {% macro ws_blog_header(p) %}	
 	<div class="row justify-content-center">
 		<div class="col-lg-6">
@@ -392,30 +197,39 @@ data:
 	</div>
 {% endmacro %}
 
-{% macro ws_blog_post_1_meta(p,post) %}	
+{# envolver las fechas para que las expanda app.js a formato local #}
+{% macro datef(d) %}
+	<span class="datef">{{d | dateJSON }}</span>
+{% endmacro %}
+
+{% macro ws_blog_post_1_meta(p,post) %}
 	<ul class="list-inline text-muted text-uppercase font-size-15 font-weight-medium mt-3 mb-2">
-		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1"
-																				 data-feather="calendar"></i> {{ post.v_date }}</li>
+		<li class="list-inline-item me-3"><i class="icon-size-15 icon me-1" data-feather="calendar"></i>
+		{{ datef(post.v_date or post.page.date) | safe }}</li>
 		<li class="list-inline-item"><i class="icon-size-15 icon me-1" data-feather="user"></i>
-			{{ post.v_author }}</li>
+		{{ post.v_author or post.data.author }}</li>
 	</ul>
 {% endmacro %}
 
 {% macro ws_blog_post_1(p,post) %}	
 	<div class="col-lg-4">
 		<div class="blog-box mb-4 mb-lg-0">
-			<img src="{{ p.v_site_base_path }}{{ p.v_img }}" alt="" class="img-fluid d-block mx-auto rounded" />
+			<img src="{{ post.v_img or post.data.img }}" alt="{{ post.data.img_alt or post.data.title }}" class="img-fluid d-block mx-auto rounded" />
 			{{ ws_blog_post_1_meta(p,post) }}
-			<a href="{{ p.v_link }}" class="fw-bold h5">{{ post.v_title }}</a>
-			<p class="text-muted font-size-15">{{ post.v_txt }}</p>
-			<a href="{{ p.v_link }}" class="text-primary  font-weight-semibold">{{ post.v_ask_txt }}<span                                 class="ms-2 right-icon">&#8594;</span></a>
+			<a href="{{ p.v_link or post.page.url }}" class="fw-bold h5">{{ post.v_title or post.data.title }}</a>
+			<p class="text-muted font-size-15">{{ post.v_txt or post.data.summary or (post.content | striptags | truncate(300)) }}</p>
+			<a href="{{ p.v_link or post.page.url }}" class="text-primary  font-weight-semibold">{{ post.v_ask_txt or p.v_lbl_more or "more" }}<span class="ms-2 right-icon">&#8594;</span></a>
 		</div>
 	</div>
 {% endmacro %}
 
 {% macro ws_blog_posts(p) %}	
+{%- set posts= p.posts -%}{%- if posts.collection -%}
+{%- set posts= collections[p.posts.collection].slice(p.posts.from or 0,p.posts.count or 6) -%}
+{%- if not (posts.order=="older") %}{% set posts= posts | reverse %}{% endif %}
+{%- endif -%}
 	<div class="row">
-		{% for post in p.posts %}
+		{% for post in posts %}
 			{{ ws_blog_post_1(p,post) }}
 		{% endfor %}
 	</div>
@@ -565,7 +379,7 @@ data:
 				<div class="col-lg-12">
 					<div class="text-center">
 						<p class="text-white-50 font-size-15 mb-0">
-						{{ copyright_text(p) }}
+						{{ gw.copyright_text(p) }}
 						</p>
 					</div>
 				</div>
@@ -793,18 +607,27 @@ data:
 'pricing': ws_pricing,
 'blog': ws_blog,
 'contact': ws_contact,
-'html': ws_html,
+'html': gw.ws_html,
 'registerModal': ws_registerModal
 } %}
 
-{% macro r(p,content,tw) %}	{% set tw= tw or twme %}
-	{% set_k p,"sections",p.sections or {} %}
-	{% if content %}
-		{% set_k p.sections,"content",{'type': 'html', 'html': content} %}
-	{% endif %}
+{% macro r(p,content,tw) %}	{%- set tw= tw or twme -%}
+{%- set_k p,"sections",p.sections or {} -%}
+{%- if content -%}
+{%- set_k p.sections,"content",{'type': 'html', 'html': content} -%}
+{%- endif -%}
+{%- set title= title or p.site.v_brand_name or "XXX:title" -%}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{{ gw.head_meta(p) }}
+		<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+		<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
+	</head>
 	<body>
-		{{ light_dark_mode(p) }}
-		{{ preloader(p) }}
+		{{ gw.light_dark_mode(p) }}
+		{% if p.use_preloader %}{{ gw.preloader(p) }}{% endif %}
 
 		{% set navbar_data= {} | mix_kv(p.labels, p.site, p.navbar,{'navitems':{} }) %}
 		{% for id, data in p.sections %}
@@ -840,6 +663,7 @@ data:
 			<script src="/l1b_/g1/js/app.js"></script>
 
 	</body>
+</html>
 {% endmacro %}
 
 
