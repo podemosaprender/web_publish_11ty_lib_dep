@@ -7,12 +7,15 @@ pagination:
   resolve: values #A: it's an {}
   addAllPagesToCollections: true
 eleventyComputed:
-  title: "{{ my.Archetype }} Archetype"
-	permalink: "{{ page.filePathStem }}/{{ my.Archetype | slugify }}/"
+  my_title: "{{ my[ title_col or 'title' ] or 'item' }}"
+  title: "{{ my_title }}"
+  permalink: "{{ page.filePathStem }}/{{ my_title | slugify }}/"
 ---
 {% extends (mytpl or "x.njk") %}
 
 {% block content %}
+
+# {{ my_title }}
 
 [[toc]]
 
