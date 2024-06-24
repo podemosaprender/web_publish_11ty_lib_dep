@@ -1,7 +1,7 @@
 
 # Hola!
 
-Que bien si esto funciona
+Que bien si esto funciona. Esto lo edite en la web de github.
 
 [[toc]]
 
