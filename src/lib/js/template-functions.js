@@ -3,14 +3,16 @@
 
 const DBG=process.env.DBG
 
-const { DateTime } = require("luxon");
-const yaml = require("js-yaml");
 const fs = require("fs");
+const { DateTime } = require("luxon");
+const loremIpsum = require("lorem-ipsum").loremIpsum;
+const yaml = require("js-yaml");
 const plantUmlToSvg= require("./plantuml.js");
 const lunr_index_gen = require('./search-lunr/create-index.js');
-const loremIpsum = require("lorem-ipsum").loremIpsum;
+const { BasePath } = require('../env.js');
+console.log({BasePath})
 
-module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {} }
+module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath }
 
 let CFG; //A: set by addToConfig options param
 module.exports.addToConfig= function (eleventyConfig, options, kv) {
@@ -69,11 +71,20 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 			let cmd_f= O_OCMD[cmd];
 			if (cmd_f) { 
 				let r= cmd_f({CFG, base, opath,ext,opts,m,cmd,sep,cmd_s,content,page:this.page}); 
-				if (r!=null) return r;
+				if (r!=null) { return r; }
 			}
 			return "O-O:ERROR:"+m
 		});
 	}
+	if (BasePath!='') { 
+		content= content.replace(/((?:url\())(\/[^\)"]+)/gsi, (m,pfx,p) => {
+			//XXX:intento los que NO reemplazo antes 11ty
+			let r= pfx+ (p.startsWith(BasePath) ? '' : BasePath) + p 
+			console.log("BasePath",BasePath,p,r,m)
+			return r;
+		})
+	}
+	//A: BasePath ej del ambiente de github empieza con barra
 	return content;
 };
 
@@ -95,6 +106,7 @@ function data_cfg() {
 		return cfg;
 }
 module.exports.data.cfg= data_cfg;
+module.exports.data.SiteBasePath= () => BasePath; //U: desplegar en subcarpetas como github
 
 module.exports.data.now= () => new Date();
 

@@ -8,7 +8,7 @@
     "watch": "eleventy; eleventy --watch",
     "start": "eleventy; eleventy --serve",
     "debug": "DEBUG=* eleventy",
-    "prepare": "browserify src/lib/js/search-lunr/common.js --standalone Lunr > src/lib/template/js/lunr.js ; done"
+    "prepare": "browserify src/lib/js/search-lunr/common.js --standalone Lunr > src/lib/template/js/lunr.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",

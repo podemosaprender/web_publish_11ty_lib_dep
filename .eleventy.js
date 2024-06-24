@@ -3,7 +3,7 @@ const DBG=process.env.DBG
 const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
 
 const our_lib = require('./src/lib/js/template-functions.js')
-const { BasePath } = require('./src/lib/env.js');
+const { BasePath }= our_lib;
 
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
