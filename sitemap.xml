@@ -3,106 +3,286 @@
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/outlaw/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/creator/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/magician/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/hero/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/lover/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/jester/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/everyman/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/caregiver/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/ruler/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/innocent/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/sage/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/arch/explorer/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/dos/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/outlaw/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/creator/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/magician/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/hero/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/lover/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/jester/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/everyman/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/caregiver/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/ruler/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/innocent/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/sage/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/item/explorer/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/search/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/catalogo/style.css</loc>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/diagram/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/event-page/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/ex/lorem/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/g1ex/css/style.min.css</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/g1ex/</loc>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/hola/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/l1b_/g1/css/style.css</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/chau/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/hola/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/search/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/style.css</loc>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/calendar.ics</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/calendar/sample-all-day-event-2023-09-10.ics</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/outlaw/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/creator/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/magician/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/hero/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/lover/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/jester/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/everyman/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/caregiver/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/ruler/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/innocent/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/sage/</loc>
+    <lastmod>2024-06-24</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/item/explorer/</loc>
+    <lastmod>2024-06-24</lastmod>
   </url>
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/widgets/</loc>
-    <lastmod>2024-06-14</lastmod>
+    <lastmod>2024-06-24</lastmod>
   </url>
 </urlset>
