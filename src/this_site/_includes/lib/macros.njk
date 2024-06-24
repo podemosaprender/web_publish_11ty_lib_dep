@@ -90,7 +90,7 @@
 		var res= idx.search(q)
 		let html= res.map( r => {
 			let [url, title]= r.ref.split('\t',2)
-			return `<li><a href="${url}">${title}</a></li>` //A: template!
+			return `<li><a href="{{SiteBasePath}}${url}">${title}</a></li>` //A: template!
 		}).join('\n');
 		document.getElementById('results').innerHTML= html;
 	})

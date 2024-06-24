@@ -29,12 +29,31 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 }
 
 /************************************************************/
+/* page {
+  date: 2024-06-22T02:19:03.119Z,
+  inputPath: './src/this_site/g1ex/index.njk',
+  fileSlug: 'g1ex',
+  filePathStem: '/g1ex/index',
+  outputFileExtension: 'html',
+  templateSyntax: 'njk',
+  url: '/g1ex/',
+  outputPath: '_site/g1ex/index.html'
+} */
+
 const O_OCMD= {}
 O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path existente entre opciones
-	let paths= params.opts.map(p => ((p.startsWith('/') ? params.CFG.dir.output : params.base+'/')+p) )
-	let found= paths.find(p => fs.existsSync(p)) //XXX:REQUIERE DOS BUILDS! sino puede no estar AUN!
-	DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+params.opath,{found, out_dir: params.CFG.dir.output, paths})
-	if (found) { return found.substr(params.CFG.dir.output.length) }
+	const try_paths= (root,base) => {
+		let paths=  params.opts.map(p => ((p.startsWith('/') ? root : base+'/')+p) );
+		let found= paths.find(p => fs.existsSync(p)) //XXX: OjO! para out puede no haber ocurrido el build aun!
+		DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+base,{found, root, paths})
+		if (found) { return found.substr(root.length) }
+	}
+	let found= (
+		try_paths(params.CFG.dir.input, params.ibase) ||
+		try_paths(params.CFG.dir.output, params.obase) 
+	)
+	//A: probamos primero en input pq en general son estaticos que pusimos con el archivo
+	if (found) { return found }
 	else { return "O-O:ERROR:TRY_PATHS:NONE FOUND:"+params.m	}
 }
 
@@ -42,12 +61,12 @@ O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de b
 	let opts= params.cmd_s.split(/\s+/)
 	let idx_url= opts.shift()+'.txt'; //A: required by webservers
 	const gen_idx= async () => {
-		let dst= (idx_url.startsWith('/') ? params.CFG.dir.output : params.base+'/')+idx_url;
+		let dst= (idx_url.startsWith('/') ? params.CFG.dir.output : params.obase+'/')+idx_url;
 		let docs= await Promise.all(opts.map( async o => { let [p,url]= o.split('=');
 			try {
 				let content= fs.readFileSync(p,'utf8');
 				let title= (content.match(/<title>([^<]*)<\/title>/si)||[])[1]||'untitled';
-				return {url,content,title}
+				return {url,content,title} //OjO! las url del indice NO tienen BasePath, asi podemos moverlo
 			} catch(ex) { console.error("O-O:ERROR:SEARCH_IDX:can't read",{p,params}) }
 			return null;
 		}));
@@ -60,6 +79,7 @@ O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de b
 							
 module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) {
 	const opath= this.page.outputPath || '';
+	const ipath= this.page.inputPath || '';
 	const ext= (opath.match(/\.[^\.]+$/)||[])[0];
 	DBG>5 && console.log("O-O:COMMANDS TRY:",{ext, opath})
 	if (opath && ['.html','.css'].indexOf(ext)>-1) {
@@ -67,10 +87,12 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 			let opts= cmd_s.split(/\s+/);
 			DBG>5 && console.log("O-O:COMMANDS:"+opath,{cmd,cmd_s})
 			DBG>5 && console.log(this.page)
-			let base= opath.replace(/\/?[^\/]*$/,'');
+			let obase= opath.replace(/\/?[^\/]*$/,'');
+			let ibase= ipath.replace(/\/?[^\/]*$/,'');
+
 			let cmd_f= O_OCMD[cmd];
 			if (cmd_f) { 
-				let r= cmd_f({CFG, base, opath,ext,opts,m,cmd,sep,cmd_s,content,page:this.page}); 
+				let r= cmd_f({CFG,obase,opath,ext,ibase,ipath,opts,m,cmd,sep,cmd_s,content,page:this.page}); 
 				if (r!=null) { return r; }
 			}
 			return "O-O:ERROR:"+m
