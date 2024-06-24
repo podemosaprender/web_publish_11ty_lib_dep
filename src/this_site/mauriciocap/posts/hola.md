@@ -36,5 +36,9 @@ bla bla bla
 
 ### Mas detalle
 
-Te cuento
+Te cuento {% lorem {count: 20} %}
+
+### Charlemos
+
+A este título se puede llegar haciendo click en _Una filosofía muy interesante_ en el gráfico de arriba. Es verdad?
 
