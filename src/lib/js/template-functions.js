@@ -119,6 +119,9 @@ module.exports.filter.mix_kv = (kv1,...kvs) => Object.assign({},kv1,...kvs);  //
 module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); return ''}
 module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 
+module.exports.filter.split= (s,sep) => s.split(sep);
+module.exports.filter.someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,to).join(sep);
+
 module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
 
 function data_cfg() { 

@@ -1,6 +1,9 @@
 ---
 layout: g1/page_data.njk
 mytpl: "x2.njk"
+title_pfx: ""
+title_sfx: ""
+title_col: title
 pagination:
   data: items
   size: 1
@@ -8,26 +11,27 @@ pagination:
   resolve: values #A: it's an {}
   addAllPagesToCollections: true
 eleventyComputed:
-  my_title: "{{ my[ title_col or 'title' ] or 'item' }}"
-  title: "{{ my_title }}"
-  permalink: "{{ page.filePathStem }}/{{ my_title | slugify }}/"
+  my_title: "{{ (my[ title_col ] or 'item') }}"
+  title: "{{ title_pfx + my_title + title_sfx }}"
+  permalink: "{{ page.filePathStem | someparts(0,-1) }}/{{ my_title | slugify }}/"
 ---
 {% if content | trim == "" %}
 {% set content %}
 {% markdown %}
-# {{ my_title }}
+# {{ title }}
 
 [[toc]]
 
 {% for k,v in my %}
+{% if k != title_col %}
 ## {{ k }}
 
 {{ v | safe }}
-
+{% endif %}
 {% endfor %}    
 {% endmarkdown %}
 {% endset %}
 {% endif %}
 
-{% import (page_theme or "g1")+"/macros.njk" as tw %}
+{% import (page_theme or "g1")+"/macros.njk" as tw with context %}
 {{ tw.r(data,content) }}

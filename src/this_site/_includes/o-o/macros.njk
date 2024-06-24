@@ -1,5 +1,7 @@
 {% import "lib/macros.njk" as gw with context %}
 {% set DBG=gw.DBG %}
+{# XXX:MOVER A LIB ##########################################}
+
 
 {% macro ws_banner(p) %}
 <section class="banner" role="banner">
@@ -254,10 +256,7 @@
 		<html class="no-js" lang="">
 		<!--<![endif]-->
 		<head>
-			<meta charset="utf-8">
-			<meta name="agencia" content="">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<title>Shadow-Agency</title>
+			{{ gw.head_meta(p) }}
 			<link rel="stylesheet" href="/l1b_/o-o/css/bootstrap.min.css">
 			<link rel="stylesheet" href="/l1b_/o-o/css/flexslider.css">
 			<link rel="stylesheet" href="/l1b_/o-o/css/jquery.fancybox.css">
