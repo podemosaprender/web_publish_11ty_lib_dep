@@ -9,7 +9,7 @@ h1,h2,h3,h4,h5,h6{font-family:"Muli",sans-serif;font-weight:700}
 .navbar{padding-right:0px !important}
 .nav-item .nav-link{display:inline-block;color:#3b3950;text-decoration:none;font-family:"Muli",sans-serif}
 .navbar-custom{padding:15px 0px;width:100%;border-radius:0px;z-index:999;margin-bottom:0px;transition:all .5s ease-in-out;background-color:rgba(0,0,0,0)}
-body{ padding-top: 24px; }
+body{ padding-top: 48px; }
 img.logo{height: 24px; }
 .navbar-custom .logo .logo-dark{display:none}
 .navbar-custom .logo .logo-light{display:inline-block}
