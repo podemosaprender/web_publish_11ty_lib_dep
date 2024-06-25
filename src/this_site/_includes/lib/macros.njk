@@ -96,3 +96,60 @@
 	})
 </script>
 {% endmacro %}
+
+{# p5js emoji ###############################################}
+{# SEE: https://erraticgenerator.com/blog/p5js-texttopoints-function/ #}
+{# SEE: 4th param=use existing canvas https://p5js.org/reference/#/p5/createCanvas #}
+{# SEE: accessibility https://p5js.org/reference/#/p5/describe #}
+{% macro p5js_emoji(text,emoji_list) %}
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
+	<script>
+		(function () { 
+			function sketch(p5) {
+				let font, points, emoji, e;
+
+				p5.preload= function preload() {
+					font = p5.loadFont('{{ SiteBasePath }}/l1b_/any/fonts/parisienne-regular.ttf'); //U: must be a ttf file
+				}
+
+				p5.setup= function setup() {
+					p5.createCanvas(p5.windowWidth*.5, p5.windowWidth*.12);
+					emoji = ['🌍','🌎','🌏'];
+				}
+
+				p5.draw= function draw() {
+					p5.frameRate(5);
+					if (!window.stop_animation) {
+						points1 = font.textToPoints({{ text | dump | safe }},0,0,p5.height*.6, {
+							sampleFactor: .09,
+							simplifyThreshold: 0
+						});
+						let xmin=p5.width, xmax=0; points1.forEach(p => {xmin=Math.min(xmin,p.x);xmax=Math.max(xmax,p.x);});
+						let xofs= (p5.width-(xmax-xmin))/2;
+						//XXX:sepuede calcular una sola vez?
+						//DBG: console.log("POINTS",{xofs,xmin,xmax,width,height,points1})
+						p5.background(85,100,100);
+						p5.textSize(p5.height/15);
+						p5.beginShape(); // make a shape out of the points of the font
+						for (let i = 0; i < points1.length; i++) {
+							const p1 = points1[i]
+							pickEmoji();
+							p5.text(emoji[e], p1.x+xofs, p1.y+p5.height/2);
+						}
+						p5.endShape();
+					}
+				}
+
+				function pickEmoji() {
+					e = Math.floor(p5.random(emoji.length));
+				}
+
+
+				p5.windowResized= function windowResized() {
+					p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+				}
+			}
+			new p5(sketch);
+		})();
+	</script>
+{% endmacro %}
