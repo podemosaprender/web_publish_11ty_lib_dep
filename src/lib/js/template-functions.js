@@ -71,6 +71,15 @@ O_OCMD.COPY= function O_OCopy(params) { //U: copiar un archivo al output, ej un 
 	} catch (ex) { console.log("O-O:ERROR:COPY:",{src,dst,opts},ex) }
 }
 
+O_OCMD.INCLUDE= function O_OInclude(params) { //U: reemplazar marca por contendo del archivo
+	const src= path_abs(params.cmd_s, params.CFG.dir.input, params.ibase);
+	DBG>0 && console.log("O-O:COMMANDS:INCLUDE:",{src})
+	try { 
+		return fs.readFileSync(src,'utf8'); 
+	} catch (ex) { console.log("O-O:ERROR:INCLUDE:",{src},ex) }
+}
+
+
 O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de busqueda con lista recibida
 	let opts= params.cmd_s.split(/\s+/)
 	let idx_url= opts.shift()+'.txt'; //A: required by webservers
