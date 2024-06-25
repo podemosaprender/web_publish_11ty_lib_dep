@@ -26,8 +26,9 @@ data:
 </div>
 <script>
 	const $= (s) => document.querySelector(s)
-	const rnd_element = (list) => list[Math.floor(Math.random()*list.length)];
-	const rnd_mix = (list) => { 
+	const DBG= (r,msg,lvl, ...details) => { lvl>0 && console.log(msg,r,...details); return r }
+	const rnd_element= (list) => list[Math.floor(Math.random()*list.length)];
+	const rnd_mix= (list) => { 
 		let c= [...list]; let r= []; while (c.length) { r.unshift(rnd_element(c)); c= c.filter(e => e!=r[0]) }
 		return r;
 	}
@@ -64,8 +65,8 @@ data:
 				let avg= (sum/scores.length).toFixed(1);
 				return [not_guess,max,avg,arch];
 			})
-			.sort( (b,a) => (a.slice(0,3).find((as,i) => (as-b[i])) || (a[3]<b[3]?-1:0) ))
-			.map( ([not_guess,max,avg,arch]) => `<li>👀.fyi ${arch}: ${not_guess ? 'missed '+not_guess+', ' : ''} took you ${max} hints, ${avg} on average</li>`)
+			.sort( (b,a) => DBG( a.slice(0,3).find((as,i) => (parseFloat(a[i])-parseFloat(b[i]))) || (a[3]<b[3]?-1:0) , "cmp",0,a,b))
+			.map( ([not_guess,max,avg,arch]) => `<li>👀.fyi ${arch}: ${not_guess ? 'missed '+not_guess+', ' : ''} took you as much as ${max} hints, ${avg} on average</li>`)
 			.join('');
 			$('#o_score').innerHTML= `<ul>${items_html}</ul>`
 	}
