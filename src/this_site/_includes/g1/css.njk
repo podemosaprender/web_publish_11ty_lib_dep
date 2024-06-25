@@ -1,5 +1,5 @@
 ---
-v_logo_height: 24px
+v_logo_height_px: 24
 v_color_000000_rgb: "0,0,0"
 v_color_060b2f_rgb: "6,11,47"
 v_color_0e0a41_rgb: "14,10,65"
@@ -68,8 +68,8 @@ h1,h2,h3,h4,h5,h6{font-family:"Muli",sans-serif;font-weight:700}
 .navbar{padding-right:0px !important}
 .nav-item .nav-link{display:inline-block;color:#{{ v_color_3b3950 }};text-decoration:none;font-family:"Muli",sans-serif}
 .navbar-custom{padding:15px 0px;width:100%;border-radius:0px;z-index:999;margin-bottom:0px;transition:all .5s ease-in-out;background-color:rgba({{ v_color_000000_rgb }},0)}
-body{ padding-top: {{ v_logo_height }}; }
-img.logo{height: {{ v_logo_height }}; }
+body{ padding-top: {{ v_logo_height_px * 2 }}px; }
+img.logo{height: {{ v_logo_height_px }}px; }
 .navbar-custom .logo .logo-dark{display:none}
 .navbar-custom .logo .logo-light{display:inline-block}
 .navbar-custom .navbar-nav li a{line-height:26px;color:rgba({{ v_color_3b3950_rgb }},.7);font-size:15px;font-weight:600;transition:all .3s;background-color:rgba({{ v_color_000000_rgb }},0) !important;padding:6px 0;margin:0 20px}
