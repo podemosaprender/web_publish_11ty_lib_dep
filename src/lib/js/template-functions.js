@@ -41,9 +41,11 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 } */
 
 const O_OCMD= {}
+const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
+
 O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path existente entre opciones
 	const try_paths= (root,base) => {
-		let paths=  params.opts.map(p => ((p.startsWith('/') ? root : base+'/')+p) );
+		let paths=  params.opts.map(p => path_abs(p,root,base));
 		let found= paths.find(p => fs.existsSync(p)) //XXX: OjO! para out puede no haber ocurrido el build aun!
 		DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+base,{found, root, paths})
 		if (found) { return found.substr(root.length) }
@@ -57,11 +59,23 @@ O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path exis
 	else { return "O-O:ERROR:TRY_PATHS:NONE FOUND:"+params.m	}
 }
 
+O_OCMD.COPY= function O_OCopy(params) { //U: copiar un archivo al output, ej un json que queres usar desde el cliente
+	let opts= params.cmd_s.split(/\s+/)
+	const dstspec= opts[1]||someparts(opts[0],-1)
+	const src= path_abs(opts[0], params.CFG.dir.input, params.ibase);
+	const dst= path_abs(dstspec, params.CFG.dir.output, params.obase);
+	DBG>0 && console.log("O-O:COMMANDS:COPY:",{src,dst,opts})
+	try { 
+		fs.cpSync(src,dst,{recursive: true}); 
+		return dstspec;
+	} catch (ex) { console.log("O-O:ERROR:COPY:",{src,dst,opts},ex) }
+}
+
 O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de busqueda con lista recibida
 	let opts= params.cmd_s.split(/\s+/)
 	let idx_url= opts.shift()+'.txt'; //A: required by webservers
 	const gen_idx= async () => {
-		let dst= (idx_url.startsWith('/') ? params.CFG.dir.output : params.obase+'/')+idx_url;
+		let dst= path_abs(idx_url,params.CFG.dir.output,params.obase);
 		let docs= await Promise.all(opts.map( async o => { let [p,url]= o.split('=');
 			try {
 				let content= fs.readFileSync(p,'utf8');
@@ -120,7 +134,8 @@ module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); re
 module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 
 module.exports.filter.split= (s,sep) => s.split(sep);
-module.exports.filter.someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,to).join(sep);
+const someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,(from==-1 && to==-1) ? 9999 : to).join(sep);				
+module.exports.filter.someparts= someparts
 
 module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
 
