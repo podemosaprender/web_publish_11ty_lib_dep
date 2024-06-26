@@ -121,6 +121,33 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 			return "O-O:ERROR:"+m
 		});
 	}
+	//A: commands applied
+	let meta_links= {};
+	content= content.replace(/<link\s([^>]*)\/?>/gsi,(m,opts) => {
+		let href= (opts.match(/href=\"([^"]*)\"/si)||[])[1]
+		console.log("O-O:COLLECT_METALINK",{href,opts})	
+		if (!href) { return m }
+		meta_links[href] ||= m;
+		return '';
+	});
+	content= content.replace(/<\/head>/, Object.values(meta_links).join('\n')+'\n</head>')
+
+	let scripts_pending= {}, scripts_loaded= {};
+	content= content.replace(/<script([^>]*)>(.*?)<\/script>/gsi,(m,opts,content) => {
+		let src= (opts.match(/src=\"([^"]*)\"/si)||[])[1]
+		console.log("O-O:SCRIPT",{src,opts})	
+		if (content || !src) {
+			let r= Object.values(scripts_pending).join('\n')+m;
+			scripts_loaded= {...scripts_loaded, ...scripts_pending};
+			scripts_pending= {};
+			return r; //A: flush, may be dependencies
+		}
+		if (!scripts_loaded[src]) {scripts_pending[src]= m};
+		return '';
+	}); //A: collected all scripts, removed with src to place at the end
+	content= content.replace(/<\/body>/, Object.values(scripts_pending).join('\n')+'\n</body>')
+	//A: consolidate scripts and css
+
 	if (BasePath!='') { 
 		content= content.replace(/((?:url\())(\/[^\)"]+)/gsi, (m,pfx,p) => {
 			//XXX:intento los que NO reemplazo antes 11ty
