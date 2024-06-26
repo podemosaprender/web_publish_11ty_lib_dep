@@ -35,4 +35,4 @@ eleventyComputed:
 {% endif %}
 
 {% import (page_theme or "g1")+"/macros.njk" as tw with context %}
-{{ tw.r(data,content) }}
+{{ tw.render(data,content) }}

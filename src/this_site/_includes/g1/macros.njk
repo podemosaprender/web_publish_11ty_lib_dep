@@ -598,9 +598,28 @@
 	</section>
 {% endmacro %}
 
+{% macro head_z_(p,tw) %}{# TODO: colectar css y js en transform asi cada componente puede agregar sus reqs, con un numerito de prioriad asi se ordenan bien #}
+	<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+{% endmacro %}
+
+{% macro body_z_(p,tw) %}
+	<script src="/l1b_/g1/js/bootstrap.bundle.min.js"></script>
+	<script src="/l1b_/g1/js/smooth-scroll.polyfills.min.js"></script>
+	<script src="/l1b_/g1/js/gumshoe.polyfills.min.js"></script>
+	<script src="/l1b_/g1/js/feather.js"></script>
+	<script src="/l1b_/g1/js/unicons.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+	<script src="/l1b_/g1/js/app.js"></script>
+{% endmacro %}
 
 {# S: compose toolkit (you may import from other tk) ########}
 {% set twme= {
+'head_z_': head_z_,
+'body_z_': body_z_,
+'navbar_': navbar,
+'footer_': footer,
+
 'hero': ws_hero,
 'whyus': ws_whyus,
 'features': ws_features,
@@ -611,60 +630,4 @@
 'registerModal': ws_registerModal
 } %}
 
-{% macro r(p,content,tw) %}	{%- set tw= tw or twme -%}
-{%- set_k p,"sections",p.sections or {} -%}
-{%- if content -%}
-{%- set_k p.sections,"content",{'type': 'html', 'html': content} -%}
-{%- endif -%}
-{%- set title= title or p.site.v_brand_name or "XXX:title" -%}
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		{{ gw.head_meta(p) }}
-		<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-		<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		{{ gw.light_dark_mode(p) }}
-		{% if p.use_preloader %}{{ gw.preloader(p) }}{% endif %}
-
-		{% set navbar_data= {} | mix_kv(p.labels, p.site, p.navbar,{'navitems':{} }) %}
-		{% for id, data in p.sections %}
-			{% set_k navbar_data.navitems,'#'+id, id %}
-		{% endfor %}
-		{{ DBG(navbar_data,"NAVBAR") }}
-		{{ navbar(navbar_data) }}
-
-		{%for id, data in p.sections %}
-			{% if data %}
-				{{ DBG(data,"SECTION "+id+" "+data.type) }}
-				{% set data_full= data | mix_kv (p.labels, p.site, data, {'id': id }) %}
-				{%  if tw[data.type] %}
-					{{ twme[data.type](data_full) }}
-				{% else %}
-					<div style="background: red;">{{ id }} NO_DEF_FOR_TYPE {{data.type}}<pre>{{ data | dump | safe}}</pre></div>
-					{% endif %}
-				{% endif %}
-			{% endfor %}
-
-			{% set footer_data= {} %}{# XXX:inventar una forma mejor de merge #}
-			{% mix_kv footer_data, p.labels, p.site, p.footer %}
-			{{ DBG(footer_data, "FOOTER") }}
-			{{ footer(footer_data) }}
-
-			<!-- XXX:modals van aca -->
-
-			<script src="/l1b_/g1/js/bootstrap.bundle.min.js"></script>
-			<script src="/l1b_/g1/js/smooth-scroll.polyfills.min.js"></script>
-			<script src="/l1b_/g1/js/gumshoe.polyfills.min.js"></script>
-			<script src="/l1b_/g1/js/feather.js"></script>
-			<script src="/l1b_/g1/js/unicons.js"></script>
-			<script src="/l1b_/g1/js/app.js"></script>
-
-	</body>
-</html>
-{% endmacro %}
-
-
-
+{% macro render(p,content,tw,twmex) %}{{ gw.render(p,content,tw,twmex or twme) }}{% endmacro %}

@@ -2,9 +2,14 @@
 <!-- DBG:{{txt or ""}} {{ p | dump | safe }} -->
 {% endmacro %}
 
+{% macro NOP() %}
+{% endmacro %}
+
 {# CSS NEUTRAL ###################################################}
 {% macro head_meta(p) %}
 	<meta charset="utf-8">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<meta name="google-site-verification" content="TODO" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ title or p.title }}</title>
@@ -97,59 +102,124 @@
 </script>
 {% endmacro %}
 
+{# p5js #####################################################}
+{% macro p5js() %}
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
+	<script>
+		(function () { // multiple instances, const and let clashes friendly
+			function sketch(p5) {
+				{{ caller() }}
+			}
+			new p5(sketch);
+		})();
+	</script>
+{% endmacro %}
+
+
 {# p5js emoji ###############################################}
 {# SEE: https://erraticgenerator.com/blog/p5js-texttopoints-function/ #}
 {# SEE: 4th param=use existing canvas https://p5js.org/reference/#/p5/createCanvas #}
 {# SEE: accessibility https://p5js.org/reference/#/p5/describe #}
 {% macro p5js_emoji(text,emoji_list) %}
-	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
-	<script>
-		(function () { 
-			function sketch(p5) {
-				let font, points, emoji, e;
+	{% call p5js() %}
+		let font, points, emoji, e;
 
-				p5.preload= function preload() {
-					font = p5.loadFont('{{ SiteBasePath }}/l1b_/any/fonts/parisienne-regular.ttf'); //U: must be a ttf file
+		p5.preload= function preload() {
+			font = p5.loadFont('{{ SiteBasePath }}/l1b_/any/fonts/parisienne-regular.ttf'); //U: must be a ttf file
+		}
+
+		p5.setup= function setup() {
+			p5.createCanvas(p5.windowWidth*.5, p5.windowWidth*.12);
+			emoji = ['🌍','🌎','🌏'];
+		}
+
+		p5.draw= function draw() {
+			p5.frameRate(5);
+			if (!window.stop_animation) {
+				points1 = font.textToPoints({{ text | dump | safe }},0,0,p5.height*.6, {
+					sampleFactor: .09,
+					simplifyThreshold: 0
+				});
+				let xmin=p5.width, xmax=0; points1.forEach(p => {xmin=Math.min(xmin,p.x);xmax=Math.max(xmax,p.x);});
+				let xofs= (p5.width-(xmax-xmin))/2;
+				//XXX:sepuede calcular una sola vez?
+				//DBG: console.log("POINTS",{xofs,xmin,xmax,width,height,points1})
+				p5.background(85,100,100);
+				p5.textSize(p5.height/15);
+				p5.beginShape(); // make a shape out of the points of the font
+				for (let i = 0; i < points1.length; i++) {
+					const p1 = points1[i]
+					pickEmoji();
+					p5.text(emoji[e], p1.x+xofs, p1.y+p5.height/2);
 				}
-
-				p5.setup= function setup() {
-					p5.createCanvas(p5.windowWidth*.5, p5.windowWidth*.12);
-					emoji = ['🌍','🌎','🌏'];
-				}
-
-				p5.draw= function draw() {
-					p5.frameRate(5);
-					if (!window.stop_animation) {
-						points1 = font.textToPoints({{ text | dump | safe }},0,0,p5.height*.6, {
-							sampleFactor: .09,
-							simplifyThreshold: 0
-						});
-						let xmin=p5.width, xmax=0; points1.forEach(p => {xmin=Math.min(xmin,p.x);xmax=Math.max(xmax,p.x);});
-						let xofs= (p5.width-(xmax-xmin))/2;
-						//XXX:sepuede calcular una sola vez?
-						//DBG: console.log("POINTS",{xofs,xmin,xmax,width,height,points1})
-						p5.background(85,100,100);
-						p5.textSize(p5.height/15);
-						p5.beginShape(); // make a shape out of the points of the font
-						for (let i = 0; i < points1.length; i++) {
-							const p1 = points1[i]
-							pickEmoji();
-							p5.text(emoji[e], p1.x+xofs, p1.y+p5.height/2);
-						}
-						p5.endShape();
-					}
-				}
-
-				function pickEmoji() {
-					e = Math.floor(p5.random(emoji.length));
-				}
-
-
-				p5.windowResized= function windowResized() {
-					p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
-				}
+				p5.endShape();
 			}
-			new p5(sketch);
-		})();
-	</script>
+		}
+
+		function pickEmoji() {
+			e = Math.floor(p5.random(emoji.length));
+		}
+
+		p5.windowResized= function windowResized() {
+			p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+		}
+	{% endcall %}
+{% endmacro %}
+
+{% set twme={
+	'head_meta_': head_meta,
+	'light_dark_mode_': light_dark_mode,
+	'preloader_': preloader,
+	'head_z_': NOP,
+	'body_z_': NOP',
+'':''} %}
+
+{# RENDER for CONFIG + WIDGETS ###############################}
+{% macro render_one(tw,k,data) %}
+	{%- if tw[k] -%}{{ tw[k](data) }}
+	{%- else -%}<div style="background: red; color: yellow;">ERROR: MISSING {{k}} FROM YOUR WIDGET TOOLKIT<pre>{{ data | dump | safe}}</pre></div>{%-endif-%}
+{% endmacro %}
+
+{% macro render(p,content,tw,twx) %}{%- set tw= {} | mix_kv(twme,twx,tw) -%}
+{%- set_k p,"sections",p.sections or {} -%}
+{%- if content -%}
+{%- set_k p.sections,"content",{'type': 'html', 'html': content} -%}
+{%- endif -%}
+{%- set title= title or p.site.v_brand_name or "XXX:title" -%}
+<!DOCTYPE html>
+<html lang="{{ lang or p.site.lang or 'es' }}">
+	<head>
+		{{ render_one(tw,'head_meta_',p) }}
+		{{ tw.head_z_(p,tw) }}
+		<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		{{ render_one(tw,'light_dark_mode_',p) }}
+		{% if p.use_preloader %}{{ render_one(tw,'preloader_',p) }}{% endif %}
+
+		{% set navbar_data= {} | mix_kv(p.labels, p.site, p.navbar,{'navitems':{} }) %}
+		{% for id, data in p.sections %}
+			{% set_k navbar_data.navitems,'#'+id, id %}
+		{% endfor %}
+		{{ DBG(navbar_data,"NAVBAR") }}
+		{{ render_one(tw,'navbar_',navbar_data) }}
+
+		{%for id, data in p.sections %}
+			{% if data %}
+				{{ DBG(data,"SECTION "+id+" "+data.type) }}
+				{% set data_full= data | mix_kv (p.labels, p.site, data, {'id': id }) %}
+				{{ render_one(tw,data.type,data_full) }}
+			{% endif %}
+		{% endfor %}
+
+		{% set footer_data= {} %}{# XXX:inventar una forma mejor de merge #}
+		{% mix_kv footer_data, p.labels, p.site, p.footer %}
+		{{ DBG(footer_data, "FOOTER") }}
+		{{ render_one(tw,'footer_',footer_data) }}
+
+		<!-- XXX:modals van aca -->
+
+		{{ render_one(tw,'body_z_',p) }}
+	</body>
+</html>
 {% endmacro %}

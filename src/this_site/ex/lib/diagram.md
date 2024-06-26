@@ -19,6 +19,8 @@
 @endmindmap
 {% endplantUmlToSvg %}
 
+Lo escribi usando el tag `plantUmlToSvg` y este lenguaje https://plantuml.com/activity-diagram-beta
+
 # Titulo
 
 bla bla bla

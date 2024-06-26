@@ -1,4 +1,4 @@
 ---
 layout: g1/page_data.njk
 ---
-{%- import (page_theme or "g1")+"/macros.njk" as tw with context -%}{{ tw.r(data,content) }}
+{%- import (page_theme or "g1")+"/macros.njk" as tw with context -%}{{ tw.render(data,content) }}
