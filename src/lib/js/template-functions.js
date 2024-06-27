@@ -172,7 +172,12 @@ module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 module.exports.filter.split= (s,sep) => s.split(sep);
 const someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,(from==-1 && to==-1) ? 9999 : to).join(sep);				
 module.exports.filter.someparts= someparts
-
+module.exports.filter.hex2rgb3= (hex) => {
+	let r= (hex+'').length!=6 ? 'ERROR:hex2rgb:NO_INPUT' :hex.toLowerCase().replace(/^#/,'')
+		.replace(/../g,(b)=>(parseInt(b,16)+',')).slice(0,-1)
+	console.log("DBG:hex2rgb3",{hex,r})
+	return r;
+}
 module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
 
 function data_cfg() { 
