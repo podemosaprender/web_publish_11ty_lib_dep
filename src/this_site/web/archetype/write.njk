@@ -1,0 +1,67 @@
+---
+title: ShadowAgency
+data:
+---
+{% import "o-o/macros.njk" as tw with context %}
+
+{% set content %}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<div style="color: #000; margin-top: 40px;">
+	<h1 class="h4">Archetype Adventures</h1>
+	<div x-data="arch_story">
+		<template x-for="(step,idx) in steps">
+			<div class="b_step" x-text="step.text" x-bind:didx="idx" x-on:click="stepOnClick"></div>
+		</template>
+		<div>
+			EDIT <span x-text="editing" ></span>
+			<textarea x-model="steps[editing].text"></textarea>
+		</div>
+	</div>
+
+	<div style="min-height: 40vh">
+		<ul id="o_hint">
+		</ul>
+		<div id="o_result"></div>
+	</div>
+	<div>
+		<button id="b_hint">(hint)</button>
+		{% for k,v in items %}
+			<button id="b_{{k}}">{{k}}</button>
+		{% endfor %}
+	</div>
+</div>
+<script>
+	const elBySel= ((s) => document.querySelector(s))
+	const esBySel= ((s) => document.querySelectorAll(s))
+	const DBG= (r,msg,lvl, ...details) => { lvl>0 && console.log(msg,r,...details); return r }
+	const rnd_element= (list) => list[Math.floor(Math.random()*list.length)];
+	const rnd_mix= (list) => { 
+		let c= [...list]; let r= []; while (c.length) { r.unshift(rnd_element(c)); c= c.filter(e => e!=r[0]) }
+		return r;
+	}
+
+	const data=#O-O#INCLUDE#archetype.json# 
+	const archs= data.items;
+	const arch_names= Object.keys(archs);	
+
+	document.addEventListener('alpine:init', () => {
+		Alpine.data('arch_story', () => { 
+			let data= {
+				steps: [{text: "uno"},{text: "dos"},{text: "tres"}],
+				editing: 0,
+				getEditing() {return this.editing},
+				stepOnClick(e) { let didx= e.target.getAttribute('didx'); console.log(e,didx,this.editing); this.editing= didx }
+			}
+			return data;
+		})
+	});
+
+	arch_names.forEach(k => { elBySel('#b_'+k).onclick= () => {
+		if (k==goal_name) { register_score(true); restart_game("Correct!"); }
+		else { show_hint() }
+	}});	
+</script>
+{% endset %}
+
+{{ tw.render(data,content) }}
+
