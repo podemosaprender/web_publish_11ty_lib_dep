@@ -72,7 +72,9 @@
 		<div class="col-lg-8 ">
 			<div class="text-center Subcribe-form mt-5">
 				<form action="#">
-					<input type="text" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
+					{% if not p.v_hero_no_input %}
+						<input type="text" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
+					{%endif%}
 					<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_subscribe }}</button>
 				</form>
 			</div>
@@ -86,7 +88,7 @@
 		<div class="bg-overlay"></div>
 		<div class="container">
 			{{ ws_hero_slogan(p) }}
-			{{ ws_hero_action(p) }}
+			{% if not p.v_hero_no_action %}{{ ws_hero_action(p) }}{%endif%}
 		</div>
 	</section>
 {% endmacro %}
