@@ -620,7 +620,7 @@
 {% endmacro %}
 
 {# S: compose toolkit (you may import from other tk) ########}
-{% set twme= {
+{% set twme_g1= {
 'head_z_': head_z_,
 'body_z_': body_z_,
 'navbar_': navbar,
@@ -632,8 +632,7 @@
 'pricing': ws_pricing,
 'blog': ws_blog,
 'contact': ws_contact,
-'html': gw.ws_html,
 'registerModal': ws_registerModal
 } %}
 
-{% macro render(p,content,tw,twmex) %}{{ gw.render(p,content,tw,twmex or twme) }}{% endmacro %}
+{% macro render(p,content,widget_overrides={}) %}<!-- LIB:g1 {{ twme_g1 | keys }}-->{{ gw.render(p,content,widget_overrides,twme_g1) }}{% endmacro %}
