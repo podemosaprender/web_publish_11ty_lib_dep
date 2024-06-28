@@ -117,56 +117,6 @@
   </url>
   
   <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/chau/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/hola/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/search/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/mauriciocap/style.css</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/reiki/celia/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/reiki/celia/chau/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/reiki/celia/hola/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/reiki/celia/search/</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/reiki/celia/style.css</loc>
-    <lastmod>2024-06-28</lastmod>
-  </url>
-  
-  <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/calendar.ics</loc>
     <lastmod>2024-06-28</lastmod>
   </url>
@@ -177,12 +127,27 @@
   </url>
   
   <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/tesla1/</loc>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/site_/mauriciocap/</loc>
     <lastmod>2024-06-28</lastmod>
   </url>
   
   <url>
-    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/tesla1/work-details/</loc>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/site_/mauriciocap/chau/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/site_/mauriciocap/hola/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/site_/mauriciocap/search/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/site_/mauriciocap/style.css</loc>
     <lastmod>2024-06-28</lastmod>
   </url>
   
@@ -268,6 +233,41 @@
   
   <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/web/tpl_redirect/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/celia/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/celia/posts/chau/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/celia/posts/hola/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/celia/search/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/celia/style.css</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/tesla/</loc>
+    <lastmod>2024-06-28</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/wip_/tesla/work-details/</loc>
     <lastmod>2024-06-28</lastmod>
   </url>
 </urlset>
