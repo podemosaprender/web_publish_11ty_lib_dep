@@ -603,6 +603,7 @@
 {% macro head_z_(p,tw) %}{# TODO: colectar css y js en transform asi cada componente puede agregar sus reqs, con un numerito de prioriad asi se ordenan bien #}
 	<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+	<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
 {% endmacro %}
 
 {% macro body_z_(p,tw) %}
@@ -616,12 +617,11 @@
 {% endmacro %}
 
 {% macro g1_head_z_(p,tw) %}
-	<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
 {% endmacro %}
 
 {# S: compose toolkit (you may import from other tk) ########}
 {% set twme= {
-'head_z_': g1_head_z_,
+'head_z_': head_z_,
 'body_z_': body_z_,
 'navbar_': navbar,
 'footer_': footer,
