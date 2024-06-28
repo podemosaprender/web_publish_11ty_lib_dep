@@ -252,7 +252,7 @@
 {% endmacro %}
 
 {# S: compose toolkit (you may import from other tk) ########}
-{% set twme= {
+{% set twme_oo= {
 'head_z_': head_z,
 'body_z_': body_z,
 'navbar_': gw.NOP,
@@ -266,4 +266,4 @@
 'service': ws_service
 } %}
 
-{% macro render(p,content,tw,twx) %}{{ gw.render(p,content,tw, {} | mix_kv(twx,twme)) }}{% endmacro %}
+{% macro render(p,content,widget_overrides={}) %}{{ gw.render(p,content,widget_overrides,twme_oo) }}{% endmacro %}

@@ -14,8 +14,6 @@ data:
     service:
       type: service
 ---
-{% import "o-o/macros.njk" as tw with context %}
-
 {% set_k2 data.sections.redirect,'html' %}
 <section id="redirect" class="section-redirect" style="padding: 100px 0; text-align: center; color:">
 <div class="container"><div class="row"><div class="hero"><div class="hero-content"><p>
@@ -23,7 +21,5 @@ data:
 </p></div></div></div></div>
 </section>
 {% endset_k2 %}
-
-{{ tw.render(data, content) }}
 
 

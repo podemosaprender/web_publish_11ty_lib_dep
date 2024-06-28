@@ -165,10 +165,11 @@ module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCodePaired.markdown= (content) => CFG.md.render(content)
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
 
-module.exports.filter.mix_kv = (kv1,...kvs) => Object.assign({},kv1,...kvs);  //U: better, no side effects
+module.exports.filter.mix_kv = (...kvs) => {DBG>7 && console.log("MIX_KV filter",kvs); return Object.assign({},...kvs);}  //U: better, no side effects
 module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); return ''}
 module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 module.exports.shortCodePaired.set_k2= (v,kv,k) => { kv[k]= v; return ''; };
+module.exports.filter.keys= (kv) => kv ? Object.keys(kv) : [];
 
 module.exports.filter.split= (s,sep) => s.split(sep);
 const someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,(from==-1 && to==-1) ? 9999 : to).join(sep);				
@@ -176,10 +177,14 @@ module.exports.filter.someparts= someparts
 module.exports.filter.hex2rgb3= (hex) => {
 	let r= (hex+'').length!=6 ? 'ERROR:hex2rgb:NO_INPUT' :hex.toLowerCase().replace(/^#/,'')
 		.replace(/../g,(b)=>(parseInt(b,16)+',')).slice(0,-1)
-	console.log("DBG:hex2rgb3",{hex,r})
+	//DBG: console.log("DBG:hex2rgb3",{hex,r})
 	return r;
 }
 module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
+
+module.exports.filter.readFile= function (pathSpec) { //U: make file data available to njk
+	return JSON.stringify({pathSpec, page: this.page}); //XXX:
+}
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');

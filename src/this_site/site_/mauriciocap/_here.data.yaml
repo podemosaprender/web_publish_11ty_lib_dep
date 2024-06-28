@@ -1,8 +1,7 @@
-layout: g1/page.njk
 data:
   site:
-    v_site_base_path: /mauriciocap/
+    v_site_base_path: /site_/mauriciocap/
+    v_site_url: https://mauriciocap.com 
     v_brand_name: MauricioCap
     v_agency_name: mauricicap.com
     v_contact_mail: m@mauriciocap.com
-    v_site_url: /mauriciocap/

@@ -40,6 +40,8 @@ module.exports = function(eleventyConfig) {
 	};
 	console.log("CFG",CFG);
 
+	eleventyConfig.setQuietMode(true); //A: don't show each processed file bc hides errors
+
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginSyntaxHighlight);
@@ -80,12 +82,14 @@ module.exports = function(eleventyConfig) {
 	if (!DBG) {
 		eleventyConfig.addTransform("htmlmin", function (content) {
 			if ((this.page.outputPath || "").endsWith(".html")) {
-				let minified = htmlmin.minify(content, {
-					useShortDoctype: true,
-					removeComments: true,
-					collapseWhitespace: true,
-				});
-				return minified;
+				try {
+					let minified = htmlmin.minify(content, {
+						useShortDoctype: true,
+						removeComments: true,
+						collapseWhitespace: true,
+					});
+					return minified;
+				} catch (ex) { console.error("ERROR:htmlmin",this.page.inputPath,ex); }
 			}
 			return content;//A: If not an HTML output, return content as-is
 		});
@@ -100,6 +104,8 @@ module.exports = function(eleventyConfig) {
 
 	//SEE: https://www.11ty.dev/docs/data-custom/#yaml
 	eleventyConfig.addDataExtension("yaml", (contents) => yaml.load(contents));
+	eleventyConfig.setDataFileBaseName("_here"); //A: data for this folder
+	eleventyConfig.setDataFileSuffixes([".data",""]); //A: json, yaml
 
 	//SEE: https://www.11ty.dev/docs/data-deep-merge/
 	eleventyConfig.setDataDeepMerge(true);

@@ -166,12 +166,13 @@
 	{% endcall %}
 {% endmacro %}
 
-{% set twme={
+{% set twme_lib={
 	'head_meta_': head_meta,
+	'html': ws_html,
 	'light_dark_mode_': light_dark_mode,
 	'preloader_': preloader,
 	'head_z_': NOP,
-	'body_z_': NOP',
+	'body_z_': NOP,
 '':''} %}
 
 {# RENDER for CONFIG + WIDGETS ###############################}
@@ -180,8 +181,8 @@
 	{%- else -%}<div style="background: red; color: yellow;">ERROR: MISSING {{k}} FROM YOUR WIDGET TOOLKIT<pre>{{ data | dump | safe}}</pre></div>{%-endif-%}
 {% endmacro %}
 
-{% macro render(p,content,tw,twx) %}{%- set tw= {} | mix_kv(twme,twx,tw) -%}
-{%- set_k p,"sections",p.sections or {} -%}
+{% macro render(p,content,widget_overrides,widget_overrides1) %}{%- set tw= {'TW':'lib'} | mix_kv(twme_lib,widget_overrides1,widget_overrides) -%}
+{%- set p= p or {} -%}{%- set_k p,"sections",p.sections or {} -%}
 {%- if content -%}
 {%- set_k p.sections,"content",{'type': 'html', 'html': content} -%}
 {%- endif -%}
@@ -189,6 +190,7 @@
 <!DOCTYPE html>
 <html lang="{{ lang or p.site.lang or 'es' }}">
 	<head>
+	<!-- DBG:LIB page_theme="{{ page_theme}}" {{ tw | keys }} widget_overrides1 {{ widget_overrides1 | keys }}-->
 		{{ render_one(tw,'head_meta_',p) }}
 		{{ tw.head_z_(p,tw) }}
 	</head>

@@ -1,3 +1,0 @@
-#INFO: defaults para todo el builder, se pueden redefinir con micarpeta/micarpeta.yaml
-layout: layouts/base.njk #A: default layout for everything in this folder and below.
-wlib: bs

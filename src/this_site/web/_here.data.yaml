@@ -1,4 +1,4 @@
-layout: g1/page_data.njk
+page_theme: o-o
 data:
   site:
     v_brand_name: ShadowAgency

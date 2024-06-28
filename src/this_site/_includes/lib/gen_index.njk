@@ -1,8 +1,8 @@
 ---
-layout: g1/page_data.njk
+layout: lib/page_data.njk
 mytpl: "x2.njk"
 permalink: "{{ page.filePathStem | someparts(0,-1) }}/"
-collection: all
+collection: items
 ---
 {%- if content | trim == "" -%}
 {%- set content -%}
