@@ -191,10 +191,9 @@
 	<head>
 		{{ render_one(tw,'head_meta_',p) }}
 		{{ tw.head_z_(p,tw) }}
-		<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		{{ render_one(tw,'light_dark_mode_',p) }}
+	  {% if not p.no_dark_switch %}{{ render_one(tw,'light_dark_mode_',p) }}{% endif %}
 		{% if p.use_preloader %}{{ render_one(tw,'preloader_',p) }}{% endif %}
 
 		{% set navbar_data= {} | mix_kv(p.labels, p.site, p.navbar,{'navitems':{} }) %}

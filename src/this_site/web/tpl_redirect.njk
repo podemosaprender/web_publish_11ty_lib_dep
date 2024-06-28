@@ -1,29 +1,28 @@
 ---
 title: ShadowAgency
 data:
+  no_dark_switch: true
   sections:
     banner:
       type: banner
+    redirect:
+      type: html
     hero:
       type: hero
     carousel:
       type: carousel
-    portfolio:
-      type: portfolio
-    flashsale:
-      type: flashsale
     service:
       type: service
 ---
 {% import "o-o/macros.njk" as tw with context %}
 
-{% set content %}
-<section id="redirect" class="section-redirect" style="padding: 100px 0; text-align: center;">
-<div class="container"><div class="row"><div class="hero"><div class="hero-content">
+{% set_k2 data.sections.redirect,'html' %}
+<section id="redirect" class="section-redirect" style="padding: 100px 0; text-align: center; color:">
+<div class="container"><div class="row"><div class="hero"><div class="hero-content"><p>
 ##REDIRECT_HTML##
-</div></div></div></div>
+</p></div></div></div></div>
 </section>
-{% endset %}
+{% endset_k2 %}
 
 {{ tw.render(data, content) }}
 

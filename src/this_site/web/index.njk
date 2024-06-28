@@ -1,6 +1,7 @@
 ---
 title: ShadowAgency
 data:
+  no_dark_switch: true
   sections:
     banner:
       type: banner
@@ -8,13 +9,14 @@ data:
       type: hero
     carousel:
       type: carousel
-    portfolio:
-      type: portfolio
+#    portfolio:
+#      type: portfolio
 #    flashsale:
 #      type: flashsale
     service:
       type: service
 ---
 {% import "o-o/macros.njk" as tw with context %}
+{{ tw.render(data, content) }}
 
-{{ tw.render(data) }}
+

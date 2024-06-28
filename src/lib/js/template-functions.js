@@ -168,6 +168,7 @@ module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words',
 module.exports.filter.mix_kv = (kv1,...kvs) => Object.assign({},kv1,...kvs);  //U: better, no side effects
 module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); return ''}
 module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
+module.exports.shortCodePaired.set_k2= (v,kv,k) => { kv[k]= v; return ''; };
 
 module.exports.filter.split= (s,sep) => s.split(sep);
 const someparts= (s,from=0,to=-1,sep='/') => s.split(sep).slice(from,(from==-1 && to==-1) ? 9999 : to).join(sep);				
