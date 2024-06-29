@@ -1,0 +1,69 @@
+---
+NoeleventyImport:
+  collections: ["mauriciocapposts"]
+---
+{% import "lib/macros.njk" as gw with context %}
+
+{{ gw.alpinejs() }}
+<h2>Browser Side</h2>
+<div class="row" x-data="{opts: {h: 127, s: 50, l: 50, scheme:'complementary'}}">
+	<canvas class="col" id="i_huesat" width="255" height="100" x-init="init_canvas($el)" x-on:click="let xy= clickxy(event); opts.h=xy.x; opts.s=xy.y;"></canvas>
+	<div class="col-3" style="display: inline-block;width=300px;">
+	H: <input x-model="opts.h" :change="generate(opts)" size=3><br/>
+	S: <input x-model="opts.s" :change="generate(opts)" size=3><br/>
+	L: <input x-model="opts.l" :change="generate(opts)" size=3>
+	</div>
+	<div class="col-3" style="display: inline-block;width=300px;">
+	<template x-for="scheme in Palette.Schemes">
+		<button x-text="scheme" x-on:click="opts.scheme= scheme; generate(opts)"></button>
+	</template>
+	</div>
+</div>
+
+<div id="o_palette">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script src="/l1b_/any/js/palette.js"></script>
+<script>
+	o= document.querySelector('#o_palette');
+	oyaml= document.querySelector('#o_palette_yaml');
+
+	function init_canvas(el) {
+		//DBG: console.log("init_canvas",el);
+		let ctx= el.getContext('2d');
+		for (let i=0;i<255;i++) {
+			let c0= Palette.HSLtoRGB(i,0,50)
+			let c1= Palette.HSLtoRGB(i,99,50)
+			//DBG: console.log(c0,c1)
+			let grd = ctx.createLinearGradient(0, 0, 170, 0);
+			grd.addColorStop(0, '#'+c0);
+			grd.addColorStop(1, '#'+c1);
+			ctx.fillStyle = grd;
+			ctx.fillRect(i, 0, i, 100);
+		}
+	}
+
+	function clickxy(e) { //A: e = Mouse click event.
+		let rect = e.target.getBoundingClientRect();
+		let x = e.clientX - rect.left; //x position within the element.
+		let y = e.clientY - rect.top;  //y position within the element.
+		console.log("Left? : " + x + " ; Top? : " + y + ".");
+		return {x,y}
+	}
+
+	function generate(opts) {
+		console.log("GENERATE:OPTS",opts);
+		p= Palette.palette(opts)
+		o.innerHTML= Palette.palette2html(p);
+	}
+	generate()
+</script>
+
+<h2>Server Side/Static</h2>
+<div>
+{% set p1= {'h': 250, 's': 30, 'l': 50} | palette %}
+PALETTE {{ p1 | dump | safe }}<br/>
+{{ p1 | palette2html | safe }}
+</div>
+
+

@@ -9,6 +9,7 @@ const loremIpsum = require("lorem-ipsum").loremIpsum;
 const yaml = require("js-yaml");
 const plantUmlToSvg= require("./plantuml.js");
 const lunr_index_gen = require('./search-lunr/create-index.js');
+const { palette, palette2html } = require('./palette.js');
 const { BasePath } = require('../env.js');
 console.log({BasePath})
 
@@ -180,6 +181,9 @@ module.exports.filter.hex2rgb3= (hex) => {
 	//DBG: console.log("DBG:hex2rgb3",{hex,r})
 	return r;
 }
+module.exports.filter.palette= (opts) => palette(opts);
+module.exports.filter.palette2html= palette2html;
+
 module.exports.filter.dateJSON= (dateObj) => (dateObj ? new Date(dateObj).toJSON() : '')
 
 module.exports.filter.readFile= function (pathSpec) { //U: make file data available to njk

@@ -43,6 +43,11 @@
 	<script>{{ "document.write(new Date().getFullYear())" }}</script> © {{ p.v_brand_name }} by {{ p.v_agency_name }}
 {% endmacro %}
 
+{% macro alpinejs() %}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endmacro %}
+
+
 {# CSS OUR STANDARD ##############################################}
 {% macro ws_html(p) %}
 	<section class="section" id="{{ p.id }}">
