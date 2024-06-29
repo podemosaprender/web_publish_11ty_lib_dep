@@ -178,8 +178,7 @@ function palette(options={}) {
 		}, {});
 		return acc;
 	}, {})
-	//DBG: 
-	console.log("DBG:PALETTE:RBG", options, p_rgb)
+	//DBG: console.log("DBG:PALETTE:RBG", options, p_rgb)
 	return p_rgb;
 }
 

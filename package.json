@@ -15,6 +15,7 @@
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "clean-css": "^5.3.3",
     "eleventy-multisite": "^0.1.1",
     "eleventy-plugin-link_to": "^0.4.1",
     "luxon": "^3.4.4",
@@ -35,6 +36,7 @@
     "markdown-it-table-of-contents": "^0.6.0",
     "node-html-parser": "^6.1.13",
     "nunjucks": "^3.2.4",
-    "palette-generator": "^1.1.0"
+    "palette-generator": "^1.1.0",
+    "uglify-js": "^3.18.0"
   }
 }
