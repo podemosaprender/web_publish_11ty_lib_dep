@@ -79,18 +79,6 @@ module.exports = function(eleventyConfig) {
 	
 
 	
-	if (!DBG || DBG<1) {
-		console.log("WILL MINIMIZE htmlmin, cssmin, jsmin");
-		eleventyConfig.addTransform("minify", function (content) {
-			return xfrm_MAIN(this.page.inputPath, this.page.outputPath, content);
-		});
-	}
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css}`,{
-		transform: DBG<1 ? xfrm_STREAM : null,
-	});
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{img,fonts}/**`);
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
-	//A: Copy the `img` and `css` folders to the output
 
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})

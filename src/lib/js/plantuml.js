@@ -23,7 +23,7 @@ function plantUmlToSvg(content) {
 		const rb= execFileSync('java',['-jar','plantuml.jar','-tsvg','-pipe','-nometadata'],{input: content})
 		r= rb.toString('utf8');
 	} catch (ex) {
-		console.error("ERROR:PLANTUML",ex);
+		console.error("ERROR:PLANTUML",ex.message);
 	}
 	//DBG: console.log("UML", r);
 	return r;

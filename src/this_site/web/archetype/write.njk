@@ -3,9 +3,6 @@ title: ShadowAgency
 data:
 ---
 {% import "lib/macros.njk" as gw with context %}
-{% import "o-o/macros.njk" as tw with context %}
-
-{% set content %}
 {{ gw.alpinejs() }}
 <div style="color: #000; margin-top: 40px;">
 	<h1 class="h4">Archetype Adventures</h1>
@@ -41,7 +38,7 @@ data:
 		return r;
 	}
 
-	const data=#O-O#INCLUDE#archetype.json# 
+	const data=#O-O#INCLUDE#_here.data.json# 
 	const archs= data.items;
 	const arch_names= Object.keys(archs);	
 
@@ -62,7 +59,5 @@ data:
 		else { show_hint() }
 	}});	
 </script>
-{% endset %}
 
-{{ tw.render(data,content) }}
 

@@ -5,7 +5,9 @@ const DBG=process.env.DBG
 
 const fs = require("fs");
 const StreamTransform = require('stream').Transform;
-const htmlmin = require("html-minifier");
+//XXXconst htmlmin = require("html-minifier");
+//XXXimport { Buffer } from "node:buffer";
+const minifyHtml = require("@minify-html/node");
 const CleanCSS = require('clean-css');
 const UglifyJS = require("uglify-js");
 const { DateTime } = require("luxon");
@@ -31,6 +33,12 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	Object.entries(kv.transform).forEach( ([k,v]) => eleventyConfig.addTransform(k,v) );
 
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{js,css}`,{
+		transform: DBG<1 ? xfrm_STREAM : null,
+	});
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
+	//A: Copy the `img` and `css` folders to the output
 }
 
 /************************************************************/
@@ -38,11 +46,17 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 function xfrm_html(inputPath,outputPath,content) { 
 	if ((outputPath || "").endsWith(".html")) {
 		try {
-			let minified = htmlmin.minify(content, {
-				useShortDoctype: true,
-				removeComments: true,
-				collapseWhitespace: true,
-			});
+			//SEE: https://docs.rs/minify-html/latest/minify_html/struct.Cfg.html
+			let minified = minifyHtml.minify(Buffer.from(content),{
+				do_not_minify_doctype: true,
+				ensure_spec_compliant_unquoted_attribute_values: true,
+				keep_spaces_between_attributes: true,
+				keep_closing_tags: true,
+				keep_html_and_head_opening_tags: true,
+				minify_css: true,
+				minify_js: false, //XXX:rompe
+			}).toString();
+			minified= minified.replace(/<script>(.*?)<\/script>/gsi,(m,js) => `<script>${xfrm_js(inputPath+'SCRIPT.js',outputPath+'SCRIPT.js',js)}</script>`); //XXX: ver por que no lo hace minifyHtml
 			return minified;
 		} catch (ex) { console.error("ERROR:htmlmin",inputPath,outputPath,ex); }
 	}
@@ -63,7 +77,7 @@ function xfrm_js(inputPath,outputPath,content) {
 	if ((outputPath || "").endsWith(".js")) {
 		try {
 			let minified = UglifyJS.minify(content);
-			DBG>7 && console.log("jsmin",minified);
+			DBG>7 && console.log("jsmin",outputPath,minified);
 			if (minified.error) { throw(minified.error); }
 			else { return minified.code };
 		} catch (ex) { console.error("ERROR:jsmin",inputPath,outputPath,ex); }
@@ -72,7 +86,7 @@ function xfrm_js(inputPath,outputPath,content) {
 }
 
 function xfrm_MAIN(inputPath,outputPath,content) { 
-	return [xfrm_html,xfrm_css,xfrm_js].reduce( (c,f) => f(inputPath,outputPath,c), content);
+	return [xfrm_html, xfrm_css,xfrm_js].reduce( (c,f) => f(inputPath,outputPath,c), content);
 }
 module.exports.xfrm_MAIN= xfrm_MAIN;
 function xfrm_STREAM(src, dst, stats) {
@@ -218,6 +232,13 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 	//A: BasePath ej del ambiente de github empieza con barra
 	return content;
 };
+
+if (!DBG || DBG<1) { //OjO! tiene que ser despues de O_O_COMMANDS porque rompe ej minjs
+	console.log("WILL MINIMIZE htmlmin, cssmin, jsmin");
+	module.exports.transform.O_O_MINIFY= function O_O_MINIFY(content) {
+		return xfrm_MAIN(this.page.inputPath, this.page.outputPath, content);
+	};
+}
 
 /************************************************************/
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
