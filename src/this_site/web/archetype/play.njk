@@ -2,9 +2,6 @@
 title: ShadowAgency
 data:
 ---
-{% import "o-o/macros.njk" as tw with context %}
-
-{% set content %}
 <div style="color: #000; margin-top: 40px;">
 	<h1 class="h4">Discover the Archetype</h1>
 	<div style="min-height: 40vh">
@@ -26,14 +23,14 @@ data:
 </div>
 <script>
 	const $= (s) => document.querySelector(s)
-	const DBG= (r,msg,lvl, ...details) => { lvl>0 && console.log(msg,r,...details); return r }
+	const DBG= (r,msg,lvl, ...details) => {console.log(msg,r,...details); return r }
 	const rnd_element= (list) => list[Math.floor(Math.random()*list.length)];
 	const rnd_mix= (list) => { 
 		let c= [...list]; let r= []; while (c.length) { r.unshift(rnd_element(c)); c= c.filter(e => e!=r[0]) }
 		return r;
 	}
 
-	const data=#O-O#INCLUDE#archetype.json# 
+	const data=#O-O#INCLUDE#_here.data.json# 
 	const archs= data.items;
 	const arch_names= Object.keys(archs);	
 
@@ -58,14 +55,14 @@ data:
 
 	const register_score= (did_guess) => {
 		(score[goal_name] ||= []).push({did_guess: did_guess, cnt: hints_used})
-		let items_html= Object.entries(score)
+		let items_html= DBG(Object.entries(score)
 			.map(([arch,scores]) => {
 				let not_guess= 0, sum=0, max=0;
 				scores.forEach( e => { sum+= e.cnt; max= Math.max(max,e.cnt); if (!e.did_guess) { not_guess++ } })
-				let avg= (sum/scores.length).toFixed(1);
+				let avg= parseFloat((sum/scores.length).toFixed(1));
 				return [not_guess,max,avg,arch];
-			})
-			.sort( (b,a) => DBG( a.slice(0,3).find((as,i) => (parseFloat(a[i])-parseFloat(b[i]))) || (a[3]<b[3]?-1:0) , "cmp",0,a,b))
+			}),"scores",1)
+			.sort( (b,a) => DBG(a.map((as,i) => (a[i]<b[i]?-1:a[i]>b[i]?1:0)).find(v=>v),"sort",1,a,b))
 			.map( ([not_guess,max,avg,arch]) => `<li>👀.fyi ${arch}: ${not_guess ? 'missed '+not_guess+', ' : ''} took you as much as ${max} hints, ${avg} on average</li>`)
 			.join('');
 			$('#o_score').innerHTML= `<ul>${items_html}</ul>`
@@ -87,7 +84,3 @@ data:
 		else { show_hint() }
 	}});	
 </script>
-{% endset %}
-
-{{ tw.render(data,content) }}
-
