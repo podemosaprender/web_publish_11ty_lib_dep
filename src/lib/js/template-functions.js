@@ -163,7 +163,7 @@ O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de b
 				let content= fs.readFileSync(p,'utf8');
 				let title= (content.match(/<title>([^<]*)<\/title>/si)||[])[1]||'untitled';
 				return {url,content,title} //OjO! las url del indice NO tienen BasePath, asi podemos moverlo
-			} catch(ex) { console.error("O-O:ERROR:SEARCH_IDX:can't read",{p,params}) }
+			} catch(ex) { console.error("O-O:ERROR:SEARCH_IDX:can't read",p) }
 			return null;
 		}));
 		await	lunr_index_gen(dst, docs.filter(d => d));
@@ -198,7 +198,7 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 	let meta_links= {};
 	content= content.replace(/<link\s([^>]*)\/?>/gsi,(m,opts) => {
 		let href= (opts.match(/href=\"([^"]*)\"/si)||[])[1]
-		console.log("O-O:COLLECT_METALINK",{href,opts})	
+		DBG>3 && console.log("O-O:COLLECT_METALINK",{href,opts})	
 		if (!href) { return m }
 		meta_links[href] ||= m;
 		return '';

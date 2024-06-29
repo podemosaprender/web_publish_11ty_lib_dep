@@ -5,17 +5,12 @@ permalink: "{{ page.filePathStem | someparts(0,-1) }}/"
 collection: items
 ---
 {%- if content | trim == "" -%}
-{%- set content -%}
 {%- markdown -%}
 # {{ title }}
 
-{%- for item in collections[collection] -%}
+{% for item in collections[collection] %}
    * [{{ item.data.title }}]({{item.page.url}})
-{%- endfor -%}
+{% endfor %}
 
 {%- endmarkdown -%}
-{%- endset -%}
 {%- endif -%}
-
-{%- import (page_theme or "g1")+"/macros.njk" as tw with context -%}
-{{ tw.render(data,content) }}
