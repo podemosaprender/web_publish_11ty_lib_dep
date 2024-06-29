@@ -3,7 +3,7 @@ const DBG=process.env.DBG
 const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
 
 const our_lib = require('./src/lib/js/template-functions.js')
-const { BasePath }= our_lib;
+const { BasePath, xfrm_MAIN, xfrm_STREAM }= our_lib;
 
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
@@ -12,9 +12,6 @@ const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const pluginLinkTo= require('eleventy-plugin-link_to'); //SEE: https://www.npmjs.com/package/eleventy-plugin-link_to
 const pluginCalendar = require("@codegouvfr/eleventy-plugin-calendar"); //SEE: https://www.npmjs.com/package/@codegouvfr/eleventy-plugin-calendar
-const htmlmin = require("html-minifier");
-const CleanCSS = require('clean-css');
-const UglifyJS = require("uglify-js");
 
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
@@ -22,7 +19,6 @@ const markdownItToc = require("markdown-it-table-of-contents");
 
 const yaml = require("js-yaml");
 const fs = require("fs");
-const StreamTransform = require('stream').Transform;
 
 module.exports = function(eleventyConfig) {
 	const CFG= {
@@ -80,57 +76,21 @@ module.exports = function(eleventyConfig) {
 	);
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
+	
 
-
+	
 	if (!DBG || DBG<1) {
 		console.log("WILL MINIMIZE htmlmin, cssmin, jsmin");
-		function xfrm_css(inputPath,outputPath,content) { //XXX:mover a lib, estandarizar signature transforms
-			if ((outputPath || "").endsWith(".css")) {
-				try {
-					let minified = new CleanCSS({level: 1}).minify(content);
-					DBG>7 && console.log("cssmin",minified);
-					return minified.styles;
-				} catch (ex) { console.error("ERROR:cssmin",inputPath,outputPath,ex); }
-			}
-			return content;//A: If not css output, return content as-is
-		}
-		function xfrm_js(inputPath,outputPath,content) { //XXX:mover a lib, estandarizar signature transforms
-			console.log("jsmin",outputPath)
-			if ((outputPath || "").endsWith(".js")) {
-				try {
-					let minified = UglifyJS.minify(content);
-					DBG>7 && 1; console.log("jsmin",minified);
-					if (minified.error) { throw(minified.error); }
-					else { return minified.code };
-				} catch (ex) { console.error("ERROR:jsmin",inputPath,outputPath,ex); }
-			}
-			return content;//A: If not js output, return content as-is
-		}
-
-		eleventyConfig.addTransform("cssmin", function (content) {
-			return xfrm_css(this.page.inputPath, this.page.outputPath, content);
+		eleventyConfig.addTransform("minify", function (content) {
+			return xfrm_MAIN(this.page.inputPath, this.page.outputPath, content);
 		});
-
-		eleventyConfig.addTransform("jsmin", function (content) {
-			return xfrm_js(this.page.inputPath, this.page.outputPath, content);
-		});
-
-		eleventyConfig.addTransform("htmlmin", function (content) {
-			if ((this.page.outputPath || "").endsWith(".html")) {
-				try {
-					let minified = htmlmin.minify(content, {
-						useShortDoctype: true,
-						removeComments: true,
-						collapseWhitespace: true,
-					});
-					return minified;
-				} catch (ex) { console.error("ERROR:htmlmin",this.page.inputPath,this.page.outputPath,ex); }
-			}
-			return content;//A: If not an HTML output, return content as-is
-		});
-
-
-}
+	}
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css}`,{
+		transform: DBG<1 ? xfrm_STREAM : null,
+	});
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{img,fonts}/**`);
+	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
+	//A: Copy the `img` and `css` folders to the output
 
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})
@@ -149,25 +109,6 @@ module.exports = function(eleventyConfig) {
 
 	our_lib.addToConfig(eleventyConfig, {...CFG, md: markdownLibrary}); 
 
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/{img,fonts}/**`);
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
-	eleventyConfig.addPassthroughCopy(`${P_SITE_DIR}/**/*.{js,css}`,{
-		transform: function(src, dst, stats) {
-			let chunks= [];
-			return new StreamTransform({
-				transform(chunk, enc, more)  { chunks.push(chunk); more(null); },
-				flush() {
-					let s= Buffer.concat(chunks).toString("utf-8");
-					let sx= s;
-					sx= xfrm_js(src,dst,sx);
-					sx= xfrm_css(src,dst,sx);
-					this.push(sx);
-					console.log("XFRMFLUSH",src,s,sx);
-				}
-			});
-		}
-	});
-	//A: Copy the `img` and `css` folders to the output
 
 
 	// Override Browsersync defaults (used only with --serve)

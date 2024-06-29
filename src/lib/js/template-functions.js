@@ -4,6 +4,10 @@
 const DBG=process.env.DBG
 
 const fs = require("fs");
+const StreamTransform = require('stream').Transform;
+const htmlmin = require("html-minifier");
+const CleanCSS = require('clean-css');
+const UglifyJS = require("uglify-js");
 const { DateTime } = require("luxon");
 const loremIpsum = require("lorem-ipsum").loremIpsum;
 const yaml = require("js-yaml");
@@ -28,6 +32,60 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
 }
+
+/************************************************************/
+//S: transformaciones como minimizar separadas de la gilada de 11ty
+function xfrm_html(inputPath,outputPath,content) { 
+	if ((outputPath || "").endsWith(".html")) {
+		try {
+			let minified = htmlmin.minify(content, {
+				useShortDoctype: true,
+				removeComments: true,
+				collapseWhitespace: true,
+			});
+			return minified;
+		} catch (ex) { console.error("ERROR:htmlmin",inputPath,outputPath,ex); }
+	}
+	return content;//A: If not an HTML output, return content as-is
+};
+
+function xfrm_css(inputPath,outputPath,content) { //XXX:mover a lib, estandarizar signature transforms
+	if ((outputPath || "").endsWith(".css")) {
+		try {
+			let minified = new CleanCSS({level: 1}).minify(content);
+			DBG>7 && console.log("cssmin",minified);
+			return minified.styles;
+		} catch (ex) { console.error("ERROR:cssmin",inputPath,outputPath,ex); }
+	}
+	return content;//A: If not css output, return content as-is
+}
+function xfrm_js(inputPath,outputPath,content) { 
+	if ((outputPath || "").endsWith(".js")) {
+		try {
+			let minified = UglifyJS.minify(content);
+			DBG>7 && console.log("jsmin",minified);
+			if (minified.error) { throw(minified.error); }
+			else { return minified.code };
+		} catch (ex) { console.error("ERROR:jsmin",inputPath,outputPath,ex); }
+	}
+	return content;//A: If not js output, return content as-is
+}
+
+function xfrm_MAIN(inputPath,outputPath,content) { 
+	return [xfrm_html,xfrm_css,xfrm_js].reduce( (c,f) => f(inputPath,outputPath,c), content);
+}
+module.exports.xfrm_MAIN= xfrm_MAIN;
+function xfrm_STREAM(src, dst, stats) {
+		let chunks= [];
+		return new StreamTransform({
+			transform(chunk, enc, more)  { chunks.push(chunk); more(null); },
+			flush() {
+				let s= Buffer.concat(chunks).toString("utf-8");
+				this.push(xfrm_MAIN(src,dst,s));
+			}
+		});
+}	
+module.exports.xfrm_STREAM= xfrm_STREAM;
 
 /************************************************************/
 /* page {
@@ -136,7 +194,7 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 	let scripts_pending= {}, scripts_loaded= {};
 	content= content.replace(/<script([^>]*)>(.*?)<\/script>/gsi,(m,opts,content) => {
 		let src= (opts.match(/src=\"([^"]*)\"/si)||[])[1]
-		console.log("O-O:SCRIPT",{src,opts})	
+		DBG>1 && console.log("O-O:SCRIPT",{src,opts})	
 		if (content || !src) {
 			let r= Object.values(scripts_pending).join('\n')+m;
 			scripts_loaded= {...scripts_loaded, ...scripts_pending};
