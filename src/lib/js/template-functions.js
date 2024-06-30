@@ -39,11 +39,13 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.js`,{
-		filter: '!*.gen.js',
+		filter: (p) => !p.endsWith('.gen.js'), //A: lo escribe directo el shortCode
 		transform: DBG<1 ? xfrm_STREAM : null,
+		debug: true,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.css`,{
 		transform: DBG<1 ? xfrm_STREAM : null,
+		debug: true,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
@@ -101,14 +103,15 @@ function xfrm_MAIN(inputPath,outputPath,content) {
 }
 module.exports.xfrm_MAIN= xfrm_MAIN;
 function xfrm_STREAM(src, dst, stats) {
-		let chunks= [];
-		return new StreamTransform({
-			transform(chunk, enc, more)  { chunks.push(chunk); more(null); },
-			flush() {
-				let s= Buffer.concat(chunks).toString("utf-8");
-				this.push(xfrm_MAIN(src,dst,s));
-			}
-		});
+	console.log("DBG:xfrm_STREAM",src,dst);
+	let chunks= [];
+	return new StreamTransform({
+		transform(chunk, enc, more)  { chunks.push(chunk); more(null); },
+		flush() {
+			let s= Buffer.concat(chunks).toString("utf-8");
+			this.push(xfrm_MAIN(src,dst,s));
+		}
+	});
 }	
 module.exports.xfrm_STREAM= xfrm_STREAM;
 
@@ -305,6 +308,7 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 				}
 				ensure_dir(outpath_site.replace(/\/?[^\/]*$/,''));
 				fs.writeFileSync(outpath_site,src_browser);
+				console.log("DBG:include_js files",{outpath_site, outpath_here});
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
 			} else {
 				onOk(`<script>${src_browser}</script>`);

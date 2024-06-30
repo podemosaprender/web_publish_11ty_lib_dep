@@ -58,9 +58,6 @@ module.exports = function(eleventyConfig) {
 	);
 	eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 	//XXX: MULTI_INCLUDES? }
-	
-
-	
 
 	eleventyConfig.on("eleventy.after", //SEE: https://www.11ty.dev/docs/events/#eleventy.after
 		async ({ dir, results, runMode, outputMode }) => { //DBG: console.log({dir, outputMode})
@@ -79,10 +76,7 @@ module.exports = function(eleventyConfig) {
 
 	our_lib.addToConfig(eleventyConfig, {...CFG}); 
 
-
-
-	// Override Browsersync defaults (used only with --serve)
-	eleventyConfig.setBrowserSyncConfig({
+	eleventyConfig.setBrowserSyncConfig({	//U: Override Browsersync defaults (used only with --serve)
 		callbacks: {
 			ready: function(err, browserSync) {
 				const content_404 = fs.readFileSync('_site/404.html');
