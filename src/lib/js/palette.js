@@ -1,7 +1,32 @@
 //INFO: generate color palettes
 //SEE: https://github.com/arcarson/palette-generator?tab=readme-ov-file#options
+//SEE: https://css-tricks.com/converting-color-spaces-in-javascript/
 const paletteGenerator= require('palette-generator').default
 const Schemes= ['analogous', 'accentedAnalogous', 'complementary', 'dual', 'triadic'] 
+
+function RGBtoHSL(r,g,b) {
+	r /= 255; g /= 255; b /= 255;//A: Make r, g, and b fractions of 1
+  
+  let cmin = Math.min(r,g,b),
+			cmax = Math.max(r,g,b), //A: Find greatest and smallest channel values
+      delta = cmax - cmin,
+      h = 0, s = 0, l = 0;
+  
+  if (delta == 0) h = 0;	// Calculate hue, No difference
+  else if (cmax == r)  h = ((g - b) / delta) % 6;// Red is max
+	else if (cmax == g) h = (b - r) / delta + 2;  // Green is max
+ 	else h = (r - g) / delta + 4; // Blue is max
+  h = Math.round(h * 60);
+  if (h < 0) h += 360;  // Make negative hues positive behind 360°
+
+	l = (cmax + cmin) / 2;
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));// Calculate saturation
+  
+  s = +(s * 100).toFixed(1);// Multiply l and s by 100
+  l = +(l * 100).toFixed(1);
+
+  return "hsl(" + h + "," + s + "%," + l + "%)";
+}
 
 function HSLtoRGB(h,s,l) {
 	s /= 100;  //A Must be fractions of 1
@@ -9,9 +34,7 @@ function HSLtoRGB(h,s,l) {
 	let c = (1 - Math.abs(2 * l - 1)) * s,
 		x = c * (1 - Math.abs((h / 60) % 2 - 1)),
 		m = l - c/2,
-		r = 0,
-		g = 0,
-		b = 0;
+		r = 0, g = 0, b = 0;
 	if (0 <= h && h < 60) { r = c; g = x; b = 0; } 
 	else if (60 <= h && h < 120) { r = x; g = c; b = 0; } 
 	else if (120 <= h && h < 180) { r = 0; g = c; b = x; } 
@@ -55,4 +78,4 @@ function palette(options={}) {
 	return p_rgb;
 }
 
-module.exports= { palette, palette2html, HSLtoRGB, Schemes }
+module.exports= { palette, palette2html, HSLtoRGB, RGBtoHSL, Schemes }

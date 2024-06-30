@@ -5,11 +5,13 @@ const DBG=process.env.DBG
 
 const fs = require("fs");
 const StreamTransform = require('stream').Transform;
+const StreamReadable= require('stream').Readable
 //XXXconst htmlmin = require("html-minifier");
 //XXXimport { Buffer } from "node:buffer";
 const minifyHtml = require("@minify-html/node");
 const CleanCSS = require('clean-css');
 const UglifyJS = require("uglify-js");
+const browserify = require('browserify');
 const { DateTime } = require("luxon");
 const loremIpsum = require("lorem-ipsum").loremIpsum;
 const yaml = require("js-yaml");
@@ -34,6 +36,7 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{js,css}`,{
+		filter: '!*.gen.js',
 		transform: DBG<1 ? xfrm_STREAM : null,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
@@ -101,6 +104,9 @@ function xfrm_STREAM(src, dst, stats) {
 }	
 module.exports.xfrm_STREAM= xfrm_STREAM;
 
+const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
+const ensure_dir= (p) => fs.mkdirSync(p,{recursive: true});
+
 /************************************************************/
 /* page {
   date: 2024-06-22T02:19:03.119Z,
@@ -114,7 +120,6 @@ module.exports.xfrm_STREAM= xfrm_STREAM;
 } */
 
 const O_OCMD= {}
-const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
 
 O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path existente entre opciones
 	const try_paths= (root,base) => {
@@ -209,7 +214,7 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 	content= content.replace(/<script([^>]*)>(.*?)<\/script>/gsi,(m,opts,content) => {
 		let src= (opts.match(/src=\"([^"]*)\"/si)||[])[1]
 		DBG>1 && console.log("O-O:SCRIPT",{src,opts})	
-		if (content || !src) {
+		if (content || !src || m.match('oo_keep_here')) {
 			let r= Object.values(scripts_pending).join('\n')+m;
 			scripts_loaded= {...scripts_loaded, ...scripts_pending};
 			scripts_pending= {};
@@ -249,6 +254,41 @@ module.exports.filter.mix_kv = (...kvs) => {DBG>7 && console.log("MIX_KV filter"
 module.exports.shortCode.mix_kv = (kv1,...kvs) => {Object.assign(kv1,...kvs); return ''}
 module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 module.exports.shortCodePaired.set_k2= (v,kv,k) => { kv[k]= v; return ''; };
+
+const include_js= async function include_js(srcOrFile,outpath_UNSAFE) { 
+	let src= srcOrFile; //DFLT;
+	if (!src.match(/^[\w\/\.-]*?\.js(on)?$/)) {
+		src= StreamReadable.from(srcOrFile);
+	}
+	let ibase= this.page.inputPath.replace(/\/?[^\/]*$/,'');
+	let obase= this.page.outputPath.replace(/\/?[^\/]*$/,'');
+	const outpath_html= outpath_UNSAFE && outpath_UNSAFE.replace(/\.js$/,'.gen.js');
+	const outpath_here= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.input,ibase)
+	const outpath_site= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.output,obase)
+	//A: sufix needed to avoid retriggering 11ty, see filter above
+	console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
+
+	const b= browserify();
+	b.add(src,{ basedir: ibase });
+	return await new Promise( (onOk,onErr) => {
+		let bundle= b.bundle( (err,src_browser) => {
+			console.log("DBG:include_js",err,(src_browser+'').slice(0,80));
+			if (err) return onErr(err);
+			if (outpath_here) {
+				let obase= outpath_here.replace(/\/?[^\/]*$/,'');
+				ensure_dir(obase);
+				fs.writeFileSync(outpath_here,src_browser);
+				fs.writeFileSync(outpath_site,src_browser);
+				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
+			} else {
+				onOk(`<script>${src_browser}</script>`);
+			}
+		})
+	})
+}
+module.exports.shortCode.js= include_js
+module.exports.shortCodePaired.js2= include_js
+
 module.exports.filter.keys= (kv) => kv ? Object.keys(kv) : [];
 
 module.exports.filter.split= (s,sep) => s.split(sep);
