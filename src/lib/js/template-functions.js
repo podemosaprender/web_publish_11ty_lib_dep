@@ -18,6 +18,7 @@ const yaml = require("js-yaml");
 const plantUmlToSvg= require("./plantuml.js");
 const lunr_index_gen = require('./search-lunr/create-index.js');
 const { palette, palette2html } = require('./palette.js');
+const { MarkdownImpl } = require('./markdown.js')
 const { BasePath } = require('../env.js');
 console.log({BasePath})
 
@@ -34,14 +35,20 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	Object.entries(kv.collection).forEach( ([k,v]) => eleventyConfig.addCollection(k,v) );
 	Object.entries(kv.transform).forEach( ([k,v]) => eleventyConfig.addTransform(k,v) );
 
+	eleventyConfig.setLibrary("md", MarkdownImpl);
+	
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
-	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{js,css}`,{
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.js`,{
 		filter: '!*.gen.js',
+		transform: DBG<1 ? xfrm_STREAM : null,
+	});
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.css`,{
 		transform: DBG<1 ? xfrm_STREAM : null,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
 	eleventyConfig.watchIgnores.add("**/*.gen.js");
+	eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
 	//A: Copy the `img` and `css` folders to the output
 }
 
@@ -248,7 +255,7 @@ if (!DBG || DBG<1) { //OjO! tiene que ser despues de O_O_COMMANDS porque rompe e
 
 /************************************************************/
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
-module.exports.shortCodePaired.markdown= (content) => CFG.md.render(content)
+module.exports.shortCodePaired.markdown= (content) => MarkdownImpl.render(content)
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
 
 module.exports.filter.mix_kv = (...kvs) => {DBG>7 && console.log("MIX_KV filter",kvs); return Object.assign({},...kvs);}  //U: better, no side effects

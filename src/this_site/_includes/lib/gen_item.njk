@@ -1,5 +1,5 @@
 ---
-layout: lib/page_data.njk
+layout: lib/page.njk
 mytpl: "x2.njk"
 title_pfx: ""
 title_sfx: ""
@@ -16,12 +16,11 @@ eleventyComputed:
   title: "{{ title_pfx + my_title + title_sfx }}"
   permalink: "{{ page.filePathStem | someparts(0,-1) }}/{{ my_title | slugify }}/"
 ---
-{% if content | trim == "" %}
-{% set content %}
+{%- if content | trim == "" -%}
 {% markdown %}
 # {{ title }}
 
-[[toc]]
+[[toc-h]]
 
 {% for k,v in my %}
 {% if k != title_col %}
@@ -31,8 +30,4 @@ eleventyComputed:
 {% endif %}
 {% endfor %}    
 {% endmarkdown %}
-{% endset %}
-{% endif %}
-
-{% import (page_theme or "g1")+"/macros.njk" as tw with context %}
-{{ tw.render(data,content) }}
+{%- endif -%}

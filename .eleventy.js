@@ -13,10 +13,6 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const pluginLinkTo= require('eleventy-plugin-link_to'); //SEE: https://www.npmjs.com/package/eleventy-plugin-link_to
 const pluginCalendar = require("@codegouvfr/eleventy-plugin-calendar"); //SEE: https://www.npmjs.com/package/@codegouvfr/eleventy-plugin-calendar
 
-const markdownIt = require("markdown-it");
-const markdownItAnchor = require("markdown-it-anchor");
-const markdownItToc = require("markdown-it-table-of-contents");
-
 const yaml = require("js-yaml");
 const fs = require("fs");
 
@@ -54,20 +50,6 @@ module.exports = function(eleventyConfig) {
 		}
 	});
 
-	//SEE: https://github.com/markdown-it/markdown-it?tab=readme-ov-file#init-with-presets-and-options
-	let markdownLibrary = markdownIt({
-		html: true,
-		breaks: true,
-		linkify: true
-	}).use(markdownItAnchor, {
-		permalink: true,
-		permalinkClass: "direct-link",
-		permalinkSymbol: "#"
-	}).use(markdownItToc,{//SEE: https://github.com/cmaas/markdown-it-table-of-contents
-		includeLevel: [2,3,4],
-	}); 
-
-	eleventyConfig.setLibrary("md", markdownLibrary);
 
 	//XXX: MULTI_INCLUDES? { //XXX:OjO! el renderer de Markdown usa su propio engine, hardcoded
 	let Nunjucks = require("nunjucks");
@@ -95,7 +77,7 @@ module.exports = function(eleventyConfig) {
 	//SEE: https://www.11ty.dev/docs/data-deep-merge/
 	eleventyConfig.setDataDeepMerge(true);
 
-	our_lib.addToConfig(eleventyConfig, {...CFG, md: markdownLibrary}); 
+	our_lib.addToConfig(eleventyConfig, {...CFG}); 
 
 
 
