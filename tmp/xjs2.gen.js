@@ -14,7 +14,7 @@ const cmp_arrays= (a,b) => (range(Math.max(a.length,b.length)).map(i => a[i]<b[i
 
 let ArchJSON= require('../../../this_site/web/archetype/_here.data.json');
 let Arch= ArchJSON.items;
-let ArchNames= Object.keys(Arch);	
+let ArchNames= Object.keys(Arch).sort();	
 let ArchFeatures= 'Desire,Branding style,Fears,Traits'.split(',')
 
 const to_lol= () => { //U: devuelve lista [word,role,archetypename]
@@ -154,6 +154,7 @@ module.exports={ "items":
 },{}],3:[function(require,module,exports){
 
 archlib= require('../../../lib/js/archetypes/lib.js');
-
+let {DBG}= archlib;
+rnd_fear= () => DBG(archlib.rnd_element(archlib.query(['*','fears','*'])),"rnd_fear");
 
 },{"../../../lib/js/archetypes/lib.js":1}]},{},[3]);
