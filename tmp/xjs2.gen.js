@@ -153,9 +153,7 @@ module.exports={ "items":
 
 },{}],3:[function(require,module,exports){
 
-console.log("LOADING");
 archlib= require('../../../lib/js/archetypes/lib.js');
-console.log("ARCH",archlib);
-console.log("ARCH",archlib.to_lol());
+
 
 },{"../../../lib/js/archetypes/lib.js":1}]},{},[3]);
