@@ -9,28 +9,41 @@
 
 Since early childhood we mold our behaviour copying roles and patterns we see. You've surely seen children talk to their siblings with the words and tone of their parents when they want to impose their _authority_. You also will feel upset if the bank clerk burst into tears, ask you how to do their job, or shouts.
 
-Archetypes are an attempt to capture these behavioural patterns we all expect and perform. Of course nobody **is** an archetype. Our bank clerk may be very professional at work and very playful at home, competitive and play hard some sport, and caring with their loved ones. We just *perform* the role, though most of the time without ever thinking.
+Archetypes are an attempt to capture these behavioural patterns we all expect and perform. Of course nobody **is** an archetype. Our bank clerk may be very professional at work and very playful at home, competitive and tough at some sport, while soft and caring with their loved ones. We just *perform* the role, though most of the time without ever thinking.
 
-Unless you make it very easy to recognize the role of your brand and offer for the archetypes you want to engage with it will go unnoticed. Your offer may be discarded unless you take care of the usual fears when performing the archetype. 
+Unless you make it very easy to recognize the role of your brand and offer to people performing the archetypes you want to engage with it will go unnoticed. Your offer may even be discarded unless you take care of the usual fears associated with this performance.
 
 We chose an easy presentation but the approach is [well respected in social science](^https://en.wikipedia.org/wiki/The_Presentation_of_Self_in_Everyday_Life) and common practice in market research.
 
 ## How does this brand cover each archetype desires?
 
-Check your buyer personae. What are the most relevant archetypes?
+Check your [buyer personae](^XXXBuyerPersona). What are the most relevant archetypes?
 
 <div x-data="">
 <template x-for="name in archlib.ArchNames">
 	<div>
-		<label for="arch_cover_XXX" style="display: inline-block; width: 10rem"><a target="_blank" x-bind:href="'../'+name.toLowerCase()" x-text="name"></a></label>
+		<label for="arch_cover_XXX" style="display: inline-block; width: 20rem"><a target="_blank" x-bind:href="'../'+name.toLowerCase()" x-text="name+' ('+archlib.Arch[name].Desire+')'"></a></label>
 		<input id="arch_cover_XXX" size="60">
 	</div>
 </template>
 </div>
+
+## Does the brand ease or triggers the chosen archetypes' fears?
+
+<div x-init="[w,r,a]=rnd_fear()" x-data="{w:'',r:'',a:''}">
+	<div>
+		<label for="arch_cover_XXX" style="display: inline-block; width: 20rem"><a target="_blank" x-bind:href="'../'+a" x-text="w+' ('+a+')'"></a></label>
+		<input id="arch_cover_XXX" size="60">
+	</div>
+	<div><button x-on:click="[w,r,a]=rnd_fear()">More</button></div>
+</div>
+
+
 {% endmarkdown %}
 {% js2 '/tmp/xjs2.js' %}
 archlib= require('../../../lib/js/archetypes/lib.js');
-
+let {DBG}= archlib;
+rnd_fear= () => DBG(archlib.rnd_element(archlib.query(['*','fears','*'])),"rnd_fear");
 {% endjs2 %}
 
 
