@@ -276,13 +276,13 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 			console.log("DBG:include_js",err ? err.message : 'OK');
 			if (err) return onOk('ERROR:'+err);
 			if (outpath_here) {
-				let obase= outpath_here.replace(/\/?[^\/]*$/,'');
-				ensure_dir(obase);
+				ensure_dir(outpath_here.replace(/\/?[^\/]*$/,''));
 				if (fs.existsSync(outpath_here)) {
 					let cur= fs.readFileSync(outpath_here,'utf8');
 					if (cur!= src_browser+'') { fs.writeFileSync(outpath_here,src_browser); }
 					//A: don't retrigger 11ty copy/build
 				}
+				ensure_dir(outpath_site.replace(/\/?[^\/]*$/,''));
 				fs.writeFileSync(outpath_site,src_browser);
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
 			} else {
