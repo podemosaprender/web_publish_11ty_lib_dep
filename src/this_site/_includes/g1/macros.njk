@@ -71,10 +71,22 @@
 	<div class="row justify-content-center">
 		<div class="col-lg-8 ">
 			<div class="text-center Subcribe-form mt-5">
-				<form action="#">
+				
+				<form {% if not p.v_hero_no_input %}class="o-o-form" action="https://api1.o-o.fyi/v1/form/asform" method="post"{% endif %} name="hero_action_form">
+					<input type="hidden" name="o-o-form-entity" value="subscribe" />
+					<input type="hidden" name="o-o-form-url-ok" value="https://google.com/?q=salio bien" />
+					<input type="hidden" name="o-o-form-url-error" value="https://google.com/?q=salio mal" />
+					<input type="hidden" name="name" value="NA" />
+					<input type="hidden" name="subject" value="NA" />
+					<input type="hidden" name="message" value="NA" />
 					{% if not p.v_hero_no_input %}
-						<input type="text" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
-					{%endif%}
+						<input type="text" name="email" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
+						<div>
+							<div class="loading">Loading</div>
+							<div class="error-message" style="display:none">An error ocurred, please retry.</div>
+							<div class="sent-message" style="display:none">Your message has been sent. Thank you!</div>
+						</div>
+						{%endif%}
 					<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_subscribe }}</button>
 				</form>
 			</div>
@@ -261,7 +273,7 @@
 
 {% macro ws_contact_form(p) %}	
 	<div class="custom-form mb-5 mb-lg-0">
-		<form class="o-o-form" action="https://api1.o-o.fyi/v1/form/asform" method="post" name="myForm" NOonsubmit="return validateForm()">
+		<form class="o-o-form" action="https://api1.o-o.fyi/v1/form/asform" method="post" name="myForm">
 			<input type="hidden" name="o-o-form-entity" value="contact" />
 			<input type="hidden" name="o-o-form-url-ok" value="https://google.com/?q=salio bien" />
 			<input type="hidden" name="o-o-form-url-error" value="https://google.com/?q=salio mal" />
