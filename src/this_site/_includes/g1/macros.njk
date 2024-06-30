@@ -261,7 +261,16 @@
 
 {% macro ws_contact_form(p) %}	
 	<div class="custom-form mb-5 mb-lg-0">
-		<form method="post" name="myForm" onsubmit="return validateForm()">
+		<form class="o-o-form" action="https://api1.o-o.fyi/v1/form/asform" method="post" name="myForm" NOonsubmit="return validateForm()">
+			<input type="hidden" name="o-o-form-entity" value="contact" />
+			<input type="hidden" name="o-o-form-url-ok" value="https://google.com/?q=salio bien" />
+			<input type="hidden" name="o-o-form-url-error" value="https://google.com/?q=salio mal" />
+			<input type="hidden" name="subject" value="NA" />
+			<div>
+				<div class="loading">Loading</div>
+				<div class="error-message" style="display:none">An error ocurred, please retry.</div>
+				<div class="sent-message" style="display:none">Your message has been sent. Thank you!</div>
+			</div>
 			<p id="error-msg"></p>
 			<div id="simple-msg"></div>
 			<div class="row">
@@ -283,8 +292,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="form-group">
-						<label for="comments">{{ p.v_lbl_message }}</label>
-						<textarea name="comments" id="comments" rows="4" class="form-control"
+						<label for="message">{{ p.v_lbl_message }}</label>
+						<textarea name="message" id="message" rows="4" class="form-control"
 																														 placeholder="{{ p.v_lbl_message }}"></textarea>
 					</div>
 				</div>
@@ -295,6 +304,8 @@
 				</div>
 			</div>
 		</form>
+		<script>DBG_FORM=1</script>
+		<script src="https://api1.o-o.fyi/v1/form/static/form_contacto.js"></script>
 	</div>
 {% endmacro %}
 
