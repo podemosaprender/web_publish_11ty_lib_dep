@@ -185,6 +185,17 @@ O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de b
 	gen_idx();
 	return idx_url;
 }
+
+O_OCMD.TOC= function O_OCmdTOC(params) { //U: elegir primer path existente entre opciones
+	let hs=[]; params.content.replace(/<h(\d)([^>]*)>(.*?)<\/h\1>/gsi,(m,lvl,att,txt) => {
+		let id= (att.match(/id=?"?([^"]+)/si)||[])[1] 
+		if (id && parseInt(lvl)>1) { hs.push([lvl,txt,id,m]); } //XXX:lvl param
+	})
+	let opts= params.opts_json || {}
+	DBG>5 && console.log("O-O:TOC",opts,params.cmd_s,hs)
+	let li= hs.map(h => `<li>${h[1]}</li>`).join(''); //XXX:niveles
+	return `</p><div class="table-of-contents ${opts.class||''}"><ol>${li}</ol></div>`
+}
 							
 module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) {
 	const opath= this.page.outputPath || '';
@@ -192,8 +203,11 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 	const ext= (opath.match(/\.[^\.]+$/)||[])[0];
 	DBG>5 && console.log("O-O:COMMANDS TRY:",{ext, opath})
 	if (opath && ['.html','.css'].indexOf(ext)>-1) {
+		content= content.replace(/<!-- DBG:SECTION content.*?-->/gs,'');
 		content= content.replace(/#O-O#(\w+)(.)(.*?)\2/gs,(m,cmd,sep,cmd_s) => {
 			let opts= cmd_s.split(/\s+/);
+			let opts_json; try { opts_json= JSON.parse(`{${cmd_s.replace(/&quot;/gsi,'"')}}`) } catch (ex) {};
+
 			DBG>5 && console.log("O-O:COMMANDS:"+opath,{cmd,cmd_s})
 			DBG>5 && console.log(this.page)
 			let obase= opath.replace(/\/?[^\/]*$/,'');
@@ -201,7 +215,7 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 
 			let cmd_f= O_OCMD[cmd];
 			if (cmd_f) { 
-				let r= cmd_f({CFG,obase,opath,ext,ibase,ipath,opts,m,cmd,sep,cmd_s,content,page:this.page}); 
+				let r= cmd_f({CFG,obase,opath,ext,ibase,ipath,opts,opts_json,m,cmd,sep,cmd_s,content,page:this.page}); 
 				if (r!=null) { return r; }
 			}
 			return "O-O:ERROR:"+m

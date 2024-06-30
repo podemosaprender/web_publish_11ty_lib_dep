@@ -5,7 +5,14 @@
 
 .header-anchor { color: inherit; text-decoration: none; }
 .header-anchor:hover { }
+.table-of-contents { margin-left: 2rem; }
 .table-of-contents-h ul li { display: inline; padding: 5px; }
+.table-of-contents-h ol li { display: inline; padding: 5px; }
+.brand {
+	font-size: 22px;
+	color: #2d3033;
+	font-weight: 400;
+}
 
 .container{ width:100%; }
 p {

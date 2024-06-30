@@ -3,7 +3,7 @@
 
 Que bien si esto funciona. Esto lo edite en la web de github.
 
-[[toc]]
+#O-O#TOC##
 
 ## Ya puedo escribir
 
