@@ -5,6 +5,7 @@ data:
     v_agency_name: o-o.fyi
     v_site_base_path: /web/
     v_contact_mail: agency@o-o.fyi
+    v_site_url: https://o-o.fyi
   sections:
     banner:
       type: banner
