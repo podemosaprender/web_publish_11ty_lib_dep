@@ -40,7 +40,7 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	//eleventyConfig.addNunjucksGlobal('wlib','bs')
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.js`,{
 		filter: (p) => !p.endsWith('.gen.js'), //A: lo escribe directo el shortCode
-		transform: DBG<1 ? xfrm_STREAM : null,
+		transform: !(DBG>0) ? xfrm_STREAM : null,
 		debug: true,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.css`,{
