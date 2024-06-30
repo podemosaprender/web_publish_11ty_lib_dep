@@ -36,6 +36,7 @@
     "markdown-it-attrs": "^4.1.6",
     "markdown-it-table-of-contents": "^0.6.0",
     "node-html-parser": "^6.1.13",
+    "node-p5": "^1.0.4",
     "nunjucks": "^3.2.4",
     "palette-generator": "^1.1.0",
     "uglify-js": "^3.18.0"
