@@ -1,5 +1,8 @@
-<script>
+{% js2 '/tmp/xjs2.js' %}
+console.log("LOADING");
+archlib= require('../../../lib/js/archetypes/lib.js');
+console.log("ARCH",archlib);
+console.log("ARCH",archlib.to_lol());
+{% endjs2 %}
 
-	'Desire,Branding style,Fears'.split(',').map( feat => { acc= {}; Object.entries(archs).forEach( ([n,a]) => a[feat].toLowerCase().replace('boring','boredom').split(/,\s*(?:and\s*)?/).forEach(w => {(acc[w] ||= {})[n]=1})); console.log(`${feat}`,Object.keys(acc).length,'\n', Object.entries(acc).sort( (a,b) => a[0]<b[0]?-1:a[0]==b[0]?0:1).map(([k,v]) => `${k}: ${Object.keys(v).join(',')}`).join('\n')) })
 
-</script>

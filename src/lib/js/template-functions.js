@@ -41,6 +41,7 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
+	eleventyConfig.watchIgnores.add("**/*.gen.js");
 	//A: Copy the `img` and `css` folders to the output
 }
 
@@ -268,19 +269,19 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 	//A: sufix needed to avoid retriggering 11ty, see filter above
 	console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
 
-	const b= browserify();
-	b.add(src,{ basedir: ibase });
-	return await new Promise( (onOk,onErr) => {
+	return await new Promise( (onOk,onErr) => { try{
+		const b= browserify();
+		b.add(src,{ basedir: ibase });
 		let bundle= b.bundle( (err,src_browser) => {
-			console.log("DBG:include_js",err,(src_browser+'').slice(0,80));
-			if (err) return onErr(err);
+			console.log("DBG:include_js",err ? err.message : 'OK');
+			if (err) return onOk('ERROR:'+err);
 			if (outpath_here) {
 				let obase= outpath_here.replace(/\/?[^\/]*$/,'');
 				ensure_dir(obase);
 				if (fs.existsSync(outpath_here)) {
 					let cur= fs.readFileSync(outpath_here,'utf8');
 					if (cur!= src_browser+'') { fs.writeFileSync(outpath_here,src_browser); }
-					//A: don't retriger 11ty copy/build
+					//A: don't retrigger 11ty copy/build
 				}
 				fs.writeFileSync(outpath_site,src_browser);
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
@@ -288,7 +289,7 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 				onOk(`<script>${src_browser}</script>`);
 			}
 		})
-	})
+	}catch(ex) { onOk('ERROR:'+ex)}})
 }
 module.exports.shortCode.js= include_js
 module.exports.shortCodePaired.js2= include_js
