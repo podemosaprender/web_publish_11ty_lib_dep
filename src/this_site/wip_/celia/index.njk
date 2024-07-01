@@ -1,5 +1,18 @@
 ---
 data:
+  reuse:
+    logo: &logo
+      sketch: logo
+      text: "🌖AguaDeLuna" # SEE: https://emojipedia.org/chart-increasing 
+  images_gen:
+    images/logo-dark.png:
+      <<: *logo
+      color: "#FF7F3E"
+      bgcolor: "#ffffff"
+    images/logo-light.png:
+      <<: *logo
+      color: "#ffffff"
+      bgcolor: "#FF7F3E"
   sections:
     home:
       type: hero
