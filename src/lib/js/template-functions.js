@@ -15,6 +15,7 @@ const browserify = require('browserify');
 const { DateTime } = require("luxon");
 const loremIpsum = require("lorem-ipsum").loremIpsum;
 const yaml = require("js-yaml");
+const util = require("./util.js");
 const plantUmlToSvg= require("./plantuml.js");
 const p5gen= require('./p5/lib.js');
 const lunr_index_gen = require('./search-lunr/create-index.js');
@@ -23,8 +24,6 @@ const { MarkdownImpl } = require('./markdown.js')
 const { BasePath } = require('../env.js');
 console.log({BasePath})
 
-const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
-const ensure_dir= (p) => fs.mkdirSync(p,{recursive: true});
 
 module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath }
 
@@ -135,7 +134,7 @@ const O_OCMD= {}
 
 O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path existente entre opciones
 	const try_paths= (root,base) => {
-		let paths=  params.opts.map(p => path_abs(p,root,base));
+		let paths=  params.opts.map(p => util.path_abs(p,root,base));
 		let found= paths.find(p => fs.existsSync(p)) //XXX: OjO! para out puede no haber ocurrido el build aun!
 		DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+base,{found, root, paths})
 		if (found) { return found.substr(root.length) }
@@ -152,8 +151,8 @@ O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path exis
 O_OCMD.COPY= function O_OCopy(params) { //U: copiar un archivo al output, ej un json que queres usar desde el cliente
 	let opts= params.cmd_s.split(/\s+/)
 	const dstspec= opts[1]||someparts(opts[0],-1)
-	const src= path_abs(opts[0], params.CFG.dir.input, params.ibase);
-	const dst= path_abs(dstspec, params.CFG.dir.output, params.obase);
+	const src= util.path_abs(opts[0], params.CFG.dir.input, params.ibase);
+	const dst= util.path_abs(dstspec, params.CFG.dir.output, params.obase);
 	DBG>0 && console.log("O-O:COMMANDS:COPY:",{src,dst,opts})
 	try { 
 		fs.cpSync(src,dst,{recursive: true}); 
@@ -162,7 +161,7 @@ O_OCMD.COPY= function O_OCopy(params) { //U: copiar un archivo al output, ej un 
 }
 
 O_OCMD.INCLUDE= function O_OInclude(params) { //U: reemplazar marca por contendo del archivo
-	const src= path_abs(params.cmd_s, params.CFG.dir.input, params.ibase);
+	const src= util.path_abs(params.cmd_s, params.CFG.dir.input, params.ibase);
 	DBG>0 && console.log("O-O:COMMANDS:INCLUDE:",{src})
 	try { 
 		return fs.readFileSync(src,'utf8'); 
@@ -174,7 +173,7 @@ O_OCMD.SEARCH_IDX= function O_OCmdSearchIdx(params) { //U: construir indice de b
 	let opts= params.cmd_s.split(/\s+/)
 	let idx_url= opts.shift()+'.txt'; //A: required by webservers
 	const gen_idx= async () => {
-		let dst= path_abs(idx_url,params.CFG.dir.output,params.obase);
+		let dst= util.path_abs(idx_url,params.CFG.dir.output,params.obase);
 		let docs= await Promise.all(opts.map( async o => { let [p,url]= o.split('=');
 			try {
 				let content= fs.readFileSync(p,'utf8');
@@ -275,7 +274,7 @@ if (!DBG || DBG<1) { //OjO! tiene que ser despues de O_O_COMMANDS porque rompe e
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCode.p5gen= function p5gen_shortcode(params) { 
 	let fname_page= params.fname;
-	params.fname= path_abs(params.fname, CFG.dir.input, this.page.inputPath.replace(/[^\/]*$/,''));
+	params.fname= util.path_abs(params.fname, CFG.dir.input, this.page.inputPath.replace(/[^\/]*$/,''));
 	p5gen.run_sketch(params); return fname_page; 
 }
 module.exports.shortCodePaired.markdown= (content) => MarkdownImpl.render(content)
@@ -294,8 +293,8 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 	let ibase= this.page.inputPath.replace(/\/?[^\/]*$/,'');
 	let obase= this.page.outputPath.replace(/\/?[^\/]*$/,'');
 	const outpath_html= outpath_UNSAFE && outpath_UNSAFE.replace(/\.js$/,'.gen.js');
-	const outpath_here= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.input,ibase)
-	const outpath_site= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.output,obase)
+	const outpath_here= outpath_UNSAFE && util.path_abs(outpath_html,CFG.dir.input,ibase)
+	const outpath_site= outpath_UNSAFE && util.path_abs(outpath_html,CFG.dir.output,obase)
 	//A: sufix needed to avoid retriggering 11ty, see filter above
 	DBG>3 && console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
 
@@ -306,14 +305,8 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 			DBG>3 && console.log("DBG:include_js",err ? err.message : 'OK');
 			if (err) return onOk('ERROR:'+err);
 			if (outpath_here) {
-				ensure_dir(outpath_here.replace(/\/?[^\/]*$/,''));
-				if (fs.existsSync(outpath_here)) {
-					let cur= fs.readFileSync(outpath_here,'utf8');
-					if (cur!= src_browser+'') { fs.writeFileSync(outpath_here,src_browser); }
-					//A: don't retrigger 11ty copy/build
-				}
-				ensure_dir(outpath_site.replace(/\/?[^\/]*$/,''));
-				fs.writeFileSync(outpath_site,src_browser);
+				util.set_file(outpath_here,src_browser);
+				util.set_file(outpath_site,src_browser);
 				DBG>3 && console.log("DBG:include_js files",{outpath_site, outpath_here});
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
 			} else {

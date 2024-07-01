@@ -2,6 +2,7 @@
 //SEE: https://github.com/andithemudkip/p5-node
 //SEE: se pueden elegir emojis de https://emojipedia.org/abacus
 
+const util= require('../util.js');
 const p5 = require('node-p5');
 
 //SEE: https://github.com/andithemudkip/p5-node?tab=readme-ov-file#fonts
@@ -26,6 +27,7 @@ function gen_img(p,f,params) {
 	p.draw = () => {
 		if (stopped) return;
 		if (frame++>10) { stopped=true;
+			util.ensure_dir(params.fname);
 			p.saveCanvas(canvas, params.fname || 'xp5js.png').then(filename => {
 				console.log(`P5JS saved ${filename}`);
 				if (params.no_exit) p.remove(); else process.exit(0);

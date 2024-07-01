@@ -3,7 +3,9 @@ title: o-o.fyi site builder
 eleventyNavigation:
   key: Home
   order: 1
----
+data:
+  sections: {}
+------
 # El generador de sitios de o-o.fyi
 
 Mira ejemplos
