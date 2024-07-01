@@ -97,7 +97,7 @@
 		
 			
 				
-<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-01T01:45:54Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
+<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-01T03:25:33Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
 
 				
 				
@@ -112,7 +112,7 @@
 	
 	
 	
-	<updated>2024-07-01T01:45:54Z</updated>
+	<updated>2024-07-01T03:25:33Z</updated>
 	<id>https://TODO</id>
 	<author>
 		<name>TODO</name>
