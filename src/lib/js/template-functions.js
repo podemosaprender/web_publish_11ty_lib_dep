@@ -41,11 +41,11 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.js`,{
 		filter: (p) => !p.endsWith('.gen.js'), //A: lo escribe directo el shortCode
 		transform: !(DBG>0) ? xfrm_STREAM : null,
-		debug: true,
+		debug: DBG>5,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.css`,{
 		transform: DBG<1 ? xfrm_STREAM : null,
-		debug: true,
+		debug: DBG>5,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
@@ -291,13 +291,13 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 	const outpath_here= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.input,ibase)
 	const outpath_site= outpath_UNSAFE && path_abs(outpath_html,CFG.dir.output,obase)
 	//A: sufix needed to avoid retriggering 11ty, see filter above
-	console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
+	DBG>3 && console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
 
 	return await new Promise( (onOk,onErr) => { try{
 		const b= browserify();
 		b.add(src,{ basedir: ibase });
 		let bundle= b.bundle( (err,src_browser) => {
-			console.log("DBG:include_js",err ? err.message : 'OK');
+			DBG>3 && console.log("DBG:include_js",err ? err.message : 'OK');
 			if (err) return onOk('ERROR:'+err);
 			if (outpath_here) {
 				ensure_dir(outpath_here.replace(/\/?[^\/]*$/,''));
@@ -308,7 +308,7 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 				}
 				ensure_dir(outpath_site.replace(/\/?[^\/]*$/,''));
 				fs.writeFileSync(outpath_site,src_browser);
-				console.log("DBG:include_js files",{outpath_site, outpath_here});
+				DBG>3 && console.log("DBG:include_js files",{outpath_site, outpath_here});
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
 			} else {
 				onOk(`<script>${src_browser}</script>`);
