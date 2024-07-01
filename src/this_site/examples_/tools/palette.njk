@@ -1,12 +1,19 @@
 ---
-NoeleventyImport:
-  collections: ["mauriciocapposts"]
+title: Palette generator
 ---
 {# TODO: pongo rgb que tenia ej de mi logo, me genera paleta #}
 {% import "lib/macros.njk" as gw with context %}
-
 {{ gw.alpinejs() }}
-<h2>Browser Side</h2>
+{% markdown %}
+# Palette generator
+
+The palette generator works both on the client and server (njk)
+
+#O-O#TOC##
+
+## Browser Side
+{% endmarkdown %}
+
 <div class="row" x-data="{opts: {h: 127, s: 50, l: 50, scheme:'complementary'}}">
 	<canvas class="col" id="i_huesat" width="255" height="100" x-init="init_canvas($el)" x-on:click="let xy= clickxy(event); opts.h=xy.x; opts.s=xy.y;"></canvas>
 	<div class="col-3" style="display: inline-block;width=300px;">
@@ -60,11 +67,13 @@ NoeleventyImport:
 	generate()
 </script>
 
-<h2>Server Side/Static</h2>
+{% markdown %}
+
+## Server Side/Static
 <div>
 {% set p1= {'h': 250, 's': 30, 'l': 50} | palette %}
 PALETTE {{ p1 | dump | safe }}<br/>
 {{ p1 | palette2html | safe }}
 </div>
-
+{% endmarkdown %}
 

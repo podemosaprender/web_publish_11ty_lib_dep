@@ -1,4 +1,20 @@
+---
+title: Construimos con Widgets
+---
 {% import "lib/bs/macros.njk" as w %}
+
+{% markdown %}
+Construimos 
+
+* usando _widgets_ (componentes) para dibujar como html, css, png, etc. i
+* datos que recibimos como yaml, json, de planillas y apis, etc.
+
+Intentamos que los widgets sean lo más genéricos y reusables que podamos. 
+Pero también los agrupamos en _temas_ de modo que la navbar, el footer o un blog
+pueden dibujarse diferente (otra estructura de html) con solo cambiar el tema en una variable.
+
+A su vez los temas son configurables de modo que no haga falta crear un tema solo para cambiar colores.
+{% endmarkdown %}
 
 {{ w.bquote(author="Mauricio Cap", source="Este sitio", text="Esta quedando bueno") }}
 
@@ -8,7 +24,6 @@
 Este lo escribo
 adentro con call.
 {%- endcall %}
-
 
 {{ w.table(row_cls_col_idx=2, cols=["nombre","edad"],values=[["mau",52,"table-primary"],["conrad",3,"table-danger"],["shelly",3]]) }}
 

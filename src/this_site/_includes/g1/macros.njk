@@ -245,6 +245,7 @@
 {%- set post_impl= post_impl or ws_blog_post_1 -%}
 	<div class="row">
 		{% for post in posts %}
+			<!-- DBG:POST {{ post.data.title }} -->
 			{{ post_impl(p,post) }}
 		{% endfor %}
 	</div>
@@ -264,7 +265,7 @@
 {% endmacro %}
 
 {% macro ws_blog_post_1_mini(p,post) %}	
-	<div>
+	<div class="col-12">
 			<a href="{{ p.v_link or post.page.url }}" class="fw-bold h5">{{ post.v_title or post.data.title }}</a>
 	</div>
 {% endmacro %}
