@@ -274,7 +274,7 @@
 {% macro ws_contact_form(p) %}	
 	<div class="custom-form mb-5 mb-lg-0">
 		<form class="o-o-form" action="https://api1.o-o.fyi/v1/form/asform" method="post" name="myForm">
-			<input type="hidden" name="o-o-form-entity" value="contact" />
+			<input type="hidden" name="o-o-form-entity" value="{{ p.v_form_type or 'contact' }}" />
 			<input type="hidden" name="o-o-form-url-ok" value="https://google.com/?q=salio bien" />
 			<input type="hidden" name="o-o-form-url-error" value="https://google.com/?q=salio mal" />
 			<input type="hidden" name="subject" value="NA" />
@@ -285,6 +285,18 @@
 			</div>
 			<p id="error-msg"></p>
 			<div id="simple-msg"></div>
+			{% if p.checks %}
+				<div class="row">
+				{% for lbl in p.checks %}
+					<div class="col-md-4">
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" name="{{ lbl | slugify }}" id="{{ lbl | slugify }}">
+							<label class="form-check-label" for="{{ lbl | slugify }}">{{ lbl }}</label>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			{% endif %}
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
