@@ -188,6 +188,7 @@
 
 {% macro render(p,content,widget_overrides,widget_overrides1) %}{%- set tw= {'TW':'lib'} | mix_kv(twme_lib,widget_overrides1,widget_overrides) -%}
 {%- set p= p or {} -%}{%- set_k p,"sections",p.sections or {} -%}
+{%- set_k p, 'labels', {} | mix_kv(p.defaults['labels_'+p.lang],p.labels) -%}
 {%- if content -%}
 {%- set_k p.sections,"content",{'type': 'html', 'html': content} -%}
 {%- endif -%}
