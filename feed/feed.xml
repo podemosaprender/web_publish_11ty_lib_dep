@@ -63,7 +63,7 @@
 			
 		
 		
-<!-- DBG:NAVBAR {"v_lbl_email":"p.v_lbl_email","v_lbl_emailaddr":"p.v_lbl_emailaddr","v_lbl_forgotpass":"p.v_lbl_forgotpass","v_lbl_login":"p.v_lbl_login","v_lbl_message":"p.v_lbl_message","v_lbl_name":"p.v_lbl_name","v_lbl_newuser":"p.v_lbl_newuser","v_lbl_oauth":"p.v_lbl_oauth","v_lbl_pass":"p.v_lbl_pass","v_lbl_remember":"p.v_lbl_remember","v_lbl_sendmessage":"p.v_lbl_sendmessage","v_lbl_userormail":"p.v_lbl_userormail","v_lbl_welcome":"p.v_lbl_welcome","v_lbl_more":"p.v_lbl_more","v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","text":"p.text","v_linklogin":"p.v_linklogin","v_a_login":"p.v_a_login","v_a_register":"p.v_a_register","navitems":{"#content":"content"}} -->
+<!-- DBG:NAVBAR {"v_lbl_email":"email","v_lbl_emailaddr":"email","v_lbl_forgotpass":"Olvide mi clave","v_lbl_login":"Login","v_lbl_message":"Mensaje","v_lbl_name":"Nombre","v_lbl_newuser":"Registrarme","v_lbl_oauth":"Login con Redes","v_lbl_pass":"Clave","v_lbl_remember":"Recuerdame","v_lbl_sendmessage":"Enviar mensaje","v_lbl_userormail":"Usuario o email","v_lbl_welcome":"Bienvenida","v_lbl_more":"Más","_keep":1,"v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","text":"p.text","v_linklogin":"p.v_linklogin","v_a_login":"p.v_a_login","v_a_register":"p.v_a_register","navitems":{"#content":"content"}} -->
 
 			
 	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark" id="navbar">
@@ -97,7 +97,7 @@
 		
 			
 				
-<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-01T03:54:08Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
+<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-01T11:09:30Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
 
 				
 				
@@ -112,7 +112,7 @@
 	
 	
 	
-	<updated>2024-07-01T03:54:08Z</updated>
+	<updated>2024-07-01T11:09:30Z</updated>
 	<id>https://TODO</id>
 	<author>
 		<name>TODO</name>
@@ -131,7 +131,7 @@
 		
 		
 		
-<!-- DBG:FOOTER {"v_lbl_email":"p.v_lbl_email","v_lbl_emailaddr":"p.v_lbl_emailaddr","v_lbl_forgotpass":"p.v_lbl_forgotpass","v_lbl_login":"p.v_lbl_login","v_lbl_message":"p.v_lbl_message","v_lbl_name":"p.v_lbl_name","v_lbl_newuser":"p.v_lbl_newuser","v_lbl_oauth":"p.v_lbl_oauth","v_lbl_pass":"p.v_lbl_pass","v_lbl_remember":"p.v_lbl_remember","v_lbl_sendmessage":"p.v_lbl_sendmessage","v_lbl_userormail":"p.v_lbl_userormail","v_lbl_welcome":"p.v_lbl_welcome","v_lbl_more":"p.v_lbl_more","v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","where":"p.where","v_txt":"p.v_txt","v_title":"p.v_title","footer_cols":{"footer col a":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"},"footer col b":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"}},"sections":{}} -->
+<!-- DBG:FOOTER {"v_lbl_email":"email","v_lbl_emailaddr":"email","v_lbl_forgotpass":"Olvide mi clave","v_lbl_login":"Login","v_lbl_message":"Mensaje","v_lbl_name":"Nombre","v_lbl_newuser":"Registrarme","v_lbl_oauth":"Login con Redes","v_lbl_pass":"Clave","v_lbl_remember":"Recuerdame","v_lbl_sendmessage":"Enviar mensaje","v_lbl_userormail":"Usuario o email","v_lbl_welcome":"Bienvenida","v_lbl_more":"Más","_keep":1,"v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","where":"p.where","v_txt":"p.v_txt","v_title":"p.v_title","footer_cols":{"footer col a":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"},"footer col b":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"}},"sections":{}} -->
 
 		
 		
@@ -207,7 +207,7 @@
 						<p class="text-white-50 font-size-15 mb-0">
 						
 	
-<!-- DBG:copyright_text {"v_lbl_email":"p.v_lbl_email","v_lbl_emailaddr":"p.v_lbl_emailaddr","v_lbl_forgotpass":"p.v_lbl_forgotpass","v_lbl_login":"p.v_lbl_login","v_lbl_message":"p.v_lbl_message","v_lbl_name":"p.v_lbl_name","v_lbl_newuser":"p.v_lbl_newuser","v_lbl_oauth":"p.v_lbl_oauth","v_lbl_pass":"p.v_lbl_pass","v_lbl_remember":"p.v_lbl_remember","v_lbl_sendmessage":"p.v_lbl_sendmessage","v_lbl_userormail":"p.v_lbl_userormail","v_lbl_welcome":"p.v_lbl_welcome","v_lbl_more":"p.v_lbl_more","v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","where":"p.where","v_txt":"p.v_txt","v_title":"p.v_title","footer_cols":{"footer col a":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"},"footer col b":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"}},"sections":{}} -->
+<!-- DBG:copyright_text {"v_lbl_email":"email","v_lbl_emailaddr":"email","v_lbl_forgotpass":"Olvide mi clave","v_lbl_login":"Login","v_lbl_message":"Mensaje","v_lbl_name":"Nombre","v_lbl_newuser":"Registrarme","v_lbl_oauth":"Login con Redes","v_lbl_pass":"Clave","v_lbl_remember":"Recuerdame","v_lbl_sendmessage":"Enviar mensaje","v_lbl_userormail":"Usuario o email","v_lbl_welcome":"Bienvenida","v_lbl_more":"Más","_keep":1,"v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","where":"p.where","v_txt":"p.v_txt","v_title":"p.v_title","footer_cols":{"footer col a":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"},"footer col b":{"https://link.uno.com":"sitio uno","https://link.dos.com":"sitio dos"}},"sections":{}} -->
 
 	<script>document.write(new Date().getFullYear())</script> © v_brand_name by o-o.fyi
 
