@@ -16,11 +16,15 @@ const { DateTime } = require("luxon");
 const loremIpsum = require("lorem-ipsum").loremIpsum;
 const yaml = require("js-yaml");
 const plantUmlToSvg= require("./plantuml.js");
+const p5gen= require('./p5/lib.js');
 const lunr_index_gen = require('./search-lunr/create-index.js');
 const { palette, palette2html } = require('./palette.js');
 const { MarkdownImpl } = require('./markdown.js')
 const { BasePath } = require('../env.js');
 console.log({BasePath})
+
+const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
+const ensure_dir= (p) => fs.mkdirSync(p,{recursive: true});
 
 module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath }
 
@@ -114,9 +118,6 @@ function xfrm_STREAM(src, dst, stats) {
 	});
 }	
 module.exports.xfrm_STREAM= xfrm_STREAM;
-
-const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
-const ensure_dir= (p) => fs.mkdirSync(p,{recursive: true});
 
 /************************************************************/
 /* page {
@@ -272,6 +273,11 @@ if (!DBG || DBG<1) { //OjO! tiene que ser despues de O_O_COMMANDS porque rompe e
 
 /************************************************************/
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
+module.exports.shortCode.p5gen= function p5gen_shortcode(params) { 
+	let fname_page= params.fname;
+	params.fname= path_abs(params.fname, CFG.dir.input, this.page.inputPath.replace(/[^\/]*$/,''));
+	p5gen.run_sketch(params); return fname_page; 
+}
 module.exports.shortCodePaired.markdown= (content) => MarkdownImpl.render(content)
 module.exports.shortCode.lorem= (opts) => loremIpsum({count: 30, units: 'words', ...opts}); //SEE: https://github.com/knicklabs/lorem-ipsum.js/?tab=readme-ov-file#using-the-function
 

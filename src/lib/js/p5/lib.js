@@ -51,9 +51,13 @@ function run_sketch(params) {
 	let p5Instance = p5.createSketch(p => gen_img(p, sketch_f,params));
 }
 
+/*
 [
 	{ sketch: 'logo', text: '🧮Contador', fname:"x1.png", color: '#287167',bgcolor:'#ffffff'},
 	{ sketch: 'logo', text: '🧮OtraCosa', fname:"x2.png", bgcolor: '#287167', color: '#ffffff'},
 ].forEach(run_sketch);
+*/
+
+module.exports={ run_sketch }
 
 
