@@ -4,7 +4,13 @@ eleventyNavigation:
   key: Home
   order: 1
 data:
-  sections: {}
+  sections:
+    tools:
+      type: blogmini
+      v_blog_title: Tools
+      v_blog_txt: Las herramientas que vamos construyendo y combinando.
+      posts:
+        collection: example_tools
 ------
 # El generador de sitios de o-o.fyi
 

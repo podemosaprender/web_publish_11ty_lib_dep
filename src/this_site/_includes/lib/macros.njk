@@ -108,18 +108,23 @@
 {% endmacro %}
 
 {# p5js #####################################################}
-{% macro p5js() %}
+{% macro p5js(id) %}
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
+	<canvas id="{{id}}_canvas"></canvas>
 	<script>
-		(function () { // multiple instances, const and let clashes friendly
+		function p5js_{{id}}() {// multiple instances, const and let clashes friendly
+			window.DBGp5 && console.log("p5js {{id}}");
 			function sketch(p5) {
-				{{ caller() }}
+				window.DBGp5 && console.log("p5js {{id}} sketch");
+				p5.createCanvasOri= p5.createCanvas;
+				p5.createCanvas= (w,h,impl) => {window.DBGp5 && console.log("p5js {{id}} createCanvas"); p5.createCanvasOri(w,h,impl,document.getElementById('{{id}}_canvas'))};
+				{{ caller() | safe }}
 			}
 			new p5(sketch);
-		})();
+		}
+		p5js_{{id}}();
 	</script>
 {% endmacro %}
-
 
 {# p5js emoji ###############################################}
 {# SEE: https://erraticgenerator.com/blog/p5js-texttopoints-function/ #}

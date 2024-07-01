@@ -237,27 +237,41 @@
 	</div>
 {% endmacro %}
 
-{% macro ws_blog_posts(p) %}	
+{% macro ws_blog_posts(p,post_impl) %}	
 {%- set posts= p.posts -%}{%- if posts.collection -%}
 {%- set posts= collections[p.posts.collection].slice(p.posts.from or 0,p.posts.count or 6) -%}
 {%- if not (posts.order=="older") %}{% set posts= posts | reverse %}{% endif %}
 {%- endif -%}
+{%- set post_impl= post_impl or ws_blog_post_1 -%}
 	<div class="row">
 		{% for post in posts %}
-			{{ ws_blog_post_1(p,post) }}
+			{{ post_impl(p,post) }}
 		{% endfor %}
 	</div>
 {% endmacro %}
 
-{% macro ws_blog(p) %}	
+{% macro ws_blog_impl(p, post_impl) %}	
 	<section class="section" id="{{ p.id }}">
 		<div class="container">
 			{{ ws_blog_header(p) }}
-			{{ ws_blog_posts(p) }}
+			{{ ws_blog_posts(p, post_impl) }}
 		</div>
 	</section>
 {% endmacro %}
 
+{% macro ws_blog(p) %}	
+	{{ ws_blog_impl(p) }}
+{% endmacro %}
+
+{% macro ws_blog_post_1_mini(p,post) %}	
+	<div>
+			<a href="{{ p.v_link or post.page.url }}" class="fw-bold h5">{{ post.v_title or post.data.title }}</a>
+	</div>
+{% endmacro %}
+
+{% macro ws_blogmini(p) %}
+	{{ ws_blog_impl(p, ws_blog_post_1_mini) }}
+{% endmacro %}
 
 {# CONTACT ##################################################}
 {% macro ws_contact_header(p) %}	
@@ -666,6 +680,7 @@
 'features': ws_features,
 'pricing': ws_pricing,
 'blog': ws_blog,
+'blogmini': ws_blogmini,
 'contact': ws_contact,
 'registerModal': ws_registerModal
 } %}

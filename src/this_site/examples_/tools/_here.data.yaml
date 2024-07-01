@@ -1,0 +1,4 @@
+tags: example_tools
+permalink: "{{ data.site.v_site_base_path }}{{ page.fileSlug }}/index.html"
+eleventyComputed:
+  title: "{{ page.fileSlug }}" #DFLT
