@@ -1,7 +1,7 @@
-<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal--><!-- IMAGES:--><!DOCTYPE html>
+<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal--><!-- IMAGES:--><!DOCTYPE html>
 <html lang="es">
 	<head>
-	<!-- DBG:LIB page_theme="" TW,head_meta_,html,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal-->
+	<!-- DBG:LIB page_theme="" TW,head_meta_,html,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal-->
 		
 	<meta charset="utf-8">
 	
