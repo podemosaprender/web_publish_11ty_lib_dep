@@ -11,14 +11,12 @@ data:
       v_blog_txt: Las herramientas que vamos construyendo y combinando.
       posts:
         collection: example_tools
+    uses:
+      type: blogmini
+      v_blog_title: Uses
+      v_blog_txt: Como usamos esas herramientas
+      posts:
+        collection: example_uses
 ------
 # El generador de sitios de o-o.fyi
-
-Mira ejemplos
-
-* [un sitio entero sin escribir html](/site_/mauriciocap/)
-* [otro sitio entero, con un catalogo, sin escribir html](./catalogo/)
-* [tenemos varios "temas" para mostrar los datos, ej el de o-o.fyi](/web/)
-* [construimos combinando widgets](./lib/widgets/)
-
 
