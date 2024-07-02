@@ -1,7 +1,7 @@
-<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,contact,registerModal--><!DOCTYPE html>
+<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal--><!-- IMAGES:--><!DOCTYPE html>
 <html lang="es">
 	<head>
-	<!-- DBG:LIB page_theme="" TW,head_meta_,html,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,contact,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,contact,registerModal-->
+	<!-- DBG:LIB page_theme="" TW,head_meta_,html,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,registerModal-->
 		
 	<meta charset="utf-8">
 	
@@ -64,7 +64,7 @@
 <!-- DBG:NAVBAR {"v_lbl_email":"email","v_lbl_emailaddr":"email","v_lbl_forgotpass":"Olvide mi clave","v_lbl_login":"Login","v_lbl_message":"Mensaje","v_lbl_name":"Nombre","v_lbl_newuser":"Registrarme","v_lbl_oauth":"Login con Redes","v_lbl_pass":"Clave","v_lbl_remember":"Recuerdame","v_lbl_sendmessage":"Enviar mensaje","v_lbl_userormail":"Usuario o email","v_lbl_welcome":"Bienvenida","v_lbl_more":"Más","_keep":1,"v_brand_name":"v_brand_name","v_agency_name":"o-o.fyi","v_site_url":"p.v_site_url","v_site_base_path":"XXXv_site_base_path","v_contact_links":{"mail":"v_contact_mail","facebook":"v_contact_facebook","twitter":"v_contact_twitter"},"link":"p.link","text":"p.text","v_linklogin":"p.v_linklogin","v_a_login":"p.v_a_login","v_a_register":"p.v_a_register","navitems":{"#content":"content"}} -->
 
 			
-	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark" id="navbar">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky" id="navbar">
 		<div class="container">
 				
 	<a class="navbar-brand logo" href="p.v_site_url">
