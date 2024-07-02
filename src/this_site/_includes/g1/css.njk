@@ -51,31 +51,31 @@ v_color_peloader_0: "f59d9d"
 @import"https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,300;0,600;0,700;0,800;1,400;1,500&family=Quicksand:wght@400;500;600;700&display=swap";
 :root{
 --bs-primary: #{{ v_color_primary }};
---bs-primary-rgb:  #{{ v_color_primary | hex2rgb3 }};
+--bs-primary-rgb: {{ v_color_primary  | hex2rgb3 }};
 --bs-secondary: #{{ v_color_secondary }};
---bs-secondary-rgb: #{{ v_color_secondary | hex2rgb3 }};
+--bs-secondary-rgb: {{ v_color_secondary  | hex2rgb3 }};
 --bs-success: #{{ v_color_success }};
---bs-success-rgb: #{{ v_color_success | hex2rgb3 }};
+--bs-success-rgb: {{ v_color_success  | hex2rgb3 }};
 --bs-info: #{{ v_color_info }};
---bs-info-rgb: #{{ v_color_info | hex2rgb3 }};
+--bs-info-rgb: {{ v_color_info  | hex2rgb3 }};
 --bs-warning: #{{ v_color_warning }};
---bs-warning-rgb: #{{ v_color_warning | hex2rgb3 }};
+--bs-warning-rgb: {{ v_color_warning  | hex2rgb3 }};
 --bs-danger: #{{ v_color_danger }};
---bs-danger-rgb: #{{ v_color_danger | hex2rgb3 }};
+--bs-danger-rgb: {{ v_color_danger  | hex2rgb3 }};
 --bs-dark: #{{ v_color_dark }};
---bs-dark-rgb: #{{ v_color_dark | hex2rgb3 }};
+--bs-dark-rgb: {{ v_color_dark  | hex2rgb3 }};
 --bs-muted: #{{ v_color_muted }};
---bs-muted-rgb: #{{ v_color_muted | hex2rgb3 }};
+--bs-muted-rgb: {{ v_color_muted  | hex2rgb3 }};
 --bs-light: #{{ v_color_light }};
---bs-light-rgb: #{{ v_color_light | hex2rgb3 }};
+--bs-light-rgb: {{ v_color_light  | hex2rgb3 }};
 --bs-body-bg: #{{ v_color_white }};
---bs-body-bg-rgb: #{{ v_color_white | hex2rgb3 }};
+--bs-body-bg-rgb: {{ v_color_white  | hex2rgb3 }};
 --bs-black: #{{ v_color_black }};
---bs-black-rgb: #{{ v_color_black | hex2rgb3 }}
+--bs-black-rgb: {{ v_color_black  | hex2rgb3 }};
 --bs-white: #{{ v_color_white }};
---bs-white-rgb: #{{ v_color_white | hex2rgb3 }}
+--bs-white-rgb: {{ v_color_white | hex2rgb3 }};
 }
-:root{--bs-body-color: #{{ v_color_dark }};--bs-body-bg: #{{ v_color_white }};--bs-secondary-bg: #{{ v_color_white }};--bs-white: #{{ v_color_hero_overlay }};--bs-footer-bg: #{{ v_color_footer_bg }};--bs-footer-alt-bg: #{{ v_color_footer_alt_bg }};--bs-form-bg: #{{ v_color_form_bg }};--bs-bg-white: #{{ v_color_white }};--bs-text-color: #{{ v_color_text }}}
+:root{--bs-body-color: #{{ v_color_dark }};--bs-body-bg: #{{ v_color_white }};--bs-secondary-bg: #{{ v_color_white }};--bs-footer-bg: #{{ v_color_footer_bg }};--bs-footer-alt-bg: #{{ v_color_footer_alt_bg }};--bs-form-bg: #{{ v_color_form_bg }};--bs-bg-white: #{{ v_color_white }};--bs-text-color: #{{ v_color_text }}}
 [data-bs-theme=dark]{--bs-gray-100: #{{ v_color_gray_100 }};--bs-gray-200: #{{ v_color_gray_200 }};--bs-gray-300: #{{ v_color_gray_300 }};--bs-gray-400: #{{ v_color_gray_400 }};--bs-gray-500: #{{ v_color_gray_500 }};--bs-gray-600: #{{ v_color_gray_600 }};--bs-gray-700: #{{ v_color_gray_700 }};--bs-gray-800: #{{ v_color_gray_800 }};--bs-gray-900: #{{ v_color_gray_900 }};--bs-body-color: #{{ v_color_gray_900 }};--bs-body-bg: #{{ v_color_gray_100 }};--bs-secondary-bg: #{{ v_color_gray_300 }};--bs-border-color: #{{ v_color_gray_300 }};--bs-dark: #{{ v_color_gray_900 }};--bs-dark-rgb: to-rgb(#{{ v_color_gray_900 }});--bs-light: #{{ v_color_gray_200 }};--bs-white: #{{ v_color_gray_300 }};--bs-form-bg: #{{ v_color_gray_300 }};--bs-light-rgb: to-rgb(#{{ v_color_gray_200 }});--bs-white-rgb: to-rgb(#{{ v_color_gray_300 }});--bs-footer-bg: #{{ v_color_gray_300 }};--bs-footer-alt-bg: #{{ v_color_gray_100 }};--bs-bg-white: #{{ v_color_gray_200 }};--bs-text-color: #{{ v_color_gray_800 }}}
 a{text-decoration:none !important;outline:none}
 body{font-family:"Quicksand",sans-serif;color:var(--bs-dark);font-weight:500}
