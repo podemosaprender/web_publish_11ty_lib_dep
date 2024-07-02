@@ -1,21 +1,7 @@
 data:
-  reuse:
-    logo: &logo
-      sketch: logo
-      text: "🧮📈C" # SEE: https://emojipedia.org/chart-increasing 
   site:
     v_site_base_path: /wip_/contador/
     v_brand_name: Contador
     v_agency_name: o-o.fyi
     v_contact_mail: contador@o-o.fyi
     v_site_url: /contador
-  images_gen:
-    images/logo-dark.png:
-      <<: *logo
-      color: "#287167"
-      bgcolor: "#ffffff"
-    images/logo-light.png:
-      <<: *logo
-      color: "#ffffff"
-      bgcolor: "#287167"
-

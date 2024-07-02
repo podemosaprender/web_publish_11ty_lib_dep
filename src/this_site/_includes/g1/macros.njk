@@ -40,7 +40,7 @@
 {% endmacro %}
 
 {% macro navbar(p) %}	
-	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky navbar-light sticky-dark" id="navbar">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky" id="navbar">
 		<div class="container">
 			{{ navbar_logo(p) }}
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -80,11 +80,11 @@
 					<input type="hidden" name="subject" value="NA" />
 					<input type="hidden" name="message" value="NA" />
 					{% if not p.v_hero_no_input %}
-						<input type="text" name="email" placeholder={{ p.v_txt_enter_mail or "Enter your Email..." }} />
+						<input type="text" name="email" placeholder="{{ p.v_txt_enter_mail or "Enter your Email..." }}" />
 						<div>
-							<div class="loading">Loading</div>
-							<div class="error-message" style="display:none">An error ocurred, please retry.</div>
-							<div class="sent-message" style="display:none">Your message has been sent. Thank you!</div>
+							<div class="loading">{{ p.v_lbl_loading or 'Loading' }}</div>
+							<div class="error-message" style="display:none">{{ p.v_lbl_error or 'An error ocurred, please retry.'}}</div>
+							<div class="sent-message" style="display:none">{{ p.v_lbl_sent or 'Your message has been sent. Thank you!'}}</div>
 						</div>
 						{%endif%}
 					<button type="submit" class="btn rounded-pill btn-primary ml-2 ms-2">{{ p.v_txt_subscribe }}</button>

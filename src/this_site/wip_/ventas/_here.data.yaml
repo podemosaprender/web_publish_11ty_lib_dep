@@ -1,0 +1,7 @@
+data:
+  site:
+    v_site_base_path: /wip_/ventas/ #OjO! tiene que terminar en /
+    v_brand_name: Ventas
+    v_agency_name: o-o.fyi
+    v_contact_mail: ventas@o-o.fyi
+    v_site_url: /ventas
