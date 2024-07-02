@@ -112,7 +112,17 @@
   </url>
   
   <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/examples_/temas/</loc>
+    <lastmod>2024-07-02</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/examples_/widgets/</loc>
+    <lastmod>2024-07-02</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xxx_metadata_site_url/web_publish_11ty_lib_dep/examples_/sin-html/</loc>
     <lastmod>2024-07-02</lastmod>
   </url>
   

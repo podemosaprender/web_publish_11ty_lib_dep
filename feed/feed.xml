@@ -1,7 +1,7 @@
-<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal--><!-- IMAGES:--><!DOCTYPE html>
+<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal--><!-- IMAGES:--><!DOCTYPE html>
 <html lang="es">
 	<head>
-	<!-- DBG:LIB page_theme="" TW,head_meta_,html,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,contact,contact_fullwidth,registerModal-->
+	<!-- DBG:LIB page_theme="" TW,head_meta_,html,markdown,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal-->
 		
 	<meta charset="utf-8">
 	
@@ -97,7 +97,7 @@
 		
 			
 				
-<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-02T05:01:52Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
+<!-- DBG:SECTION content html {"type":"html","html":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n\t<title>Archetypes</title>\n\t<subtitle>TODO</subtitle>\n\t\n\t<link href=\"https://xxx_metadata_site_url/web_publish_11ty_lib_dep/feed/feed.xml\" rel=\"self\"/>\n\t<link href=\"https://XXX_metadata_site_url/\"/>\n\t<updated>2024-07-02T11:57:03Z</updated>\n\t<id>https://TODO</id>\n\t<author>\n\t\t<name>TODO</name>\n\t\t<email>TODO@gmail.com</email>\n\t</author>\n</feed>\n"} -->
 
 				
 				
@@ -105,20 +105,23 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
-					<?xml version="1.0" encoding="utf-8"?>
+					
+	
+	<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title>Archetypes</title>
 	<subtitle>TODO</subtitle>
 	
 	
 	
-	<updated>2024-07-02T05:01:52Z</updated>
+	<updated>2024-07-02T11:57:03Z</updated>
 	<id>https://TODO</id>
 	<author>
 		<name>TODO</name>
 		<email>TODO@gmail.com</email>
 	</author>
 </feed>
+
 
 				</div>
 			</div>
