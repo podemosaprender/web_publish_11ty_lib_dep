@@ -66,7 +66,7 @@ S70:solo size ["S70:solo size",null,null,null,null,null,null,"S70","70","solo si
 					p5.textAlign(...alignarg.map(k => p5[k]));
 				}
 				if (sz) { p5.textSize(p5.height*(parseFloat(sz)||70)/100) }
-				p5.text(t, parseFloat(x)*p5.width/100, parseFloat(y)*p5.height/100);
+				p5.text(t, parseFloat(x==null ? 50 : x)*p5.width/100, parseFloat(y==null ? 50: y)*p5.height/100);
 			})
 	})
 }
