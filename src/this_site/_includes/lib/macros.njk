@@ -61,6 +61,13 @@
 	</section>
 {% endmacro %}
 
+{% macro ws_markdown(p) %}
+	{%- set ghtml -%}{% markdown %}{{ p.markdown }}{% endmarkdown %}{%- endset -%}
+	{%- set pmd= p | mix_kv({'type': 'html', 'html': ghtml}) -%}
+	{{ DBG(pmd,'markdown 2 html') }}
+	{{ ws_html(pmd) }}
+{% endmacro %}
+
 {% macro light_dark_mode(p) %}	
 	<a href="javascript: void(0);" id="light-dark-mode" class="mode-btn text-white rounded-end">
 		<i class="mdi mdi-sun-compass bx-spin mode-light"></i>
@@ -176,16 +183,18 @@
 	{% endcall %}
 {% endmacro %}
 
+
+{# RENDER for CONFIG + WIDGETS ###############################}
 {% set twme_lib={
 	'head_meta_': head_meta,
 	'html': ws_html,
+	'markdown': ws_markdown,
 	'light_dark_mode_': light_dark_mode,
 	'preloader_': preloader,
 	'head_z_': NOP,
 	'body_z_': NOP,
 '':''} %}
 
-{# RENDER for CONFIG + WIDGETS ###############################}
 {% macro render_one(tw,k,data) %}
 	{%- if tw[k] -%}{{ tw[k](data) }}
 	{%- else -%}<div style="background: red; color: yellow;">ERROR: MISSING {{k}} FROM YOUR WIDGET TOOLKIT<pre>{{ data | dump | safe}}</pre></div>{%-endif-%}

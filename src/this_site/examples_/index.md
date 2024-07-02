@@ -5,6 +5,16 @@ eleventyNavigation:
   order: 1
 data:
   sections:
+    home:
+      type: markdown
+      markdown: |
+        # Cómo usar nuestro generador 
+
+        Lo separamos en dos secciones:
+        
+        1. [Herramientas](#tools) simples que podés combinar
+        1. [Formas de combinarlas](#uses)
+
     tools:
       type: blogmini
       v_blog_title: Tools
@@ -18,5 +28,5 @@ data:
       posts:
         collection: example_uses
 ------
-# El generador de sitios de o-o.fyi
+
 
