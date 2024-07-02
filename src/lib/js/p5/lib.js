@@ -26,7 +26,7 @@ function gen_img(p,f,params) {
 	}
 	p.draw = () => {
 		if (stopped) return;
-		if (frame++>10) { stopped=true;
+		if (frame++>(params.frame_cnt || 10)) { stopped=true;
 			util.ensure_dir(params.fname);
 			p.saveCanvas(canvas, params.fname || 'xp5js.png').then(filename => {
 				console.log(`P5JS saved ${filename}`);
@@ -36,15 +36,39 @@ function gen_img(p,f,params) {
 		f(p,params);
 	}
 }
+const AlignOpts=['LEFT', 'CENTER', 'RIGHT', 'TOP', 'BOTTOM', 'CENTER', 'BASELINE']
 
 const SKETCH={}
-SKETCH.logo= function sketch_logo(p,params) {
-	p.background(params.bgcolor || '#00000000'); //A: transparenr
-	p.fill(params.color || '#a0a0a0')
-	if (params.font) p.textFont(params.font);
-	p.textSize(p.height*0.7);
-	p.textAlign(p.CENTER,p.CENTER)
-	p.text(params.text, p.width/2, p.height/2);
+SKETCH.logo= function sketch_logo(p5,params) {
+	p5.background(params.bgcolor || '#00000000'); //A: transparenr
+	p5.fill(params.color || '#a0a0a0')
+	if (params.font) p5.textFont(params.font);
+	p5.textAlign(p5.CENTER,p5.CENTER)
+	p5.textSize(p5.height*0.7);
+	let t= Array.isArray(params.text) ? params.text : [params.text];
+	t.forEach( cmd => {
+		/* 
+		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele'].forEach(cmd => 
+		 		cmd.replace(/^((\d+),(\d+))?(A([LCR])([CTBL]))?(S(\d+))?:?(.*)$/,
+				(...args) => console.log(cmd,JSON.stringify(args))))
+10,20ACBAS70:mi string ["10,20ACBAS70:mi string","10,20","10","20","ACB","C","B",null,null,"AS70:mi string",0,"10,20ACBAS70:mi string"]
+solito ["solito",null,null,null,null,null,null,null,null,"solito",0,"solito"]
+S70:solo size ["S70:solo size",null,null,null,null,null,null,"S70","70","solo size",0,"S70:solo size"]
+30,50:solo pos ["30,50:solo pos","30,50","30","50",null,null,null,null,null,"solo pos",0,"30,50:solo pos"]
+77,88ACL:ponele ["77,88ACL:ponele","77,88","77","88","ACL","C","L",null,null,"ponele",0,"77,88ACL:ponele"]
+		*/
+		cmd.replace(/^((\d+),(\d+))?(A([LCR])([CTB_]))?(S(\d+))?:?(.*)$/,
+			(m,i1,x,y,i2,ah,av,i3,sz,t) => {
+				console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,t}))
+				if(ah || av) { 
+					let alignarg= [ah||'C',av||'C'].map(k => (k=='_' ? 'BASELINE' : AlignOpts.find(o => o[0]==k)) ) 
+					console.log("P5JS:LOGO:align",JSON.stringify({ah,av,alignarg}))
+					p5.textAlign(...alignarg.map(k => p5[k]));
+				}
+				if (sz) { p5.textSize(p5.height*(parseFloat(sz)||70)/100) }
+				p5.text(t, parseFloat(x)*p5.width/100, parseFloat(y)*p5.height/100);
+			})
+	})
 }
 
 function run_sketch(params) {
