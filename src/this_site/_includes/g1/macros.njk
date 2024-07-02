@@ -661,6 +661,45 @@
 	</section>
 {% endmacro %}
 
+{# PICTXT ##################################################}
+{% macro ws_pictxt_1_img(p,pictxt) %}	
+	<div class="col-lg-6 align-self-center">
+		<div class="mb-4 mb-lg-0">
+			<img src="#O-O#TRY_PATHS:{{ p.v_site_base_path }}{{ pictxt.v_img }} /l1b_/any/images/placeholder-1920x1080.png:" alt="{{ pictxt.v_img_desc }}" class="img-fluid d-block mx-auto" />
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro ws_pictxt_1_desc(p,pictxt) %}	
+	<div class="col-lg-5 offset-lg-1 align-self-center">
+		{{ gw.html_or_markdown(pictxt) }}
+	</div>
+{% endmacro %}
+
+{% macro ws_pictxt_1(p,pictxt) %}	
+	<div class="row justify-content-center mt-5">
+		{% if pictxt.imgside=='L' %}
+			{{ ws_pictxt_1_img(p,pictxt) }} {{ ws_pictxt_1_desc(p,pictxt) }}
+		{% else %}
+		 {{ ws_pictxt_1_desc(p,pictxt) }} {{ ws_pictxt_1_img(p,pictxt) }}
+		{% endif %}
+	</div>
+{% endmacro %}
+
+{% macro ws_pictxt(p) %}
+	<section class="section bg-light feather-bg-img" id="{{p.id}}">
+		<div class="container">
+			{% set side_next='R' %}
+			{% for pictxt in p.items %}
+				{% set_k pictxt,'imgside', pictxt.imgside or side_next %}
+				{% set side_next= ('L' if pictxt.imgside=='R' else 'R') %}
+				{{ ws_pictxt_1(p,pictxt) }}
+			{% endfor %}
+		</div>
+	</section>
+{% endmacro %}
+
+{# DEPS #####################################################}
 {% macro head_z_(p,tw) %}{# TODO: colectar css y js en transform asi cada componente puede agregar sus reqs, con un numerito de prioriad asi se ordenan bien #}
 	<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
@@ -693,6 +732,7 @@
 'pricing': ws_pricing,
 'blog': ws_blog,
 'blogmini': ws_blogmini,
+'pictxt': ws_pictxt,
 'contact': ws_contact,
 'contact_fullwidth': ws_contact_fullwidth,
 'registerModal': ws_registerModal

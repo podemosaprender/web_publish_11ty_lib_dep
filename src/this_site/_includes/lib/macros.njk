@@ -49,12 +49,20 @@
 
 
 {# CSS OUR STANDARD ##############################################}
+{% macro html_or_markdown(p) %}
+	{% if not p.html %}
+		{%- set ghtml -%}{% markdown %}{{ p.markdown }}{% endmarkdown %}{%- endset -%}
+		{%- set_k p,'html', ghtml -%}
+	{% endif %}
+	{{ p.html | safe }}
+{% endmacro %}
+
 {% macro ws_html(p) %}
 	<section class="section" id="{{ p.id }}">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
-					{{ p.html | safe }}
+					{{ html_or_markdown(p) }}
 				</div>
 			</div>
 		</div>
@@ -62,10 +70,7 @@
 {% endmacro %}
 
 {% macro ws_markdown(p) %}
-	{%- set ghtml -%}{% markdown %}{{ p.markdown }}{% endmarkdown %}{%- endset -%}
-	{%- set pmd= p | mix_kv({'type': 'html', 'html': ghtml}) -%}
-	{{ DBG(pmd,'markdown 2 html') }}
-	{{ ws_html(pmd) }}
+	{{ ws_html(p) }}
 {% endmacro %}
 
 {% macro light_dark_mode(p) %}	

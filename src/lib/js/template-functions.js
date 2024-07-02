@@ -220,7 +220,7 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 			if (cmd_f) { 
 				let r= cmd_f({CFG,obase,opath,ext,ibase,ipath,opts,opts_json,m,cmd,sep,cmd_s,content,page:this.page}); 
 				if (r!=null) { return r; }
-			}
+			} else { m='UNKNOWN_CMD:'+cmd }
 			return "O-O:ERROR:"+m
 		});
 	}
