@@ -39,6 +39,7 @@
     "node-p5": "^1.0.4",
     "nunjucks": "^3.2.4",
     "palette-generator": "^1.1.0",
+    "qrcode-generator": "^1.4.4",
     "uglify-js": "^3.18.0"
   }
 }

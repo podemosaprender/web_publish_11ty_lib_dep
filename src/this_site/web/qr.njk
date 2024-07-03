@@ -1,0 +1,12 @@
+<div class="text-center" style="margin: 40px;">
+{% js2 '/l1b_/any/js/qr.js' %}
+QRLib= require('../../lib/js/qr.js');
+let url= (window.location.hash || '#https://o-o.fyi').substr(1)
+let data= QRLib.QRGenerarData(url)
+document.write(`<div class="row"><div class="col-md-offset-4 col-md-4 text-centered">
+		<img class="img-responsive center-block" width="400" src="${data}">
+		<p class="h4"><a href="${url}" target="_blank">${url}</a></p>
+	</div></div>`)
+{% endjs2 %}
+</div>
+
