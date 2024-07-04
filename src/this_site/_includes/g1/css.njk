@@ -1,6 +1,10 @@
 ---
 permalink: "{{ page.filePathStem }}"
 v_logo_height_px: 24
+v_body_font: Quicksand
+v_body_font_variant: sans-serif
+v_title_font: Muli
+v_title_font_variant: sans-serif
 v_overlay_opacity: .5
 v_color_form_bg: "edeff1"
 v_color_footer_bg: "292838"
@@ -48,7 +52,7 @@ v_color_hero_overlay: "f8f9fa"
 v_color_pricing_shadow: "060b2f"
 v_color_peloader_0: "f59d9d"
 ---
-@import"https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,300;0,600;0,700;0,800;1,400;1,500&family=Quicksand:wght@400;500;600;700&display=swap";
+@import"https://fonts.googleapis.com/css2?family={{ v_title_font }}:ital,wght@0,300;0,600;0,700;0,800;1,400;1,500&family={{ v_body_font }}:wght@400;500;600;700&display=swap";
 :root{
 --bs-primary: #{{ v_color_primary }};
 --bs-primary-rgb: {{ v_color_primary  | hex2rgb3 }};
@@ -78,12 +82,12 @@ v_color_peloader_0: "f59d9d"
 :root{--bs-body-color: #{{ v_color_dark }};--bs-body-bg: #{{ v_color_white }};--bs-secondary-bg: #{{ v_color_white }};--bs-footer-bg: #{{ v_color_footer_bg }};--bs-footer-alt-bg: #{{ v_color_footer_alt_bg }};--bs-form-bg: #{{ v_color_form_bg }};--bs-bg-white: #{{ v_color_white }};--bs-text-color: #{{ v_color_text }}}
 [data-bs-theme=dark]{--bs-gray-100: #{{ v_color_gray_100 }};--bs-gray-200: #{{ v_color_gray_200 }};--bs-gray-300: #{{ v_color_gray_300 }};--bs-gray-400: #{{ v_color_gray_400 }};--bs-gray-500: #{{ v_color_gray_500 }};--bs-gray-600: #{{ v_color_gray_600 }};--bs-gray-700: #{{ v_color_gray_700 }};--bs-gray-800: #{{ v_color_gray_800 }};--bs-gray-900: #{{ v_color_gray_900 }};--bs-body-color: #{{ v_color_gray_900 }};--bs-body-bg: #{{ v_color_gray_100 }};--bs-secondary-bg: #{{ v_color_gray_300 }};--bs-border-color: #{{ v_color_gray_300 }};--bs-dark: #{{ v_color_gray_900 }};--bs-dark-rgb: to-rgb(#{{ v_color_gray_900 }});--bs-light: #{{ v_color_gray_200 }};--bs-white: #{{ v_color_gray_300 }};--bs-form-bg: #{{ v_color_gray_300 }};--bs-light-rgb: to-rgb(#{{ v_color_gray_200 }});--bs-white-rgb: to-rgb(#{{ v_color_gray_300 }});--bs-footer-bg: #{{ v_color_gray_300 }};--bs-footer-alt-bg: #{{ v_color_gray_100 }};--bs-bg-white: #{{ v_color_gray_200 }};--bs-text-color: #{{ v_color_gray_800 }}}
 a{text-decoration:none !important;outline:none}
-body{font-family:"Quicksand",sans-serif;color:var(--bs-dark);font-weight:500}
+body{font-family:"{{ v_body_font }}",{{v_body_font_variant}};color:var(--bs-dark);font-weight:500}
 p{line-height:1.8}
-h1,h2,h3,h4,h5,h6{font-family:"Muli",sans-serif;font-weight:700}
+h1,h2,h3,h4,h5,h6{font-family:"{{ v_title_font }}",{{ v_title_font_variant }};font-weight:700}
 .row>*{position:relative}
 .navbar{padding-right:0px !important}
-.nav-item .nav-link{display:inline-block;color:#{{ v_color_dark }};text-decoration:none;font-family:"Muli",sans-serif}
+.nav-item .nav-link{display:inline-block;color:#{{ v_color_dark }};text-decoration:none;font-family:"{{ v_title_font }}",{{ v_title_font_variant }}}
 .navbar-custom{padding:15px 0px;width:100%;border-radius:0px;z-index:999;margin-bottom:0px;transition:all .5s ease-in-out;background-color:rgba( {{ v_color_black |hex2rgb3 }},0)}
 body{ padding-top: {{ v_logo_height_px * 2 }}px; }
 img.logo{height: {{ v_logo_height_px }}px; }
@@ -455,3 +459,5 @@ textarea.form-control{height:auto !important}
 .login-form .login-social-icon.icon-black:hover{box-shadow:0 0 0 5px rgba({{ v_color_black |hex2rgb3 }},.16)}
 .login-form .login-social-icon.icon-white{background-color: #{{ v_color_white }}}
 .login-form .login-social-icon.icon-white:hover{box-shadow:0 0 0 5px rgba({{ v_color_white |hex2rgb3 }},.16)}
+/* content */
+{{ content }}
