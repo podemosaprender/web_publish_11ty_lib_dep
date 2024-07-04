@@ -40,3 +40,7 @@ La entrada `text` lleva una lista de textos que pueden tener parametros
    * horizontal: **L**eft, **C**enter, **R**ight
    * vertical: **T**op, **C**enter, **B**otom, y **_** para Baseline
 * S y el tamaño del texto, también proporcional a la altura de la imàgen (100 es todo el alto)
+* `:` y a continuación el texto que querés.
+
+De ese modo podés armar lo que necesites pegando pedacitos de texto de distinto tamaño en distinto lugar.
+
