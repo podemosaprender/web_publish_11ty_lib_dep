@@ -665,7 +665,7 @@
 {% macro ws_pictxt_1_img(p,pictxt) %}	
 	<div class="col-lg-6 align-self-center">
 		<div class="mb-4 mb-lg-0">
-			<img src="#O-O#TRY_PATHS:{{ p.v_site_base_path }}{{ pictxt.v_img }} /l1b_/any/images/placeholder-1920x1080.png:" alt="{{ pictxt.v_img_desc }}" class="img-fluid d-block mx-auto" />
+			<img src="#O-O#TRY_PATHS:{{ p.v_site_base_path }}/images/{{ pictxt.v_img }} {{ p.v_site_base_path }}{{ pictxt.v_img }} /l1b_/any/images/placeholder-1920x1080.png:" alt="{{ pictxt.v_img_desc }}" class="img-fluid d-block mx-auto" />
 		</div>
 	</div>
 {% endmacro %}
