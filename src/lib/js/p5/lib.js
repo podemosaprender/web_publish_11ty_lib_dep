@@ -89,17 +89,18 @@ SKETCH.logo= function sketch_logo(p5,params,preloaded) {
 	let t= Array.isArray(params.text) ? params.text : [params.text];
 	t.forEach( cmd => { if (!cmd) return;
 		/* 
-		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele'].forEach(cmd => 
-		 		cmd.replace(/^((\d+),(\d+))?(A([LCR])([CTBL]))?(S(\d+))?:?(.*)$/,
+		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele','39,77C#ff34ac:colorido'].forEach(cmd => 
+				cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]*))?\s*:)?(.*)$/,
 				(...args) => console.log(cmd,JSON.stringify(args))))
-10,20ACBAS70:mi string ["10,20ACBAS70:mi string","10,20","10","20","ACB","C","B",null,null,"AS70:mi string",0,"10,20ACBAS70:mi string"]
-solito ["solito",null,null,null,null,null,null,null,null,"solito",0,"solito"]
-S70:solo size ["S70:solo size",null,null,null,null,null,null,"S70","70","solo size",0,"S70:solo size"]
-30,50:solo pos ["30,50:solo pos","30,50","30","50",null,null,null,null,null,"solo pos",0,"30,50:solo pos"]
-77,88ACL:ponele ["77,88ACL:ponele","77,88","77","88","ACL","C","L",null,null,"ponele",0,"77,88ACL:ponele"]
+10,20ACBAS70:mi string ["10,20ACBAS70:mi string",null,null,null,null,null,null,null,null,null,null,null,"10,20ACBAS70:mi string",0,"10,20ACBAS70:mi string"]
+solito ["solito",null,null,null,null,null,null,null,null,null,null,null,"solito",0,"solito"]
+S70:solo size ["S70:solo size","S70:",null,null,null,null,null,null,"S70","70",null,null,"solo size",0,"S70:solo size"]
+30,50:solo pos ["30,50:solo pos","30,50:","30,50","30","50",null,null,null,null,null,null,null,"solo pos",0,"30,50:solo pos"]
+77,88ACL:ponele ["77,88ACL:ponele",null,null,null,null,null,null,null,null,null,null,null,"77,88ACL:ponele",0,"77,88ACL:ponele"]
+39,77C#ff34ac:colorido ["39,77C#ff34ac:colorido","39,77C#ff34ac:","39,77","39","77",null,null,null,null,null,"C#ff34ac","#ff34ac","colorido",0,"39,77C#ff34ac:colorido"]
 		*/
-		cmd.replace(/^((\d+),(\d+))?(A([LCR])([CTB_]))?(S(\d+))?:?(.*)$/,
-			(m,i1,x,y,i2,ah,av,i3,sz,t) => {
+		cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]*))?\s*:)?(.*)$/,
+			(m,i1,i1b,x,y,i2,ah,av,i3,sz,i4,color,t) => {
 				console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,t}))
 				if(ah || av) { 
 					let alignarg= [ah||'C',av||'C'].map(k => (k=='_' ? 'BASELINE' : AlignOpts.find(o => o[0]==k)) ) 
@@ -107,6 +108,7 @@ S70:solo size ["S70:solo size",null,null,null,null,null,null,"S70","70","solo si
 					p5.textAlign(...alignarg.map(k => p5[k]));
 				}
 				if (sz) { p5.textSize(p5.height*(parseFloat(sz)||70)/100) }
+				if (color) { p5.fill(color) }
 				p5.text(t, parseFloat(x==null ? 50 : x)*p5.width/100, parseFloat(y==null ? 50: y)*p5.height/100);
 			})
 	})
