@@ -1,7 +1,7 @@
-<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal--><!-- IMAGES:--><!DOCTYPE html>
+<!-- LIB:g1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,services,contact,contact_fullwidth,registerModal--><!-- IMAGES:--><!DOCTYPE html>
 <html lang="es">
 	<head>
-	<!-- DBG:LIB page_theme="" TW,head_meta_,html,markdown,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,contact,contact_fullwidth,registerModal-->
+	<!-- DBG:LIB page_theme="" TW,head_meta_,html,markdown,light_dark_mode_,preloader_,head_z_,body_z_,,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,services,contact,contact_fullwidth,registerModal widget_overrides1 head_z_,body_z_,navbar_,footer_,hero,whyus,features,pricing,blog,blogmini,pictxt,services,contact,contact_fullwidth,registerModal-->
 		
 	<meta charset="utf-8">
 	
@@ -44,7 +44,7 @@
 <link rel="shortcut icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="TODO">
 <link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
 <link href="#O-O#TRY_PATHS#style.css XXXv_site_base_pathstyle.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
 </head>
 	<body>
