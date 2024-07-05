@@ -89,8 +89,8 @@ SKETCH.logo= function sketch_logo(p5,params,preloaded) {
 	let t= Array.isArray(params.text) ? params.text : [params.text];
 	t.forEach( cmd => { if (!cmd) return;
 		/* 
-		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele','39,77C#ff34ac:colorido'].forEach(cmd => 
-				cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]*))?\s*:)?(.*)$/,
+		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele','39,77C#ff34ac:colorido','39,77 C#ff34ac Fparisienne :colorido'].forEach(cmd => 
+				cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]+))?\s*(F(\w+))?\s*:)?(.*)$/,
 				(...args) => console.log(cmd,JSON.stringify(args))))
 10,20ACBAS70:mi string ["10,20ACBAS70:mi string",null,null,null,null,null,null,null,null,null,null,null,"10,20ACBAS70:mi string",0,"10,20ACBAS70:mi string"]
 solito ["solito",null,null,null,null,null,null,null,null,null,null,null,"solito",0,"solito"]
@@ -99,16 +99,17 @@ S70:solo size ["S70:solo size","S70:",null,null,null,null,null,null,"S70","70",n
 77,88ACL:ponele ["77,88ACL:ponele",null,null,null,null,null,null,null,null,null,null,null,"77,88ACL:ponele",0,"77,88ACL:ponele"]
 39,77C#ff34ac:colorido ["39,77C#ff34ac:colorido","39,77C#ff34ac:","39,77","39","77",null,null,null,null,null,"C#ff34ac","#ff34ac","colorido",0,"39,77C#ff34ac:colorido"]
 		*/
-		cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]*))?\s*:)?(.*)$/,
-			(m,i1,i1b,x,y,i2,ah,av,i3,sz,i4,color,t) => {
-				console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,t}))
+		cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]+))?\s*(F(\w+))?\s*:)?(.*)$/,
+			(m,i1,i1b,x,y,i2,ah,av,i3,sz,i4,color,i5,font,t) => {
+				console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,color,font,t}))
 				if(ah || av) { 
 					let alignarg= [ah||'C',av||'C'].map(k => (k=='_' ? 'BASELINE' : AlignOpts.find(o => o[0]==k)) ) 
-					console.log("P5JS:LOGO:align",JSON.stringify({ah,av,alignarg}))
+					DBG>8 && console.log("P5JS:LOGO:align",JSON.stringify({ah,av,alignarg}))
 					p5.textAlign(...alignarg.map(k => p5[k]));
 				}
 				if (sz) { p5.textSize(p5.height*(parseFloat(sz)||70)/100) }
 				if (color) { p5.fill(color) }
+				if (font) { p5.textFont(font) }
 				p5.text(t, parseFloat(x==null ? 50 : x)*p5.width/100, parseFloat(y==null ? 50: y)*p5.height/100);
 			})
 	})

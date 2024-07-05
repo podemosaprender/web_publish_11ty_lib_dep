@@ -44,3 +44,33 @@ La entrada `text` lleva una lista de textos que pueden tener parametros
 
 De ese modo podés armar lo que necesites pegando pedacitos de texto de distinto tamaño en distinto lugar.
 
+El código
+~~~
+{% raw %}
+IMAGE <img src="/{%	p5gen { 
+	'fname': 'ximg.png', 
+	'images': {'bg':'l1b_/any/images/placeholder.png'},
+	'text': [ 
+		'50,50 ACC S10 C#ff3000 FHelvetica:HOLA', 
+		'50,70 ACC S20 C#a0a0ff Fparisienne:O-O.fyi' 
+	]
+
+	} 
+%}">
+{% endraw %}
+~~~
+
+Da como resultado
+
+<div>
+IMAGE <img src="/{%	p5gen { 
+	'fname': 'ximg.png', 
+	'images': {'bg':'l1b_/any/images/placeholder.png'},
+	'text': [ 
+		'50,50 ACC S10 C#ff3000 FHelvetica:HOLA', 
+		'50,70 ACC S20 C#a0a0ff Fparisienne:O-O.fyi' 
+	]
+
+	} 
+%}">
+</div>
