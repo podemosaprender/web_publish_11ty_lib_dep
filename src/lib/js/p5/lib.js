@@ -4,50 +4,90 @@
 
 const fs=require('fs')
 const util= require('../util.js');
-const p5 = require('node-p5');
+const p5lib = require('node-p5');
 
 //SEE: https://github.com/andithemudkip/p5-node?tab=readme-ov-file#fonts
+const SITE_DIR= __dirname+'/../../../this_site/';
 const FONTS= {};
-const FONT_DIR= __dirname+'/../../../this_site/l1b_/any/fonts/';
+const FONT_DIR= SITE_DIR+'l1b_/any/fonts/';
+
+let DBG=5;
 
 fs.readdirSync(FONT_DIR).forEach( fn => {
 	if (fn.match(/((ttf)|(otf)|(woff))$/)) {
 		if (fn=='NotoColorEmoji-Regular.ttf') { return } //A: ignoring, breaks icons
 		let p= FONT_DIR+fn;
 		console.log("P5JS font found",fn,p);
-		let r= p5.loadFont(p) //{path: p, family: n}))
+		let r= p5lib.loadFont(p) //{path: p, family: n}))
 		console.log("P5JS font loaded",r,p)
 	}
 })
 
-function gen_img(p,f,params) {
-	let canvas,frame= 0,stopped= false;
-	p.setup = () => {
-		canvas = p.createCanvas(params.width ||910, params.height||220);
-	}
-	p.draw = () => {
-		if (stopped) return;
-		if (frame++>(params.frame_cnt || 10)) { stopped=true;
-			util.ensure_dir(params.fname);
-			p.saveCanvas(canvas, params.fname || 'xp5js.png').then(filename => {
-				console.log(`P5JS saved ${filename}`);
-				if (params.no_exit) p.remove(); else process.exit(0);
-			});
-		}
-		f(p,params);
-	}
-}
-const AlignOpts=['LEFT', 'CENTER', 'RIGHT', 'TOP', 'BOTTOM', 'CENTER', 'BASELINE']
-
-const SKETCH={}
-SKETCH.logo= function sketch_logo(p5,params) {
-	p5.background(params.bgcolor || '#00000000'); //A: transparenr
+function init_img(p5,params,preloaded) {
+	p5.background(params.bgcolor || '#00000000'); //A: transparent
+	if (preloaded.bg) {
+		p5.image(preloaded.bg,0,0,p5.width,p5.height);
+	} //A: si hay bg lo dibujamos
 	p5.fill(params.color || '#a0a0a0')
 	if (params.font) p5.textFont(params.font);
 	p5.textAlign(p5.CENTER,p5.CENTER)
 	p5.textSize(p5.height*0.7);
+}
+
+function gen_img(p5,f,params) {try{
+	console.log("P5JS gen_img",params);
+	let canvas,frame= 0,sketch_state= '',preloaded={};
+	//A: separamos setup/draw en nuestro estado para hacer funcionar preload que en node-p5 necesita que ya exista el sketch (ver mainSketch en su index.js)
+	const my_preload= () => Promise.all(
+		Object.entries(params.images || {}).map( async ([k,p]) => {
+			let r;
+			console.log("P5JS preloading impl",k,p,SITE_DIR+p); 
+			try { r= await p5.loadImage(SITE_DIR+p); }
+			catch (ex) { console.log("P5JS preloading impl ERROR",k,p,SITE_DIR+p,ex); } 
+			console.log("P5JS preloading impl R",k,p,SITE_DIR+p, DBG>8 ? r : {width: r.width, height: r.height}); 
+			preloaded[k]= r;
+			return r;
+		}
+	)).then( () => { sketch_state='preloaded' });
+
+	const my_setup= () => {try{
+		console.log("P5JS setup A");
+		let bg= preloaded.bg;
+		let w0= params.width || (bg ? bg.width : 910);
+		let h0= params.height || (bg ? bg.height : 220);
+		canvas = p5.createCanvas(w0, h0);
+		console.log("P5JS canvas",{w0,h0,bg_w: bg && bg.width, bg_h: bg && bg.height, img: Object.keys(preloaded)}) 
+		init_img(p5,params,preloaded);
+		console.log("P5JS setup OK", canvas);
+		sketch_state= 'setup';
+	}catch(ex){console.log("P5JS gen_img setup ERROR",ex); throw(ex)}};
+
+	const my_draw= () => {try{
+		if (sketch_state=='stopped') return;
+		if (frame++>(params.frame_cnt || 10)) { sketch_state=='stopped';
+			util.ensure_dir(params.fname);
+			p5.saveCanvas(canvas, params.fname || 'xp5js.png').then(filename => {
+				console.log(`P5JS saved ${filename}`);
+				if (params.no_exit) p5.remove(); else process.exit(0);
+			});
+		}
+		f(p5,params,preloaded);
+	}catch(ex){console.log("P5JS gen_img draw ERROR",ex)}};
+
+	console.log("P5JS gen_img bind draw", params);
+	p5.draw= () => {
+		if (sketch_state=='') { my_preload() }
+		else if (sketch_state=='preloaded') { my_setup() }
+		else { my_draw() }
+	}
+}catch(ex) { console.log("P5JS gen_img ERROR",ex) }}
+
+const AlignOpts=['LEFT', 'CENTER', 'RIGHT', 'TOP', 'BOTTOM', 'CENTER', 'BASELINE']
+
+const SKETCH={}
+SKETCH.logo= function sketch_logo(p5,params,preloaded) {
 	let t= Array.isArray(params.text) ? params.text : [params.text];
-	t.forEach( cmd => {
+	t.forEach( cmd => { if (!cmd) return;
 		/* 
 		 ['10,20ACBAS70:mi string','solito','S70:solo size','30,50:solo pos','77,88ACL:ponele'].forEach(cmd => 
 		 		cmd.replace(/^((\d+),(\d+))?(A([LCR])([CTBL]))?(S(\d+))?:?(.*)$/,
@@ -73,9 +113,10 @@ S70:solo size ["S70:solo size",null,null,null,null,null,null,"S70","70","solo si
 }
 
 function run_sketch(params) {
-	let sketch_f= SKETCH[params.sketch];
+	let sketch_f= SKETCH[params.sketch || 'logo'];
 	params.no_exit= 1;
-	let p5Instance = p5.createSketch(p => gen_img(p, sketch_f,params));
+	//SEE: https://www.npmjs.com/package/node-p5#basic-usage
+	let p5Instance = p5lib.createSketch( (p) => gen_img(p,sketch_f,params) );
 }
 
 /*
