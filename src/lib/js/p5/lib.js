@@ -2,21 +2,22 @@
 //SEE: https://github.com/andithemudkip/p5-node
 //SEE: se pueden elegir emojis de https://emojipedia.org/abacus
 
+const fs=require('fs')
 const util= require('../util.js');
 const p5 = require('node-p5');
 
 //SEE: https://github.com/andithemudkip/p5-node?tab=readme-ov-file#fonts
 const FONTS= {};
-[
-	//ROMPE: 'this_site/l1b_/any/fonts/NotoColorEmoji-Regular.ttf',
-	'this_site/l1b_/any/fonts/parisienne-regular.ttf',
-].forEach(f => {
-	let p= __dirname+'/../../../'+f;
-	let n= (f.match(/([^\/]+)\...f/)||[])[1] || f;
-	console.log("P5JS font",p);
-	FONTS[n]= p5.loadFont(p) //{path: p, family: n}))
-	let fnt= FONTS[n]
-	console.log("P5JS font",n,p,fnt)
+const FONT_DIR= __dirname+'/../../../this_site/l1b_/any/fonts/';
+
+fs.readdirSync(FONT_DIR).forEach( fn => {
+	if (fn.match(/((ttf)|(otf)|(woff))$/)) {
+		if (fn=='NotoColorEmoji-Regular.ttf') { return } //A: ignoring, breaks icons
+		let p= FONT_DIR+fn;
+		console.log("P5JS font found",fn,p);
+		let r= p5.loadFont(p) //{path: p, family: n}))
+		console.log("P5JS font loaded",r,p)
+	}
 })
 
 function gen_img(p,f,params) {
