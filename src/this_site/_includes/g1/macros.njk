@@ -699,10 +699,52 @@
 	</section>
 {% endmacro %}
 
+{# ws_services ##############################################}
+{# SEE: https://bootstrapbrain.com/component/bootstrap-5-service-box-with-icon-example/#code #}
+
+{% macro ws_services(p) %}
+	<section class="bsb-service-7 py-5 py-xl-8" id="{{ p.id }}">
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-12 col-md-10 col-lg-8 col-xl-7">
+					<h3 class="fs-5 mb-2 text-secondary text-center text-uppercase">{{ p.v_title or "Services" }}</h3>
+					<h2 class="display-5 mb-5 mb-xl-9 text-center">{{ p.v_txt }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="container-fluid bg-light border shadow">
+						<div class="row">
+							{% for svc_name,service in p.services %}
+								<div class="col-12 col-lg-4 p-0 border-top border-bottom border-start border-end">
+									<div class="card border-0 bg-transparent">
+										<div class="card-body text-center p-5">
+											<div style="font-size: 4rem; line-height: 3.5rem; margin-bottom: 5px;">
+												<i class="mdi mdi-{{ service.icon or "lightbulb-outline"  }} text-primary"></i>
+											</div>
+											<h4 class="fw-bold text-uppercase mb-4">{{ svc_name }}</h4>
+											<p class="mb-4 text-secondary">{{ service.txt }}</p>
+											<a href="#!" class="fw-bold text-decoration-none link-primary">
+												{{ p.v_lbl_more }}  <span class="ms-2 right-icon">→</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endmacro %}
+
 {# DEPS #####################################################}
 {% macro head_z_(p,tw) %}{# TODO: colectar css y js en transform asi cada componente puede agregar sus reqs, con un numerito de prioriad asi se ordenan bien #}
 	<link href="/l1b_/g1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="/l1b_/g1/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
 	<link href="#O-O#TRY_PATHS#style.css {{ data.site.v_site_base_path }}style.css /l1b_/g1/css/style.css#" rel="stylesheet" type="text/css" />
 {% endmacro %}
 
@@ -733,6 +775,7 @@
 'blog': ws_blog,
 'blogmini': ws_blogmini,
 'pictxt': ws_pictxt,
+'services': ws_services,
 'contact': ws_contact,
 'contact_fullwidth': ws_contact_fullwidth,
 'registerModal': ws_registerModal
