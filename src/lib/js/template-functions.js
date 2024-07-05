@@ -274,7 +274,7 @@ if (!DBG || DBG<1) { //OjO! tiene que ser despues de O_O_COMMANDS porque rompe e
 module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCode.p5gen= function p5gen_shortcode(params) { 
 	let fname_page= params.fname;
-	params.fname= util.path_abs(params.fname, CFG.dir.input, this.page.inputPath.replace(/[^\/]*$/,''));
+	params.fname= util.path_abs(params.fname, CFG.dir.input, this.page.outputPath.replace(/[^\/]*$/,''));
 	p5gen.run_sketch(params); return fname_page; 
 }
 module.exports.shortCodePaired.markdown= (content) => MarkdownImpl.render(content)

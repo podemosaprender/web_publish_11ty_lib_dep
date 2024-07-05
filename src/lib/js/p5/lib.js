@@ -101,7 +101,7 @@ S70:solo size ["S70:solo size","S70:",null,null,null,null,null,null,"S70","70",n
 		*/
 		cmd.replace(/^(((\d+),(\d+))?\s*(A([LCR])([CTB_]))?\s*(S(\d+))?\s*(C([#\w]+))?\s*(F(\w+))?\s*:)?(.*)$/,
 			(m,i1,i1b,x,y,i2,ah,av,i3,sz,i4,color,i5,font,t) => {
-				console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,color,font,t}))
+				DBG>7 && console.log("P5JS:LOGO",JSON.stringify({x,y,ah,av,sz,color,font,t}))
 				if(ah || av) { 
 					let alignarg= [ah||'C',av||'C'].map(k => (k=='_' ? 'BASELINE' : AlignOpts.find(o => o[0]==k)) ) 
 					DBG>8 && console.log("P5JS:LOGO:align",JSON.stringify({ah,av,alignarg}))
