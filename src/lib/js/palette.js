@@ -4,7 +4,11 @@
 const paletteGenerator= require('palette-generator').default
 const Schemes= ['analogous', 'accentedAnalogous', 'complementary', 'dual', 'triadic'] 
 
-function RGBtoHSL(r,g,b) {
+function RGBHexToInts(s) {
+	return s.match(/^\#?(..)(..)(..)/).slice(1,4).map(h => parseInt(h,16))
+}
+
+function RGBtoHSL(r,g,b, returnType) {
 	r /= 255; g /= 255; b /= 255;//A: Make r, g, and b fractions of 1
   
   let cmin = Math.min(r,g,b),
@@ -25,7 +29,7 @@ function RGBtoHSL(r,g,b) {
   s = +(s * 100).toFixed(1);// Multiply l and s by 100
   l = +(l * 100).toFixed(1);
 
-  return "hsl(" + h + "," + s + "%," + l + "%)";
+	return returnType=='array' ? [h,s,l] : returnType=='kv' ? {h,s,l} : "hsl(" + h + "," + s + "%," + l + "%)";
 }
 
 function HSLtoRGB(h,s,l) {
@@ -59,11 +63,25 @@ function palette2html(palette_rgb) {
 }
 
 function palette(options={}) {
+	let c0= options.primary
+	if (typeof(c0)=='string') {
+		if (c0.startsWith('#') || c0.length==6) {
+			c0= RGBtoHSL(...RGBHexToInts(c0), 'kv')
+		} else {
+			let p= c0.split(/[(,\s]+/)
+			if (p[0]=='hsl') { 
+				let [h,s,l]= p.slice(1).map(parseInt);
+				c0={h,s,l}
+			}
+		}
+	}
 	options= {
 		h: 127, s: 100, l: 50,
 		shadeVariation: "20%", hueIncrement: 15, scheme: "complementary",
+		...c0,
 		...Object.assign({},...Object.entries(options).map(([k,v])=> ({[k]:parseFloat(v)||v}) ))
 	}
+	console.error({c0,options})
 	let p = paletteGenerator(options.h,options.s+'%',options.l+'%', options)
 	
 	//DBG: console.log(palette)
@@ -78,4 +96,4 @@ function palette(options={}) {
 	return p_rgb;
 }
 
-module.exports= { palette, palette2html, HSLtoRGB, RGBtoHSL, Schemes }
+module.exports= { palette, palette2html, HSLtoRGB, RGBtoHSL, RGBHexToInts, Schemes }

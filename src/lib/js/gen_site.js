@@ -1,3 +1,12 @@
+const PaletteGen= require('./palette.js')
+
+let palette= PaletteGen.palette({primary: "#FF7F3E"});
+console.error({palette});
+palette.std={
+	primary: palette.alpha.base,
+	primary_active: palette.alpha.light,
+	white: palette.grey.lighter,
+}
 
 let name= "Pepe"
 let name_safe= name.toLowerCase();
@@ -34,9 +43,9 @@ let def= {
 			"v_logo_height_px": 48,
 			"v_body_font": "Playwrite+GB+S", "v_body_font_variant": "cursive",
 			"v_title_font": "Playwrite+CO", "v_title_font_variant": "cursive",
-			"v_color_primary": "FF7F3E",
-			"v_color_primary_active": "804040",
-			"v_color_white": "FFF6E9"
+			"v_color_primary": palette.std.primary,
+			"v_color_primary_active": palette.std.primary_active,
+			"v_color_white": palette.std.white,
 		},
 		"isEmpty": false
 	},
@@ -59,7 +68,7 @@ let def= {
 					"images/logo-dark.png": {
 						"sketch": "logo",
 						"width": 800,
-						"color": "#FF7F3E",
+						"color": '#'+palette.std.primary,
 						"bgcolor": 0, 
 						...logo,
 					},
@@ -67,7 +76,7 @@ let def= {
 						"sketch": "logo",
 						"width": 800,
 						"color": "#ffffff",
-						"bgcolor": 0,
+						"bgcolor": '#'+palette.std.primary,
 						...logo,
 					}
 				},
