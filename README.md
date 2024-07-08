@@ -5,7 +5,7 @@ npm install
 ~~~
 
 ~~~
-export P_SITE_DIR=`pwd`/x1 ; export P_OUT_DIR=xo ; rm -rf $P_OUT_DIR ; npm run build
+export P_SITE_DIR=`pwd`/x1 ; export P_OUT_DIR=xo ; rm -rf $P_OUT_DIR ; cp -r src/this_site/{_*,l1b_} $P_SITE_DIR ; npm run build
 ~~~
 
 ## Desarrollo
