@@ -7,21 +7,22 @@ const util= require('../util.js');
 const p5lib = require('node-p5');
 
 //SEE: https://github.com/andithemudkip/p5-node?tab=readme-ov-file#fonts
-const SITE_DIR= __dirname+'/../../../this_site/';
-const FONTS= {};
-const FONT_DIR= SITE_DIR+'l1b_/any/fonts/';
-
+let FONTS= {};
+let SITE_DIR= __dirname+'/../../../this_site/';
+let FONT_DIR= SITE_DIR+'l1b_/any/fonts/';
 let DBG=5;
 
-fs.readdirSync(FONT_DIR).forEach( fn => {
-	if (fn.match(/((ttf)|(otf)|(woff))$/)) {
-		if (fn=='NotoColorEmoji-Regular.ttf') { return } //A: ignoring, breaks icons
-		let p= FONT_DIR+fn;
-		console.log("P5JS font found",fn,p);
-		let r= p5lib.loadFont(p) //{path: p, family: n}))
-		console.log("P5JS font loaded",r,p)
-	}
-})
+function init_fonts() {
+	fs.readdirSync(FONT_DIR).forEach( fn => {
+		if (fn.match(/((ttf)|(otf)|(woff))$/)) {
+			if (fn=='NotoColorEmoji-Regular.ttf') { return } //A: ignoring, breaks icons
+			let p= FONT_DIR+fn;
+			console.log("P5JS font found",fn,p);
+			let r= p5lib.loadFont(p) //{path: p, family: n}))
+			console.log("P5JS font loaded",r,p)
+		}
+	})
+}
 
 function init_img(p5,params,preloaded) {
 	p5.background(params.bgcolor || '#00000000'); //A: transparent
@@ -32,6 +33,13 @@ function init_img(p5,params,preloaded) {
 	if (params.font) p5.textFont(params.font);
 	p5.textAlign(p5.CENTER,p5.CENTER)
 	p5.textSize(p5.height*0.7);
+}
+
+function init({SITE_DIR,FONT_DIR,DBG}) {
+	SITE_DIR= SITE_DIR || __dirname+'/../../../this_site/';
+	FONT_DIR= FONT_DIR || SITE_DIR+'l1b_/any/fonts/';
+	DBG= DBG!=null ? DBG : 5;
+	init_fonts()
 }
 
 function gen_img(p5,f,params) {try{
@@ -129,6 +137,6 @@ function run_sketch(params) {
 ].forEach(run_sketch);
 */
 
-module.exports={ run_sketch }
+module.exports={ run_sketch, init }
 
 

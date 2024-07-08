@@ -1,10 +1,6 @@
 //INFO: generic functions to keep reusable but add to 11ty
 //SEE: this.page this.eleventy https://www.11ty.dev/docs/shortcodes/#scoped-data-in-shortcodes
 
-const DBG=process.env.DBG
-const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
-const P_OUT_DIR=process.env.P_OUT_DIR || '_site'
-
 const fs = require("fs");
 const StreamTransform = require('stream').Transform;
 const StreamReadable= require('stream').Readable
@@ -26,6 +22,10 @@ const { MarkdownImpl } = require('./markdown.js')
 const { BasePath } = require('../env.js');
 console.log({BasePath})
 
+const DBG=process.env.DBG
+const P_SITE_DIR=util.path_abs(process.env.P_SITE_DIR || 'src/this_site', '', process.cwd())
+const P_OUT_DIR=util.path_abs(process.env.P_OUT_DIR || '_site', '', process.cwd())
+console.log({P_OUT_DIR, P_SITE_DIR})
 
 module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath, P_SITE_DIR, P_OUT_DIR, DBG }
 
@@ -277,6 +277,7 @@ module.exports.shortCodePaired.plantUmlToSvg= plantUmlToSvg;
 module.exports.shortCode.p5gen= function p5gen_shortcode(params) { 
 	let fname_page= params.fname;
 	params.fname= util.path_abs(params.fname, CFG.dir.input, this.page.outputPath.replace(/[^\/]*$/,''));
+	p5gen.init({P_SITE_DIR, DBG})
 	p5gen.run_sketch(params); return fname_page; 
 }
 module.exports.shortCodePaired.markdown= (content) => MarkdownImpl.render(content)
