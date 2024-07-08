@@ -36,7 +36,8 @@ function QRGenerateFile(str,path) {
 
 module.exports= { QR, QRGenerarSVG, QRGenerarTag, QRGenerarData, QRGenerateFile }
 
+/* U:
 r= QRGenerarData('https://o-o.fyi')
 console.log(r.length, r)
-
+*/
 

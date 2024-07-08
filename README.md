@@ -4,6 +4,10 @@ INFO: 11ty test
 npm install
 ~~~
 
+~~~
+export P_SITE_DIR=`pwd`/x1 ; export P_OUT_DIR=xo ; rm -rf $P_OUT_DIR ; npm run build
+~~~
+
 ## Desarrollo
 
 ~~~
@@ -133,3 +137,8 @@ curl -X 'GET'   'https://api1.o-o.fyi/xp.cgi/data/?fmt=json&entity=any'   -H 'ac
 ~~~
 
 XXX:agregar permisos en api1
+
+### Donde escribir
+
+blogspot: curl 'https://cuentossinfe.blogspot.com/feeds/posts/default?alt=json' -o /tmp/ag.json
+

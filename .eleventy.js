@@ -1,9 +1,7 @@
 //INFO: 11ty pipeline config
-const DBG=process.env.DBG
-const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
 
 const our_lib = require('./src/lib/js/template-functions.js')
-const { BasePath, xfrm_MAIN, xfrm_STREAM }= our_lib;
+const { BasePath, xfrm_MAIN, xfrm_STREAM, P_SITE_DIR, P_OUT_DIR, DBG }= our_lib;
 
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
@@ -30,7 +28,7 @@ module.exports = function(eleventyConfig) {
 			input: P_SITE_DIR,
 			includes: "_includes",
 			data: "_data",
-			output: "_site",
+			output: P_OUT_DIR,
 		}
 	};
 	console.log("CFG",CFG);
@@ -79,7 +77,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.setBrowserSyncConfig({	//U: Override Browsersync defaults (used only with --serve)
 		callbacks: {
 			ready: function(err, browserSync) {
-				const content_404 = fs.readFileSync('_site/404.html');
+				const content_404 = fs.readFileSync(P_OUT_DIR+'/404.html');
 				browserSync.addMiddleware("*", (req, res) => { //A: Provides the 404 content without redirect.
 					res.writeHead(404, {"Content-Type": "text/html; charset=UTF-8"});
 					res.write(content_404);

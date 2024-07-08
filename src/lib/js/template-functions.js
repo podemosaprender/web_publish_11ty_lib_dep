@@ -2,6 +2,8 @@
 //SEE: this.page this.eleventy https://www.11ty.dev/docs/shortcodes/#scoped-data-in-shortcodes
 
 const DBG=process.env.DBG
+const P_SITE_DIR=process.env.P_SITE_DIR || './src/this_site'
+const P_OUT_DIR=process.env.P_OUT_DIR || '_site'
 
 const fs = require("fs");
 const StreamTransform = require('stream').Transform;
@@ -25,7 +27,7 @@ const { BasePath } = require('../env.js');
 console.log({BasePath})
 
 
-module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath }
+module.exports = { data: {}, filter: {}, collection: {}, shortCode: {}, shortCodePaired: {}, transform: {}, BasePath, P_SITE_DIR, P_OUT_DIR, DBG }
 
 let CFG; //A: set by addToConfig options param
 module.exports.addToConfig= function (eleventyConfig, options, kv) {
@@ -340,7 +342,7 @@ module.exports.filter.readFile= function (pathSpec) { //U: make file data availa
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
-		const cfg_overrides= require('../../this_site/_data/1cfg_manual.json');
+		const cfg_overrides= require(P_SITE_DIR+'/_data/1cfg_manual.json');
 		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
 		return cfg;
 }
