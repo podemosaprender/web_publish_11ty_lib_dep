@@ -135,16 +135,22 @@ module.exports.xfrm_STREAM= xfrm_STREAM;
 const O_OCMD= {}
 
 O_OCMD.TRY_PATHS= function O_OCmdTryPaths(params) { //U: elegir primer path existente entre opciones
-	const try_paths= (root,base) => {
-		let paths=  params.opts.map(p => util.path_abs(p,root,base));
-		let found= paths.find(p => fs.existsSync(p)) //XXX: OjO! para out puede no haber ocurrido el build aun!
-		DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+base,{found, root, paths})
-		if (found) { return found.substr(root.length) }
-	}
-	let found= (
-		try_paths(params.CFG.dir.input, params.ibase) ||
-		try_paths(params.CFG.dir.output, params.obase) 
+	let found;
+	params.opts.forEach(p => 
+		[
+			[params.CFG.dir.output, params.obase], 
+			[params.CFG.dir.input, params.ibase]
+		].forEach(([root,base]) => {
+			if (!found) {
+				let pfull= util.path_abs(p,root,base);
+				if (fs.existsSync(pfull)) {//XXX: OjO! para out puede no haber ocurrido el build aun!
+					found= pfull.substr(root.length);
+				}
+				DBG>5 && console.log("O-O:COMMANDS:TRY_PATHS:"+base,{found, root, pfull})
+			}
+		})
 	)
+
 	//A: probamos primero en input pq en general son estaticos que pusimos con el archivo
 	if (found) { return found }
 	else { return "O-O:ERROR:TRY_PATHS:NONE FOUND:"+params.m	}
