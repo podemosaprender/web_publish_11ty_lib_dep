@@ -15,6 +15,15 @@ let contactInfo= {
 	"map-pin": "Valencia, Espa\u00f1a"
 }
 
+let logo= {
+	"font": "parisienne",
+	"text": [
+		"2,50ALCS80:\ud83c\udf16",
+		"35,40AL_S43:CAMBIE",
+		"40,45ALTS45:LOGO"
+	],
+}
+
 let sections= {};
 
 let def= {
@@ -50,26 +59,16 @@ let def= {
 					"images/logo-dark.png": {
 						"sketch": "logo",
 						"width": 800,
-						"font": "parisienne",
-						"text": [
-							"2,50ALCS80:\ud83c\udf16",
-							"35,40AL_S43:Agua",
-							"40,45ALTS45:de Luna"
-						],
 						"color": "#FF7F3E",
-						"bgcolor": "##FFF6E9"
+						"bgcolor": 0, 
+						...logo,
 					},
 					"images/logo-light.png": {
 						"sketch": "logo",
 						"width": 800,
-						"font": "parisienne",
-						"text": [
-							"2,50ALCS80:\ud83c\udf16",
-							"35,40AL_S43:Agua",
-							"40,45ALTS45:de Luna"
-						],
 						"color": "#ffffff",
-						"bgcolor": "##FFF6E9"
+						"bgcolor": 0,
+						...logo,
 					}
 				},
 				"sections": {
