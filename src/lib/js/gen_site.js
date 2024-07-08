@@ -1,23 +1,24 @@
+//INFO: params comodos a json para generar sitio con json2file | build
+
 const PaletteGen= require('./palette.js')
 
-let palette= PaletteGen.palette({primary: "#FF7F3E"});
-console.error({palette});
-palette.std={
-	primary: palette.alpha.base,
-	primary_active: palette.alpha.light,
-	white: palette.grey.lighter,
+let cfg= {
+	name: "Pepon",
+	color_primary: "00529c",
+	mail: "m@mauriciocap.com",
 }
 
-let name= "Pepe"
-let name_safe= name.toLowerCase();
+let name= cfg.name || "Mi Sitio" //U:P
 
+let name_safe= (cfg.name_safe || name).toLowerCase().replace(/\W+/gsi,'-');
 let PFX='wip_/'+name_safe;
 
 let d0= {
 	"v_brand_name": name,
-	"v_contact_mail": name_safe+"-web@o-o.fyi",
+	"v_contact_mail": cfg.mail || (name_safe+"-web@o-o.fyi"),
 	"v_agency_name": "o-o.fyi",
 }
+
 let contactInfo= {
 	"mail": d0.v_contact_mail,
 	"link": 'o-o.fyi/'+PFX,
@@ -25,15 +26,25 @@ let contactInfo= {
 }
 
 let logo= {
-	"font": "parisienne",
 	"text": [
 		"2,50ALCS80:\ud83c\udf16",
-		"35,40AL_S43:CAMBIE",
+		"35,40AL_S43:"+name,
 		"40,45ALTS45:LOGO"
 	],
+	...cfg.logo,
+}
+let sections= {};
+
+//A: tengo params
+
+let palette= PaletteGen.palette({primary: cfg.color_primary || "#FF7F3E"}); //U:P elegi el primary, calculamos lo demas
+//DBG: console.error({palette});
+palette.std={
+	primary: palette.alpha.base,
+	primary_active: palette.alpha.light,
+	white: palette.grey.lighter,
 }
 
-let sections= {};
 
 let def= {
 	[`${PFX}/style.css.njk`]: {
