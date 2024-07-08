@@ -3,7 +3,11 @@ const fs = require("fs");
 
 const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
 const dirname = (path) => path.replace(/\/?[^\/]*$/,'')
-const ensure_dir= (p,pathIsDir) => fs.mkdirSync(pathIsDir ? p : dirname(p),{recursive: true});
+const ensure_dir= (p,pathIsDir) => {
+	let dirp= pathIsDir ? p : dirname(p);
+	fs.existsSync(dirp) || fs.mkdirSync(dirp,{recursive: true});
+}
+
 const set_file= (path,content,noOverwrite) => {
 	ensure_dir(path);
 	if (fs.existsSync(path)) {
