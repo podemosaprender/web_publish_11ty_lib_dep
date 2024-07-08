@@ -43,30 +43,30 @@ function init({SITE_DIR,FONT_DIR,DBG}) {
 }
 
 function gen_img(p5,f,params) {try{
-	console.log("P5JS gen_img",params);
+	DBG>3 && console.log("P5JS gen_img",params);
 	let canvas,frame= 0,sketch_state= '',preloaded={};
 	//A: separamos setup/draw en nuestro estado para hacer funcionar preload que en node-p5 necesita que ya exista el sketch (ver mainSketch en su index.js)
 	const my_preload= () => Promise.all(
 		Object.entries(params.images || {}).map( async ([k,p]) => {
 			let r;
-			console.log("P5JS preloading impl",k,p,SITE_DIR+p); 
+			DBG>5 && console.log("P5JS preloading impl",k,p,SITE_DIR+p); 
 			try { r= await p5.loadImage(SITE_DIR+p); }
 			catch (ex) { console.log("P5JS preloading impl ERROR",k,p,SITE_DIR+p,ex); } 
-			console.log("P5JS preloading impl R",k,p,SITE_DIR+p, DBG>8 ? r : {width: r.width, height: r.height}); 
+			DBG>5 && console.log("P5JS preloading impl R",k,p,SITE_DIR+p, DBG>8 ? r : {width: r.width, height: r.height}); 
 			preloaded[k]= r;
 			return r;
 		}
 	)).then( () => { sketch_state='preloaded' });
 
 	const my_setup= () => {try{
-		console.log("P5JS setup A");
+		DBG>7 && console.log("P5JS setup A");
 		let bg= preloaded.bg;
 		let w0= params.width || (bg ? bg.width : 910);
 		let h0= params.height || (bg ? bg.height : 220);
 		canvas = p5.createCanvas(w0, h0);
-		console.log("P5JS canvas",{w0,h0,bg_w: bg && bg.width, bg_h: bg && bg.height, img: Object.keys(preloaded)}) 
+		DBG>7 && console.log("P5JS canvas",{w0,h0,bg_w: bg && bg.width, bg_h: bg && bg.height, img: Object.keys(preloaded)}) 
 		init_img(p5,params,preloaded);
-		console.log("P5JS setup OK", canvas);
+		DBG>8 && console.log("P5JS setup OK", canvas);
 		sketch_state= 'setup';
 	}catch(ex){console.log("P5JS gen_img setup ERROR",ex); throw(ex)}};
 
@@ -82,7 +82,7 @@ function gen_img(p5,f,params) {try{
 		f(p5,params,preloaded);
 	}catch(ex){console.log("P5JS gen_img draw ERROR",ex)}};
 
-	console.log("P5JS gen_img bind draw", params);
+	DBG>7 && console.log("P5JS gen_img bind draw", params);
 	p5.draw= () => {
 		if (sketch_state=='') { my_preload() }
 		else if (sketch_state=='preloaded') { my_setup() }
