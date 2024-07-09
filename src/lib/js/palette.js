@@ -81,7 +81,7 @@ function palette(options={}) {
 		...c0,
 		...Object.assign({},...Object.entries(options).map(([k,v])=> ({[k]:parseFloat(v)||v}) ))
 	}
-	console.error({c0,options})
+	//DBG: console.error({c0,options})
 	let p = paletteGenerator(options.h,options.s+'%',options.l+'%', options)
 	
 	//DBG: console.log(palette)

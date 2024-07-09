@@ -6,20 +6,27 @@ const yaml = require("js-yaml");
 const matter= require('gray-matter');
 const util = require("./util.js");
 
-const data = JSON.parse(fs.readFileSync(0, 'utf-8'));
-const dst= process.argv[2] || 'xjson2file';
-fs.mkdirSync(dst,{recursive: true});
+function jsonToFiles(data,dst) {
+	dst= dst || 'xjson2file';
+	Object.entries(data).forEach(([fn,d]) => { if (!d) return;
+		let content;
+		if (d.bin) { content= "XXX bin copy "+fn; } 
+		else if (fn.match(/\.((yaml))$/)) { content= yaml.dump(d.data) } 
+		else if (fn.match(/\.((json))$/)) { content= JSON.stringify(d.data,0,2) }
+		else if (fn.match(/\.((njk)|(md)|(html)|(txt)|(csv)|(js)|(svg))$/)) {
+			content= matter.stringify(d);
+		}
+		else { console.log("ERROR: unknown type",fn) }
+		if(content) {
+			util.set_file(dst+'/'+fn, content);	
+		}
+	})
+}
 
-Object.entries(data).forEach(([fn,d]) => { if (!d) return;
-	let content;
-	if (d.bin) { content= "XXX bin copy "+fn; } 
-	else if (fn.match(/\.((yaml))$/)) { content= yaml.dump(d.data) } 
-	else if (fn.match(/\.((json))$/)) { content= JSON.stringify(d.data,0,2) }
-	else if (fn.match(/\.((njk)|(md)|(html)|(txt)|(csv)|(js)|(svg))$/)) {
-		content= matter.stringify(d);
-	}
-	else { console.log("ERROR: unknown type",fn) }
-	if(content) {
-		util.set_file(dst+'/'+fn, content);	
-	}
-})
+module.exports= { jsonToFiles }
+
+if (typeof require !== 'undefined' && require.main === module) {
+	let data= util.stdin_json();
+	let dst= process.argv[2];
+	jsonToFiles(data,dst);
+}

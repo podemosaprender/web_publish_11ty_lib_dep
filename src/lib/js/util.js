@@ -8,6 +8,8 @@ const ensure_dir= (p,pathIsDir) => {
 	fs.existsSync(dirp) || fs.mkdirSync(dirp,{recursive: true});
 }
 
+const stdin_json= () => JSON.parse(fs.readFileSync(0, 'utf-8')); 
+
 const set_file= (path,content,noOverwrite) => {
 	ensure_dir(path);
 	if (fs.existsSync(path)) {
@@ -19,4 +21,4 @@ const set_file= (path,content,noOverwrite) => {
 	return 'written';
 }
 
-module.exports= { path_abs, ensure_dir, set_file, dirname }
+module.exports= { path_abs, ensure_dir, stdin_json, set_file, dirname }
