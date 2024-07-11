@@ -222,6 +222,7 @@ Sitemap: https://xxx_metadata_site_url/sitemap.xml
 	
 	
 
+		 
 	<script src="/l1b_/g1/js/bootstrap.bundle.min.js"></script>
 <script src="/l1b_/g1/js/smooth-scroll.polyfills.min.js"></script>
 <script src="/l1b_/g1/js/gumshoe.polyfills.min.js"></script>
@@ -229,6 +230,7 @@ Sitemap: https://xxx_metadata_site_url/sitemap.xml
 <script src="/l1b_/g1/js/unicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 <script src="/l1b_/g1/js/app.js"></script>
+<script src="/l1b_/any/js/edit_live.gen.js"></script>
 </body>
 </html>
 
