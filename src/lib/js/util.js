@@ -3,8 +3,9 @@ const fs = require("fs");
 
 const path_abs= (p,root,base) => ((p.startsWith('/') ? root : base+'/')+p);
 const dirname = (path) => path.replace(/\/?[^\/]*$/,'')
-const ensure_dir= (p,pathIsDir) => {
+const ensure_dir= (p,pathIsDir) => { 
 	let dirp= pathIsDir ? p : dirname(p);
+	if (dirp=='') return;
 	fs.existsSync(dirp) || fs.mkdirSync(dirp,{recursive: true});
 }
 

@@ -127,6 +127,9 @@ ENTONCES:
    * los toolkits se pueden componer usando "set" en el archivo con las macros, porque exporta su env
 * y si tengo que hacer algo muy distinto puedo incluir y reusar las macros del nivel que necesite en la pagina
 
+Para ir armando widgets desde archivos como pide B podemos pegar los que esten en una carpetita y listo!
+
+
 ### Form
 
 Funciona.
@@ -135,6 +138,7 @@ Los datos que guardo se recuperan con
 ~~~
 curl -X 'GET'   'https://api1.o-o.fyi/xp.cgi/data/?fmt=json&entity=any'   -H 'accept: application/json' | tee x.json
 ~~~
+
 
 XXX:agregar permisos en api1
 
