@@ -6,7 +6,14 @@ const StreamTransform = require('stream').Transform;
 const StreamReadable= require('stream').Readable
 //XXXconst htmlmin = require("html-minifier");
 //XXXimport { Buffer } from "node:buffer";
-const minifyHtml = require("@minify-html/node");
+
+let minifyHtml;
+try { minifyHtml = require("@minify-html/node"); } //XXX:no funciona en hosting, glibc
+catch (ex) { console.error("MINIFY falling back to pure js");
+	const minify = require('html-minifier').minify;
+	minifyHtml= { minify }
+}
+
 const CleanCSS = require('clean-css');
 const UglifyJS = require("uglify-js");
 const browserify = require('browserify');
