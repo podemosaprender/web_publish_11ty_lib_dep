@@ -240,31 +240,33 @@ module.exports.transform.O_O_COMMANDS= function transform_O_O_COMMANDS(content) 
 		});
 	}
 	//A: commands applied
-	let meta_links= {};
-	content= content.replace(/<link\s([^>]*)\/?>/gsi,(m,opts) => {
-		let href= (opts.match(/href=\"([^"]*)\"/si)||[])[1]
-		DBG>3 && console.log("O-O:COLLECT_METALINK",{href,opts})	
-		if (!href) { return m }
-		meta_links[href] ||= m;
-		return '';
-	});
-	content= content.replace(/<\/head>/, Object.values(meta_links).join('\n')+'\n</head>')
+	if (!process.env.OONO_COLLECT) {
+		let meta_links= {};
+		content= content.replace(/<link\s([^>]*)\/?>/gsi,(m,opts) => {
+			let href= (opts.match(/href=\"([^"]*)\"/si)||[])[1]
+			DBG>3 && console.log("O-O:COLLECT_METALINK",{href,opts})	
+			if (!href) { return m }
+			meta_links[href] ||= m;
+			return '';
+			});
+			content= content.replace(/<\/head>/, Object.values(meta_links).join('\n')+'\n</head>')
 
-	let scripts_pending= {}, scripts_loaded= {};
-	content= content.replace(/<script([^>]*)>(.*?)<\/script>/gsi,(m,opts,content) => {
-		let src= (opts.match(/src=\"([^"]*)\"/si)||[])[1]
-		DBG>1 && console.log("O-O:SCRIPT",{src,opts})	
-		if (content || !src || m.match('oo_keep_here')) {
-			let r= Object.values(scripts_pending).join('\n')+m;
-			scripts_loaded= {...scripts_loaded, ...scripts_pending};
-			scripts_pending= {};
-			return r; //A: flush, may be dependencies
-		}
-		if (!scripts_loaded[src]) {scripts_pending[src]= m};
-		return '';
-	}); //A: collected all scripts, removed with src to place at the end
-	content= content.replace(/<\/body>/, Object.values(scripts_pending).join('\n')+'\n</body>')
-	//A: consolidate scripts and css
+			let scripts_pending= {}, scripts_loaded= {};
+			content= content.replace(/<script([^>]*)>(.*?)<\/script>/gsi,(m,opts,content) => {
+				let src= (opts.match(/src=\"([^"]*)\"/si)||[])[1]
+				DBG>1 && console.log("O-O:SCRIPT",{src,opts})	
+				if (content || !src || m.match('oo_keep_here')) {
+					let r= Object.values(scripts_pending).join('\n')+m;
+					scripts_loaded= {...scripts_loaded, ...scripts_pending};
+					scripts_pending= {};
+					return r; //A: flush, may be dependencies
+				}
+				if (!scripts_loaded[src]) {scripts_pending[src]= m};
+				return '';
+				}); //A: collected all scripts, removed with src to place at the end
+				content= content.replace(/<\/body>/, Object.values(scripts_pending).join('\n')+'\n</body>')
+				//A: consolidate scripts and css
+				}
 
 	if (BasePath!='') { 
 		content= content.replace(/((?:url\())(\/[^\)"]+)/gsi, (m,pfx,p) => {
@@ -302,28 +304,34 @@ module.exports.shortCode.set_k= (kv,k,v) => { kv[k]= v; return ''; };
 module.exports.shortCodePaired.set_k2= (v,kv,k) => { kv[k]= v; return ''; };
 
 const include_js= async function include_js(srcOrFile,outpath_UNSAFE) { 
-	let src= srcOrFile; //DFLT;
-	if (!src.match(/^[\w\/\.-]*?\.js(on)?$/)) {
-		src= StreamReadable.from(srcOrFile);
-	}
 	let ibase= this.page.inputPath.replace(/\/?[^\/]*$/,'');
 	let obase= this.page.outputPath.replace(/\/?[^\/]*$/,'');
 	const outpath_html= outpath_UNSAFE && outpath_UNSAFE.replace(/\.js$/,'.gen.js');
 	const outpath_here= outpath_UNSAFE && util.path_abs(outpath_html,CFG.dir.input,ibase)
 	const outpath_site= outpath_UNSAFE && util.path_abs(outpath_html,CFG.dir.output,obase)
 	//A: sufix needed to avoid retriggering 11ty, see filter above
-	DBG>3 && console.log("DBG:include_js",outpath_here, outpath_UNSAFE,this.page.inputPath);
+
+	let srcpath_here= (
+		srcOrFile.match(/^[\w\/\.-]+?\.js(on)?$/) && (
+			srcOrFile.startsWith('LIB/') 
+					? __dirname + srcOrFile.substr(3)
+					: util.path_abs(srcOrFile,CFG.dir.input,ibase)
+		)
+	)
+
+	DBG>3 && console.log("DBG:include_js",srcpath_here, outpath_here, outpath_UNSAFE,this.page.inputPath);
+	let src= srcpath_here ||  StreamReadable.from(srcOrFile.replace(/require\("LIB/gs, 'require("'+__dirname)); 
 
 	return await new Promise( (onOk,onErr) => { try{
 		const b= browserify();
 		b.add(src,{ basedir: ibase });
 		let bundle= b.bundle( (err,src_browser) => {
-			DBG>3 && console.log("DBG:include_js",err ? err.message : 'OK');
+			DBG>3 && console.log("DBG:include_js "+(err ? 'ERROR: '+err.message : 'OK'),srcpath_here, outpath_UNSAFE, err);
 			if (err) return onOk('ERROR:'+err);
 			if (outpath_here) {
 				util.set_file(outpath_here,src_browser);
 				util.set_file(outpath_site,src_browser);
-				DBG>3 && console.log("DBG:include_js files",{outpath_site, outpath_here});
+				DBG>3 && console.log("DBG:include_js files",{srcpath_here, outpath_html, outpath_site, outpath_here});
 				onOk(`<script src="${outpath_html}" oo_keep_here></script>`);
 			} else {
 				onOk(`<script>${src_browser}</script>`);
@@ -356,7 +364,7 @@ module.exports.filter.readFile= function (pathSpec) { //U: make file data availa
 
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
-		const cfg_overrides= require(P_SITE_DIR+'/_data/1cfg_manual.json');
+		const cfg_overrides= JSON.parse(fs.readFileSync(P_SITE_DIR+'/_data/1cfg_manual.json','utf8'));
 		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
 		return cfg;
 }
