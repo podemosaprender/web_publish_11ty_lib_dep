@@ -12,6 +12,8 @@ const cfg_example= {
 }
 
 function cfgToFilesJson(cfg) {
+	//DBG: console.log("cfgToFilesJson",cfg);
+
 	let name= cfg.name || "Mi Sitio" //U:P
 
 	let name_safe= (cfg.name_safe || name).toLowerCase().replace(/\W+/gsi,'-');
@@ -131,7 +133,9 @@ function cfgToFilesJson(cfg) {
 module.exports= { cfgToFilesJson }
 
 if (typeof require !== 'undefined' && require.main === module) {
-	let cfg= util.stdin_json(); 
+	let sig= util.stdin_json(); 
+	let msg= JSON.parse(sig.m);
+	let cfg= msg.d;
 	let def= cfgToFilesJson(cfg);
 	console.log(JSON.stringify(def,0,2))
 }
