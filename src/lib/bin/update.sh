@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+if [ "$1" == "force" ]; then FORCE=1 ; fi
+
 P_SITE_JSON_DIR=${P_SITE_JSON_DIR:-src/sites_json}
 P_VAR_DIR=${P_VAR_DIR:-xvar}
 BASE_DIR=`cd ${0%/*}/../../.. ; pwd`
@@ -17,10 +19,16 @@ for i in $P_SITE_JSON_DIR/*.json ; do
 	h256now=`cat $i | sha256sum`	
 	h256before=`cat $P_VAR_DIR/files_json/${iname}.sha256 2>/dev/null`
 	#DBG:echo "$h256now"; echo "$h256before"
-	if [ "$h256now" == "$h256before" ]; then
-		echo "$i NOT changed"
+	if [ -n "$FORCE" ]; then
+		GEN_REASON="$i force"
+	elif [ "$h256now" != "$h256before" ]; then
+		GEN_REASON="$i changed"
 	else
-		echo "$i changed, generate"
+		echo "$i not changed"
+	fi
+
+	if [ -n "$GEN_REASON" ]; then	
+		echo "$i generate $GEN_REASON"
 		cat $i | node src/lib/js/gen_site.js > $files_json_name
 		#A: json with file data generated
 
