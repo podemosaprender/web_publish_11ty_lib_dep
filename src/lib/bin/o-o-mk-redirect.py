@@ -6,10 +6,9 @@ from urllib.request import urlopen
 import subprocess
 import shutil
 
-DST_DIR="/home/papi/apps/o-o_static"
-TPL= DST_DIR+'/tpl_redirect/index.html'
+DST_DIR="/home/uooweb/apps/ooweb_t3st_static"
+TPL= DST_DIR+'/web-site-oo/tpl_redirect/index.html'
 DATA_URL= "https://docs.google.com/spreadsheets/d/e/2PACX-1vTtA4GotSEbDC8QR0_A6a1jZuRqWPVGfg51orH3Rngsh5W2Q9W0GdBVuLmasCZp1cGRh-Fkd0ZPW3fJ/pub?gid=553539019&single=true&output=tsv"
-
 
 response = urlopen(DATA_URL)
 lines = [line.decode('utf-8') for line in response.readlines()]
@@ -109,21 +108,6 @@ for row in csv_reader:
 		else:
 			redirect_rows.append(row)
 		print('\n============================================================')
-
-print("\nUPDATING ROOT from WEB")
-root_git_dir= DST_DIR+'/.git'
-shutil.rmtree(root_git_dir, ignore_errors=True)
-shutil.copytree(DST_DIR+'/WEB/.git', root_git_dir, symlinks=True)
-cmd= ['/usr/bin/git','stash']
-#DBG: shown in r, print(f'CLONE {cmd}')
-r= subprocess.run(cmd, capture_output=True, cwd= DST_DIR)
-print(r)
-
-r1= subprocess.run(f"perl -i -pe 's/\/web_publish_11ty_lib_dep//gs' `find {DST_DIR} -iname '*.html' -or -iname '*.css' -or -iname '*.js'`", shell=True, capture_output=True)	
-print(r1)
-r2= subprocess.run(f"cp -r {DST_DIR}/web/* {DST_DIR}/", shell=True, capture_output=True)	
-print(r2)
-print('\n============================================================')
 
 with open(TPL,'rt') as f:
 	tpl= f.read();  #A: read updated from WEB

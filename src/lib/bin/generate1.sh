@@ -81,6 +81,9 @@ else
 			rm -Rf $P_SERVE_DIR/$SITE_ID
 			cp -r $files_site_dir $P_SERVE_DIR
 		fi
+
+		python3.12 $BASE_DIR/src/lib/bin/o-o-mk-redirect.py $SITE_ID
+
 		exit 0
 	else
 		echo "SITE GENERATED WITH ERRORS"
