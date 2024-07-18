@@ -72,6 +72,12 @@ else
 		echo "SITE GENERATED IN $P_OUT_DIR"
 		if [ -d $P_SERVE_DIR ]; then
 			echo "GENERATE1 COPY TO P_SERVE_DIR $P_SERVE_DIR/$SITE_ID"
+			if [ -d $files_site_dir/gen_site_root ]; then
+				echo "GENERATE1 FOUND gen_site_root"
+				find $files_site_dir/gen_site_root -type f -exec perl -pi -e 's/\/gen_site_root//g' {} \;
+				mv $files_site_dir/gen_site_root/* $files_site_dir/
+				rmdir $files_site_dir/gen_site_root
+			fi
 			rm -Rf $P_SERVE_DIR/$SITE_ID
 			cp -r $files_site_dir $P_SERVE_DIR
 		fi

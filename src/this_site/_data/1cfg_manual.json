@@ -1,10 +1,6 @@
 {
-  "title": "Archetypes",
-	"brand": "Archetypes",
-	"url": "https://XXX_metadata_site_url/",
-	"navbar": {
-		"links": {"/hola/": "saludo","/": "inicial"}
-	},	
-	"description": "XXX_metadata_description",
-	"wlib": "bs"
+  "title": "a o-o.fyi site",
+	"brand": "a o-o.fyi site",
+	"url": "https://o-o.fyi/web/for-me",
+	"description": "A website for me"
 }

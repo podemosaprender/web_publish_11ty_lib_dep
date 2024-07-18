@@ -362,7 +362,8 @@ module.exports.filter.readFile= function (pathSpec) { //U: make file data availa
 	return JSON.stringify({pathSpec, page: this.page}); //XXX:
 }
 
-function data_cfg() { 
+function data_cfg(dst) { 
+		dst= dst || {}
 		const cfg_defaults= require('../1cfg_defaults.json');
 		const cfg_overrides= JSON.parse(fs.readFileSync(P_SITE_DIR+'/_data/1cfg_manual.json','utf8'));
 		const top_data_path=P_SITE_DIR+'/_data/1cfg_manual.json'
@@ -370,11 +371,11 @@ function data_cfg() {
 		if (fs.existsSync(top_data_path)) {
 			top_data= yaml.load( fs.readFileSync(top_data_path,'utf8'));
 		}
-		const cfg= Object.assign({}, cfg_defaults, cfg_overrides, top_data, {top_data});
+		const cfg= Object.assign(dst, cfg_defaults, cfg_overrides, top_data, {top_data});
 		console.log('GEN data_cfg',{cfg, top_data, cfg_overrides,cfg_defaults})
 		return cfg;
 }
-module.exports.data.cfg= data_cfg;
+data_cfg(module.exports.data) //U: agregamos todo al top level
 module.exports.data.SiteBasePath= () => BasePath; //U: desplegar en subcarpetas como github
 
 module.exports.data.now= () => new Date();
