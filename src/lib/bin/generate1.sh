@@ -47,9 +47,11 @@ else
 	rm -Rf $files_tpl_dir ; 
 	if [ -d $P_REPOS_DIR/$SITE_ID ]; then
 		git clone -b main $P_REPOS_DIR/$SITE_ID $files_tpl_dir
+		(cd $files_tpl_dir ; git log > __log__.txt)
 	else
 		echo "GENERATE1 no site repo found at $P_REPOS_DIR/$SITE_ID"
 		mkdir -p $files_tpl_dir
+		(cd $files_tpl_dir ; date > __log__.txt)
 	fi
 	cp -r $files_lib_dir/*/src/* $files_tpl_dir; #A: el repo las tiene en src/
 	echo "COPIED BASE LIB to TPL_DIR $files_tpl_dir"
@@ -68,6 +70,11 @@ else
 	if DBG=6 npm run build1 2>&1 | tee $files_log_name ; then
 		echo "$jsonh256now" > $GEN_DIR/files_json/${SITE_ID}.sha256 #A: sha256 updated
 		echo "SITE GENERATED IN $P_OUT_DIR"
+		if [ -d $P_SERVE_DIR ]; then
+			echo "GENERATE1 COPY TO P_SERVE_DIR $P_SERVE_DIR/$SITE_ID"
+			rm -Rf $P_SERVE_DIR/$SITE_ID
+			cp -r $files_site_dir $P_SERVE_DIR
+		fi
 		exit 0
 	else
 		echo "SITE GENERATED WITH ERRORS"

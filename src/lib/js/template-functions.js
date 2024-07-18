@@ -365,7 +365,13 @@ module.exports.filter.readFile= function (pathSpec) { //U: make file data availa
 function data_cfg() { 
 		const cfg_defaults= require('../1cfg_defaults.json');
 		const cfg_overrides= JSON.parse(fs.readFileSync(P_SITE_DIR+'/_data/1cfg_manual.json','utf8'));
-		const cfg= Object.assign({}, cfg_defaults, cfg_overrides);
+		const top_data_path=P_SITE_DIR+'/_data/1cfg_manual.json'
+		let top_data={}
+		if (fs.existsSync(top_data_path)) {
+			top_data= yaml.load( fs.readFileSync(top_data_path,'utf8'));
+		}
+		const cfg= Object.assign({}, cfg_defaults, cfg_overrides, top_data, {top_data});
+		console.log('GEN data_cfg',{cfg, top_data, cfg_overrides,cfg_defaults})
 		return cfg;
 }
 module.exports.data.cfg= data_cfg;

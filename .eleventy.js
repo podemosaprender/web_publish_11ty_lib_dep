@@ -20,7 +20,7 @@ module.exports = function(eleventyConfig) {
 		// Best paired with the `url` filter: https://www.11ty.dev/docs/filters/url/
 		pathPrefix: BasePath,
 
-		templateFormats: ["md", "njk", "html"], //A: Control which files Eleventy will process (XXX:move html and css to non templates, transform with Passthrough
+		templateFormats: ["md", "njk", "html", "txt"], //A: Control which files Eleventy will process (XXX:move html and css to non templates, transform with Passthrough
 		markdownTemplateEngine: "njk",//A: Pre-process *.md files with: njk
 		htmlTemplateEngine: "njk",//A: Pre-process *.html files with: njk
 		dataTemplateEngine: false,//A: Opt-out of pre-processing global data JSON files

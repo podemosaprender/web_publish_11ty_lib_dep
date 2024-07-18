@@ -1,5 +1,8 @@
 {
 	"FILE:1cfg_defaults.json": 1,
+  "layout": "lib/page.njk",
+	"wlib": "g1",
+	"data": { "v_site_base_path": "/" },
 	"language": "en",
 	"brand": "TODO_cfg_brand",
 	"url": "/",
