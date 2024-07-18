@@ -1,22 +1,24 @@
 #!/usr/bin/bash
 
 SITE_ID=${1:-my-site}
+GEN_REASON=$2
 
 P_SITE_JSON_DIR=${P_SITE_JSON_DIR:-src/sites_json}
 P_VAR_DIR=${P_VAR_DIR:-xvar}
-P_REPOS_DIR=${P_VAR_DIR:-xrepos}
+P_REPOS_DIR=${P_REPOS_DIR:-xrepos}
 
 BASE_DIR=`cd ${0%/*}/../../.. ; pwd`
-echo "P_SITE_JSON_DIR=$P_SITE_JSON_DIR P_VAR_DIR=$P_VAR_DIR P_REPOS_DIR=$P_REPOS_DIR BASE_DIR=$BASE_DIR"
-mkdir -p $P_VAR_DIR/{files_json,files_3p,files_tpl,files_site,log}
+GEN_DIR=$P_VAR_DIR/gen
+echo "GENERATE1 P_VAR_DIR=$P_VAR_DIR P_SITE_JSON_DIR=$P_SITE_JSON_DIR P_REPOS_DIR=$P_REPOS_DIR BASE_DIR=$BASE_DIR"
+mkdir -p $GEN_DIR/{files_json,files_3p,files_tpl,files_site,log}
 
-files_lib_dir="$P_VAR_DIR/webtpl"
+files_lib_dir="$GEN_DIR/webtpl"
 files_jsondef_name="$P_SITE_JSON_DIR/$SITE_ID.json"
-files_jsondefHash_name="$P_VAR_DIR/files_json/${SITE_ID}.sha256"
-files_jsonfiles_name="$P_VAR_DIR/files_json/$SITE_ID.json"
-files_tpl_dir="$P_VAR_DIR/files_tpl/$SITE_ID"
-files_site_dir="$P_VAR_DIR/files_site/$SITE_ID"
-files_log_name="$P_VAR_DIR/log/$SITE_ID.log"
+files_jsondefHash_name="$GEN_DIR/files_json/${SITE_ID}.sha256"
+files_jsonfiles_name="$GEN_DIR/files_json/$SITE_ID.json"
+files_tpl_dir="$GEN_DIR/files_tpl/$SITE_ID"
+files_site_dir="$GEN_DIR/files_site/$SITE_ID"
+files_log_name="$GEN_DIR/log/$SITE_ID.log"
 
 if [ -f "$files_jsondef_name" ]; then
 	jsonh256now=`cat $files_jsondef_name | sha256sum`	
@@ -26,25 +28,30 @@ fi
 
 if [ -n "$GEN_REASON" ]; then true
 elif [ "$jsonh256now" != "$jsonh256before" ]; then GEN_REASON="$SITE_ID json hash changed"
-else echo "$SITE_ID SKIPPING, not changed" fi
+else echo "$SITE_ID SKIPPING, not changed" 
+fi
 
 if [ -z "$GEN_REASON" ]; then	
 	echo "$SITE_ID no reason to generate, use the FORCE 2nd parameter"
 else
 	echo "$SITE_ID generate $GEN_REASON"
 	
-	rm -Rf $files_lib_dir
+	rm -Rf $files_lib_dir ; mkdir -p $files_lib_dir/base/src #XXX:CONCURRENCY
+	cp -r $BASE_DIR/src/this_site/_* $BASE_DIR/src/this_site/l1b_ $files_lib_dir/base/src
+	echo "COPIED BASE LIB FROM $BASE_DIR/this_site"
 	if [ -d $P_REPOS_DIR/webtpl ]; then
-		git clone $P_REPOS_DIR/webtpl -b main $files_lib_dir ; #XXX:CONCURRENCY
+		git clone $P_REPOS_DIR/webtpl -b main $files_lib_dir/webtpl ; 
 		echo "COPIED BASE LIB FROM $P_REPOS_DIR/webtpl"
-	else
-		mkdir -p $files_lib_dir/src
-		cp -r $BASE_DIR/src/this_site/_* $BASE_DIR/src/this_site/l1b_ $files_lib_dir/src
-		echo "COPIED BASE LIB FROM $BASE_DIR/this_site"
 	fi
 
-	rm -Rf $files_tpl_dir ;
-	cp -r $files_lib_dir/src $files_tpl_dir; #A: el repo las tiene en src/
+	rm -Rf $files_tpl_dir ; 
+	if [ -d $P_REPOS_DIR/$SITE_ID ]; then
+		git clone -b main $P_REPOS_DIR/$SITE_ID $files_tpl_dir
+	else
+		echo "GENERATE1 no site repo found at $P_REPOS_DIR/$SITE_ID"
+		mkdir -p $files_tpl_dir
+	fi
+	cp -r $files_lib_dir/*/src/* $files_tpl_dir; #A: el repo las tiene en src/
 	echo "COPIED BASE LIB to TPL_DIR $files_tpl_dir"
 
 	if [ -f $files_jsondef_name ]; then
@@ -57,9 +64,13 @@ else
 
 	export P_SITE_DIR=$files_tpl_dir
 	export P_OUT_DIR=$files_site_dir
-	rm -rf $P_OUT_DIR ; 
-	if DBG=6 npm run build 2>&1 | tee $files_log_name ; then
-		echo "$jsonh256now" > $P_VAR_DIR/files_json/${SITE_ID}.sha256 #A: sha256 updated
+	rm -rf $P_OUT_DIR ; mkdir -p $P_OUT_DIR
+	if DBG=6 npm run build1 2>&1 | tee $files_log_name ; then
+		echo "$jsonh256now" > $GEN_DIR/files_json/${SITE_ID}.sha256 #A: sha256 updated
 		echo "SITE GENERATED IN $P_OUT_DIR"
+		exit 0
+	else
+		echo "SITE GENERATED WITH ERRORS"
+		exit 1
 	fi
 fi

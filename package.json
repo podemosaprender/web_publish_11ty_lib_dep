@@ -5,6 +5,7 @@
   "description": "A ready to use site builder using 11ty",
   "scripts": {
     "build": "npm run prepare && eleventy >/dev/null 2>&1 && touch src/this_site/this_site.11tydata.js && eleventy",
+		"build1": "eleventy",
     "watch": "eleventy; eleventy --watch",
     "start": "eleventy; eleventy --serve",
     "debug": "DEBUG=* eleventy",
