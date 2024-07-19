@@ -53,7 +53,9 @@ else
 		mkdir -p $files_tpl_dir
 		(cd $files_tpl_dir ; date > __log__.txt)
 	fi
-	cp -r $files_lib_dir/*/src/* $files_tpl_dir; #A: el repo las tiene en src/
+	for x in webtpl base; do
+		cp -v -r -n $files_lib_dir/$x/src/* $files_tpl_dir; #A: no pisamos ej si edito _includes, el repo las tiene en src/
+	done
 	echo "COPIED BASE LIB to TPL_DIR $files_tpl_dir"
 
 	if [ -f $files_jsondef_name ]; then

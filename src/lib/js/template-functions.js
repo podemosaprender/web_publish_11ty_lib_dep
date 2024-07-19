@@ -60,7 +60,7 @@ module.exports.addToConfig= function (eleventyConfig, options, kv) {
 		debug: DBG>5,
 	});
 	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/{img,fonts}/**`);
-	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{png,jpg,jpeg,svg,webp,ttf,woof*}`);
+	eleventyConfig.addPassthroughCopy(`${CFG.dir.input}/**/*.{gif,png,jpg,jpeg,svg,webp,ttf,woof*}`);
 	eleventyConfig.watchIgnores.add("**/*.gen.js");
 	eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
 	//A: Copy the `img` and `css` folders to the output
