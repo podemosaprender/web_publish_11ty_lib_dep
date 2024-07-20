@@ -338,7 +338,7 @@ const include_js= async function include_js(srcOrFile,outpath_UNSAFE) {
 	)
 
 	DBG>3 && console.log("DBG:include_js",srcpath_here, outpath_here, outpath_UNSAFE,this.page.inputPath);
-	let src= srcpath_here ||  StreamReadable.from(srcOrFile.replace(/require\("LIB/gs, 'require("'+__dirname)); 
+	let src= srcpath_here ||  StreamReadable.from(srcOrFile.replace(/require\((["'])LIB/gs, 'require($1'+__dirname+'/')); 
 
 	return await new Promise( (onOk,onErr) => { try{
 		const b= browserify();
