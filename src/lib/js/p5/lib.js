@@ -8,15 +8,15 @@ const p5lib = require('node-p5');
 
 //SEE: https://github.com/andithemudkip/p5-node?tab=readme-ov-file#fonts
 let FONTS= {};
-let SITE_DIR= __dirname+'/../../../this_site/';
-let FONT_DIR= SITE_DIR+'l1b_/any/fonts/';
+let P_SITE_DIR= __dirname+'/../../../this_site/';
+let P_FONT_DIR= P_SITE_DIR+'l1b_/any/fonts/';
 let DBG=5;
 
 function init_fonts() {
-	fs.readdirSync(FONT_DIR).forEach( fn => {
+	fs.readdirSync(P_FONT_DIR).forEach( fn => {
 		if (fn.match(/((ttf)|(otf)|(woff))$/)) {
 			if (fn=='NotoColorEmoji-Regular.ttf') { return } //A: ignoring, breaks icons
-			let p= FONT_DIR+fn;
+			let p= P_FONT_DIR+fn;
 			console.log("P5JS font found",fn,p);
 			let r= p5lib.loadFont(p) //{path: p, family: n}))
 			console.log("P5JS font loaded",r,p)
@@ -35,10 +35,11 @@ function init_img(p5,params,preloaded) {
 	p5.textSize(p5.height*0.7);
 }
 
-function init({SITE_DIR,FONT_DIR,DBG}) {
-	SITE_DIR= SITE_DIR || __dirname+'/../../../this_site/';
-	FONT_DIR= FONT_DIR || SITE_DIR+'l1b_/any/fonts/';
-	DBG= DBG!=null ? DBG : 5;
+function init(opts={}) {
+	P_SITE_DIR= opts.P_SITE_DIR || __dirname+'/../../../this_site/';
+	P_FONT_DIR= opts.P_FONT_DIR || P_SITE_DIR+'/l1b_/any/fonts/';
+	DBG= DBG!=null ? opts.DBG : 5;
+	console.log("P5JS init",{P_SITE_DIR,P_FONT_DIR,DBG},opts)
 	init_fonts()
 }
 
@@ -49,10 +50,10 @@ function gen_img(p5,f,params) {try{
 	const my_preload= () => Promise.all(
 		Object.entries(params.images || {}).map( async ([k,p]) => {
 			let r;
-			DBG>5 && console.log("P5JS preloading impl",k,p,SITE_DIR+p); 
-			try { r= await p5.loadImage(SITE_DIR+p); }
-			catch (ex) { console.log("P5JS preloading impl ERROR",k,p,SITE_DIR+p,ex); } 
-			DBG>5 && console.log("P5JS preloading impl R",k,p,SITE_DIR+p, DBG>8 ? r : {width: r.width, height: r.height}); 
+			DBG>5 && console.log("P5JS preloading impl",k,p,P_SITE_DIR+p); 
+			try { r= await p5.loadImage(P_SITE_DIR+p); }
+			catch (ex) { console.log("P5JS preloading impl ERROR",k,p,P_SITE_DIR+p,ex); } 
+			DBG>5 && console.log("P5JS preloading impl R",k,p,P_SITE_DIR+p, DBG>8 ? r : {width: r.width, height: r.height}); 
 			preloaded[k]= r;
 			return r;
 		}
