@@ -45,10 +45,19 @@ MarkdownImpl.renderer.rules.link_open = function(tokens, idx, options, env, self
 
 MarkdownImpl.renderer.rules.toc_open = function (tokens, idx) {
 	let tk= tokens[idx]
-	console.log("XXXr",tokens.slice(idx,idx+5));
+	//DBG: console.log("XXXr",tokens.slice(idx,idx+5));
 	let tocOpenHtml = `<div class="table-of-contents${tk.token=='XXX' ? ' table-of-contents-h' : ''}">`;
 	return tocOpenHtml;
 };
+
+MarkdownImpl.renderer.rules.image = function (tokens, idx) {
+	let tk= tokens[idx];
+	let src= tk.attrGet('src');
+	let alt= tk.attrGet('title') || tk.children?.content || (src.match(/([^/]+)\.[a-z]*$/)||[])[1] || '';
+	let html = `<img class="img-fluid" src="${src}" alt="${alt}">`;
+	return html;
+};
+
 
 //XXX:asociar al tema? tener mas de un renderer para elegir desde el shortCode?
 module.exports= { MarkdownImpl }

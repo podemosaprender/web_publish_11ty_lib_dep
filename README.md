@@ -8,6 +8,12 @@ npm install
 export P_SITE_DIR=`pwd`/x1 ; export P_OUT_DIR=xo ; rm -rf $P_OUT_DIR ; cp -r src/this_site/{_*,l1b_} $P_SITE_DIR ; npm run build
 ~~~
 
+en el servidor usamos
+
+~~~
+rm -Rf xvar/ ; P_REPOS_DIR=.. src/lib/bin/generate1.sh web-site-tesla UPDATE 2>&1 | tee x.err ; find xvar/gen/files_site/web-site-*/gen_site_root/
+~~~
+
 ## Desarrollo
 
 ~~~

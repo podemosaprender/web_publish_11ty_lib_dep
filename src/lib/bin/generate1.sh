@@ -1,5 +1,6 @@
 
-#U: P_REPOS_DIR=.. src/lib/bin/generate1 tesla UPDATE
+#U: rm -Rf xvar/ ; P_REPOS_DIR=.. src/lib/bin/generate1.sh web-site-tesla UPDATE 2>&1 | tee x.err ; find xvar/gen/files_site/web-site-*/gen_site_root/
+
 
 SITE_ID=${1:-my-site}
 GEN_REASON=$2
@@ -7,6 +8,7 @@ GEN_REASON=$2
 P_SITE_JSON_DIR=${P_SITE_JSON_DIR:-src/sites_json}
 P_VAR_DIR=${P_VAR_DIR:-xvar}
 P_REPOS_DIR=${P_REPOS_DIR:-xrepos}
+P_SERVE_DIR=${P_SERVE_DIR:-xserve}
 
 BASE_DIR=`cd ${0%/*}/../../.. ; pwd`
 GEN_DIR=$P_VAR_DIR/gen
