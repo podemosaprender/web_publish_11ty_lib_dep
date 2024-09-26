@@ -144,5 +144,4 @@ XXX:agregar permisos en api1
 
 ### Donde escribir
 
-blogspot: curl 'https://cuentossinfe.blogspot.com/feeds/posts/default?alt=json' -o /tmp/ag.json
-
+blogspot: node src/lib/bin/import_blogspot.js | tee x.yaml

@@ -381,17 +381,18 @@ module.exports.filter.readFile= function (pathSpec) { //U: make file data availa
 }
 
 function data_cfg(dst) { 
-		dst= dst || {}
-		const cfg_defaults= require('../1cfg_defaults.json');
-		const cfg_overrides= JSON.parse(fs.readFileSync(P_SITE_DIR+'/_data/1cfg_manual.json','utf8'));
-		const top_data_path=P_SITE_DIR+'/_data/1cfg_manual.json'
-		let top_data={}
-		if (fs.existsSync(top_data_path)) {
-			top_data= yaml.load( fs.readFileSync(top_data_path,'utf8'));
-		}
-		const cfg= Object.assign(dst, cfg_defaults, cfg_overrides, top_data, {top_data});
-		console.log('GEN data_cfg',{cfg, top_data, cfg_overrides,cfg_defaults})
-		return cfg;
+	dst= dst || {}
+	const cfg_defaults= require('../1cfg_defaults.json');
+	const cfg_overrides_path= P_SITE_DIR+'/_data/1cfg_manual.json'
+	const cfg_overrides= fs.existsSync(cfg_overrides_path) ? JSON.parse(fs.readFileSync(cfg_overrides_path,'utf8')) : {};
+	const top_data_path=P_SITE_DIR+'/_data/1cfg_manual.json'
+	let top_data={}
+	if (fs.existsSync(top_data_path)) {
+		top_data= yaml.load( fs.readFileSync(top_data_path,'utf8'));
+	}
+	const cfg= Object.assign(dst, cfg_defaults, cfg_overrides, top_data, {top_data});
+	console.log('GEN data_cfg',{cfg, top_data, cfg_overrides,cfg_defaults})
+	return cfg;
 }
 data_cfg(module.exports.data) //U: agregamos todo al top level
 module.exports.data.SiteBasePath= () => BasePath; //U: desplegar en subcarpetas como github

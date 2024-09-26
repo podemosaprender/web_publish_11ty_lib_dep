@@ -1,4 +1,5 @@
 
+#U: P_REPOS_DIR=.. src/lib/bin/generate1 tesla UPDATE
 
 SITE_ID=${1:-my-site}
 GEN_REASON=$2
@@ -37,7 +38,7 @@ if [ -z "$GEN_REASON" ]; then
 	echo "GENERATE1 $SITE_ID no reason to generate, use the FORCE 2nd parameter">> $files_log_name
 else
 	echo "GENERATE1 $SITE_ID generate $GEN_REASON `date`" >> $files_log_name
-	
+
 	rm -Rf $files_lib_dir ; mkdir -p $files_lib_dir/base/src #XXX:CONCURRENCY
 	cp -r $BASE_DIR/src/this_site/_* $BASE_DIR/src/this_site/l1b_ $files_lib_dir/base/src
 	echo "COPIED BASE LIB FROM $BASE_DIR/this_site">> $files_log_name
@@ -74,25 +75,27 @@ else
 	rm -rf $P_OUT_DIR ; mkdir -p $P_OUT_DIR
 	echo "GENERATE1 BUILDING DBG=$DBG"  >> $files_log_name 2>&1
 	if npm run build1 2>&1 | tee -a $files_log_name ; then
-	echo "$jsonh256now" > $GEN_DIR/files_json/${SITE_ID}.sha256 #A: sha256 updated
-	echo "GENERATE1 SITE GENERATED IN $P_OUT_DIR"  >> $files_log_name 2>&1
-	if [ -d $P_SERVE_DIR ]; then
-	echo "GENERATE1 COPY TO P_SERVE_DIR $P_SERVE_DIR/$SITE_ID" >> $files_log_name 2>&1
-	if [ -d $files_site_dir/gen_site_root ]; then
-	echo "GENERATE1 FOUND gen_site_root"  >> $files_log_name 2>&1
-	find $files_site_dir/gen_site_root -type f -exec perl -pi -e 's/\/gen_site_root//g' {} \;
-	mv $files_site_dir/gen_site_root/* $files_site_dir/
-	rmdir $files_site_dir/gen_site_root
-	fi
-	rm -Rf $P_SERVE_DIR/$SITE_ID
-	cp -r $files_site_dir $P_SERVE_DIR
-	fi
+		echo "$jsonh256now" > $GEN_DIR/files_json/${SITE_ID}.sha256 #A: sha256 updated
+		echo "GENERATE1 SITE GENERATED IN $P_OUT_DIR"  >> $files_log_name 2>&1
+		if [ -d $P_SERVE_DIR ]; then
+			echo "GENERATE1 COPY TO P_SERVE_DIR $P_SERVE_DIR/$SITE_ID" >> $files_log_name 2>&1
+			if [ -d $files_site_dir/gen_site_root ]; then
+				echo "GENERATE1 FOUND gen_site_root"  >> $files_log_name 2>&1
+				find $files_site_dir/gen_site_root -type f -exec perl -pi -e 's/\/gen_site_root//g' {} \;
+				mv $files_site_dir/gen_site_root/* $files_site_dir/
+				rmdir $files_site_dir/gen_site_root
+			fi
+			rm -Rf $P_SERVE_DIR/$SITE_ID
+			cp -r $files_site_dir $P_SERVE_DIR
+		fi
 
-	python3.12 $BASE_DIR/src/lib/bin/o-o-mk-redirect.py $SITE_ID
+		if [ -d ~/apps ]; then #A: hosting
+			python3.12 $BASE_DIR/src/lib/bin/o-o-mk-redirect.py $SITE_ID
+		fi
 
-	exit 0
+		exit 0
 	else
-	echo "GENERATE1 SITE GENERATED WITH ERRORS"  >> $files_log_name 2>&1
-	exit 1
+		echo "GENERATE1 SITE GENERATED WITH ERRORS"  >> $files_log_name 2>&1
+		exit 1
 	fi
 fi
